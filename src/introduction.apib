@@ -1,0 +1,92 @@
+#### WARNING - This is still a BETA version.
+
+Our documentation is already published to gather feedback, but the endpoints are not working yet. This documentation is not final and will change before our final release.
+
+## AP-What?
+
+An API is a Application Programming Interface. It is used to programmaticaly interact with Teamleader, to integrate with other software tools or to add custom functionality to Teamleader.
+
+Before creating a new integration, be sure to check out our **[Marketplace](https://marketplace.teamleader.eu)** for existing integrations built by the community. We also have a trusted [partner network](https://www.teamleader.eu) if you are looking for help building a custom integration.
+
+## General principles
+
+### Endpoints
+
+Our API consists of HTTP RPC-style methods, in the form of `https://api.teamleader.eu/resource.action`.
+
+We chose this action based approach over the more popular REST, because it enables us to have domain related actions on resources such as `invoices.book`, `timetracking.start` and `timetracking.stop`.
+
+### Requests
+
+All methods must be called using HTTPS. Data is passed as JSON data in a POST request or as GET query parameters.
+
+For more complex actions we recommend using POST requests with JSON:
+
+```
+POST https://api.teamleader.eu/invoices.list
+
+{
+    "filter": {
+        "department_id": "9d4096c3-813f-4bd5-b3c4-4091807b5b74"
+    },
+    "page": {
+        "size": 50,
+        "number": 3
+    }
+}
+```
+
+The GET equivalent:
+
+```
+GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
+```
+
+### Responses
+
+Both single objects and collections are returned as JSON objects with a top-level `data` property:
+
+```
+{
+    "data": {
+        "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
+        "first_name": "Erlich",
+        "last_name": "Bachman",
+        "salutation": "Mr",
+        "email": "info@piedpiper.eu"
+    }
+}
+```
+
+Responses may also contain meta data for pagination.
+
+### Errors
+
+Errors are always returned as an array of error objects under an `errors` top level property.
+
+```
+{
+    "errors": [
+        {
+            "code": 9000,
+            "title": "Bad request"
+        }
+    ]
+}
+```
+
+### Status codes
+
+When objects are created, we return a `201` response containing the `id` and `type` of the new resource. When objects are updated or actions are performed, we often return an empty response with a `204` status code.
+
+Common used status codes:
+
+ - `200` - OK
+ - `201` - Created, when resources are created
+ - `204` - No Content, on resource updates or actions
+ - `400` - Bad Request, if the request contains invalid data
+ - `401` - Unauthorized, invalid or missing access token
+ - `403` - Forbidden, not allowed to access this resource
+ - `404` - Not Found, resource not found
+ - `429` - Too Many Requests, your client has reached the API rate limit
+ - `500` - Internal Server Error, something went wrong on our end

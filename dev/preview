@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -it --rm -v $(pwd):/code -w /code apiaryio/client preview --path=/code/apiary.apib --output=/code/apiary.html

@@ -1,0 +1,211 @@
+FORMAT: 1A
+HOST: https://api.teamleader.eu
+
+# Teamleader API
+
+#### WARNING - This is still a BETA version.
+
+Our documentation is already published to gather feedback, but the endpoints are not working yet. This documentation is not final and will change before our final release.
+
+## AP-What?
+
+An API is a Application Programming Interface. It is used to programmaticaly interact with Teamleader, to integrate with other software tools or to add custom functionality to Teamleader.
+
+Before creating a new integration, be sure to check out our **[Marketplace](https://marketplace.teamleader.eu)** for existing integrations built by the community. We also have a trusted [partner network](https://www.teamleader.eu) if you are looking for help building a custom integration.
+
+## General principles
+
+### Endpoints
+
+Our API consists of HTTP RPC-style methods, in the form of `https://api.teamleader.eu/resource.action`.
+
+We chose this action based approach over the more popular REST, because it enables us to have domain related actions on resources such as `invoices.book`, `timetracking.start` and `timetracking.stop`.
+
+### Requests
+
+All methods must be called using HTTPS. Data is passed as JSON data in a POST request or as GET query parameters.
+
+For more complex actions we recommend using POST requests with JSON:
+
+```
+POST https://api.teamleader.eu/invoices.list
+
+{
+    "filter": {
+        "department_id": "9d4096c3-813f-4bd5-b3c4-4091807b5b74"
+    },
+    "page": {
+        "size": 50,
+        "number": 3
+    }
+}
+```
+
+The GET equivalent:
+
+```
+GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
+```
+
+### Responses
+
+Both single objects and collections are returned as JSON objects with a top-level `data` property:
+
+```
+{
+    "data": {
+        "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
+        "first_name": "Erlich",
+        "last_name": "Bachman",
+        "salutation": "Mr",
+        "email": "info@piedpiper.eu"
+    }
+}
+```
+
+Responses may also contain meta data for pagination.
+
+### Errors
+
+Errors are always returned as an array of error objects under an `errors` top level property.
+
+```
+{
+    "errors": [
+        {
+            "code": 9000,
+            "title": "Bad request"
+        }
+    ]
+}
+```
+
+### Status codes
+
+When objects are created, we return a `201` response containing the `id` and `type` of the new resource. When objects are updated or actions are performed, we often return an empty response with a `204` status code.
+
+Common used status codes:
+
+ - `200` - OK
+ - `201` - Created, when resources are created
+ - `204` - No Content, on resource updates or actions
+ - `400` - Bad Request, if the request contains invalid data
+ - `401` - Unauthorized, invalid or missing access token
+ - `403` - Forbidden, not allowed to access this resource
+ - `404` - Not Found, resource not found
+ - `429` - Too Many Requests, your client has reached the API rate limit
+ - `500` - Internal Server Error, something went wrong on our end
+
+## OAuth 2
+
+OAuth 2 is an authorization framework that lets your integration request authorization to data in a user's Teamleader account without getting their password.
+
+Before starting you will need to register your integration on our [marketplace](https://marketplace.teamleader.eu). Each integration is assigned a unique `client_id` and `client_secret` which will be used in the OAuth flow. Note that the `client_secret` key should not be shared.
+
+### Authorization
+
+To authenticate users for your integration, redirect the user to the Teamleader authorization page:
+
+`https://app.teamleader.eu/oauth2/authorize`
+
+With the following values as GET parameters:
+
+ - `client_id` - issued when you create your integration
+ - `response_type` - must be "code"
+ - `state` - unique string to be passed back upon completion (optional)
+ - `redirect_uri` - URL to redirect back to after authorization
+
+The user will then be asked to login to Teamleader server and authorize your integration. If the user approves the client they will be redirected to the previously specified `redirect_uri` with a temporary authorization code and the original state parameter if it was provided. If the states don't match, the request may have been created by a third party and you should abort the process.
+
+`https://YOUR_REDIRECT_URI?code=CODE&state=STATE`
+
+If the user denies your request, we will redirect back to the `redirect_uri` with an `error` parameter:
+
+`https://YOUR_REDIRECT_URI?error=access_denied`
+
+With the authorization code that was sent back to your `redirect_uri`, you can request an access token to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance.
+
+`https://app.teamleader.eu/oauth2/access_token`
+
+The following values should be passed as POST parameters:
+
+ - `client_id` - issued when you register your integration
+ - `client_secret` - issued when you register your integration
+ - `code` - the authorization code
+ - `grant_type` - must be "authorization_code"
+ - `redirect_uri` - the original submitted redirect URL
+
+Please note that a `content-type` header is **required** for this request. These types are supported:
+
+ - application/x-www-form-urlencoded
+ - application/json
+
+You will receive a JSON response containing an `access_token` and `refresh_token`:
+
+```
+{
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "access_token": ACCESS_TOKEN,
+    "refresh_token": REFRESH_TOKEN
+}
+```
+
+Use this access token to make API calls on behalf of the user using the `Authorization` header. Example request:
+
+```
+GET https://api.teamleader.eu/contacts.list HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
+Accept: application/json;charset=utf-8
+```
+
+### Refresh tokens
+
+Access tokens expire shortly (1 hour) after they are issued for security reasons. If your integration needs to communicate with the API beyond the access token's lifespan you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only used once to get a new access token and refresh token.
+
+`https://app.teamleader.eu/oauth2/access_token`
+
+The following values should be passed as POST parameters:
+
+ - `client_id` - issued when you register your integration
+ - `client_secret` - issued when you register your integration
+ - `refresh_token` - the refresh token
+ - `grant_type` - must be "refresh_token"
+
+Refresh tokens will continue functioning until the user uninstalls your integration.
+
+### Client side authentication (implicit grant)
+
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authentication method called [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
+
+Similar to the regular authentication flow, users are redirected to the Teamleader authorization page, but with different query parameters:
+
+`https://app.teamleader.eu/oauth2/authorize`
+
+The following values should be passed as GET parameters:
+
+ - `client_id` - issued when you create your integration
+ - `response_type` - must be "token" (instead of "code")
+ - `state` - unique string to be passed back upon completion (optional)
+ - `redirect_uri` - URL to redirect back to after authorization
+
+If the user approves the client, they will be redirected back to the authorization server with the following parameters in the **fragment part of the url**:
+
+ - `token_type` - with the value "Bearer"
+ - `expires_in` - the TTL for this access token in seconds
+ - `access_token` - the access token
+ - `state` - the state parameter sent in the original request
+
+Example url:
+
+`https://YOUR_REDIRECT_URI#token_type=Bearer&expires_in=900&access_token=TOKEN&state=STATE`
+
+Note that this implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authentication method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
+
+### User Identity
+
+To retrieve information about the user who authorized your application (the resource owner), you can call the following endpoint:
+
+`https://api.teamleader.eu/users.me`
+
+# Data Structures

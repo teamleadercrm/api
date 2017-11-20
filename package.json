@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Teamleader API",
+  "main": "gulpfile.js",
+  "scripts": {
+    "lint": "apib-lint apiary.apib",
+    "build": "hercule src/apiary.apib -o apiary.apib && apib-lint apiary.apib",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamleadercrm/api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teamleadercrm/api/issues"
+  },
+  "homepage": "https://github.com/teamleadercrm/api#readme",
+  "devDependencies": {
+    "apib-lint": "^0.2.0",
+    "gulp": "^3.9.1",
+    "gulp-run": "^1.7.1",
+    "gulp-watch": "^4.3.11",
+    "hercule": "^4.1.0"
+  }
+}
