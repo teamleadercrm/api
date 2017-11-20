@@ -1,0 +1,235 @@
+## Todos [/todos]
+
+### todos.list [GET /todos.list]
+
+Get a list of todos.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + ids: `12b83faf-d9ba-4554-a264-787b7fe4f731`,`824149ca-a231-4eb3-af27-4d0e1646ed93` (array[string], optional)
+            + creator_id: `37b849a4-1391-4d3b-be6a-5cd973aeba83` (string, optional)
+            + activity_type_id: `0ecf0c92-379e-4b5f-b141-feb65e13aa03` (string, optional)
+            + topic_id: `1a16328e-3c36-4f29-ae78-8f904bcb1d0a` (string, optional)
+            + project_id: `aadb0abc-44fb-416a-aa50-478d41eba6db` (string, optional)
+            + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
+            + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
+            + status: `open` (enum[string], optional)
+                + Members
+                    + open
+                    + completed
+                    + overdue
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_at
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_at`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + title: `Meeting with stakeholders` (string)
+                + description (string)
+                + activity_type (object)
+                    + type: `activityType` (string)
+                    + id: `f30b14fc-0e96-40fb-9e11-2b2ef32e1c40` (string)
+                + completed: false (boolean)
+                + completed_at: `2016-02-04T16:44:33+00:00` (string)
+                + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + estimated_duration: 3600 (number) - In seconds
+                + links (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + deal
+                                + company
+                                + project
+                                + milestone
+                                + ticket
+                        + id: `a1840bda-0990-4ce4-a4ec-3d011f7786df` (string)
+                + location (Address)
+                + attendees (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + user
+                                + contact
+                        + id: `a2a87bd1-a02f-47e2-a0d6-ccd9de57714f` (string)
+
+### todos.info [GET /todos.info]
+
+Get information about a todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + activity_type (object)
+                + type: activityType (string)
+                + id: `07c1ba58-ab2f-42c3-8f31-a2b0f83feb3a` (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration: 3600 (number) - In seconds
+            + links (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + deal
+                            + company
+                            + project
+                            + milestone
+                            + ticket
+                    + id: `ed4a83ca-8064-4da0-abd8-fde4eb64c47c` (string)
+            + location (Address)
+            + attendees (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + user
+                            + contact
+                    + id: `3141120c-27ed-4f83-9fb6-b2f5b7e213fd` (string)
+
+### todos.create [POST /todos.create]
+
+Create a new todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + activity_type_id: `a1bc5d04-684a-459b-acb1-6531fe9c9637` (string, required)
+        + topic_id: `6a190eb2-ad4e-4121-b577-d71e4155b5b5` (string, optional)
+        + title: `Meeting with stakeholders` (string, required)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + estimated_duration: 3600 (number, optional) - In seconds
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `b8a2223a-6819-4431-b728-e9b36c1c30c8` (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id: `4f51e644-6085-4487-bd06-a74d0bbc3d93` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `todo` (string)
+            + id: `1759dfc1-7365-4f1b-8d90-d29787a5d29d` (string)
+
+### todos.update [POST /todos.update]
+
+Update a todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + activity_type_id: `b98546e8-448e-46c2-a8b5-641f69508f97` (string, optional)
+        + topic_id: `85a9aa84-21bb-4689-b777-5901e7853056` (string, optional)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + estimated_duration: 3600 (number, optional) - In seconds
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `fcee5c32-025f-4891-a0e4-be624c9bead3` (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id: `d2b6eb47-7596-4aa2-b69c-8e8341d6ef52` (string, required)
+
++ Response 204
+
+### todos.schedule [POST /todos.schedule]
+
+Schedule a todo in your calendar.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7c70c54e-6e50-4e6a-b5fd-80234eb535cf` (string, required)
+        + title (string, optional)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `bb255488-d7ef-4d8b-8e91-74f98a9ebeff` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `d7d2d100-d440-46c2-a4a3-177ad4b2a860` (string)
+
+### todos.complete [POST /todos.complete]
+
+Mark a todo as completed.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string, required)
+
++ Response 204
+
+### todos.delete [POST /todos.delete]
+
+Delete a todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
+
++ Response 204

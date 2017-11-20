@@ -1,0 +1,31 @@
+## PriceLists [/pricelists]
+### priceLists.list [GET /pricelists.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object)
+            + ids: `eff9788e-dd81-47bc-98a0-f8431fee117d`,`cea3fc6a-52cb-4024-b714-1c55a186f044` (array[string], optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + description
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `description`
+                    + order: `asc`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `1a57404ce-f2bf-4fe5-80a4-6113fef4dcf2` (string)
+                + description: `Default (EUR)` (string, nullable)
+                + default_for_currency: `EUR` (string, nullable)
+                + currency: `EUR` (string)

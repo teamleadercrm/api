@@ -1,0 +1,158 @@
+## Attachments [/attachments]
+
+### attachments.list [GET /attachments.list]
+
+Get a list of all attachments relating to an object
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + subject (object, required)
+                + type (enum[string], required)
+                    + contact
+                    + company
+                    + deal
+                    + ticket
+                    + project
+                    + event
+                + id: `44980a55-7fcd-4d05-838d-bea5fec59d34` (string, required)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + path
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `path`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `e7282152-98f0-43f4-81db-91447798d53c` (string)
+                + subject (object)
+                    + type (enum[string])
+                        + contact
+                        + company
+                        + deal
+                        + ticket
+                        + project
+                        + event
+                    + id: `1dfe2664-e012-4f8c-8db7-7ed8027c1a4e` (string)
+                + name: `logo.eps` (string)
+                + path: `pics/logo.eps` (string)
+                + size: `256` (number) - in bytes
+                + mime_type (string)
+                + added_by (object)
+                    + type: `user` (string)
+                    + id: `97aac714-fe7f-4812-9c09-24eb7d7d2f95` (string)
+                + added_at: `2017-10-13T00:02:17+0200` (string)
+                + updated_at: `2017-10-13T00:02:17+0200` (string)
+
+### attachments.info [GET /attachments.info]
+
+Get a info about a specific attachment
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `9ff00d6a-1a8d-4b87-8eed-0a7c6c0b71c7` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `9ff00d6a-1a8d-4b87-8eed-0a7c6c0b71c7` (string)
+            + subject (object)
+                + type (enum[string])
+                    + contact
+                    + company
+                    + deal
+                    + ticket
+                    + project
+                    + event
+                + id: `40dbbbc8-e085-445c-a5e0-db08cd08effe` (string)
+            + name: `logo.eps` (string)
+            + path: `pics/logo.eps` (string)
+            + size: `256` (number) - in bytes
+            + mime_type (string)
+            + added_by (object)
+                + type: `user` (string)
+                + id: `abef0a90-548d-4ad7-8235-967260d8c440` (string)
+            + added_at: `2017-10-13T00:02:17+0200` (string)
+            + updated_at: `2017-10-13T00:02:17+0200` (string)
+
+### attachments.download [GET /attachments.download]
+
+Get a signed url where the attachment can be downloaded. The signed url will remain valid for 30 seconds.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d949bc7d-4f54-4037-a5e7-c4bac29ae47d` (string, required)
+
++ Response 307 (application/json;charset=utf-8)
+
+    + Headers
+
+              Location: The url of the downloadable file. This will remain valid for 30 seconds.
+
+### attachments.add [POST /attachments.add]
+
+Add a file, by first posting its meta-data and afterwards PUTting the contents to the returned Location header url.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + path: `design/v1.0/logo.jpg` (string, optional)
+        + size: `3355` (number, optional) - In bytes
+        + mime_type (string, optional)
+        + subject (object, required)
+            + type (enum[string], required)
+                + contact
+                + company
+                + deal
+                + ticket
+                + project
+                + event
+            + id: `ef71d063-05f6-4639-a515-b1fe3a8ff34f` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Headers
+
+            Location: the url where to PUT to, this url may be limited in time
+
+    + Attributes (object)
+        + data (object)
+            + type: `attachment`
+            + id: `b9ae9ae9-c22e-4e9f-98f7-01051223dd32` (string)
+
+### attachments.update [POST /attachments.update]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `bc2377f4-73b1-4711-8a2c-5b64e9ec6216` (string, required)
+        + path: `pics/logo2.jpg` (string, required)
+
++ Response 204
+
+### attachments.delete [POST /attachments.delete]
+
+Delete an attachment
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `32747781-1d48-4d4b-b2e2-26736901d09c` (string, required)
+
++ Response 204

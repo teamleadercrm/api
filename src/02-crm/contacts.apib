@@ -1,0 +1,256 @@
+## Contacts [/contacts]
+
+### contacts.list [GET /contacts.list]
+
+Get a list of contacts.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `74855f4a-2b61-429c-81d8-c79ad3675a76`,`1a68ac98-b41f-4c60-af12-895c43771385` (array[string], optional)
+            + tag: `upsell` (string, optional)
+            + company_id: `1cbc7742-263d-49ed-83fe-2b0d0681021e` (string, optional)
+            + term: `teamleader` (string, optional)
+            + telephone: `092980615` (string, optional)
+            + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + added_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `added_at`
+                    + order: `desc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
+                + first_name: `Erlich` (string)
+                + last_name: `Bachman` (string)
+                + salutation: `Mr` (string)
+                + email: `info@piedpiper.eu` (string)
+                + telephones (array[Telephone])
+                + website: `https://piedpiper.com` (string)
+                + avatar (string)
+                + address (Address)
+                + gender: `M` (enum[string])
+                    + Members
+                        + M
+                        + F
+                        + U
+                + birthdate: `1987-04-25` (string)
+                + iban: `BE12123412341234` (string)
+                + bic: `BICBANK` (string)
+                + tags: tag1, tag2 (array[string])
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `customField` (string)
+                            + id: `ef73405d-d89c-410c-bc5c-3110cd1660f2` (string)
+                        + value: `092980616`
+                + companies (array)
+                    + (object)
+                        + position: `CEO` (string)
+                        + decision_maker: true (boolean)
+                        + company (object)
+                            + type: `company` (string)
+                            + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
+                + language: `en` (string)
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### contacts.info [GET /contacts.info]
+
+Get details for a single contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
+            + first_name: `Erlich` (string)
+            + last_name: `Bachman` (string)
+            + salutation: `Mr` (string)
+            + email: `info@piedpiper.eu` (string)
+            + invoice_email: `invoicing@example.com` (string)
+            + telephones (array[Telephone])
+            + website: `https://piedpiper.com` (string)
+            + avatar (string)
+            + address (Address)
+            + delivery_address (Addressee)
+            + visiting_address (Addressee)
+            + invoice_address (Addressee)
+            + gender: `M` (enum[string])
+                + Members
+                    + M
+                    + F
+                    + U
+            + birthdate: `1987-04-25` (string)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
+            + tags: tag1, tag2 (array[string])
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField` (string)
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                    + value: `092980616`
+            + companies (array)
+                + (object)
+                    + position: `CEO` (string)
+                    + decision_maker: true (boolean)
+                    + company (object)
+                        + type: `company` (string)
+                        + id: `3a11bcc8-a2f3-4c37-abc2-477d1732ef67` (string)
+            + language: `en` (string)
+            + remarks: `First contact at expo` (string)
+            + added_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### contacts.add [POST /contacts.add]
+
+Add a new contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + first_name: `John` (string, required)
+        + last_name: `Smith` (string, required)
+        + email: `john@example.com` (string, required)
+        + salutation: `Mr` (string, optional)
+        + email: `john@example.com` (string, required)
+        + telephones (array[Telephone], optional)
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
+        + language: `en` (string, optional)
+        + gender: `M` (enum[string], optional)
+            + Members
+                + M
+                + F
+                + U
+        + birthdate: `1989-08-19` (string, optional)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+        + custom_fields (array, optional)
+            + (object)
+                + field_id: `803579e7-1694-4bf3-a294-0a7f3905c16d` (string, required)
+                + value (required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `contact` (string)
+            + id: `7c1d8672-f502-4333-9ea4-7a45add15115` (string)
+
+### contacts.update [POST /contacts.update]
+
+Update a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
+        + first_name: `John` (string, optional)
+        + last_name: `Smith` (string, optional)
+        + salutation: `Mr` (string, optional)
+        + email: `john@example.com` (string, required)
+        + telephones (array[Telephone], optional)
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
+        + language: `en` (string, optional)
+        + gender: `M` (enum[string], optional)
+            + Members
+                + M
+                + F
+                + U
+        + birthdate: `1989-08-19` (string, optional)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+        + custom_fields (array, optional)
+            + (object)
+                + field_id: `9b48244c-3be9-4f8e-b4d4-da18ffedfb6b` (string, required)
+                + value (required)
+
++ Response 204
+
+### contacts.delete [POST /contacts.delete]
+
+Delete a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
+
++ Response 204
+
+### contacts.tag [POST /contacts.tag]
+
+Add a new or existing tag to a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `9ad67730-2445-4c2b-8a8d-949b9513f1b8` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### contacts.untag [POST /contacts.untag]
+
+Remove a tag from a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `502283f6-914c-4f9e-915a-613d69ba32f8` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### contacts.linkToCompany [POST /contacts.linkToCompany]
+
+Link a contact to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `75596038-b9c8-4a37-969d-61059e300a28` (string, required)
+        + company_id: `4da20f00-0628-4336-b885-aa90e580dd85` (string, required)
+        + position: `CEO` (string, optional)
+        + decision_maker: true (boolean, optional)
+
++ Response 204
+
+### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+
+Unlink a contact from a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b4b3160a-b55e-4033-bdae-25b6d22949b4` (string, required)
+        + company_id: `3f1c8650-4292-4187-bb02-4aa00bbe9632` (string, required)
+
++ Response 204

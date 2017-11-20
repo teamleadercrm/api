@@ -1,1 +1,119 @@
 # Data Structures
+
+## Telephone (object)
++ type: `phone` (enum[string], required)
+    + Members
+        + phone
+        + mobile
+        + fax
++ number: `092980615` (string, required)
++ label: `Reception` (string, optional)
+
+## Address (object)
++ street: `Newell Road` (string, optional)
++ number: `5230` (string, optional)
++ postal_code: `94020` (string, optional)
++ city: `Palo Alto` (string, optional)
++ country: `US` (string, required)
+
+## Addressee (object)
++ addressee: `Pied Piper Finance Dep.` (string, optional)
++ street: `Newell Road` (string, optional)
++ number: `5230` (string, optional)
++ postal_code: `94020` (string, optional)
++ city: `Palo Alto` (string, optional)
++ country: `US` (string, required)
+
+## WritePrice (object)
++ Include Money
++ tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
++ tax: `excluding` (enum[string], required)
+    + Members
+        + excluding
+        + including
+
+## ReadPrice (object)
++ Include Money
++ applied_tax (object)
+    + type: `tax` (string)
+    + id: `378d266d-35d0-4de0-a958-86571f8c619a` (string)
++ tax: `excluding` (enum[string])
+    + Members
+        + excluding
+        + including
+
+## Money (object)
++ amount: `123.30` (number, required)
++ currency: `EUR` (enum[string], required)
+    + Members
+        + BAM
+        + CAD
+        + CHF
+        + CLP
+        + CNY
+        + COP
+        + CZK
+        + DKK
+        + EUR
+        + GBP
+        + INR
+        + ISK
+        + JPY
+        + MAD
+        + MXN
+        + NOK
+        + PEN
+        + PLN
+        + RON
+        + SEK
+        + TRY
+        + USD
+        + ZAR
+
+## Page
++ size: `20` (number, optional)
+    + Default: `20`
++ number: `1` (number, optional)
+    + Default: `1`
+
+## WriteLineItemGroup
++ section (object, optional)
+    + title (string, required)
++ line_items (array, required)
+    + (object)
+        + product_id: `3803f318-e9c1-4ab5-b263-acf257469116` (string, optional)
+        + quantity: `3` (number, required)
+        + description: `An awesome product` (string, optional)
+        + extended_description: `Additional information` (string, optional)
+        + unit_price (WritePrice, optional)
+        + ledger_id: `51f77ee4-c62e-4135-ab82-faf7ed4a11c5` (string, optional)
+        + source (object, optional)
+            + type (enum[string], required)
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id: `824ac623-1095-481e-b27b-7526fa7deaa9` (string, required)
+
+## ReadLineItemGroup
++ section (object)
+    + title (string)
++ line_items (array)
+    + (object)
+        + product (object)
+            + type: `product` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+        + quantity: `3` (number)
+        + description: `An awesome product` (string)
+        + extended_description: `Additional information` (string)
+        + unit_price (ReadPrice)
+        + ledger (object)
+            + type: `ledger` (string)
+            + id: `61f86ed3-dc18-45ff-b309-2c338461d0d7` (string)
+        + source (object)
+            + type (enum[string])
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id: `b4b070b0-8c4b-477d-945d-a8a04767b224` (string)

@@ -1,0 +1,238 @@
+## Deals [/deals]
+
+### deals.list [GET /deals.list]
+
+Get a list of deals.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + filter (object, optional)
+            + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
+            + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
+            + phase_id: `9c70f90d-acd8-43fd-8a2e-0fbdd6ddaec0` (string, optional) - Only return deals with this phase ID
+            + customer (object, optional)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `a8c4655b-4770-4fd1-aeb6-f027a4dc93d7` (string, required)
+            + responsible_user_id: `79a70273-f293-433f-9d9c-80cc422da0ad` (string, optional) - Only return deals for this user
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + created_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `created_at`
+                    + order: `desc`
+
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + title: `Interesting deal` (string)
+                + reference: `2017/2` (string)
+                + status: `won` (enum[string])
+                    + Members
+                        + open
+                        + won
+                        + lost
+                + customer (object)
+                    + type: `contact`
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + department (object)
+                    + type: `department`
+                    + id: `33121d39-44e2-426a-92ef-62178edeec8a` (string)
+                + estimated_value (Money)
+                + estimated_closing_date: `2017-05-09` (string)
+                + estimated_probability: `0.5` (number)
+                + current_phase (object)
+                    + type: `dealPhase`
+                    + id: `521a331d-60d1-4920-bde3-ccd01d09f9f1` (string)
+                + responsible_user (object)
+                    + type: `user`
+                    + id: `bac1c91b-bc86-489b-8590-9be9478f62bb` (string)
+                + closed_at: `2017-05-09T11:31:30+00:00` (string)
+                + lost (object)
+                    + reason (object)
+                        + type: `lostReason` (string)
+                        + id: `2e19d1b6-7097-4a7c-b8ea-f6809eb3dad3` (string)
+                    + extra_info (string)
+                + source (object)
+                    + type: `dealSource` (string)
+                    + id: `52a4bbb2-d196-48d7-8e43-9ec2f44d06f9` (string)
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `customField`
+                            + id: `59119ae6-d021-4f8a-b6c7-259c5ff53608` (string)
+                        + value: `092980616`
+                + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + updated_at: `2017-05-09T11:30:58+00:00` (string)
+
+### deals.info [GET /deals.info]
+
+Get details for a single deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
+            + title: `Interesting deal` (string)
+            + reference: `2017/2` (string)
+            + status: `won` (enum[string])
+                + Members
+                    + open
+                    + won
+                    + lost
+            + customer (object)
+                + type: `contact` (string)
+                + id: `69516baf-277f-4f0a-b779-83057f667551` (string)
+            + department (object)
+                + type: `department`
+                + id: `92247818-643e-4f5a-bf87-25cd908e8ad9` (string)
+            + estimated_value (Money)
+            + estimated_closing_date: `2017-05-09` (string)
+            + estimated_probability: `0.5` (number)
+            + current_phase (object)
+                + type: dealPhase (string)
+                + id: `676a6070-f7d3-43a6-bc08-cda0d32c27ab` (string)
+            + responsible_user (object)
+                + type: user (string)
+                + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+            + closed_at: `2017-05-09T11:31:30+00:00` (string)
+            + lost (object)
+                + reason (object)
+                    + type: `lostReason` (string)
+                    + id: `3939f240-3928-4335-a9c8-9a2303708056` (string)
+                + extra_info (string)
+            + source (object)
+                + type: `dealSource` (string)
+                + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: `7c197308-4ad6-4f27-a25d-7d485d482aa7` (string)
+                    + value: `092980616`
+            + phase_history (array)
+                + (object)
+                    + phase (object)
+                        + type: dealPhase (string)
+                        + id: `d5a629f2-7b58-4748-aaca-acf9b6d62404` (string)
+                    + started_at: `2017-05-01 12:00:00` (string)
+                    + started_by (object)
+                        + type: user (string)
+                        + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
+                    + ended_at: `2017-05-01 12:00:00` (string)
+                    + ended_by (object)
+                        + type: user (string)
+                        + id: `c57b0b07-069b-4790-b841-309af94fa3e9` (string)
+            + created_at: `2017-05-09T11:25:11+00:00` (string)
+            + updated_at: `2017-05-09T11:30:58+00:00` (string)
+
+### deals.create [POST /deals.create]
+
+Create a new deal for a customer.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + customer (object, required)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + title: `Interesting business deal` (string, required)
+        + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+        + phase_id: `060687bb-a742-4882-a538-199a5e5feb60` (string, optional)
+        + estimated_value (Money, optional)
+        + estimated_probability: `0.75` (number, optional)
+        + estimated_closing_date: `2017-05-09` (string, optional)
+        + custom_fields (array, optional)
+            + (object)
+                + field_id: `8e499222-bb71-448e-93c2-54b878fa71a1` (string, required)
+                + value (required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `deal` (string)
+            + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
+
+### deals.update [POST /deals.update]
+
+Update a deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1216148b-6a27-4b16-bd56-9b9d72c3f3d4` (string, required)
+        + title: `Interesting business deal` (string, optional)
+        + source_id: `5e2c3499-0622-47ec-8a01-b177098ad918` (string, required)
+        + department_id: `4a0173d1-30ec-4004-87ad-c1d8e17c0e5d` (string, required)
+        + responsible_user_id: `9ff32fac-8491-4ec9-b1d5-7f396a7cddc3` (string, required)
+        + estimated_value (Money, optional)
+        + estimated_probability: `0.75` (number, optional)
+        + estimated_closing_date: `2017-05-09` (string, optional)
+        + custom_fields (array, optional)
+            + (object)
+                + field_id: `2bf59e02-d7e3-4c68-aa6c-c6801c5fe358` (string, required)
+                + value (required)
+
++ Response 204
+
+### deals.move [POST /deals.move]
+
+Move the deal to a different phase.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+        + phase_id: `8776abee-d856-43c6-b98d-9ffc912e8b0b` (string, required)
+
++ Response 204
+
+### deals.won [POST /deals.won]
+
+Mark a deal as won.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b704830c-cfef-42fc-b5a7-61d11d80350c` (string, required)
+
++ Response 204
+
+### deals.lost [POST /deals.lost]
+
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
+        + reason_id: `da4c902f-2ae5-4c1f-be6f-b50308aabc5c` (string, required)
+        + extra_info: `Not ready for a change, decision postponed` (string, optional)
+
++ Response 204
