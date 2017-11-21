@@ -2745,18 +2745,7 @@ Search projects
     + Attributes (object)
         + title: `New company website` (string, required)
         + description (string, optional)
-        + customer (object, optional)
-            + type: `contact` (enum[string], required)
-                + Members
-                    + contact
-                    + company
-            + id: `58951403-f5c6-4914-aac8-fe00539f02e7` (string, required)
         + starts_on: `2016-02-04` (string, required)
-        + source (object, optional)
-            + type: `deal` (enum[string], required)
-                + Members
-                    + deal
-            + id: `ce2ddfa8-06d5-4ec2-8b21-bac98f095757` (string, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
                 + due_on: `2018-01-01` (string, required)
@@ -2765,8 +2754,8 @@ Search projects
         + participants (array, required) - At least one decision making participant is required
             + (object)
                 + participant (object, required)
-                    + type: `user` (string)
-                    + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
+                    + type: `user` (string, required)
+                    + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
                 + role (enum[string], optional)
                     + Members
                         + decision_maker
@@ -2794,18 +2783,7 @@ Search projects
                 + on_hold
                 + done
                 + canceled
-        + customer (object, optional)
-            + type: `contact` (enum[string], required)
-                + Members
-                    + contact
-                    + company
-            + id: `a16414e6-f80f-470c-997c-6a4913b8df5d` (string, required)
         + starts_on: `2016-02-04` (string, optional)
-        + source (object, optional)
-            + type: `deal` (enum[string], required)
-                + Members
-                    + deal
-            + id: `2427e192-e7a1-4e13-a16b-ff5d0b96da6c` (string, required)
 
 + Response 204 (application/json;charset=utf-8)
 
@@ -2816,8 +2794,8 @@ Search projects
     + Attributes (object)
         + id: `8dbfa9db-c53f-410c-97d3-755b19685809` (string, required)
         + participant (object, required)
-            + type: `user` (string)
-            + id: `a1388f3d-6116-4792-ac1c-04657697539e` (string)
+            + type: `user` (string, required)
+            + id: `a1388f3d-6116-4792-ac1c-04657697539e` (string, required)
         + role (enum[string], optional)
             + Members
                 + decision_maker
@@ -2833,8 +2811,8 @@ Search projects
     + Attributes (object)
         + id: `55fbe14f-7399-48e5-b4e0-64b7f5c50451` (string, required)
         + participant (object, optional)
-            + type: `user` (string)
-            + id: `5ccbc008-f65e-4192-836c-4d7e21f54052` (string)
+            + type: `user` (string, required)
+            + id: `5ccbc008-f65e-4192-836c-4d7e21f54052` (string, required)
         + role (enum[string], required)
             + Members
                 + decision_maker
@@ -2847,10 +2825,10 @@ Search projects
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `4250966c-7fa4-4747-a474-39fb7e53d54c` (string)
-        + participant (object)
-            + type: `user` (string)
-            + id: `fe17a32a-279e-41f1-84e5-1196ce6fb49d` (string)
+        + id: `4250966c-7fa4-4747-a474-39fb7e53d54c` (string, required)
+        + participant (object, required)
+            + type: `user` (string, required)
+            + id: `fe17a32a-279e-41f1-84e5-1196ce6fb49d` (string, required)
 
 + Response 204
 
@@ -2973,28 +2951,6 @@ Update a milestone.
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
-
-+ Response 204 (application/json;charset=utf-8)
-
-### milestones.close [POST /milestones.close]
-
-Close a milestone.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `43f8b975-389e-4904-8b2b-12e7149cffe5` (string, required)
-
-+ Response 204 (application/json;charset=utf-8)
-
-### milestones.reopen [POST /milestones.reopen]
-
-Open a closed milestone.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `06c611af-b60a-423c-8ed5-cf2c19182f16` (string, required)
 
 + Response 204 (application/json;charset=utf-8)
 
