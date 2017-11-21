@@ -1,0 +1,283 @@
+## Invoices [/invoices]
+
+### invoices.list [GET /invoices.list]
+
+List invoices
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `ed7c3088-535f-437f-a2c3-2ed82d5c75d1`,`70f83389-dd65-43ba-9231-c9364ea184ef` (array[string], optional)
+            + customer (object, optional)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `e592218d-c0de-4153-a39a-eb93ff5f1ccc` (string, required)
+            + invoice_date_after: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + invoice_date_before: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+            + status: `booked` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
+                + Members
+                    + draft
+                    + booked
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + invoice_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `invoice_number`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+                + invoice_number: `2017/5` (string)
+                + invoice_date: `2016-02-04` (string)
+                + status: `booked` (enum[string])
+                    + Members
+                        + booked
+                        + draft
+                + due_on: `2016-03-03` (string)
+                + paid: `true` (boolean)
+                + paid_at: `2016-02-04T16:44:33+00:00` (string)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + address (Address)
+                    + vat_number: `BE0899623035` (string)
+                    + customer (object)
+                        + type: `contact` (string)
+                        + id: `4b0f959a-27e3-4080-b1b2-a05b374863cb` (string)
+                    + for_attention_of (object)
+                        + name: `Radja Nainggolan` (string)
+                        + contact (object)
+                            + type: `contact` (string)
+                            + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + payable (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: `0.21` (number)
+                            + taxable (Money)
+                            + tax (Money)
+
+### invoices.info [GET /invoices.info]
+
+Get a single invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `e540fe7e-dce2-459e-bf7e-24e605fc18b3` (string)
+            + department (object)
+                + type: `department` (string)
+                + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
+            + invoice_number: `2017/5` (string)
+            + invoice_date: `2016-02-04` (string)
+            + status: `booked` (enum[string])
+                + Members
+                    + booked
+                    + draft
+            + due_on: `2016-03-03` (string)
+            + paid: true (boolean)
+            + paid_at: `2016-02-04T16:44:33+00:00` (string)
+            + invoicee (object)
+                + name: `De Rode Duivels` (string)
+                + address (Address)
+                + vat_number: `BE0899623035` (string)
+                + customer (object)
+                    + type: `contact` (string)
+                    + id: `c7db7f80-762a-4e65-8d0c-522700198284` (string)
+                + for_attention_of (object)
+                    + name: `Radja Nainggolan` (string)
+                    + contact (object)
+                        + type: `contact` (string)
+                        + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
+            + grouped_lines (array[ReadLineItemGroup])
+            + payments (array)
+                + (object)
+                    + amount (Money)
+                    + paid_at: `2016-02-04T16:44:33+00:00` (string)
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + payable (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: `0.21` (number)
+                        + taxable (Money)
+                        + tax (Money)
+                + withheld_taxes (array)
+                    + (object)
+                        + type: `Trabajo`
+                        + rate: `0.21` (number)
+                        + taxable (Money)
+                        + tax (Money)
+
+### invoices.draft [POST /invoices.draft]
+
+Draft a new invoice
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + customer (object, required) - Who is the invoice for?
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
+        + for_attention_of (object, optional)
+            + One Of
+                + name (string, required)
+                + contact_id: `d5bcd593-3276-42a6-b541-e957976d4889` (string, required)
+        + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
+        + payment_term (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + layout_id: `b3b71aa9-94ce-4032-bf2c-1f77a5175f94` (string, optional)
+        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
+        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
+        + grouped_lines (array[WriteLineItemGroup], required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `invoice` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
+
+### invoices.update [POST /invoices.update]
+
+Update an existing invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + customer (object, optional) - Who is the invoice for?
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string, required)
+        + for_attention_of (object, optional)
+            + One Of
+                + name (string, required)
+                + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + department_id: `9ed6886a-666c-45b1-94cc-b1c6b0c2616a` (string, optional)
+        + payment_term (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + layout_id: `8c5f1a13-12ac-493f-9d82-25af7952c351` (string, optional)
+        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
+        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
+        + grouped_lines (array[WriteLineItemGroup], optional)
+
++ Response 204
+
+### invoices.delete [POST /invoices.delete]
+
+Delete an existing invoice. Only possible for draft invoices or the last booked invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
+
++ Response 204
+
+### invoices.book [POST /invoices.book]
+
+Book a draft invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
+        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+
++ Response 204
+
+### invoices.download [GET /invoices.download]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 307 (application/json;charset=utf-8)
+
+    + Headers
+
+              Location: The url of the downloadable file. This will remain valid for 30 seconds.
+
+### invoices.registerPayment [POST /invoices.registerPayment]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `8437bf5d-7870-4fa8-8f63-d6865ef73acb` (string, required)
+        + amount (Money, required)
+        + paid_at: `2016-02-04T16:44:33+00:00` (string, optional)
+
++ Response 204 (application/json;charset=utf-8)
+
+### invoices.removePayment [POST /invoices.removePayment]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d7a49cc6-593a-456e-8ed6-95410ce38fbb` (string, required)
+        + amount (Money, required)
+        + paid_at: `2016-02-04T16:44:33+00:00` (string, required)
+
++ Response 204
+
+### invoices.credit [POST /invoices.credit]
+
+Create a credit note from an invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e17fd8fc-90fb-44bf-ba08-99e509a97a70` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `0c2c815a-11da-4604-8c43-12d1149f2df8` (string)

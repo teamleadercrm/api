@@ -1,0 +1,44 @@
+## Departments [/departments]
+
+### departments.list [GET /departments.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object)
+            + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
+                + name: `Human Resources` (string)
+
+### departments.info [GET /departments.info]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `92296ad0-2d61-4179-b174-9f354ca2157f` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data  (object)
+            + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
+            + name: `Human Resources` (string)

@@ -1,0 +1,110 @@
+## Milestones [/milestones]
+
+### milestones.list [GET /milestones.list]
+
+Get a list of project milestones.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
+            + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
+            + status (enum[string], optional)
+                + Members
+                    + open
+                    + closed
+            + due_before: `2017-01-01` (string, optional)
+            + due_after: `2017-01-01` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_on
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_on`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string)
+                + project (object)
+                    + type: `project` (string)
+                    + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + due_on: `2018-01-01` (string)
+                + name: `Initial setup` (string)
+                + responsible_user (object)
+                    + type: `user` (string)
+                    + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
+                + status: `done` (enum[string])
+                    + Members
+                        + open
+                        + closed
+
+### milestones.info [GET /milestones.info]
+
+Get details for a single milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `64349fa2-6ca2-4b19-82e6-d3258ceab2d8` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `64349fa2-6ca2-4b19-82e6-d3258ceab2d8` (string)
+            + project (object)
+                + type: `project` (string)
+                + id: `fffaf951-b65a-4cb1-bfb6-4b93e0e60c10` (string)
+            + due_on: `2018-01-01` (string)
+            + name: `Initial setup` (string)
+            + responsible_user (object)
+                + type: `user` (string)
+                + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
+            + status: `done` (enum[string])
+                + Members
+                    + open
+                    + closed
+
+### milestones.create [POST /milestones.create]
+
+Create a new milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
+        + due_on: `2018-01-01` (string, required)
+        + name: `Initial setup` (string, required)
+        + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `milestone` (string)
+            + id: `51f19f91-6343-4001-a628-3afe45f674ad` (string)
+
+### milestones.update [POST /milestones.update]
+
+Update a milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+        + due_on: `2018-01-01` (string, optional)
+        + name: `Initial setup` (string, optional)
+        + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
+
++ Response 204 (application/json;charset=utf-8)

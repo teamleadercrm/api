@@ -1,0 +1,49 @@
+## Quotations [/quotations]
+
+### quotations.info [GET /quotations.info]
+
+Get a quotation
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string)
+            + deal (object)
+                + type: `deal` (string)
+                + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
+            + grouped_lines (array[ReadLineItemGroup])
+
+### quotations.add [POST /quotations.add]
+
+Add a quotation to a deal
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + deal_id: `4930e8c9-8a18-406a-b2c7-c82d349cf59e` (string, required)
+        + grouped_lines (array[WriteLineItemGroup], required)
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `quotation` (string)
+            + id: `7d8bc7b7-7b25-4452-9b05-10272ca3d1ac` (string)
+
+### quotations.update [POST /quotations.update]
+
+Update a deal quotation's items
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `2e3773b2-bf86-460d-b757-4e1c56d0b0ae` (string, required)
+        + grouped_lines (array[WriteLineItemGroup], optional)
+
++ Response 204

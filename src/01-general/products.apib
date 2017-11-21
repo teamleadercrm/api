@@ -1,0 +1,131 @@
+## Products [/products]
+
+### products.list [GET /products.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter
+            + ids: `b7dc55d0-f74d-4b24-8ca6-51dcf539ebbd`,`40c37f79-f856-4965-986a-5e9de14435c0` (array[string], optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + code
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `code`
+                    + order: `asc`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `0bfb320e-b0b8-4dc8-8d90-e611ff343b3f` (string)
+                + code: `PEN-BLUE` (string)
+                + translations (array)
+                    + (object)
+                        + language: `EN` (string)
+                        + name: `Pen (blue)` (string)
+                        + description: `Our best blue pen` (string)
+                + default_language (string)
+                + prices (array)
+                    + (object)
+                        + price_list (object, nullable)
+                            + type: `priceList` (string)
+                            + id: `b8a31bc4-72ea-4ee3-81b8-53394f535690` (string)
+                        + price (ReadPrice)
+
+### products.info [GET /products.info]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b8a26373-0ee6-4347-b28f-bbf092ac4e9e` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `84119cff-40b0-490d-9caa-f47151bd2da1` (string)
+            + code: `PEN-BLUE` (string)
+            + translations (array)
+                + (object)
+                    + language: `EN` (string)
+                    + name: `Product name` (string)
+                    + description: `Product description` (string)
+            + default_language (string)
+            + prices (array)
+                + (object)
+                    + price_list (object, nullable)
+                        + type: `priceList` (string)
+                        + id: `8c2ec7df-931a-4fe0-ad97-8bd9b9da9548` (string)
+                    + price (ReadPrice)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: `b7ce90df-5101-4ea6-82bb-65e98e82a70c` (string)
+                    + value: `092980616`
+
+### products.add [POST /products.add]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + translations (array, required)
+            + (object)
+                + language: `EN` (string, required)
+                + name: `Product name` (string, required)
+                + description: `Product description` (string, optional)
+        + default_language (string, required)
+        + prices (array[WritePrice], required)
+        + custom_fields (array, optional)
+            + (object)
+                + field (object, required)
+                    + type: `customField` (string, required)
+                    + id: `ce4b5a63-7351-49b6-bc1d-1d26a81199b7` (string, required)
+                + value (required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data
+            + type: `product` (string)
+            + id: `a4ec5ce7-a19e-432d-9ba1-1a927e29239b` (string)
+
+### products.update [POST /products.update]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b0c9545a-1be3-4c30-abbf-9a9400f96616` (string, required)
+        + translations (array, optional)
+            + (object)
+                + language: `EN` (string, required)
+                + name: `Product name` (string, required)
+                + description: `Product description` (string, optional)
+        + default_language (string, optional)
+        + prices (array[WritePrice], optional)
+        + custom_fields (array, optional)
+            + (object)
+                + field (object, required)
+                    + type: `customField` (string, required)
+                    + id: `6de770b8-0d68-402a-aa77-7e6d1d5fb4b1` (string, required)
+                + value (required)
+
++ Response 204 (application/json)
+
+### products.delete [POST /products.delete]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `bb71e956-2d32-4782-8f12-00118964bc00` (string, required)
+
++ Response 204 (application/json)
