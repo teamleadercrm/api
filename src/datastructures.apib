@@ -1,1 +1,50 @@
 # Data Structures
+
+## Address (object)
++ street: `Newell Road` (string)
++ number: `5230` (string)
++ postal_code: `94020` (string)
++ city: `Palo Alto` (string)
++ country: `US` (string)
+
+## Money (object)
++ amount: `123.30` (number, required)
++ currency: `EUR` (enum[string], required)
+    + Members
+        + BAM
+        + CAD
+        + CHF
+        + CLP
+        + CNY
+        + COP
+        + CZK
+        + DKK
+        + EUR
+        + GBP
+        + INR
+        + ISK
+        + JPY
+        + MAD
+        + MXN
+        + NOK
+        + PEN
+        + PLN
+        + RON
+        + SEK
+        + TRY
+        + USD
+        + ZAR
+
+## WritePrice (object)
++ Include Money
++ tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
++ tax: `excluding` (enum[string], required)
+    + Members
+        + excluding
+        + including
+
+## Page
++ size: `20` (number, optional)
+    + Default: `20`
++ number: `1` (number, optional)
+    + Default: `1`
