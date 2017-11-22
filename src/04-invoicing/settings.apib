@@ -1,0 +1,19 @@
+## Settings [/invoicing]
+
+### taxRates.list [GET /taxRates.list]
+
+List tax rates, sorted by rate and description.
+
++ Request (application/json;charset=utf-8)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
+                + description: `21%` (string)
+                + rate: `0.21` (number)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)

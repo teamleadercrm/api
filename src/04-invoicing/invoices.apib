@@ -1,0 +1,173 @@
+## Invoices [/invoices]
+
+### invoices.list [GET /invoices.list]
+
+List invoices
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + invoice_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `invoice_number`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+                + invoice_number: `2017/5` (string)
+                + invoice_date: `2016-02-04` (string)
+                + status: `booked` (enum[string])
+                    + Members
+                        + booked
+                        + draft
+                + due_on: `2016-03-03` (string)
+                + paid: `true` (boolean)
+                + paid_at: `2016-02-04T16:44:33+00:00` (string)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + address (Address)
+                    + vat_number: `BE0899623035` (string)
+                    + customer (object)
+                        + type: `contact` (string)
+                        + id: `4b0f959a-27e3-4080-b1b2-a05b374863cb` (string)
+                    + for_attention_of (object)
+                        + name: `Radja Nainggolan` (string)
+                        + contact (object)
+                            + type: `contact` (string)
+                            + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + payable (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: `0.21` (number)
+                            + taxable (Money)
+                            + tax (Money)
+
+### invoices.info [GET /invoices.info]
+
+Get a single invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `e540fe7e-dce2-459e-bf7e-24e605fc18b3` (string)
+            + department (object)
+                + type: `department` (string)
+                + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
+            + invoice_number: `2017/5` (string)
+            + invoice_date: `2016-02-04` (string)
+            + status: `booked` (enum[string])
+                + Members
+                    + booked
+                    + draft
+            + due_on: `2016-03-03` (string)
+            + paid: true (boolean)
+            + paid_at: `2016-02-04T16:44:33+00:00` (string)
+            + invoicee (object)
+                + name: `De Rode Duivels` (string)
+                + address (Address)
+                + vat_number: `BE0899623035` (string)
+                + customer (object)
+                    + type: `contact` (string)
+                    + id: `c7db7f80-762a-4e65-8d0c-522700198284` (string)
+                + for_attention_of (object)
+                    + name: `Radja Nainggolan` (string)
+                    + contact (object)
+                        + type: `contact` (string)
+                        + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
+            + grouped_lines (array)
+                + (object)
+                    + section (object)
+                        + title (string)
+                    + line_items (array)
+                        + (object)
+                            + product (object, nullable)
+                                + type: `product` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + quantity: `3` (number)
+                            + description: `An awesome product` (string)
+                            + extended_description: `Additional information` (string, nullable)
+                            + unit_price (object)
+                                + Include Money
+                                + tax: `excluding` (enum[string])
+                                    + Members
+                                        + excluding
+                                        + including
+                            + tax (object)
+                                + rate: `0.21` (number)
+                                + source (object)
+                                    + type: `tax` (string)
+                                    + id: `378d266d-35d0-4de0-a958-86571f8c619a` (string)
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + payable (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: `0.21` (number)
+                        + taxable (Money)
+                        + tax (Money)
+
+### invoices.draft [POST /invoices.draft]
+
+Draft a new invoice
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + customer (object)
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+        + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
+        + payment_term (object, optional)
+            + type (enum[string])
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + grouped_lines (array)
+            + (object)
+                + section (object, optional)
+                    + title (string, required)
+                + line_items (array, required)
+                    + (object)
+                        + quantity: `3` (number, required)
+                        + description: `An awesome product` (string, optional)
+                        + unit_price (WritePrice, optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `invoice` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
