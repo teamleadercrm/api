@@ -31,9 +31,7 @@ For casing, we agreed the following:
 
 ### Abbreviations
 
-We avoid abbreviations, for clarity.
-
-There are exceptions however:
+We avoid abbreviations, for clarity. There are exceptions however:
 
 - The `id` field
 - Abbreviations common in the **domain** such as `VAT`
@@ -81,8 +79,8 @@ We try to interpret HTTP Status codes the right way:
 
 ### Content-Type & Accept headers
 
- - `application/json` or `application/json;charset=utf-8` for request accept headers.
- - `application/json;charset=utf-8` for response content-type headers.
+ - `application/json` or `application/json;charset=utf-8` for request accept headers
+ - `application/json;charset=utf-8` for response content-type headers
 
 ## Response format
 
@@ -122,14 +120,20 @@ Adding endpoints and properties are typically always non-breaking and backwards 
 
 ### Empty properties
 
-If a property has an empty value, we return `null` as value.
+Object properties without a value **MUST**:
+
+ - Return null for scalar values
+ - Return an empty array if the property returns a list of objects/values
+
+Example:
 
 ```json
 {
   "data": {
     "id": "ee72ae60-d4df-4f27-beec-d105d5b3e170",
     "name": "John Doe",
-    "email": null
+    "email": null,
+    "tags": []
   }
 }
 ```
@@ -138,10 +142,14 @@ If a property has an empty value, we return `null` as value.
 
 Dates, times and datetimes returned must follow the `ISO8601` standard. Times and datetimes may include timezone information. In PHP this can be generated using `format('c')`.
 
-We follow these rules for the property names:
+Date and datetime properties **MUST**:
 
- - Dates must end on `_on`.
- - Time and datetimes must end on `_at`.
+ - The property name ends on `_on` for dates.
+ - The property name ends on `_at` if they include time (time and datetime).
+
+And **MAY**:
+
+ - Include timezone information
 
 Examples:
 
@@ -155,7 +163,7 @@ Examples:
 
 ### Money
 
-When representing money in requests or responses, we must always follow this data structure:
+Monetairy values in requests and responses **MUST** me represented as the following data structure:
 
 ```json
 {
@@ -164,20 +172,48 @@ When representing money in requests or responses, we must always follow this dat
 }
 ```
 
-### Relationships
+### Creating relationships
 
-When referring to related objects, we always use a relation structure that includes the type of the related object. This way there is no difference between regular and dynamic relationships where the related object can have different types.
+If a relation can exist with different types of objects, the request **MUST**:
+
+ - Contain an object structure with both the `id` and `type` of the related object
+
+The support types of related objects will be documented.
+
+Example of a customer that can be both a contact or company:
+
+```json
+{
+   "customer": {
+      "type": "contact",
+      "id": "ee72ae60-d4df-4f27-beec-d105d5b3e170"
+   }
+}
+```
+
+If the relation can only exist with a single type of object, we allow a simplified request:
+
+```json
+{
+   "project_id": "ee72ae60-d4df-4f27-beec-d105d5b3e170"
+}
+```
+
+### Returning relationships
+
+Object relationships in responses **MUST**:
+
+ - Return the `id` and `type` of the related object
 
 Example:
 
 ```json
 {
-   "buyer" : {
+   "customer" : {
       "type": "contact",
       "id": "ee72ae60-d4df-4f27-beec-d105d5b3e170"
    }
 }
-
 ```
 
-This also allows us to add meta data in the future.
+This allows us to identify side loaded objects and add meta data in the future.
