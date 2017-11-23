@@ -33,12 +33,12 @@ List invoices
                     + type: `department` (string)
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
                 + invoice_number: `2017/5` (string, nullable)
-                + invoice_date: `2016-02-04` (string)
+                + invoice_date: `2016-02-04` (string, nullable)
                 + status: `booked` (enum[string])
                     + Members
                         + booked
                         + draft
-                + due_on: `2016-03-03` (string)
+                + due_on: `2016-03-03` (string, nullable)
                 + paid: `true` (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
                 + invoicee (object)
@@ -81,12 +81,12 @@ Get a single invoice.
                 + type: `department` (string)
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
             + invoice_number: `2017/5` (string, nullable)
-            + invoice_date: `2016-02-04` (string)
+            + invoice_date: `2016-02-04` (string, nullable)
             + status: `booked` (enum[string])
                 + Members
                     + booked
                     + draft
-            + due_on: `2016-03-03` (string)
+            + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
             + invoicee (object)
