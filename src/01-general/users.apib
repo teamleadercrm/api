@@ -1,0 +1,20 @@
+## Users [/users]
+
+### users.me [GET /users.me]
+
+Get the current authenticated user.
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string)
+            + account (object)
+                + type: `account` (string)
+                + id: `0fc55513-7f68-4865-aba0-de5da9e4e43d` (string)
+            + first_name: `John` (string)
+            + last_name: `Smith` (string)
+            + email: `john@teamleader.eu` (string)
+            + telephones (array[Telephone])
+            + language: `nl` (string)
+            + function: `Sales` (string)
