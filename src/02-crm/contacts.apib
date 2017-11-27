@@ -117,20 +117,20 @@ Update a contact.
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
-        + first_name: `John` (string, optional)
-        + last_name: `Smith` (string, optional)
-        + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, optional)
-        + telephones (array[Telephone], optional)
-        + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + language: `en` (string, optional)
-        + gender: `male` (enum[string], optional)
+        + first_name: `John` (string, required, nullable)
+        + last_name: `Smith` (string, required, nullable)
+        + salutation: `Mr` (string, required, nullable)
+        + email: `john@example.com` (string, required, nullable)
+        + telephones (array[Telephone], required, nullable)
+        + website: `http://example.com` (string, required, nullable)
+        + address (Address, required, nullable)
+        + language: `en` (string, required, nullable)
+        + gender: `male` (enum[string], required, nullable)
             + Members
                 + male
                 + female
-        + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + birthdate: `1989-08-19` (string, required, nullable)
+        + remarks: `Met at expo` (string, required, nullable)
 
 + Response 204
 
