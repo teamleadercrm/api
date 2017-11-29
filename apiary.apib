@@ -345,18 +345,13 @@ Get a single invoice.
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                             + quantity: `3` (number)
                             + description: `An awesome product` (string)
-                            + extended_description: `Additional information` (string, nullable)
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum[string])
                                     + Members
                                         + excluding
-                                        + including
                             + tax (object)
                                 + rate: `0.21` (number)
-                                + source (object)
-                                    + type: `tax` (string)
-                                    + id: `378d266d-35d0-4de0-a958-86571f8c619a` (string)
             + total (object)
                 + tax_exclusive (Money)
                 + tax_inclusive (Money)
@@ -397,6 +392,8 @@ Draft a new invoice
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, optional)
                         + unit_price (WritePrice, optional)
+                        + tax (object)
+                            + rate: `0.21` (number)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -494,7 +491,6 @@ List tax rates, sorted by rate and description.
 
 ## WritePrice (object)
 + Include Money
-+ tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 + tax: `excluding` (enum[string], required)
     + Members
         + excluding
