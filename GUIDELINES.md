@@ -172,6 +172,11 @@ Monetairy values in requests and responses **MUST** me represented as the follow
 }
 ```
 
+### Rich text, html, markdown
+
+Rich text fields **MUST** be returned (and accepted) in **markdown**.
+
+
 ### Creating relationships
 
 If a relation can exist with different types of objects, the request **MUST**:
