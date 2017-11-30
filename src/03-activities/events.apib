@@ -1,0 +1,104 @@
+## Calendar events [/events]
+
+### events.list [GET /events.list]
+
+Get a list of calendar events.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `255a988d-d4b6-47eb-a5b8-746c24b5171a`,`e41cf7cd-05cd-4f28-b138-d6d585c30c64` (array[string], optional)
+            + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, required)
+            + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
+            + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
+            + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field: `starts_at` (enum[string], required)
+                    + Members
+                        + starts_at
+                + order: `asc` (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: starts_at
+                    + order: asc
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6d64488c-75d8-4de9-b140-2555566fa27d` (string)
+                + creator (object)
+                    + type: `user` (string)
+                    + id: `e51d1a0e-452e-4d5d-a2a1-2c8f75dde560` (string)
+                + todo (object)
+                    + type: `todo` (string)
+                    + id: `eb399573-e1ae-4377-bbaf-34358eb19831` (string)
+                + activity_type (object)
+                    + type: `activityType` (string)
+                    + id: `28158af3-2ef3-4178-ac8b-2542b1481af0` (string)
+                + title: `Erlich Bachman's birthday` (string)
+                + description (string)
+                + starts_at: `2016-02-04T16:00:00+00:00` (string)
+                + ends_at: `2016-02-04T18:00:00+00:00` (string)
+                + location (string)
+
+### events.info [GET /events.info]
+
+Get details for a single calendar event.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + creator (object)
+                + type: `user` (string)
+                + id: `6f45600a-4402-40e0-9dcc-7665384bcd48` (string)
+            + todo (object)
+                + type: `todo` (string)
+                + id: `be80d753-f2ee-426d-9596-2a2e1a23a82e` (string)
+            + activity_type (object)
+                + type: `activityType` (string)
+                + id: `4a1b1d8e-45da-4c5f-a986-3f93d174d352` (string)
+            + starts_at: `2016-02-04T16:00:00+00:00` (string)
+            + ends_at: `2016-02-04T18:00:00+00:00` (string)
+            + location (string)
+            + attendees (array)
+                + (object)
+                    + type: `contact` (enum[string])
+                        + Members
+                            + user
+                    + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+
+### events.create [POST /events.create]
+
+Create a new calendar event.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes
+        + title: `Meeting with stakeholders` (string, required)
+        + description (string, optional)
+        + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
