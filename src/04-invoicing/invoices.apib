@@ -138,7 +138,7 @@ Draft a new invoice
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object)
+        + customer (object, required)
             + type (enum[string])
                 + Members
                     + contact
@@ -152,7 +152,7 @@ Draft a new invoice
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + grouped_lines (array)
+        + grouped_lines (array, required)
             + (object)
                 + section (object, optional)
                     + title (string, required)
@@ -161,8 +161,7 @@ Draft a new invoice
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, optional)
                         + unit_price (WritePrice, optional)
-                        + tax (object)
-                            + rate: `0.21` (number)
+                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
