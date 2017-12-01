@@ -342,7 +342,7 @@ Create a new calendar event.
 
 ### activityTypes.list [GET /activityTypes.list]
 
-Get a list of all activity types, sorted alphabetically (on their name).
+Get a list of all activity types.
 
 + Request (application/json;charset=utf-8)
 
@@ -365,7 +365,7 @@ Get a list of all activity types, sorted alphabetically (on their name).
 
 ### invoices.list [GET /invoices.list]
 
-List invoices
+Get a list of invoices.
 
 + Request (application/json;charset=utf-8)
 
@@ -431,7 +431,7 @@ List invoices
 
 ### invoices.info [GET /invoices.info]
 
-Get a single invoice.
+Get details for a single invoice.
 
 + Request (application/json;charset=utf-8)
 
@@ -501,7 +501,7 @@ Get a single invoice.
 
 ### invoices.draft [POST /invoices.draft]
 
-Draft a new invoice
+Draft a new invoice.
 
 + Request (application/json;charset=utf-8)
 
@@ -564,7 +564,7 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
 ### invoices.update [POST /invoices.update]
 
-Update an existing invoice.
+Update an invoice.
 
 + Request (application/json;charset=utf-8)
 
@@ -583,7 +583,7 @@ Update an existing invoice.
 
 ### taxRates.list [GET /taxRates.list]
 
-List tax rates, sorted by rate and description.
+Get a list of available tax rates.
 
 + Request (application/json;charset=utf-8)
 
@@ -609,7 +609,7 @@ List tax rates, sorted by rate and description.
 
 ### projects.list [GET /projects.list]
 
-Search projects
+Get a list of projects.
 
 + Request (application/json;charset=utf-8)
 
@@ -654,6 +654,8 @@ Search projects
 
 
 ### projects.info [GET /projects.info]
+
+Get details for a single project.
 
 + Request (application/json;charset=utf-8)
 
@@ -704,6 +706,8 @@ Search projects
 
 ### projects.create [POST /projects.create]
 
+Create a new project.
+
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -736,6 +740,8 @@ Search projects
 
 ### projects.update [POST /projects.update]
 
+Update a project.
+
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -767,6 +773,8 @@ Delete a project.
 
 ### projects.addParticipant [POST /projects.addParticipant]
 
+Add a participant to a project.
+
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -784,6 +792,8 @@ Delete a project.
 
 
 ### projects.updateParticipant [POST /projects.updateParticipant]
+
+Update a participant's role for a project.
 
 + Request (application/json;charset=utf-8)
 
