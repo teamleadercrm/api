@@ -484,6 +484,11 @@ Get a single invoice.
                                         + excluding
                             + tax (object)
                                 + rate: `0.21` (number)
+                            + discount (object)
+                                + type: `percentage` (enum[string])
+                                    + Members
+                                        + percentage
+                                + value: `15.00` (number)
             + total (object)
                 + tax_exclusive (Money)
                 + tax_inclusive (Money)
