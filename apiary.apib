@@ -210,6 +210,50 @@ To retrieve information about the user who authorized your application (the reso
 
 # Group General
 
+## Departments [/departments]
+
+### departments.list [GET /departments.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object)
+            + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
+                + name: `Human Resources` (string)
+
+### departments.info [GET /departments.info]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `92296ad0-2d61-4179-b174-9f354ca2157f` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data  (object)
+            + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
+            + name: `Human Resources` (string)
+
 ## Users [/users]
 
 ### users.me [GET /users.me]
@@ -230,6 +274,366 @@ Get the current authenticated user.
             + telephones (array[Telephone])
             + language: `nl` (string)
             + function: `Sales` (string)
+
+# Group CRM
+
+## Contacts [/contacts]
+
+### contacts.list [GET /contacts.list]
+
+Get a list of contacts.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + added_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `added_at`
+                    + order: `desc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
+                + first_name: `Erlich` (string)
+                + last_name: `Bachman` (string)
+                + salutation: `Mr` (string)
+                + email: `info@piedpiper.eu` (string)
+                + telephones (array[Telephone])
+                + website: `https://piedpiper.com` (string)
+                + avatar (string)
+                + address (Address)
+                + gender: `male` (enum[string])
+                    + Members
+                        + male
+                        + female
+                + birthdate: `1987-04-25` (string)
+                + iban: `BE12123412341234` (string)
+                + bic: `BICBANK` (string)
+                + language: `en` (string)
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### contacts.info [GET /contacts.info]
+
+Get details for a single contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
+            + first_name: `Erlich` (string)
+            + last_name: `Bachman` (string)
+            + salutation: `Mr` (string)
+            + email: `info@piedpiper.eu` (string)
+            + telephones (array[Telephone])
+            + website: `https://piedpiper.com` (string)
+            + avatar (string)
+            + address (Address)
+            + gender: `male` (enum[string])
+                + Members
+                    + male
+                    + female
+            + birthdate: `1987-04-25` (string)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
+            + language: `en` (string)
+            + remarks: `First contact at expo` (string)
+            + added_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### contacts.add [POST /contacts.add]
+
+Add a new contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + first_name: `John` (string, required)
+        + last_name: `Smith` (string, required)
+        + email: `john@example.com` (string, required)
+        + salutation: `Mr` (string, optional)
+        + telephones (array[Telephone], optional)
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + language: `en` (string, optional)
+        + gender: `male` (enum[string], optional)
+            + Members
+                + male
+                + female
+        + birthdate: `1989-08-19` (string, optional)
+        + remarks: `Met at expo` (string, optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `contact` (string)
+            + id: `7c1d8672-f502-4333-9ea4-7a45add15115` (string)
+
+### contacts.update [POST /contacts.update]
+
+Update a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
+        + first_name: `John` (string, optional)
+        + last_name: `Smith` (string, optional)
+        + salutation: `Mr` (string, optional)
+        + email: `john@example.com` (string, optional)
+        + telephones (array[Telephone], optional)
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + language: `en` (string, optional)
+        + gender: `male` (enum[string], optional)
+            + Members
+                + male
+                + female
+        + birthdate: `1989-08-19` (string, optional)
+        + remarks: `Met at expo` (string, optional)
+
++ Response 204
+
+### contacts.delete [POST /contacts.delete]
+
+Delete a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
+
++ Response 204
+
+### contacts.linkToCompany [POST /contacts.linkToCompany]
+
+Link a contact to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `75596038-b9c8-4a37-969d-61059e300a28` (string, required)
+        + company_id: `4da20f00-0628-4336-b885-aa90e580dd85` (string, required)
+        + position: `CEO` (string, optional)
+        + decision_maker: true (boolean, optional)
+
++ Response 204
+
+### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+
+Unlink a contact from a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b4b3160a-b55e-4033-bdae-25b6d22949b4` (string, required)
+        + company_id: `3f1c8650-4292-4187-bb02-4aa00bbe9632` (string, required)
+
++ Response 204
+
+## Companies [/companies]
+
+### companies.list [GET /companies.list]
+
+Get a list of companies.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + added_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `added_at`
+                    + order: `desc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
+                + name: `Pied Piper` (string)
+                + business_type (object)
+                    + type: `businessType` (string)
+                    + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+                + vat_number: `BE0899623035` (string)
+                + local_business_number: `63326426` (string)
+                + email: `info@piedpiper.eu` (string)
+                + invoice_email: `invoicing@example.com` (string)
+                + telephones (array[Telephone])
+                + website: `https://piedpiper.com` (string)
+                + avatar (string)
+                + address (Address)
+                + iban: `BE12123412341234` (string)
+                + bic: `BICBANK` (string)
+                + language: `nl` (string)
+                + responsible_user (object)
+                    + type: `user` (string)
+                    + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### companies.info [GET /companies.info]
+
+Get details for a single company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5 (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `c5685b0f-87b8-456f-8d9e-a5866814c47a` (string)
+            + name: `Pied Piper` (string)
+            + business_type (object)
+                + type: `businessType` (string)
+                + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+            + vat_number: `BE0899623035` (string)
+            + local_business_number: `63326426` (string)
+            + email: `info@piedpiper.eu` (string)
+            + invoice_email: `invoicing@example.com` (string)
+            + telephones (array[Telephone])
+            + website: `https://piedpiper.com` (string)
+            + avatar (string)
+            + address (Address)
+            + delivery_address (Addressee)
+            + visiting_address (Addressee)
+            + invoice_address (Addressee)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
+            + language: `nl` (string)
+            + responsible_user (object)
+                + type: `user`
+                + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
+            + remarks: `First contact at expo` (string)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: `2d695501-0498-49ae-b088-ab9b41ea8aae` (string)
+                    + value: `092980616`
+            + added_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### companies.add [POST /companies.create]
+
+Add a new company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + name: `Pied Piper` (string, required)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional)
+        + vat_number: `BE0899623035` (string, optional)
+        + local_business_number: `63326426` (string, optional)
+        + email: `john@example.com` (string, required)
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + telephones (array[Telephone], optional)
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string, optional)
+        + language: `en` (string, optional)
+        + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
+        + remarks: `Met at expo` (string, optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `company` (string)
+            + id: `4784189d-610b-4488-b3a5-5f324f752417` (string)
+
+### companies.update [POST /companies.update]
+
+Update a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e7dff0b5-ec37-4fcd-b574-1c88c3362d93` (string, required)
+        + name: `Pied Piper` (string, optional)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional)
+        + vat_number: `BE0899623035` (string, optional)
+        + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
+        + email: `john@example.com` (string, optional) - The email address of the new contact
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + telephones (array[Telephone], optional)
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string, optional)
+        + language: `en` (string, optional)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional)
+        + remarks: `Met at expo` (string, optional)
+
++ Response 204
+
+### companies.delete [POST /companies.delete]
+
+Delete a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `f3d67f3e-b8a9-45e8-99b1-17a3b14de8a6` (string, required)
+
++ Response 204
+
+## Business Types [/businessTypes]
+
+### businessTypes.list [GET /businessTypes.list]
+
+Get the names of business types (legal structures) a company can have within a certain country, sorted alphabetically.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+            + name: `VZW/ASBL` (string)
+            + country: `BE` (string)
 
 # Group Calendar
 
@@ -943,6 +1347,10 @@ Update a milestone.
 + postal_code: `94020` (string)
 + city: `Palo Alto` (string)
 + country: `US` (string)
+
+## Addressee (object)
++ addressee: `Pied Piper Finance Dep.` (string, optional)
++ Include Address
 
 ## Money (object)
 + amount: `123.30` (number, required)
