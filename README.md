@@ -4,7 +4,7 @@ This repository contains the Teamleader API Definition in [API Blueprint](https:
 
 ## Published documentation
 
-Our latest API definition is automatically publised on [apidocs.teamleader.eu/v2](http://apidocs.teamleader.eu/v2).
+Our latest API definition is automatically publised on [developer.teamleader.eu](https://developer.teamleader.eu).
 
 ## Contributing
 
