@@ -30,7 +30,13 @@ Get a list of contacts.
                 + first_name: `Erlich` (string)
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
-                + email: `info@piedpiper.eu` (string)
+                + emails (array)
+                    + (object)
+                        + type: `primary` (enum[string])
+                            + Members
+                                + primary
+                                + invoicing
+                        + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
@@ -63,11 +69,25 @@ Get details for a single contact.
             + first_name: `Erlich` (string)
             + last_name: `Bachman` (string)
             + salutation: `Mr` (string)
-            + email: `info@piedpiper.eu` (string)
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
             + avatar (string)
-            + address (Address)
+            + addresses (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee)
             + gender: `male` (enum[string])
                 + Members
                     + male
@@ -89,11 +109,25 @@ Add a new contact.
     + Attributes (object)
         + first_name: `John` (string, required)
         + last_name: `Smith` (string, required)
-        + email: `john@example.com` (string, required)
+        + emails (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required)
         + salutation: `Mr` (string, optional)
         + telephones (array[Telephone], optional)
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
+        + addresses (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required)
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
@@ -120,10 +154,24 @@ Update a contact.
         + first_name: `John` (string, optional)
         + last_name: `Smith` (string, optional)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, optional)
+        + emails (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required)
         + telephones (array[Telephone], optional)
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
+        + addresses (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required)
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
