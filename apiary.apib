@@ -1326,6 +1326,62 @@ Update a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
+# Group Other
+
+## Migrating [/migrate]
+
+WARNING! These endpoints are not guaranteed to stay backwards compatible.
+Their only use is to allow older integrations to migrate their data to the new API.
+
+### migrate.id [GET /migrate.id]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + type: `contact` (enum[string])
+            + Members
+                + account
+                + user
+                + product
+                + contact
+                + company
+                + deal
+                + dealPhase
+                + project
+                + milestone
+                + task
+                + meeting
+                + call
+                + ticket
+                + invoice
+                + creditNote
+                + subscription
+        + id: `1` (number)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + type: `contact` (enum[string])
+                + Members
+                    + account
+                    + user
+                    + product
+                    + contact
+                    + company
+                    + deal
+                    + dealPhase
+                    + project
+                    + milestone
+                    + todo
+                    + event
+                    + ticket
+                    + invoice
+                    + creditNote
+                    + subscription
+            + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
+
+
 # Data Structures
 
 ## Telephone (object)
