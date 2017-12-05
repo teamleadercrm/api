@@ -226,5 +226,9 @@ Update an invoice.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + for_attention_of (object, required)
+            + One Of
+                + name (string, required)
+                + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
 
 + Response 204
