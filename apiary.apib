@@ -819,8 +819,8 @@ Get a list of invoices.
                     + taxes (array)
                         + (object)
                             + rate: 0.21 (number)
-                            + taxable_amount (Money)
-                            + applied_tax (Money)
+                            + taxable (Money)
+                            + tax (Money)
 
 ### invoices.info [GET /invoices.info]
 
@@ -883,8 +883,7 @@ Get details for a single invoice.
                                     + Members
                                         + excluding
                             + tax (object)
-                                + type: `taxRate` (string)
-                                + id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string)
+                                + rate: 0.21 (number)
                             + discount (object, nullable)
                                 + type: `percentage` (enum[string])
                                     + Members
@@ -897,8 +896,8 @@ Get details for a single invoice.
                 + taxes (array)
                     + (object)
                         + rate: 0.21 (number)
-                        + taxable_amount (Money)
-                        + applied_tax (Money)
+                        + taxable (Money)
+                        + tax (Money)
 
 ### invoices.draft [POST /invoices.draft]
 
