@@ -977,6 +977,13 @@ Update an invoice.
                     + contact
                     + company
             + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
+        + payment_term (object, required)
+            + type (enum[string], required)
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
 
 + Response 204
 
