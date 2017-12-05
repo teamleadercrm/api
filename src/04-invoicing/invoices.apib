@@ -171,8 +171,8 @@ Draft a new invoice.
                 + line_items (array, required)
                     + (object)
                         + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, optional)
-                        + unit_price (WritePrice, optional)
+                        + description: `An awesome product` (string, required)
+                        + unit_price (WritePrice, required)
                         + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
