@@ -1,0 +1,18 @@
+## Business Types [/businessTypes]
+
+### businessTypes.list [GET /businessTypes.list]
+
+Get the names of business types (legal structures) a company can have within a certain country, sorted alphabetically.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+            + name: `VZW/ASBL` (string)
+            + country: `BE` (string)
