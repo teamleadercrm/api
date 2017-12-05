@@ -3,15 +3,16 @@ HOST: https://api.teamleader.eu
 
 # Teamleader API
 
-#### WARNING - This is still a BETA version.
+#### New API - This is still a BETA version.
 
-Our documentation is already published to gather feedback, but the endpoints are not working yet. This documentation is not final and will change before our final release.
+Our new API is currently available in beta version for you to test. We invite you to read through the documentation and test the new endpoints. Do you have any feedback? Don’t hesitate to let us know via [api@teamleader.eu](mailto://api@teamleader.eu).
+This documentation isn’t final yet and is subject to change prior to our official release, although we will limit this to a minimum.
 
 ## AP-What?
 
-An API is a Application Programming Interface. It is used to programmaticaly interact with Teamleader, to integrate with other software tools or to add custom functionality to Teamleader.
+An API is an Application Programming Interface. It is used to programmatically interact with Teamleader, integrate with other software tools or add custom functionalities to Teamleader.
 
-Before creating a new integration, be sure to check out our **[Marketplace](https://marketplace.teamleader.eu)** for existing integrations built by the community. We also have a trusted [partner network](https://www.teamleader.eu) if you are looking for help building a custom integration.
+Before creating a new integration, make sure to check our existing integrations built by our community in our [Teamleader Marketplace](https://marketplace.teamleader.eu).
 
 ## General principles
 
@@ -73,7 +74,6 @@ Errors are always returned as an array of error objects under an `errors` top le
 {
     "errors": [
         {
-            "code": 9000,
             "title": "Bad request"
         }
     ]
@@ -212,6 +212,8 @@ To retrieve information about the user who authorized your application (the reso
 
 ## Departments [/departments]
 
+Departments are used to split quotations and invoices for different legal entities or within one organisation.
+
 ### departments.list [GET /departments.list]
 
 + Request (application/json)
@@ -256,6 +258,8 @@ To retrieve information about the user who authorized your application (the reso
 
 ## Users [/users]
 
+Users are co-workers in a Teamleader account.
+
 ### users.me [GET /users.me]
 
 Get the current authenticated user.
@@ -278,6 +282,9 @@ Get the current authenticated user.
 # Group CRM
 
 ## Contacts [/contacts]
+
+Contacts are physical entities who are added to your CRM database.
+Contacts might be linked to one or more companies.
 
 ### contacts.list [GET /contacts.list]
 
@@ -450,6 +457,8 @@ Unlink a contact from a company.
 
 ## Companies [/companies]
 
+Companies are legal entities, usually linked to a VAT and/or local business number.
+
 ### companies.list [GET /companies.list]
 
 Get a list of companies.
@@ -608,6 +617,9 @@ Delete a company.
 
 ## Business Types [/businessTypes]
 
+Each country has a specific set of business types or range of legal entities.
+You can specify the business type when adding or updating a company.
+
 ### businessTypes.list [GET /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country, sorted alphabetically.
@@ -628,6 +640,10 @@ Get the names of business types (legal structures) a company can have within a c
 # Group Calendar
 
 ## Calendar events [/events]
+
+Calendar events are scheduled events in your calendar.
+A calendar event involves a particular activity type: a task, meeting or call.
+They can also be linked to one to-do.
 
 ### events.list [GET /events.list]
 
@@ -733,6 +749,10 @@ Create a new calendar event.
 
 ## Activity Types [/activityTypes]
 
+Activity types are the different types of events (i.e. tasks, meetings or calls) and to-do’s.
+Currently there are three activity types available: tasks, meetings and calls.
+Extra (custom) activities types might become available in the future.
+
 ### activityTypes.list [GET /activityTypes.list]
 
 Get a list of all activity types.
@@ -755,6 +775,10 @@ Get a list of all activity types.
 # Group Invoicing
 
 ## Invoices [/invoices]
+
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
+New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
+Invoices can also be updated, deleted or credited.
 
 ### invoices.list [GET /invoices.list]
 
@@ -987,6 +1011,10 @@ Update an invoice.
 
 ## Tax Rates [/taxRates]
 
+Tax rates provide an overview of different taxation rates used to bill customers.
+Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader.
+The end user also has the option to add additional tax rates.
+
 ### taxRates.list [GET /taxRates.list]
 
 Get a list of available tax rates.
@@ -1012,6 +1040,9 @@ Get a list of available tax rates.
 # Group Projects
 
 ## Projects [/projects]
+
+Projects allow users to work together as a team on a single project.
+They comprise of one or more milestones, have one or more participants and are limited in time and budget.
 
 ### projects.list [GET /projects.list]
 
@@ -1216,6 +1247,9 @@ Update a participant's role for a project.
 + Response 204
 
 ## Milestones [/milestones]
+
+Every projects consists of one or more milestones which are limited in time and budget.
+Budget is however not included in this endpoints (yet).
 
 ### milestones.list [GET /milestones.list]
 
