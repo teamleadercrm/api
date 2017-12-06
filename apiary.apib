@@ -1418,6 +1418,21 @@ Their only use is to allow older integrations to migrate their data to the new A
                     + creditNote
                     + subscription
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
+            
+### migrate.taxRate [GET /migrate.taxRate]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + department_id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
+        + tax_rate: `21` (string)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + type: `taxRate` (string)
+            + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
 
 # Data Structures
