@@ -1,5 +1,9 @@
 ## Invoices [/invoices]
 
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
+New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
+Invoices can also be updated, deleted or credited.
+
 ### invoices.list [GET /invoices.list]
 
 Get a list of invoices.
@@ -150,31 +154,30 @@ Draft a new invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object)
+        + customer (object, required)
             + type (enum[string])
                 + Members
                     + contact
                     + company
             + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
-        + payment_term (object, optional)
+        + payment_term (object, required)
             + type (enum[string])
                 + Members
                     + cash - Direct payment, often cash
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + grouped_lines (array)
+        + grouped_lines (array, required)
             + (object)
                 + section (object, optional)
                     + title (string, required)
                 + line_items (array, required)
                     + (object)
                         + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, optional)
-                        + unit_price (WritePrice, optional)
-                        + tax (object)
-                            + rate: `0.21` (number)
+                        + description: `An awesome product` (string, required)
+                        + unit_price (WritePrice, required)
+                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -182,6 +185,30 @@ Draft a new invoice.
         + data (object)
             + type: `invoice` (string)
             + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
+
+### invoices.update [POST /invoices.update]
+
+Update an invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + customer (object, required) - Who is the invoice for?
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
+        + payment_term (object, required)
+            + type (enum[string], required)
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+
++ Response 204
 
 ### invoices.book [POST /invoices.book]
 
@@ -203,22 +230,5 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
     + Attributes (object)
         + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
-
-+ Response 204
-
-### invoices.update [POST /invoices.update]
-
-Update an invoice.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
-        + customer (object, required) - Who is the invoice for?
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
 
 + Response 204

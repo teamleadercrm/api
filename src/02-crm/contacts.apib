@@ -1,5 +1,8 @@
 ## Contacts [/contacts]
 
+Contacts are physical entities who are added to your CRM database.
+Contacts might be linked to one or more companies.
+
 ### contacts.list [GET /contacts.list]
 
 Get a list of contacts.
@@ -39,7 +42,6 @@ Get a list of contacts.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + avatar (string)
                 + address (Address)
                 + gender: `male` (enum[string])
                     + Members
@@ -78,7 +80,6 @@ Get details for a single contact.
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
-            + avatar (string)
             + addresses (array)
                 + (object)
                     + type: `primary` (enum[string])
@@ -151,19 +152,19 @@ Update a contact.
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
-        + first_name: `John` (string, optional)
-        + last_name: `Smith` (string, optional)
-        + salutation: `Mr` (string, optional)
-        + emails (array, optional)
+        + first_name: `John` (string, required, nullable)
+        + last_name: `Smith` (string, required, nullable)
+        + salutation: `Mr` (string, required, nullable)
+        + emails (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required)
-        + telephones (array[Telephone], optional)
-        + website: `http://example.com` (string, optional)
-        + addresses (array, optional)
+                + email: `info@piedpiper.eu` (string, required, nullable)
+        + telephones (array[Telephone], required, nullable)
+        + website: `http://example.com` (string, required, nullable)
+        + addresses (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -171,14 +172,14 @@ Update a contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
-        + language: `en` (string, optional)
-        + gender: `male` (enum[string], optional)
+                + address (Addressee, required, nullable)
+        + language: `en` (string, required, nullable)
+        + gender: `male` (enum[string], required, nullable)
             + Members
                 + male
                 + female
-        + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + birthdate: `1989-08-19` (string, required, nullable)
+        + remarks: `Met at expo` (string, required, nullable)
 
 + Response 204
 

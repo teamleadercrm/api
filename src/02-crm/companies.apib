@@ -1,5 +1,7 @@
 ## Companies [/companies]
 
+Companies are legal entities, usually linked to a VAT and/or local business number.
+
 ### companies.list [GET /companies.list]
 
 Get a list of companies.
@@ -42,7 +44,6 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + avatar (string)
                 + address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
@@ -60,7 +61,7 @@ Get details for a single company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5 (string, required)
+        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -82,7 +83,6 @@ Get details for a single company.
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
-            + avatar (string)
             + addresses (array)
                 + (object)
                     + type: `primary` (enum[string])
@@ -99,12 +99,6 @@ Get details for a single company.
                 + type: `user`
                 + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
             + remarks: `First contact at expo` (string)
-            + custom_fields (array)
-                + (object)
-                    + field (object)
-                        + type: `customField`
-                        + id: `2d695501-0498-49ae-b088-ab9b41ea8aae` (string)
-                    + value: `092980616`
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -157,21 +151,21 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e7dff0b5-ec37-4fcd-b574-1c88c3362d93` (string, required)
-        + name: `Pied Piper` (string, optional)
-        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional)
-        + vat_number: `BE0899623035` (string, optional)
-        + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
-        + emails (array, optional)
+        + name: `Pied Piper` (string, required)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
+        + vat_number: `BE0899623035` (string, required, nullable)
+        + local_business_number: `63326426` (string, required, nullable)
+        + emails (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required)
-        + telephones (array[Telephone], optional)
-        + website: `http://example.com` (string, optional)
-        + addresses (array, optional)
+                + email: `info@piedpiper.eu` (string, required, nullable)
+        + invoice_email: `invoicing@example.com` (string, required, nullable)
+        + telephones (array[Telephone], required, nullable)
+        + website: `http://example.com` (string, required, nullable)
+        + addresses (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -179,12 +173,12 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
+                + address (Addressee, required, nullable)
         + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string, optional)
-        + language: `en` (string, optional)
-        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + bic: `BICBANK` (string, required, nullable)
+        + language: `en` (string, required, nullable)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, required, nullable)
+        + remarks: `Met at expo` (string, required, nullable)
 
 + Response 204
 

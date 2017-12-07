@@ -3,15 +3,16 @@ HOST: https://api.teamleader.eu
 
 # Teamleader API
 
-#### WARNING - This is still a BETA version.
+#### New API - This is still a BETA version.
 
-Our documentation is already published to gather feedback, but the endpoints are not working yet. This documentation is not final and will change before our final release.
+Our new API is currently available in beta version for you to test. We invite you to read through the documentation and test the new endpoints. Do you have any feedback? Don’t hesitate to let us know via [api@teamleader.eu](mailto://api@teamleader.eu).
+This documentation isn’t final yet and is subject to change prior to our official release, although we will limit this to a minimum.
 
 ## AP-What?
 
-An API is a Application Programming Interface. It is used to programmaticaly interact with Teamleader, to integrate with other software tools or to add custom functionality to Teamleader.
+An API is an Application Programming Interface. It is used to programmatically interact with Teamleader, integrate with other software tools or add custom functionalities to Teamleader.
 
-Before creating a new integration, be sure to check out our **[Marketplace](https://marketplace.teamleader.eu)** for existing integrations built by the community. We also have a trusted [partner network](https://www.teamleader.eu) if you are looking for help building a custom integration.
+Before creating a new integration, make sure to check our existing integrations built by our community in our [Teamleader Marketplace](https://marketplace.teamleader.eu).
 
 ## General principles
 
@@ -73,7 +74,6 @@ Errors are always returned as an array of error objects under an `errors` top le
 {
     "errors": [
         {
-            "code": 9000,
             "title": "Bad request"
         }
     ]
@@ -212,7 +212,11 @@ To retrieve information about the user who authorized your application (the reso
 
 ## Departments [/departments]
 
+Departments are used to split quotations and invoices for different legal entities or within one organisation.
+
 ### departments.list [GET /departments.list]
+
+Get a list of departments.
 
 + Request (application/json)
 
@@ -242,6 +246,8 @@ To retrieve information about the user who authorized your application (the reso
 
 ### departments.info [GET /departments.info]
 
+Get details for a single department.
+
 + Request (application/json)
 
     + Attributes (object)
@@ -255,6 +261,8 @@ To retrieve information about the user who authorized your application (the reso
             + name: `Human Resources` (string)
 
 ## Users [/users]
+
+Users are co-workers in a Teamleader account.
 
 ### users.me [GET /users.me]
 
@@ -278,6 +286,9 @@ Get the current authenticated user.
 # Group CRM
 
 ## Contacts [/contacts]
+
+Contacts are physical entities who are added to your CRM database.
+Contacts might be linked to one or more companies.
 
 ### contacts.list [GET /contacts.list]
 
@@ -318,7 +329,6 @@ Get a list of contacts.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + avatar (string)
                 + address (Address)
                 + gender: `male` (enum[string])
                     + Members
@@ -357,7 +367,6 @@ Get details for a single contact.
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
-            + avatar (string)
             + addresses (array)
                 + (object)
                     + type: `primary` (enum[string])
@@ -430,19 +439,19 @@ Update a contact.
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
-        + first_name: `John` (string, optional)
-        + last_name: `Smith` (string, optional)
-        + salutation: `Mr` (string, optional)
-        + emails (array, optional)
+        + first_name: `John` (string, required, nullable)
+        + last_name: `Smith` (string, required, nullable)
+        + salutation: `Mr` (string, required, nullable)
+        + emails (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required)
-        + telephones (array[Telephone], optional)
-        + website: `http://example.com` (string, optional)
-        + addresses (array, optional)
+                + email: `info@piedpiper.eu` (string, required, nullable)
+        + telephones (array[Telephone], required, nullable)
+        + website: `http://example.com` (string, required, nullable)
+        + addresses (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -450,14 +459,14 @@ Update a contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
-        + language: `en` (string, optional)
-        + gender: `male` (enum[string], optional)
+                + address (Addressee, required, nullable)
+        + language: `en` (string, required, nullable)
+        + gender: `male` (enum[string], required, nullable)
             + Members
                 + male
                 + female
-        + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + birthdate: `1989-08-19` (string, required, nullable)
+        + remarks: `Met at expo` (string, required, nullable)
 
 + Response 204
 
@@ -499,6 +508,8 @@ Unlink a contact from a company.
 + Response 204
 
 ## Companies [/companies]
+
+Companies are legal entities, usually linked to a VAT and/or local business number.
 
 ### companies.list [GET /companies.list]
 
@@ -542,7 +553,6 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + avatar (string)
                 + address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
@@ -560,7 +570,7 @@ Get details for a single company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5 (string, required)
+        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -582,7 +592,6 @@ Get details for a single company.
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
-            + avatar (string)
             + addresses (array)
                 + (object)
                     + type: `primary` (enum[string])
@@ -599,12 +608,6 @@ Get details for a single company.
                 + type: `user`
                 + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
             + remarks: `First contact at expo` (string)
-            + custom_fields (array)
-                + (object)
-                    + field (object)
-                        + type: `customField`
-                        + id: `2d695501-0498-49ae-b088-ab9b41ea8aae` (string)
-                    + value: `092980616`
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -657,21 +660,21 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e7dff0b5-ec37-4fcd-b574-1c88c3362d93` (string, required)
-        + name: `Pied Piper` (string, optional)
-        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional)
-        + vat_number: `BE0899623035` (string, optional)
-        + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
-        + emails (array, optional)
+        + name: `Pied Piper` (string, required)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
+        + vat_number: `BE0899623035` (string, required, nullable)
+        + local_business_number: `63326426` (string, required, nullable)
+        + emails (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required)
-        + telephones (array[Telephone], optional)
-        + website: `http://example.com` (string, optional)
-        + addresses (array, optional)
+                + email: `info@piedpiper.eu` (string, required, nullable)
+        + invoice_email: `invoicing@example.com` (string, required, nullable)
+        + telephones (array[Telephone], required, nullable)
+        + website: `http://example.com` (string, required, nullable)
+        + addresses (array, required)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -679,12 +682,12 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
+                + address (Addressee, required, nullable)
         + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string, optional)
-        + language: `en` (string, optional)
-        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + bic: `BICBANK` (string, required, nullable)
+        + language: `en` (string, required, nullable)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, required, nullable)
+        + remarks: `Met at expo` (string, required, nullable)
 
 + Response 204
 
@@ -700,6 +703,9 @@ Delete a company.
 + Response 204
 
 ## Business Types [/businessTypes]
+
+Each country has a specific set of business types or range of legal entities.
+You can specify the business type when adding or updating a company.
 
 ### businessTypes.list [GET /businessTypes.list]
 
@@ -722,6 +728,10 @@ Get the names of business types (legal structures) a company can have within a c
 
 ## Calendar events [/events]
 
+Calendar events are scheduled events in your calendar.
+A calendar event involves a particular activity type: a task, meeting or call.
+They can also be linked to one to-do.
+
 ### events.list [GET /events.list]
 
 Get a list of calendar events.
@@ -730,7 +740,6 @@ Get a list of calendar events.
 
     + Attributes (object)
         + filter (object, optional)
-            + ids: `255a988d-d4b6-47eb-a5b8-746c24b5171a`,`e41cf7cd-05cd-4f28-b138-d6d585c30c64` (array[string], optional)
             + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, required)
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
@@ -827,6 +836,10 @@ Create a new calendar event.
 
 ## Activity Types [/activityTypes]
 
+Activity types are the different types of events (i.e. tasks, meetings or calls) and to-do’s.
+Currently there are three activity types available: tasks, meetings and calls.
+Extra (custom) activities types might become available in the future.
+
 ### activityTypes.list [GET /activityTypes.list]
 
 Get a list of all activity types.
@@ -849,6 +862,10 @@ Get a list of all activity types.
 # Group Invoicing
 
 ## Invoices [/invoices]
+
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
+New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
+Invoices can also be updated, deleted or credited.
 
 ### invoices.list [GET /invoices.list]
 
@@ -1000,31 +1017,30 @@ Draft a new invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object)
+        + customer (object, required)
             + type (enum[string])
                 + Members
                     + contact
                     + company
             + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
-        + payment_term (object, optional)
+        + payment_term (object, required)
             + type (enum[string])
                 + Members
                     + cash - Direct payment, often cash
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + grouped_lines (array)
+        + grouped_lines (array, required)
             + (object)
                 + section (object, optional)
                     + title (string, required)
                 + line_items (array, required)
                     + (object)
                         + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, optional)
-                        + unit_price (WritePrice, optional)
-                        + tax (object)
-                            + rate: `0.21` (number)
+                        + description: `An awesome product` (string, required)
+                        + unit_price (WritePrice, required)
+                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1032,6 +1048,30 @@ Draft a new invoice.
         + data (object)
             + type: `invoice` (string)
             + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
+
+### invoices.update [POST /invoices.update]
+
+Update an invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + customer (object, required) - Who is the invoice for?
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
+        + payment_term (object, required)
+            + type (enum[string], required)
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+
++ Response 204
 
 ### invoices.book [POST /invoices.book]
 
@@ -1056,24 +1096,11 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
 + Response 204
 
-### invoices.update [POST /invoices.update]
-
-Update an invoice.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
-        + customer (object, required) - Who is the invoice for?
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
-
-+ Response 204
-
 ## Tax Rates [/taxRates]
+
+Tax rates provide an overview of different taxation rates used to bill customers.
+Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader.
+The end user also has the option to add additional tax rates.
 
 ### taxRates.list [GET /taxRates.list]
 
@@ -1100,6 +1127,9 @@ Get a list of available tax rates.
 # Group Projects
 
 ## Projects [/projects]
+
+Projects allow users to work together as a team on a single project.
+They comprise of one or more milestones, have one or more participants and are limited in time and budget.
 
 ### projects.list [GET /projects.list]
 
@@ -1305,6 +1335,9 @@ Update a participant's role for a project.
 
 ## Milestones [/milestones]
 
+Every projects consists of one or more milestones which are limited in time and budget.
+Budget is however not included in this endpoints (yet).
+
 ### milestones.list [GET /milestones.list]
 
 Get a list of project milestones.
@@ -1413,6 +1446,62 @@ Update a milestone.
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
 
 + Response 204 (application/json;charset=utf-8)
+
+# Group Other
+
+## Migrating [/migrate]
+
+WARNING! These endpoints are not guaranteed to stay backwards compatible.
+Their only use is to allow older integrations to migrate their data to the new API.
+
+### migrate.id [GET /migrate.id]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + type: `contact` (enum[string])
+            + Members
+                + account
+                + user
+                + product
+                + contact
+                + company
+                + deal
+                + dealPhase
+                + project
+                + milestone
+                + task
+                + meeting
+                + call
+                + ticket
+                + invoice
+                + creditNote
+                + subscription
+        + id: `1` (number)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + type: `contact` (enum[string])
+                + Members
+                    + account
+                    + user
+                    + product
+                    + contact
+                    + company
+                    + deal
+                    + dealPhase
+                    + project
+                    + milestone
+                    + todo
+                    + event
+                    + ticket
+                    + invoice
+                    + creditNote
+                    + subscription
+            + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
+
 
 # Data Structures
 
