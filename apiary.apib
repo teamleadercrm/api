@@ -614,7 +614,7 @@ Get a list of companies.
                                 + primary
                                 + invoicing
                         + email: `info@piedpiper.eu` (string)
-                + telephones (array[Telephone])
+                + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
                 + address (Address)
                 + iban: `BE12123412341234` (string)
@@ -653,7 +653,7 @@ Get details for a single company.
                             + primary
                             + invoicing
                     + email: `info@piedpiper.eu` (string)
-            + telephones (array[Telephone])
+            + telephones (array[CompanyTelephone])
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
@@ -692,7 +692,7 @@ Add a new company.
                         + primary
                         + invoicing
                 + email: `info@piedpiper.eu` (string, required)
-        + telephones (array[Telephone], optional)
+        + telephones (array[CompanyTelephone], optional)
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
@@ -735,7 +735,7 @@ Update a company.
                         + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
         + invoice_email: `invoicing@example.com` (string, required, nullable)
-        + telephones (array[Telephone], required, nullable)
+        + telephones (array[CompanyTelephone], required, nullable)
         + website: `http://example.com` (string, required, nullable)
         + addresses (array, required)
             + (object)
@@ -1591,6 +1591,13 @@ Their only use is to allow older integrations to migrate their data to the new A
     + Members
         + phone
         + mobile
+        + fax
++ number: `092980615` (string, required)
+
+## CompanyTelephone (object)
++ type: `phone` (enum[string], required)
+    + Members
+        + phone
         + fax
 + number: `092980615` (string, required)
 
