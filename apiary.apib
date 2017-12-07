@@ -320,7 +320,13 @@ Get a list of contacts.
                 + first_name: `Erlich` (string)
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
-                + email: `info@piedpiper.eu` (string)
+                + emails (array)
+                    + (object)
+                        + type: `primary` (enum[string])
+                            + Members
+                                + primary
+                                + invoicing
+                        + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + address (Address)
@@ -352,10 +358,24 @@ Get details for a single contact.
             + first_name: `Erlich` (string)
             + last_name: `Bachman` (string)
             + salutation: `Mr` (string)
-            + email: `info@piedpiper.eu` (string)
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
-            + address (Address)
+            + addresses (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee)
             + gender: `male` (enum[string])
                 + Members
                     + male
@@ -377,11 +397,25 @@ Add a new contact.
     + Attributes (object)
         + first_name: `John` (string, required)
         + last_name: `Smith` (string, required)
+        + emails (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, optional)
         + telephones (array[Telephone], optional)
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
+        + addresses (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required)
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
@@ -408,10 +442,24 @@ Update a contact.
         + first_name: `John` (string, required, nullable)
         + last_name: `Smith` (string, required, nullable)
         + salutation: `Mr` (string, required, nullable)
-        + email: `john@example.com` (string, required, nullable)
+        + emails (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required, nullable)
         + telephones (array[Telephone], required, nullable)
         + website: `http://example.com` (string, required, nullable)
-        + address (Address, required, nullable)
+        + addresses (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required, nullable)
         + language: `en` (string, required, nullable)
         + gender: `male` (enum[string], required, nullable)
             + Members
@@ -496,8 +544,13 @@ Get a list of companies.
                     + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
                 + vat_number: `BE0899623035` (string)
                 + local_business_number: `63326426` (string)
-                + email: `info@piedpiper.eu` (string)
-                + invoice_email: `invoicing@example.com` (string)
+                + emails (array)
+                    + (object)
+                        + type: `primary` (enum[string])
+                            + Members
+                                + primary
+                                + invoicing
+                        + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + address (Address)
@@ -517,7 +570,7 @@ Get details for a single company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5 (string, required)
+        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -530,14 +583,24 @@ Get details for a single company.
                 + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
             + vat_number: `BE0899623035` (string)
             + local_business_number: `63326426` (string)
-            + email: `info@piedpiper.eu` (string)
-            + invoice_email: `invoicing@example.com` (string)
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
-            + address (Address)
-            + delivery_address (Addressee)
-            + visiting_address (Addressee)
-            + invoice_address (Addressee)
+            + addresses (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
@@ -559,14 +622,24 @@ Add a new company.
         + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional)
         + vat_number: `BE0899623035` (string, optional)
         + local_business_number: `63326426` (string, optional)
-        + email: `john@example.com` (string, required)
-        + invoice_email: `invoicing@example.com` (string, optional)
+        + emails (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required)
         + telephones (array[Telephone], optional)
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
@@ -587,19 +660,29 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e7dff0b5-ec37-4fcd-b574-1c88c3362d93` (string, required)
         + name: `Pied Piper` (string, required)
         + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
         + vat_number: `BE0899623035` (string, required, nullable)
         + local_business_number: `63326426` (string, required, nullable)
-        + email: `john@example.com` (string, required, nullable)
+        + emails (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required, nullable)
         + invoice_email: `invoicing@example.com` (string, required, nullable)
         + telephones (array[Telephone], required, nullable)
         + website: `http://example.com` (string, required, nullable)
-        + address (Address, required, nullable)
-        + delivery_address (Addressee, required, nullable)
-        + visiting_address (Addressee, required, nullable)
-        + invoice_address (Addressee, required, nullable)
+        + addresses (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required, nullable)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, required, nullable)
         + language: `en` (string, required, nullable)
@@ -1431,14 +1514,13 @@ Their only use is to allow older integrations to migrate their data to the new A
 + number: `092980615` (string, required)
 
 ## Address (object)
-+ street: `Newell Road` (string)
-+ number: `5230` (string)
-+ postal_code: `94020` (string)
-+ city: `Palo Alto` (string)
-+ country: `US` (string)
++ line_1: `Dok Noord 3A 101` (string, optional)
++ postal_code: `9000` (string, optional)
++ city: `Ghent` (string, optional)
++ country: `BE` (string, required)
 
 ## Addressee (object)
-+ addressee: `Pied Piper Finance Dep.` (string, optional)
++ addressee: `Teamleader HQ` (string, optional)
 + Include Address
 
 ## Money (object)
