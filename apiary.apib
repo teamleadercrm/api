@@ -982,6 +982,16 @@ Update an invoice.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + grouped_lines (array, required)
+            + (object)
+                + section (object, required)
+                    + title (string, required)
+                + line_items (array, required)
+                    + (object)
+                        + quantity: `3` (number, required)
+                        + description: `An awesome product` (string, required)
+                        + unit_price (WritePrice, required)
+                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 204
 
