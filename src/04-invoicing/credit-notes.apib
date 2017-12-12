@@ -1,0 +1,57 @@
+## Creditnotes [/creditNotes]
+
+### creditNotes.list [GET /creditNotes.list]
+
+List credit notes
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + credit_note_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `credit_note_number`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + credit_note_number: `2017/5` (string, nullable)
+                + credit_note_date: `2016-02-04` (string, nullable)
+                + status: `booked` (enum[string])
+                    + Members
+                        + booked
+                + invoice (object, nullable)
+                    + type: `invoice` (string)
+                    + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
+                + paid: `true` (boolean)
+                + paid_at: `2016-03-03T16:44:33+00:00` (string, nullable)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + vat_number: `BE0899623035` (string, nullable)
+                    + customer (object)
+                        + type: `contact` (string)
+                        + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + payable (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: `0.21` (number)
+                            + taxable (Money)
+                            + tax (Money)
