@@ -1,0 +1,85 @@
+## Migrating [/migrate]
+
+WARNING! These endpoints are not guaranteed to stay backwards compatible.
+Their only use is to allow older integrations to migrate their data to the new API.
+
+### migrate.id [GET /migrate.id]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + type: `contact` (enum[string])
+            + Members
+                + account
+                + user
+                + product
+                + contact
+                + company
+                + deal
+                + dealPhase
+                + project
+                + milestone
+                + task
+                + meeting
+                + call
+                + ticket
+                + invoice
+                + creditNote
+                + subscription
+        + id: `1` (number)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + type: `contact` (enum[string])
+                + Members
+                    + account
+                    + user
+                    + product
+                    + contact
+                    + company
+                    + deal
+                    + dealPhase
+                    + project
+                    + milestone
+                    + todo
+                    + event
+                    + ticket
+                    + invoice
+                    + creditNote
+                    + subscription
+            + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
+
+### migrate.taxRate [GET /migrate.taxRate]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + department_id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
+        + tax_rate: `21` (string)
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + type: `taxRate` (string)
+            + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
+
+### migrate.activityType [GET /migrate.activityType]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + type: `meeting` (enum[string])
+            + Members
+                + meeting
+                + call
+                + task
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + type: `activityType` (string)
+            + id: `28f3639d-9b64-44a8-974d-a4df645af6a5` (string)

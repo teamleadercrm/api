@@ -1,5 +1,8 @@
 ## Contacts [/contacts]
 
+Contacts are physical entities who are added to your CRM database.
+Contacts might be linked to one or more companies.
+
 ### contacts.list [GET /contacts.list]
 
 Get a list of contacts.
@@ -30,7 +33,13 @@ Get a list of contacts.
                 + first_name: `Erlich` (string)
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
-                + email: `info@piedpiper.eu` (string)
+                + emails (array)
+                    + (object)
+                        + type: `primary` (enum[string])
+                            + Members
+                                + primary
+                                + invoicing
+                        + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + address (Address)
@@ -62,10 +71,24 @@ Get details for a single contact.
             + first_name: `Erlich` (string)
             + last_name: `Bachman` (string)
             + salutation: `Mr` (string)
-            + email: `info@piedpiper.eu` (string)
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
-            + address (Address)
+            + addresses (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee)
             + gender: `male` (enum[string])
                 + Members
                     + male
@@ -87,11 +110,25 @@ Add a new contact.
     + Attributes (object)
         + first_name: `John` (string, required)
         + last_name: `Smith` (string, required)
+        + emails (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, optional)
         + telephones (array[Telephone], optional)
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
+        + addresses (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required)
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
@@ -118,10 +155,24 @@ Update a contact.
         + first_name: `John` (string, required, nullable)
         + last_name: `Smith` (string, required, nullable)
         + salutation: `Mr` (string, required, nullable)
-        + email: `john@example.com` (string, required, nullable)
+        + emails (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required, nullable)
         + telephones (array[Telephone], required, nullable)
         + website: `http://example.com` (string, required, nullable)
-        + address (Address, required, nullable)
+        + addresses (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required, nullable)
         + language: `en` (string, required, nullable)
         + gender: `male` (enum[string], required, nullable)
             + Members
