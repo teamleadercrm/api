@@ -973,7 +973,7 @@ Get a list of invoices.
                         + booked
                         + draft
                 + due_on: `2016-03-03` (string, nullable)
-                + paid: `true` (boolean)
+                + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
                 + invoicee (object)
                     + name: `De Rode Duivels` (string)
@@ -992,7 +992,7 @@ Get a list of invoices.
                     + payable (Money)
                     + taxes (array)
                         + (object)
-                            + rate: `0.21` (number)
+                            + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
 
@@ -1039,7 +1039,7 @@ Get details for a single invoice.
                     + type: `percentage` (enum[string])
                         + Members
                             + percentage
-                    + value: `15.00` (number)
+                    + value: 15.00 (number)
             + grouped_lines (array)
                 + (object)
                     + section (object)
@@ -1049,7 +1049,7 @@ Get details for a single invoice.
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
-                            + quantity: `3` (number)
+                            + quantity: 3 (number)
                             + description: `An awesome product` (string)
                             + unit_price (object)
                                 + Include Money
@@ -1057,19 +1057,19 @@ Get details for a single invoice.
                                     + Members
                                         + excluding
                             + tax (object)
-                                + rate: `0.21` (number)
+                                + rate: 0.21 (number)
                             + discount (object, nullable)
                                 + type: `percentage` (enum[string])
                                     + Members
                                         + percentage
-                                + value: `15.00` (number)
+                                + value: 15.00 (number)
             + total (object)
                 + tax_exclusive (Money)
                 + tax_inclusive (Money)
                 + payable (Money)
                 + taxes (array)
                     + (object)
-                        + rate: `0.21` (number)
+                        + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
 
@@ -1102,8 +1102,12 @@ Draft a new invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + unit_price (WritePrice, required)
-                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + unit_price (object)
+                            + Include Money
+                            + tax: `excluding` (enum[string], required)
+                                + Members
+                                    + excluding
+                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1182,7 +1186,7 @@ Get a list of available tax rates.
             + (object)
                 + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
                 + description: `21%` (string)
-                + rate: `0.21` (number)
+                + rate: 0.21 (number)
                 + department (object)
                     + type: `department` (string)
                     + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
@@ -1652,12 +1656,6 @@ Their only use is to allow older integrations to migrate their data to the new A
         + TRY
         + USD
         + ZAR
-
-## WritePrice (object)
-+ Include Money
-+ tax: `excluding` (enum[string], required)
-    + Members
-        + excluding
 
 ## Page
 + size: `20` (number, optional)
