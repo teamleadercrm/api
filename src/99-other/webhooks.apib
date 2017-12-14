@@ -10,60 +10,58 @@ Register a new webhook.
         + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
         + types (array[enum[string]], required) - Array of event types that should fire the webhook
             + Members
-                + CONTACT_ADDED
-                + CONTACT_EDITED
-                + CONTACT_DELETED
-                + COMPANY_ADDED
-                + COMPANY_EDITED
-                + COMPANY_DELETED
-                + RELATED_CONTACTS_UPDATED
-                + SALE_ADDED
-                + SALE_QUOTATION
-                + SALE_PHASE_CHANGED
-                + SALE_ACCEPTED
-                + SALE_REFUSED
-                + SALE_DELETED
-                + MEETING_ADDED
-                + MEETING_EDITED
-                + MEETING_CANCELLED
-                + TASK_ADDED
-                + TASK_EDITED
+                + contact.added
+                + contact.updated
+                + contact.deleted
+                + contact.linkedToCompany
+                + contact.unlinkedFromCompany
+                + company.added
+                + company.updated
+                + company.deleted
+                + deal.created
+                + quotation.created
+                + deal.phaseChanged
+                + deal.accepted
+                + deal.refused
+                + deal.deleted
+                + event.created
+                + event.updated
+                + event.deleted
                 + TASK_FINISHED
-                + TASK_DELETED
-                + TIMETRACKING_ADDED
-                + TIMETRACKING_EDITED
-                + TIMETRACKING_DELETED
-                + INVOICE_ADDED
-                + INVOICE_UPDATED
-                + INVOICE_BOOKED
-                + INVOICE_SENT
-                + INVOICE_PAID
-                + INVOICE_NOT_PAID
-                + INVOICE_DELETED
-                + CREDITNOTE_ADDED
-                + CREDITNOTE_UPDATED
-                + CREDITNOTE_SENT
-                + CREDITNOTE_DELETED
-                + PRODUCT_ADDED
-                + PRODUCT_EDITED
-                + PRODUCT_DELETED
-                + PROJECT_ADDED
-                + PROJECT_EDITED
-                + PROJECT_DELETED
-                + MILESTONE_ADDED
-                + MILESTONE_EDITED
-                + MILESTONE_CLOSED
-                + MILESTONE_DELETED
-                + TICKET_ADDED
-                + TICKET_EDITED
-                + TICKET_NEW_MESSAGE
-                + TICKET_CLOSED
+                + timetracking.added
+                + timetracking.updated
+                + timetracking.deleted
+                + invoice.drafted
+                + invoice.updated
+                + invoice.booked
+                + invoice.sent
+                + invoice.paid
+                + invoice.notPaid
+                + invoice.deleted
+                + creditNote.created
+                + creditNote.updated
+                + creditNote.sent
+                + creditNote.deleted
+                + product.added
+                + product.updated
+                + product.deleted
+                + project.created
+                + project.updated
+                + project.deleted
+                + milestone.created
+                + milestone.updated
+                + milestone.closed
+                + milestone.deleted
+                + ticket.created
+                + ticket.updated
+                + ticket.newMessagePosted
+                + ticket.closed
                 + FILE_ADDED
                 + FILE_EDITED
                 + FILE_DELETED
-                + CUSTOM_FIELD_ADDED
-                + CUSTOM_FIELD_EDITED
-                + CUSTOM_FIELD_DELETED
+                + customFieldDefinition.added
+                + customFieldDefinition.updated
+                + customFieldDefinition.deleted
                 + USER_DAYS_OFF_EDITED
                 + COMPANY_CLOSING_DAYS_EDITED
 
