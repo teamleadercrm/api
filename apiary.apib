@@ -458,7 +458,7 @@ Add a new contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + first_name: `John` (string, required)
+        + first_name: `John` (string, optional)
         + last_name: `Smith` (string, required)
         + emails (array, optional)
             + (object)
@@ -1601,6 +1601,7 @@ Their only use is to allow older integrations to migrate their data to the new A
         + data (object)
             + type: `activityType` (string)
             + id: `28f3639d-9b64-44a8-974d-a4df645af6a5` (string)
+
 
 # Data Structures
 
