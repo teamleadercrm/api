@@ -485,6 +485,8 @@ Add a new contact.
                 + male
                 + female
         + birthdate: `1989-08-19` (string, optional)
+        + iban: `BE12123412341234` (string, optional)
+        + bic: `BICBANK` (string, optional)
         + remarks: `Met at expo` (string, optional)
 
 + Response 201 (application/json;charset=utf-8)
@@ -529,6 +531,8 @@ Update a contact.
                 + male
                 + female
         + birthdate: `1989-08-19` (string, required, nullable)
+        + iban: `BE12123412341234` (string, required, nullable)
+        + bic: `BICBANK` (string, required, nullable)
         + remarks: `Met at expo` (string, required, nullable)
 
 + Response 204
