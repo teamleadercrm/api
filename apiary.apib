@@ -1168,7 +1168,11 @@ Update an invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + unit_price (WritePrice, required)
+                        + unit_price (object)
+                            + Include Money
+                            + tax: `excluding` (enum[string])
+                                + Members
+                                    + excluding
                         + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 204
