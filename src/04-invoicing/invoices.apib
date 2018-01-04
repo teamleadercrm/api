@@ -224,6 +224,22 @@ Update an invoice.
 
 + Response 204
 
+### invoices.copy [POST /invoices.copy]
+
+Creates a new draft invoice based on another invoice
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `invoice` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
+
 ### invoices.book [POST /invoices.book]
 
 Book a draft invoice.
