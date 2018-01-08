@@ -360,6 +360,12 @@ Get a list of contacts.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + email (object, optional)
+                + type: `primary` (enum[string], required)
+                    + Members
+                         + primary
+                + email: `info@piedpiper.eu` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -585,6 +591,12 @@ Get a list of companies.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + email (object, optional)
+                + type: `primary` (enum[string], required)
+                    + Members
+                         + primary
+                + email: `info@piedpiper.eu` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
