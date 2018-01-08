@@ -1,8 +1,73 @@
 ## Users [/users]
 
+Users are co-workers in a Teamleader account.
+
 ### users.me [GET /users.me]
 
 Get the current authenticated user.
+
++ Response 200 (application/json)
+
+    + Attributes
+        + data (object)
+            + id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string)
+            + account (object)
+                + type: `account` (string)
+                + id: `0fc55513-7f68-4865-aba0-de5da9e4e43d` (string)
+            + first_name: `John` (string)
+            + last_name: `Smith` (string)
+            + email: `john@teamleader.eu` (string)
+            + telephones (array[Telephone])
+            + language: `nl` (string)
+            + function: `Sales` (string)
+
+### users.list [GET /users.list]
+
+Get a list of all users.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string)
+                + account (object)
+                    + type: `account` (string)
+                    + id: `0fc55513-7f68-4865-aba0-de5da9e4e43d` (string)
+                + first_name: `John` (string)
+                + last_name: `Smith` (string)
+                + email: `john@teamleader.eu` (string)
+                + telephones (array[Telephone])
+                + language: `nl` (string)
+                + function: `Sales` (string)
+
+### users.info [GET /users.info]
+
+Get details for a single user.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string, required)
 
 + Response 200 (application/json)
 

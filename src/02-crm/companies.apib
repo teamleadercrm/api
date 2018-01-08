@@ -1,5 +1,7 @@
 ## Companies [/companies]
 
+Companies are legal entities, usually linked to a VAT and/or local business number.
+
 ### companies.list [GET /companies.list]
 
 Get a list of companies.
@@ -33,9 +35,14 @@ Get a list of companies.
                     + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
                 + vat_number: `BE0899623035` (string)
                 + local_business_number: `63326426` (string)
-                + email: `info@piedpiper.eu` (string)
-                + invoice_email: `invoicing@example.com` (string)
-                + telephones (array[Telephone])
+                + emails (array)
+                    + (object)
+                        + type: `primary` (enum[string])
+                            + Members
+                                + primary
+                                + invoicing
+                        + email: `info@piedpiper.eu` (string)
+                + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
                 + address (Address)
                 + iban: `BE12123412341234` (string)
@@ -54,7 +61,7 @@ Get details for a single company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5 (string, required)
+        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -67,14 +74,24 @@ Get details for a single company.
                 + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
             + vat_number: `BE0899623035` (string)
             + local_business_number: `63326426` (string)
-            + email: `info@piedpiper.eu` (string)
-            + invoice_email: `invoicing@example.com` (string)
-            + telephones (array[Telephone])
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
+            + telephones (array[CompanyTelephone])
             + website: `https://piedpiper.com` (string)
-            + address (Address)
-            + delivery_address (Addressee)
-            + visiting_address (Addressee)
-            + invoice_address (Addressee)
+            + addresses (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
@@ -96,14 +113,24 @@ Add a new company.
         + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional)
         + vat_number: `BE0899623035` (string, optional)
         + local_business_number: `63326426` (string, optional)
-        + email: `john@example.com` (string, required)
-        + invoice_email: `invoicing@example.com` (string, optional)
-        + telephones (array[Telephone], optional)
+        + emails (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required)
+        + telephones (array[CompanyTelephone], optional)
         + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
+        + addresses (array, optional)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
@@ -124,19 +151,28 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `e7dff0b5-ec37-4fcd-b574-1c88c3362d93` (string, required)
         + name: `Pied Piper` (string, required)
         + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
         + vat_number: `BE0899623035` (string, required, nullable)
         + local_business_number: `63326426` (string, required, nullable)
-        + email: `john@example.com` (string, required, nullable)
-        + invoice_email: `invoicing@example.com` (string, required, nullable)
-        + telephones (array[Telephone], required, nullable)
+        + emails (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                + email: `info@piedpiper.eu` (string, required, nullable)
+        + telephones (array[CompanyTelephone], required, nullable)
         + website: `http://example.com` (string, required, nullable)
-        + address (Address, required, nullable)
-        + delivery_address (Addressee, required, nullable)
-        + visiting_address (Addressee, required, nullable)
-        + invoice_address (Addressee, required, nullable)
+        + addresses (array, required)
+            + (object)
+                + type: `primary` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required, nullable)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, required, nullable)
         + language: `en` (string, required, nullable)

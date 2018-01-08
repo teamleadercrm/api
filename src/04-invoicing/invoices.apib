@@ -1,5 +1,9 @@
 ## Invoices [/invoices]
 
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
+New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
+Invoices can also be updated, deleted or credited.
+
 ### invoices.list [GET /invoices.list]
 
 Get a list of invoices.
@@ -43,7 +47,7 @@ Get a list of invoices.
                         + booked
                         + draft
                 + due_on: `2016-03-03` (string, nullable)
-                + paid: `true` (boolean)
+                + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
                 + invoicee (object)
                     + name: `De Rode Duivels` (string)
@@ -62,7 +66,7 @@ Get a list of invoices.
                     + payable (Money)
                     + taxes (array)
                         + (object)
-                            + rate: `0.21` (number)
+                            + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
 
@@ -109,7 +113,7 @@ Get details for a single invoice.
                     + type: `percentage` (enum[string])
                         + Members
                             + percentage
-                    + value: `15.00` (number)
+                    + value: 15.00 (number)
             + grouped_lines (array)
                 + (object)
                     + section (object)
@@ -119,7 +123,7 @@ Get details for a single invoice.
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
-                            + quantity: `3` (number)
+                            + quantity: 3 (number)
                             + description: `An awesome product` (string)
                             + unit_price (object)
                                 + Include Money
@@ -127,19 +131,19 @@ Get details for a single invoice.
                                     + Members
                                         + excluding
                             + tax (object)
-                                + rate: `0.21` (number)
+                                + rate: 0.21 (number)
                             + discount (object, nullable)
                                 + type: `percentage` (enum[string])
                                     + Members
                                         + percentage
-                                + value: `15.00` (number)
+                                + value: 15.00 (number)
             + total (object)
                 + tax_exclusive (Money)
                 + tax_inclusive (Money)
                 + payable (Money)
                 + taxes (array)
                     + (object)
-                        + rate: `0.21` (number)
+                        + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
 
@@ -171,9 +175,13 @@ Draft a new invoice.
                 + line_items (array, required)
                     + (object)
                         + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, optional)
-                        + unit_price (WritePrice, optional)
-                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + description: `An awesome product` (string, required)
+                        + unit_price (object)
+                            + Include Money
+                            + tax: `excluding` (enum[string], required)
+                                + Members
+                                    + excluding
+                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -181,29 +189,6 @@ Draft a new invoice.
         + data (object)
             + type: `invoice` (string)
             + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
-
-### invoices.book [POST /invoices.book]
-
-Book a draft invoice.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
-        + on: `2016-02-04` (string, optional) - If not provided, today will be used
-
-+ Response 204
-
-### invoices.delete [POST /invoices.delete]
-
-Delete an existing invoice. Only possible for draft invoices or the last booked invoice.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
-
-+ Response 204
 
 ### invoices.update [POST /invoices.update]
 
@@ -230,5 +215,42 @@ Update an invoice.
             + One Of
                 + name (string, required)
                 + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + grouped_lines (array, required)
+            + (object)
+                + section (object, required)
+                    + title (string, required)
+                + line_items (array, required)
+                    + (object)
+                        + quantity: `3` (number, required)
+                        + description: `An awesome product` (string, required)
+                        + unit_price (object)
+                            + Include Money
+                            + tax: `excluding` (enum[string])
+                                + Members
+                                    + excluding
+                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+
++ Response 204
+
+### invoices.book [POST /invoices.book]
+
+Book a draft invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
+        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+
++ Response 204
+
+### invoices.delete [POST /invoices.delete]
+
+Delete an existing invoice. Only possible for draft invoices or the last booked invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
 
 + Response 204

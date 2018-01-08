@@ -8,15 +8,21 @@
         + fax
 + number: `092980615` (string, required)
 
+## CompanyTelephone (object)
++ type: `phone` (enum[string], required)
+    + Members
+        + phone
+        + fax
++ number: `092980615` (string, required)
+
 ## Address (object)
-+ street: `Newell Road` (string)
-+ number: `5230` (string)
-+ postal_code: `94020` (string)
-+ city: `Palo Alto` (string)
-+ country: `US` (string)
++ line_1: `Dok Noord 3A 101` (string, optional)
++ postal_code: `9000` (string, optional)
++ city: `Ghent` (string, optional)
++ country: `BE` (string, required)
 
 ## Addressee (object)
-+ addressee: `Pied Piper Finance Dep.` (string, optional)
++ addressee: `Teamleader HQ` (string, optional)
 + Include Address
 
 ## Money (object)
@@ -46,12 +52,6 @@
         + TRY
         + USD
         + ZAR
-
-## WritePrice (object)
-+ Include Money
-+ tax: `excluding` (enum[string], required)
-    + Members
-        + excluding
 
 ## Page
 + size: `20` (number, optional)
