@@ -655,7 +655,7 @@ Get details for a single company.
 
     + Attributes (object)
         + data (object)
-            + id: `c5685b0f-87b8-456f-8d9e-a5866814c47a` (string)
+            + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string)
             + name: `Pied Piper` (string)
             + business_type (object)
                 + type: `businessType` (string)
@@ -739,6 +739,7 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + id: `4784189d-610b-4488-b3a5-5f324f752417` (string, required)
         + name: `Pied Piper` (string, required)
         + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
         + vat_number: `BE0899623035` (string, required, nullable)
@@ -761,7 +762,7 @@ Update a company.
                         + delivery
                         + visiting
                 + address (Addressee, required, nullable)
-        + iban: `BE12 1234 1234 1234` (string)
+        + iban: `BE12 1234 1234 1234` (string, required, nullable)
         + bic: `BICBANK` (string, required, nullable)
         + language: `en` (string, required, nullable)
         + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, required, nullable)
