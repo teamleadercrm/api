@@ -134,7 +134,7 @@ Add a new contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
@@ -180,7 +180,7 @@ Update a contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required, nullable)
+                + address (Addressee, required, nullable) - Primary addresses can not contain an addressee
         + language: `en` (string, required, nullable)
         + gender: `male` (enum[string], required, nullable)
             + Members
