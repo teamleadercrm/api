@@ -136,7 +136,7 @@ Add a new company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
@@ -179,7 +179,7 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required, nullable)
+                + address (Addressee, required, nullable) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string, required, nullable)
         + bic: `BICBANK` (string, required, nullable)
         + language: `en` (string, required, nullable)
