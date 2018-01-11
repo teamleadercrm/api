@@ -146,6 +146,13 @@ Get details for a single invoice.
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+            + payment_term (object, required)
+                + type (enum[string])
+                    + Members
+                        + cash - Direct payment, often cash
+                        + end_of_month - End of the month of Xth day after the invoice date
+                        + after_invoice_date - X days after invoice date
+                + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
 
 ### invoices.draft [POST /invoices.draft]
 
