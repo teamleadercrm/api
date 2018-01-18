@@ -12,13 +12,13 @@ Get a list of tags.
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + name
+                        + tag
                 + order (enum[string], optional)
                     + Members
                         + asc
             + Default
                 + (object)
-                    + field: `name`
+                    + field: `tag`
                     + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
@@ -26,4 +26,4 @@ Get a list of tags.
     + Attributes (object)
         + data (array)
             + (object)
-                + name: `Client` (string)
+                + tag: `campaign` (string)
