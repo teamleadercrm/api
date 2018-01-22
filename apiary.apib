@@ -827,6 +827,36 @@ Get a quotation
                 + type: `deal` (string)
                 + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
 
+## Tags [/tags]
+
+### tags.list [GET /tags.list]
+
+Get a list of tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + tag
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `tag`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + tag: `campaign` (string)
+
 # Group Calendar
 
 ## Calendar events [/events]
