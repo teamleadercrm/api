@@ -146,6 +146,7 @@ Get details for a single invoice.
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+            + payment_term (PaymentTerm)
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -161,13 +162,7 @@ Draft a new invoice.
                     + company
             + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
-        + payment_term (object, required)
-            + type (enum[string])
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + payment_term (PaymentTerm, required)
         + grouped_lines (array, required)
             + (object)
                 + section (object, optional)
@@ -204,13 +199,7 @@ Update an invoice.
                     + contact
                     + company
             + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
-        + payment_term (object, required)
-            + type (enum[string], required)
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + payment_term (PaymentTerm, required)
         + for_attention_of (object, required)
             + One Of
                 + name (string, required)
