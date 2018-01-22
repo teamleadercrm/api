@@ -159,20 +159,20 @@ Update a company.
 
     + Attributes (object)
         + id: `4784189d-610b-4488-b3a5-5f324f752417` (string, required)
-        + name: `Pied Piper` (string, required)
-        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
-        + vat_number: `BE0899623035` (string, required, nullable)
-        + local_business_number: `63326426` (string, required, nullable)
-        + emails (array, required)
+        + name: `Pied Piper` (string, optional)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional, nullable)
+        + vat_number: `BE0899623035` (string, optional, nullable)
+        + local_business_number: `63326426` (string, optional, nullable)
+        + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required, nullable)
-        + telephones (array[CompanyTelephone], required, nullable)
-        + website: `http://example.com` (string, required, nullable)
-        + addresses (array, required)
+                + email: `info@piedpiper.eu` (string, required)
+        + telephones (array[CompanyTelephone], optional)
+        + website: `http://example.com` (string, optional)
+        + addresses (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -180,12 +180,12 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required, nullable) - Primary addresses can not contain an addressee
-        + iban: `BE12 1234 1234 1234` (string, required, nullable)
-        + bic: `BICBANK` (string, required, nullable)
-        + language: `en` (string, required, nullable)
-        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, required, nullable)
-        + remarks: `Met at expo` (string, required, nullable)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
+        + iban: `BE12 1234 1234 1234` (string, optional, nullable)
+        + bic: `BICBANK` (string, optional, nullable)
+        + language: `en` (string, optional, nullable)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional, nullable)
+        + remarks: `Met at expo` (string, optional, nullable)
 
 + Response 204
 
