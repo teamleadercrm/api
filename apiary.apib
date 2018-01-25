@@ -513,19 +513,19 @@ Update a contact.
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
-        + first_name: `John` (string, required, nullable)
-        + last_name: `Smith` (string, required, nullable)
-        + salutation: `Mr` (string, required, nullable)
-        + emails (array, required)
+        + first_name: `John` (string, optional, nullable)
+        + last_name: `Smith` (string, optional)
+        + salutation: `Mr` (string, optional, nullable)
+        + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
-        + telephones (array[Telephone], required, nullable)
-        + website: `http://example.com` (string, required, nullable)
-        + addresses (array, required)
+        + telephones (array[Telephone], optional, nullable)
+        + website: `http://example.com` (string, optional, nullable)
+        + addresses (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -534,15 +534,15 @@ Update a contact.
                         + delivery
                         + visiting
                 + address (Addressee, required, nullable) - Primary addresses can not contain an addressee
-        + language: `en` (string, required, nullable)
-        + gender: `male` (enum[string], required, nullable)
+        + language: `en` (string, optional)
+        + gender: `male` (enum[string], optional, nullable)
             + Members
                 + male
                 + female
-        + birthdate: `1989-08-19` (string, required, nullable)
-        + iban: `BE12123412341234` (string, required, nullable)
-        + bic: `BICBANK` (string, required, nullable)
-        + remarks: `Met at expo` (string, required, nullable)
+        + birthdate: `1989-08-19` (string, optional, nullable)
+        + iban: `BE12123412341234` (string, optional, nullable)
+        + bic: `BICBANK` (string, optional, nullable)
+        + remarks: `Met at expo` (string, optional, nullable)
 
 + Response 204
 
