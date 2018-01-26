@@ -146,7 +146,13 @@ Get details for a single invoice.
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+                + total_due: 0 (number)
             + payment_term (PaymentTerm)
+            + payments (array)
+                + (object)
+                    + paid_at: `2016-03-03T16:44:33+00:00` (string)
+                    + payment (object)
+                        + Include Money
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -259,3 +265,18 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
         + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
 
 + Response 204
+
+### invoices.registerPayment [POST /invoices.registerPayment]
+
+Register a payment for an invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
+        + payment (object, required)
+            + Include Money
+        + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
+
++ Response 204
+
