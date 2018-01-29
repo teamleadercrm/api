@@ -1173,6 +1173,7 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + Include Currency
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1851,6 +1852,9 @@ Their only use is to allow older integrations to migrate their data to the new A
 
 ## Money (object)
 + amount: `123.30` (number, required)
++ Include Currency
+
+## Currency (object)
 + currency: `EUR` (enum[string], required)
     + Members
         + BAM
