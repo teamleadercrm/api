@@ -39,8 +39,15 @@ Get a list of deals.
                         + won
                         + lost
                 + customer (object)
-                    + type: `contact`
-                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                    + customer (object)
+                        + type: `contact`
+                        + id: 1 (string)
+                    + for_attention_of (object, optional)
+                         + name: `Radja Nainggolan` (string)
+                         + contact (object)
+                             + type: `contact` (string)
+                             + id: `456` (string)
+                + id: `456` (string)
                 + department (object)
                     + type: `department`
                     + id: `33121d39-44e2-426a-92ef-62178edeec8a` (string)
@@ -84,8 +91,14 @@ Get details for a single deal.
                     + won
                     + lost
             + customer (object)
-                + type: `contact` (string)
-                + id: `69516baf-277f-4f0a-b779-83057f667551` (string)
+                + customer (object)
+                    + type: `contact`
+                    + id: 1 (string)
+                + for_attention_of (object, optional)
+                     + name: `Radja Nainggolan` (string)
+                     + contact (object)
+                         + type: `contact` (string)
+                         + id: `456` (string)
             + department (object)
                 + type: `department`
                 + id: `92247818-643e-4f5a-bf87-25cd908e8ad9` (string)
