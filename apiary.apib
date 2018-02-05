@@ -794,6 +794,18 @@ Delete a company.
 
 + Response 204
 
+### companies.tag [POST /companies.tag]
+
+Add a new or existing tag to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
 ## Business Types [/businessTypes]
 
 Each country has a specific set of business types or range of legal entities.

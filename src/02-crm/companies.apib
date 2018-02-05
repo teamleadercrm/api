@@ -200,3 +200,15 @@ Delete a company.
         + id: `f3d67f3e-b8a9-45e8-99b1-17a3b14de8a6` (string, required)
 
 + Response 204
+
+### companies.tag [POST /companies.tag]
+
+Add a new or existing tag to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
