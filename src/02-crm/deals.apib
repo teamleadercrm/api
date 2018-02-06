@@ -157,3 +157,15 @@ Create a new deal for a customer.
         + data (object)
             + type: `deal` (string)
             + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
+
+### deals.move [POST /deals.move]
+
+Move the deal to a different phase.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+        + phase_id: `8776abee-d856-43c6-b98d-9ffc912e8b0b` (string, required)
+
++ Response 204
