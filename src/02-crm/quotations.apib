@@ -17,3 +17,26 @@ Get a quotation
             + deal (object)
                 + type: `deal` (string)
                 + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
+            + grouped_lines (array)
+                + (object)
+                    + section (object)
+                        + title (string)
+                    + line_items (array)
+                        + (object)
+                            + product (object, nullable)
+                                + type: `product` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + quantity: 3 (number)
+                            + description: `An awesome product` (string)
+                            + unit_price (object)
+                                + Include Money
+                                + tax: `excluding` (enum[string])
+                                    + Members
+                                        + excluding
+                            + tax (object)
+                                + rate: 0.21 (number)
+                            + discount (object, nullable)
+                                + type: `percentage` (enum[string])
+                                    + Members
+                                        + percentage
+                                + value: 15.00 (number)
