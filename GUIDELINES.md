@@ -146,7 +146,7 @@ Date and datetime properties **MUST**:
 
  - The property name ends on `_on` for dates.
  - The property name ends on `_at` if they include time (time and datetime).
- - Always be returned in `UTC` for consistency. It is the responsability of the client to offset the timezone for users.
+ - Always be returned in `UTC` (except for some rare domain cases like Calendar events). It is the responsibility of the client to offset the timezone for users.
 
 Examples:
 
@@ -162,7 +162,7 @@ Writing datetime properties **MUST** accept every timezone.
 
 ### Money
 
-Monetairy values in requests and responses **MUST** me represented as the following data structure:
+Monetary values in requests and responses **MUST** be represented as the following data structure:
 
 ```json
 {
