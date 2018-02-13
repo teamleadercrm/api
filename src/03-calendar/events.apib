@@ -50,6 +50,14 @@ Get a list of calendar events.
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
                 + location (string)
+                + links (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + company
+                                + contact
+                        + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
+
 
 ### events.info [GET /events.info]
 
@@ -90,6 +98,7 @@ Get details for a single calendar event.
                     + type (enum[string])
                         + Members
                             + company
+                            + contact
                     + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 ### events.create [POST /events.create]
