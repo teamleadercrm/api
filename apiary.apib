@@ -1054,6 +1054,12 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
