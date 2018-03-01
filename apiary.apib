@@ -2206,7 +2206,7 @@ Get a list of tracked time.
         + filter (object, optional)
             + ids: `404c1777-6b61-4368-a388-0301dde8e72a`,`409e3446-96f2-4d9a-b20b-7f7cd055053e` (array[string], optional)
             + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional)
-            + topic_id: `ce1287f0-0480-458d-b371-22862d864074` (string, optional)
+            + work_type_id: `ce1287f0-0480-458d-b371-22862d864074` (string, optional)
             + tracked_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + tracked_before: `2017-04-26T10:01:49+00:00` (string, optional)
         + page (Page, optional)
@@ -2232,8 +2232,8 @@ Get a list of tracked time.
                 + user (object)
                     + type: `user` (string)
                     + id: `eb1eb8b8-d0cb-4385-b60a-c995953ec6be` (string)
-                + topic (object)
-                    + type: `topic` (string)
+                + work_type (object)
+                    + type: `workType` (string)
                     + id: `8a146eda-c9af-4b11-b63a-ddac47bb254d` (string)
                 + started_on: `2017-04-26` (string)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
@@ -2269,8 +2269,8 @@ Get information about tracked time.
             + user (object)
                 + type: `user` (string)
                 + id: `56bc6b39-b722-42f5-9ea7-acea4814d7dd` (string)
-            + topic (object)
-                + type: `topic` (string)
+            + work_type (object)
+                + type: `workType` (string)
                 + id: `d980dbc6-944e-47fc-bf16-2ed7d5a71889` (string)
             + started_on: `2017-04-26` (string)
             + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
@@ -2301,8 +2301,8 @@ Get the current timetracking timer.
             + user (object)
                 + type: `user` (string)
                 + id: `5443a1b9-7673-4922-921f-1da4ff557783` (string)
-            + topic (object)
-                + type: `topic` (string)
+            + work_type (object)
+                + type: `workType` (string)
                 + id: `d02de940-9435-4e35-bc0b-3d17f3d0ea7b` (string)
             + started_at: `2017-04-26T10:01:49+00:00` (string)
             + description: `Timer description` (string)
@@ -2325,7 +2325,7 @@ Start a new timetracking timer.
 + Request (application/json)
 
     + Attributes (object)
-        + topic_id: `db41328a-7a25-4e85-8fb9-830baacb7f40` (string, optional)
+        + work_type_id: `db41328a-7a25-4e85-8fb9-830baacb7f40` (string, optional)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
         + description (string, optional)
         + subject (object, optional)
@@ -2382,7 +2382,7 @@ Add tracked time.
 + Request (application/json)
 
     + Attributes (object)
-        + topic_id: `2175597d-484e-4a1c-a781-cbc3d9f893ba` (string, optional)
+        + work_type_id: `2175597d-484e-4a1c-a781-cbc3d9f893ba` (string, optional)
         + One Of
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
@@ -2421,7 +2421,7 @@ Update tracked time.
 
     + Attributes (object)
         + id: `66621f54-3d0d-420f-8d4b-ddd7fc473bf2` (string, required)
-        + topic_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional)
+        + work_type_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional)
         + One Of
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
