@@ -1526,6 +1526,24 @@ Get a list of available tax rates.
                     + type: `department` (string)
                     + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
 
+### ledgers.list [GET /ledgers.list]
+
+Get a list of ledger accounts.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + number: 123 (number)
+
 # Group Projects
 
 ## Projects [/projects]
