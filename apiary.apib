@@ -611,6 +611,7 @@ Get a list of companies.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + tags: `expo`,`lead` (array[string], optional) - Filters on tag name
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -655,6 +656,7 @@ Get a list of companies.
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: prospect, expo (array[string])
 
 ### companies.info [GET /companies.info]
 
@@ -1054,6 +1056,12 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1274,6 +1282,7 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1315,6 +1324,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 204
 
@@ -1513,6 +1523,19 @@ Get a list of available tax rates.
 + Attributes (object)
     + filter (object, optional)
         + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+    + page (Page, optional)
+    + sort (array, optional)
+        + Default
+            + (array)
+                + (object)
+                    + field: `department_id`
+                    + order: `asc`
+                + (object)
+                    + field: `rate`
+                    + order: `asc`
+                + (object)
+                    + field: `description`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
