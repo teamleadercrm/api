@@ -369,6 +369,9 @@ Get a list of contacts.
                          + primary
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
+            + updated_after: `2016-02-04T16:44:33+00:00` (string, optional)
+            + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -412,6 +415,7 @@ Get a list of contacts.
                 + language: `en` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: prospect, expo (array[string])
 
 ### contacts.info [GET /contacts.info]
 
@@ -455,6 +459,13 @@ Get details for a single contact.
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
+            + companies (array)
+                + (object)
+                    + position: `CEO` (string)
+                    + decision_maker: true (boolean)
+                    + company (object)
+                        + type: `company` (string)
+                        + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
             + language: `en` (string)
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
@@ -513,19 +524,19 @@ Update a contact.
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
-        + first_name: `John` (string, required, nullable)
-        + last_name: `Smith` (string, required, nullable)
-        + salutation: `Mr` (string, required, nullable)
-        + emails (array, required)
+        + first_name: `John` (string, optional, nullable)
+        + last_name: `Smith` (string, optional)
+        + salutation: `Mr` (string, optional, nullable)
+        + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
-        + telephones (array[Telephone], required, nullable)
-        + website: `http://example.com` (string, required, nullable)
-        + addresses (array, required)
+        + telephones (array[Telephone], optional, nullable)
+        + website: `http://example.com` (string, optional, nullable)
+        + addresses (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -534,15 +545,15 @@ Update a contact.
                         + delivery
                         + visiting
                 + address (Addressee, required, nullable) - Primary addresses can not contain an addressee
-        + language: `en` (string, required, nullable)
-        + gender: `male` (enum[string], required, nullable)
+        + language: `en` (string, optional)
+        + gender: `male` (enum[string], optional, nullable)
             + Members
                 + male
                 + female
-        + birthdate: `1989-08-19` (string, required, nullable)
-        + iban: `BE12123412341234` (string, required, nullable)
-        + bic: `BICBANK` (string, required, nullable)
-        + remarks: `Met at expo` (string, required, nullable)
+        + birthdate: `1989-08-19` (string, optional, nullable)
+        + iban: `BE12123412341234` (string, optional, nullable)
+        + bic: `BICBANK` (string, optional, nullable)
+        + remarks: `Met at expo` (string, optional, nullable)
 
 + Response 204
 
@@ -601,6 +612,8 @@ Get a list of companies.
                          + primary
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -645,6 +658,7 @@ Get a list of companies.
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: prospect, expo (array[string])
 
 ### companies.info [GET /companies.info]
 
@@ -693,6 +707,7 @@ Get details for a single company.
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + tags: prospect, expo (array[string])
 
 ### companies.add [POST /companies.add]
 
@@ -728,6 +743,7 @@ Add a new company.
         + language: `en` (string, optional)
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
         + remarks: `Met at expo` (string, optional)
+        + tags: prospect, expo (array[string], optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -744,20 +760,20 @@ Update a company.
 
     + Attributes (object)
         + id: `4784189d-610b-4488-b3a5-5f324f752417` (string, required)
-        + name: `Pied Piper` (string, required)
-        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
-        + vat_number: `BE0899623035` (string, required, nullable)
-        + local_business_number: `63326426` (string, required, nullable)
-        + emails (array, required)
+        + name: `Pied Piper` (string, optional)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional, nullable)
+        + vat_number: `BE0899623035` (string, optional, nullable)
+        + local_business_number: `63326426` (string, optional, nullable)
+        + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required, nullable)
-        + telephones (array[CompanyTelephone], required, nullable)
-        + website: `http://example.com` (string, required, nullable)
-        + addresses (array, required)
+                + email: `info@piedpiper.eu` (string, required)
+        + telephones (array[CompanyTelephone], optional)
+        + website: `http://example.com` (string, optional)
+        + addresses (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
@@ -765,12 +781,12 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required, nullable) - Primary addresses can not contain an addressee
-        + iban: `BE12 1234 1234 1234` (string, required, nullable)
-        + bic: `BICBANK` (string, required, nullable)
-        + language: `en` (string, required, nullable)
-        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, required, nullable)
-        + remarks: `Met at expo` (string, required, nullable)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
+        + iban: `BE12 1234 1234 1234` (string, optional, nullable)
+        + bic: `BICBANK` (string, optional, nullable)
+        + language: `en` (string, optional, nullable)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional, nullable)
+        + remarks: `Met at expo` (string, optional, nullable)
 
 + Response 204
 
@@ -782,6 +798,30 @@ Delete a company.
 
     + Attributes (object)
         + id: `f3d67f3e-b8a9-45e8-99b1-17a3b14de8a6` (string, required)
+
++ Response 204
+
+### companies.tag [POST /companies.tag]
+
+Add a new or existing tag to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### companies.untag [POST /companies.untag]
+
+Remove a tag from a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
@@ -806,6 +846,38 @@ Get the names of business types (legal structures) a company can have within a c
             + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
             + name: `VZW/ASBL` (string)
             + country: `BE` (string)
+
+## Tags [/tags]
+
+### tags.list [GET /tags.list]
+
+Get a list of tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + tag
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `tag`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + tag: `campaign` (string)
+
+# Group Deals
 
 ## Deals [/deals]
 
@@ -848,15 +920,8 @@ Get a list of deals.
                         + won
                         + lost
                 + customer (object)
-                    + customer (object)
-                        + type: `contact`
-                        + id: 1 (string)
-                    + for_attention_of (object, optional)
-                         + name: `Radja Nainggolan` (string)
-                         + contact (object)
-                             + type: `contact` (string)
-                             + id: `456` (string)
-                + id: `456` (string)
+                    + type: `contact`
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
                 + department (object)
                     + type: `department`
                     + id: `33121d39-44e2-426a-92ef-62178edeec8a` (string)
@@ -870,8 +935,6 @@ Get a list of deals.
                     + type: `user`
                     + id: `bac1c91b-bc86-489b-8590-9be9478f62bb` (string)
                 + closed_at: `2017-05-09T11:31:30+00:00` (string)
-                + lost (object)
-                    + notes (string)
                 + source (object)
                     + type: `dealSource` (string)
                     + id: `52a4bbb2-d196-48d7-8e43-9ec2f44d06f9` (string)
@@ -900,14 +963,8 @@ Get details for a single deal.
                     + won
                     + lost
             + customer (object)
-                + customer (object)
-                    + type: `contact`
-                    + id: 1 (string)
-                + for_attention_of (object, optional)
-                     + name: `Radja Nainggolan` (string)
-                     + contact (object)
-                         + type: `contact` (string)
-                         + id: `456` (string)
+                + type: `contact` (string)
+                + id: `69516baf-277f-4f0a-b779-83057f667551` (string)
             + department (object)
                 + type: `department`
                 + id: `92247818-643e-4f5a-bf87-25cd908e8ad9` (string)
@@ -921,8 +978,6 @@ Get details for a single deal.
                 + type: user (string)
                 + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
             + closed_at: `2017-05-09T11:31:30+00:00` (string)
-            + lost (object)
-                + notes (string)
             + source (object)
                 + type: `dealSource` (string)
                 + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
@@ -979,6 +1034,27 @@ Move the deal to a different phase.
 
 + Response 204
 
+## Deal Phases [/]
+
+### dealPhases.list [GET /dealPhases.list]
+
+Get a list of all phases a deal can go through, sorted by their order in the flow.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
+                + name: `New` (string)
+
 ## Quotations [/quotations]
 
 ### quotations.info [GET /quotations.info]
@@ -998,36 +1074,29 @@ Get a quotation
             + deal (object)
                 + type: `deal` (string)
                 + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
-
-## Tags [/tags]
-
-### tags.list [GET /tags.list]
-
-Get a list of tags.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + page (Page, optional)
-        + sort (array, optional)
-            + (object)
-                + field (enum[string], required)
-                    + Members
-                        + tag
-                + order (enum[string], optional)
-                    + Members
-                        + asc
-            + Default
+            + grouped_lines (array)
                 + (object)
-                    + field: `tag`
-                    + order: `asc`
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + tag: `campaign` (string)
+                    + section (object)
+                        + title (string)
+                    + line_items (array)
+                        + (object)
+                            + product (object, nullable)
+                                + type: `product` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + quantity: 3 (number)
+                            + description: `An awesome product` (string)
+                            + unit_price (object)
+                                + Include Money
+                                + tax: `excluding` (enum[string])
+                                    + Members
+                                        + excluding
+                            + tax (object)
+                                + rate: 0.21 (number)
+                            + discount (object, nullable)
+                                + type: `percentage` (enum[string])
+                                    + Members
+                                        + percentage
+                                + value: 15.00 (number)
 
 # Group Calendar
 
@@ -1083,6 +1152,14 @@ Get a list of calendar events.
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
                 + location (string)
+                + links (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + company
+                                + contact
+                        + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
+
 
 ### events.info [GET /events.info]
 
@@ -1118,6 +1195,13 @@ Get details for a single calendar event.
                         + Members
                             + user
                     + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+            + links (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + company
+                            + contact
+                    + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 ### events.create [POST /events.create]
 
@@ -1131,6 +1215,12 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1314,7 +1404,13 @@ Get details for a single invoice.
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+                + due: 0 (number)
             + payment_term (PaymentTerm)
+            + payments (array)
+                + (object)
+                    + paid_at: `2016-03-03T16:44:33+00:00` (string)
+                    + payment (object)
+                        + Include Money
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -1345,6 +1441,7 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1386,6 +1483,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 204
 
@@ -1413,7 +1511,7 @@ Book a draft invoice.
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
-        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+        + on: `2016-02-04` (string, required)
 
 + Response 204
 
@@ -1427,6 +1525,21 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
         + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
 
 + Response 204
+
+### invoices.registerPayment [POST /invoices.registerPayment]
+
+Register a payment for an invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
+        + payment (object, required)
+            + Include Money
+        + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
+
++ Response 204
+
 
 ## Creditnotes [/creditNotes]
 
@@ -1569,6 +1682,19 @@ Get a list of available tax rates.
 + Attributes (object)
     + filter (object, optional)
         + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+    + page (Page, optional)
+    + sort (array, optional)
+        + Default
+            + (array)
+                + (object)
+                    + field: `department_id`
+                    + order: `asc`
+                + (object)
+                    + field: `rate`
+                    + order: `asc`
+                + (object)
+                    + field: `description`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1581,6 +1707,20 @@ Get a list of available tax rates.
                 + department (object)
                     + type: `department` (string)
                     + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
+
+### paymentTerms.list [GET /paymentTerms.list]
+
+Get a list of available payment terms.
+
++ Request (application/json;charset=utf-8)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
+                + Include PaymentTerm
 
 # Group Projects
 
@@ -1992,7 +2132,6 @@ Their only use is to allow older integrations to migrate their data to the new A
         + data (object)
             + type: `activityType` (string)
             + id: `28f3639d-9b64-44a8-974d-a4df645af6a5` (string)
-
 
 # Data Structures
 
