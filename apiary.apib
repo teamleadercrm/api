@@ -568,6 +568,30 @@ Delete a contact.
 
 + Response 204
 
+### contacts.tag [POST /contacts.tag]
+
+Add a new or existing tag to a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### contacts.untag [POST /contacts.untag]
+
+Remove a tag from a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
 ### contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Link a contact to a company.
