@@ -847,6 +847,38 @@ Get the names of business types (legal structures) a company can have within a c
             + name: `VZW/ASBL` (string)
             + country: `BE` (string)
 
+## Tags [/tags]
+
+### tags.list [GET /tags.list]
+
+Get a list of tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + tag
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `tag`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + tag: `campaign` (string)
+
+# Group Deals
+
 ## Deals [/deals]
 
 ### deals.list [GET /deals.list]
@@ -990,6 +1022,27 @@ Create a new deal for a customer.
             + type: `deal` (string)
             + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
 
+## Deal Phases [/]
+
+### dealPhases.list [GET /dealPhases.list]
+
+Get a list of all phases a deal can go through, sorted by their order in the flow.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
+                + name: `New` (string)
+
 ## Quotations [/quotations]
 
 ### quotations.info [GET /quotations.info]
@@ -1032,57 +1085,6 @@ Get a quotation
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
-
-## Tags [/tags]
-
-### tags.list [GET /tags.list]
-
-Get a list of tags.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + page (Page, optional)
-        + sort (array, optional)
-            + (object)
-                + field (enum[string], required)
-                    + Members
-                        + tag
-                + order (enum[string], optional)
-                    + Members
-                        + asc
-            + Default
-                + (object)
-                    + field: `tag`
-                    + order: `asc`
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + tag: `campaign` (string)
-
-## Settings [/]
-
-### dealPhases.list [GET /dealPhases.list]
-
-Get a list of all phases a deal can go through, sorted by their order in the flow.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + filter (object, optional)
-            + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
-        + page (Page, optional)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
-                + name: `New` (string)
 
 # Group Calendar
 
@@ -2118,7 +2120,6 @@ Their only use is to allow older integrations to migrate their data to the new A
         + data (object)
             + type: `activityType` (string)
             + id: `28f3639d-9b64-44a8-974d-a4df645af6a5` (string)
-
 
 # Data Structures
 
