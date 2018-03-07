@@ -141,6 +141,31 @@ Create a new deal for a customer.
             + type: `deal` (string)
             + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
 
+### deals.update [POST /deals.update]
+
+Update a deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
+        + customer (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + title: `Interesting business deal` (string, optional)
+        + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional, nullable)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional, nullable)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional, nullable)
+        + phase_id: `060687bb-a742-4882-a538-199a5e5feb60` (string, optional, nullable)
+        + estimated_value (Money, optional, nullable)
+        + estimated_probability: `0.75` (number, optional, nullable)
+        + estimated_closing_date: `2017-05-09` (string, optional, nullable)
+
++ Response 204
+
 ### deals.move [POST /deals.move]
 
 Move the deal to a different phase.
