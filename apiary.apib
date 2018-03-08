@@ -1277,6 +1277,21 @@ Create a new calendar event.
             + type: `event` (string)
             + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
 
+### events.update [POST /events.update]
+
+Update a calendar event.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes
+        + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional, nullable)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+
++ Response 204
+
 ## Activity Types [/activityTypes]
 
 Activity types are the different types of events (i.e. tasks, meetings or calls) and to-do’s.
