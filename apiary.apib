@@ -1551,7 +1551,9 @@ Get a list of available tax rates.
 
 ### ledgers.list [GET /ledgers.list]
 
-Get a list of ledger accounts.
+### productCategories.list [GET /productCategories.list]
+
+Get a list of product categories.
 
 + Request (application/json;charset=utf-8)
 
@@ -1565,8 +1567,11 @@ Get a list of ledger accounts.
         + data (array)
             + (object)
                 + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
-                + number: 123 (number)
-                + department_id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c6` (string)
+                + name: 'Asian Flowers' (string)
+                + ledgers (array)
+                    + (object)
+                        + department_id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c6` (string)
+                        + ledger_account_number: 70100 (number)
 
 # Group Projects
 
