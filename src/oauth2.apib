@@ -109,3 +109,11 @@ Note that this implicit grant does not return refresh tokens, and that our acces
 To retrieve information about the user who authorized your application (the resource owner), you can call the following endpoint:
 
 `https://api.teamleader.eu/users.me`
+
+### PHP code example
+
+You can find a (very) minimal PHP code example, showing how start the OAuth2 authentication flow, and retrieve the user's identity using the obtained access token.
+
+[https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php](https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php)
+
+A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
