@@ -348,6 +348,27 @@ Get details for a single user.
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
 
+## Work Types [/workTypes]
+
+### workTypes.list [POST /workTypes.list]
+
+Get a list of all work types, sorted alphabetically (on their name).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `6e342192-76d4-4b26-b1d7-e24df46bf603`,`1652ab6f-ad24-4f5c-a2fc-c6a30693a930` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
+                + name `Planning` (string)
+
 # Group CRM
 
 ## Contacts [/contacts]
