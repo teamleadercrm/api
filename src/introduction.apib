@@ -77,7 +77,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 
 ### Rate limiting
 
-To be able to ensure a predictably pleasant experience for our users, all API endpoints are rate limited. API calls are evaluated per integration (client id), with a maximum of **100 calls** in a window of **1 minute**.
+To ensure a fast and predictable experience for everyone, all our API endpoints have a rate limit of **100 calls per minute** for each integration (or client id).
 
 When you go over this limit, our API will respond with a `HTTP 429 Too Many Requests error`.
 
