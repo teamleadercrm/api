@@ -5,7 +5,7 @@ HOST: https://api.teamleader.eu
 
 #### New API - This is still a BETA version.
 
-Our new API is currently available in beta version for you to test. We invite you to read through the documentation and test the new endpoints. Do you have any feedback? Don’t hesitate to let us know via [api@teamleader.eu](mailto://api@teamleader.eu).
+Our new API is currently available in beta version for you to test. We invite you to read through the documentation and test the new endpoints. Do you have any feedback? Don’t hesitate to let us know via [api@teamleader.eu](mailto:api@teamleader.eu).
 This documentation isn’t final yet and is subject to change prior to our official release, although we will limit this to a minimum.
 
 ## AP-What?
@@ -79,6 +79,14 @@ Errors are always returned as an array of error objects under an `errors` top le
     ]
 }
 ```
+
+### Rate limiting
+
+To ensure a fast and predictable experience for everyone, all our API endpoints have a rate limit of **100 calls per minute** for each integration (or client id).
+
+When you go over this limit, our API will respond with a `HTTP 429 Too Many Requests error`.
+
+If your integrations needs a higher limit, send us an email at [api@teamleader.eu](mailto:api@teamleader.eu) with a detailed explanation why you need an increased rate limit.
 
 ### Status codes
 
