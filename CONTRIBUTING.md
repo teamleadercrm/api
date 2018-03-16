@@ -13,13 +13,13 @@ All tools and scripts are executed using [Docker](https://www.docker.com).
 Because we split up the blueprint files, we need to combine them back into one `apiary.apib` file so that Apiary can render our documentation. This can be doing using the following script:
 
 ```bash
-./dev/build
+make
 ```
 
 There's also an included gulp file to automatically build the main file whenever you make modifications:
 
 ```bash
-./dev/watch
+make watch
 ```
 
 ### Linting
@@ -27,7 +27,7 @@ There's also an included gulp file to automatically build the main file whenever
 You can lint the `apiary.apib` file to make sure it's valid:
 
 ```bash
-./dev/lint
+make lint
 ```
 
 ### Preview
@@ -35,7 +35,7 @@ You can lint the `apiary.apib` file to make sure it's valid:
 If you want to preview the output of the API Blueprint, you can run:
 
 ```bash
-./dev/preview
+make preview
 ```
 
 ## Guidelines
