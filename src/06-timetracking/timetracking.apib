@@ -225,7 +225,7 @@ Update tracked time.
 
     + Attributes (object)
         + id: `66621f54-3d0d-420f-8d4b-ddd7fc473bf2` (string, required)
-        + work_type_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional)
+        + work_type_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional, nullable)
         + One Of
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
@@ -236,8 +236,8 @@ Update tracked time.
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
                 + duration: 3600 (number, required) - In seconds
-        + description (string, optional)
-        + subject (object, optional)
+        + description (string, optional, nullable)
+        + subject (object, optional, nullable)
             + type: `project` (enum[string], required)
                 + Members
                     + company
