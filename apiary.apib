@@ -783,7 +783,20 @@ Get details for a single company.
                     + field: (object)
                         + type: `customField` (string)
                         + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                    + value: `092980616` (string)
+                    + One Of
+                        + value: `092980616` (string)
+                        + Properties:
+                            + type: `company` (enum[string])
+                                + Members
+                                    + company
+                                    + contact
+                                    + product
+                                    + user
+                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                        + Properties:
+                            + type: `multipleSelectionOption` (string)
+                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                            + option: `name` (string)
 
 ### companies.add [POST /companies.add]
 
