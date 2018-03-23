@@ -785,7 +785,9 @@ Get details for a single company.
                         + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
                     + One Of
                         + value: `092980616` (string)
-                        + Properties:
+                        + value: `123` (number) - For integer, number and auto-increment fields
+                        + value: true (bool) - For Yes/No fields
+                        + value (object) - For related Teamleader objects
                             + type: `company` (enum[string])
                                 + Members
                                     + company
@@ -793,10 +795,6 @@ Get details for a single company.
                                     + product
                                     + user
                             + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                        + Properties:
-                            + type: `multipleSelectionOption` (string)
-                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                            + option: `name` (string)
 
 ### companies.add [POST /companies.add]
 
