@@ -1290,11 +1290,16 @@ Get a list of calendar events.
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
+            + attendee (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
             + link (object, optional)
                 + type (enum[string], required)
                     + Members
-                        + company
                         + contact
+                        + company
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
