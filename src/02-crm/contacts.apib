@@ -118,6 +118,23 @@ Get details for a single contact.
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + custom_fields (array)
+                + (object)
+                    + definition: (object)
+                        + type: `customFieldDefinition` (string)
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                    + One Of
+                        + value: `092980616` (string)
+                        + value: `123` (number) - For integer, number and auto-increment fields
+                        + value: true (bool) - For Yes/No fields
+                        + value (object) - For related Teamleader objects
+                            + type: `company` (enum[string])
+                                + Members
+                                    + company
+                                    + contact
+                                    + product
+                                    + user
+                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
 
 ### contacts.add [POST /contacts.add]
 
