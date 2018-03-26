@@ -82,7 +82,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 
 ### Rate limiting
 
-To ensure a fast and predictable experience for everyone, all our API endpoints have a rate limit of **100 calls per minute** for each integration (or client id).
+To ensure a fast and predictable experience for everyone, all our API endpoints have a rate limit of **100 calls per minute** for each integration (or client id) to a Teamleader account.
 
 When you go over this limit, our API will respond with a `HTTP 429 Too Many Requests error`.
 
@@ -961,7 +961,7 @@ Get a list of deals.
         + filter (object, optional)
             + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
             + customer (object, optional)
-                + type: `contact` (enum[string], required)
+                + type (enum[string], required)
                     + Members
                         + company
                         + contact
