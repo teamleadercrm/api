@@ -106,36 +106,46 @@ Common used status codes:
 
 ## OAuth 2
 
-OAuth 2 is an authorization framework that lets your integration request authorization to data in a user's Teamleader account without getting their password.
+OAuth 2 is an authorization framework that allows a user to grant limited access to data in a Teamleader account, without having to expose their credentials.
 
-Before starting you will need to register your integration on our [marketplace](https://marketplace.teamleader.eu). Each integration is assigned a unique `client_id` and `client_secret` which will be used in the OAuth flow. Note that the `client_secret` key should not be shared.
+To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
-### Authorization
+Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client side code.
 
-To authenticate users for your integration, redirect the user to the Teamleader authorization page:
+For more detailed information about OAuth 2, we recommend reading [this article](https://auth0.com/docs/protocols/oauth2).
+
+### Authorization flow
+
+To get access to a user's Teamleader data using the *authorization code grant type*, redirect users to the Teamleader authorization page:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
-With the following values as GET parameters:
+The required GET parameters are:
 
  - `client_id` - issued when you create your integration
  - `response_type` - must be "code"
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-The user will then be asked to login to Teamleader server and authorize your integration. If the user approves the client they will be redirected to the previously specified `redirect_uri` with a temporary authorization code and the original state parameter if it was provided. If the states don't match, the request may have been created by a third party and you should abort the process.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these white listed URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+
+After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.teamleader.eu/build).
+
+If the user authorizes your integration, they will be redirected to the specified `redirect_uri` with a temporary authorization code and the original `state` parameter. If the `state` parameter does not match the original value, the response may have been created by a third party and should be ignored.
 
 `https://YOUR_REDIRECT_URI?code=CODE&state=STATE`
 
-If the user denies your request, we will redirect back to the `redirect_uri` with an `error` parameter:
+If the user denies your integration, he will be redirected to the `redirect_uri`, with an `error` parameter:
 
 `https://YOUR_REDIRECT_URI?error=access_denied`
 
-With the authorization code that was sent back to your `redirect_uri`, you can request an access token to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance.
+### Obtaining access tokens
+
+After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send a HTTP POST request to the following endpoint:
 
 `https://app.teamleader.eu/oauth2/access_token`
 
-The following values should be passed as POST parameters:
+The required POST parameters are:
 
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
@@ -143,7 +153,7 @@ The following values should be passed as POST parameters:
  - `grant_type` - must be "authorization_code"
  - `redirect_uri` - the original submitted redirect URL
 
-Please note that a `content-type` header is **required** for this request. These types are supported:
+It is recommended to add `content-type` header to this request. Supported content types are:
 
  - application/x-www-form-urlencoded
  - application/json
@@ -154,12 +164,12 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 {
     "token_type": "Bearer",
     "expires_in": 3600,
-    "access_token": ACCESS_TOKEN,
-    "refresh_token": REFRESH_TOKEN
+    "access_token": "ACCESS_TOKEN",
+    "refresh_token": "REFRESH_TOKEN"
 }
 ```
 
-Use this access token to make API calls on behalf of the user using the `Authorization` header. Example request:
+These access tokens are also know as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
 
 ```
 GET https://api.teamleader.eu/contacts.list HTTP/1.1
@@ -167,58 +177,60 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
 Accept: application/json;charset=utf-8
 ```
 
-### Refresh tokens
+Access tokens expire shortly (usually 1 hour) after they are issued for security reasons. If your integration needs to communicate with our API beyond the access token's lifespan, you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only be used once to get a new access token and refresh token.
 
-Access tokens expire shortly (1 hour) after they are issued for security reasons. If your integration needs to communicate with the API beyond the access token's lifespan you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only be used once to get a new access token and refresh token.
+### Using refresh tokens
+
+If an access token is expired, a new access token and refresh token pair can be obtained by sending an HTTP POST request to the following endpoint:
 
 `https://app.teamleader.eu/oauth2/access_token`
 
-The following values should be passed as POST parameters:
+The required POST parameters are:
 
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
  - `refresh_token` - the refresh token
  - `grant_type` - must be "refresh_token"
 
-Refresh tokens will continue functioning until the user uninstalls your integration.
+Refresh tokens will continue functioning until the user revokes them or uninstalls your integration.
 
-### Client side authentication (implicit grant)
+### Client side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authentication method called [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
-Similar to the regular authentication flow, users are redirected to the Teamleader authorization page, but with different query parameters:
+Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `code` as the `response_type`:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
-The following values should be passed as GET parameters:
+The required GET parameters are:
 
  - `client_id` - issued when you create your integration
  - `response_type` - must be "token" (instead of "code")
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-If the user approves the client, they will be redirected back to the authorization server with the following parameters in the **fragment part of the url**:
+After authorization, the user is redirected to the `redirect_uri` with the following parameters in the **fragment part of the url**:
 
  - `token_type` - with the value "Bearer"
  - `expires_in` - the TTL for this access token in seconds
  - `access_token` - the access token
  - `state` - the state parameter sent in the original request
 
-Example url:
+Example:
 
 `https://YOUR_REDIRECT_URI#token_type=Bearer&expires_in=900&access_token=TOKEN&state=STATE`
 
-Note that this implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authentication method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
+Note that the implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authorization method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
 
 ### User Identity
 
-To retrieve information about the user who authorized your application (the resource owner), you can call the following endpoint:
+To retrieve information about the user who authorized your application (the resource owner), call the `users.me` API endpoint:
 
 `https://api.teamleader.eu/users.me`
 
 ### PHP code example
 
-You can find a (very) minimal PHP code example, showing how start the OAuth2 authentication flow, and retrieve the user's identity using the obtained access token.
+You can find a (very) minimal PHP code example, showing how start the OAuth 2 authentication flow, and retrieve the user's identity using the obtained access token.
 
 [https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php](https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php)
 
