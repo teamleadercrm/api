@@ -16,6 +16,12 @@ Get a list of calendar events.
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
+            + link (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -50,6 +56,13 @@ Get a list of calendar events.
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
                 + location (string)
+                + attendees (array)
+                    + (object)
+                        + type: `contact` (enum[string])
+                            + Members
+                                + user
+                                + contact
+                        + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
                 + links (array)
                     + (object)
                         + type (enum[string])
@@ -92,6 +105,7 @@ Get details for a single calendar event.
                     + type: `contact` (enum[string])
                         + Members
                             + user
+                            + contact
                     + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
             + links (array)
                 + (object)
@@ -118,6 +132,7 @@ Create a new calendar event.
                 + type: `user` (enum[string], required)
                     + Members
                         + user
+                        + contact
                 + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
         + links (array, optional)
             + (object)
