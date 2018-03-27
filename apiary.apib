@@ -1358,13 +1358,6 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
-        + attendees (array, optional)
-            + (object)
-                + type: `user` (enum[string], required)
-                    + Members
-                        + user
-                        + contact
-                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
         + links (array, optional)
             + (object)
                 + type: `company` (enum[string], required)
@@ -1392,6 +1385,23 @@ Update a calendar event.
         + description (string, optional, nullable)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+
++ Response 204
+
+### events.invite [POST /events.invite]
+
+Invite a colleague or contact to an event.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes
+        + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
+        + attendee (object)
+            + type: `user` (enum[string], required)
+                + Members
+                    + user
+                    + contact
+            + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
 
 + Response 204
 
