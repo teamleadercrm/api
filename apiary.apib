@@ -50,9 +50,9 @@ GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-
 
 ### Responses
 
-Both single objects and collections are returned as JSON objects with a top-level `data` property:
+Both single objects and collections are returned as JSON objects, keyed by `data` in the top level of a JSON object:
 
-```
+```json
 {
     "data": {
         "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
@@ -68,15 +68,15 @@ Responses may also contain meta data for pagination.
 
 ### Errors
 
-Errors are always returned as an array of error objects under an `errors` top level property.
+Errors are always returned as an array of error objects, keyed by `errors` in the top level of a JSON object:
 
-```
+```json
 {
-    "errors": [
-        {
-            "title": "Bad request"
-        }
-    ]
+  "errors": [
+    {
+      "title": "Company name must not be empty"
+    }
+  ]
 }
 ```
 
@@ -90,7 +90,16 @@ If your integrations needs a higher limit, send us an email at [api@teamleader.e
 
 ### Status codes
 
-When objects are created, we return a `201` response containing the `id` and `type` of the new resource. When objects are updated or actions are performed, we often return an empty response with a `204` status code.
+When objects are created, we return a `201` response containing the `id` and `type` of the new resource:
+
+```json
+{
+  "type": "contact",
+  "id": "9d4096c3-813f-4bd5-b3c4-4091807b5b74"
+}
+```
+
+When objects are updated or actions are performed, we often return an empty response with a `204` status code.
 
 Common used status codes:
 
