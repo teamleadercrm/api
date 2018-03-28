@@ -93,9 +93,9 @@ Get information about tracked time.
                         + ticket
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
 
-### timetracking.current [GET /timetracking.current]
+### timer.current [GET /timer.current]
 
-Get the current timetracking timer.
+Get the current running timer.
 
 + Response 200 (application/json)
 
@@ -122,9 +122,9 @@ Get the current timetracking timer.
                         + ticket
                 + id: `31931bc9-4ae8-4c50-ba8d-9ea88498c1c1` (string)
 
-### timetracking.start [POST /timetracking.start]
+### timer.start [POST /timer.start]
 
-Start a new timetracking timer.
+Start a new timer.
 
 + Request (application/json)
 
@@ -148,21 +148,26 @@ Start a new timetracking timer.
 
     + Attributes (object)
         + data (object)
-            + type: `timetracking` (string)
+            + type: `timer` (string)
             + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
 
-### timetracking.stop [POST /timetracking.stop]
+### timer.stop [POST /timer.stop]
 
-Stop the current timetracking timer.
+Stop the current timer. This will add a new time tracking in the background.
 
 + Request (application/json)
 
     + Attributes (object)
         + ended_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
-+ Response 204 (application/json)
++ Response 201 (application/json)
 
-### timetracking.resume [POST /timetracking.resume]
+    + Attributes (object)
+        + data (object)
+            + type: `timeTracking` (string)
+            + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
+
+### timer.resume [POST /timer.resume]
 
 Start a new timer based on previously tracked time.
 
@@ -176,7 +181,7 @@ Start a new timer based on previously tracked time.
 
     + Attributes (object)
         + data (object)
-            + type: `timetracking` (string)
+            + type: `timer` (string)
             + id: `f01adf4a-bb9b-45de-b231-615cd0e941de` (string)
 
 ### timetracking.add [POST /timetracking.add]
