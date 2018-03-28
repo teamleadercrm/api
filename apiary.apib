@@ -2289,6 +2289,89 @@ Get information about tracked time.
                         + ticket
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
 
+### timetracking.add [POST /timetracking.add]
+
+Add tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + work_type_id: `2175597d-484e-4a1c-a781-cbc3d9f893ba` (string, optional)
+        + One Of
+            + Properties
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
+            + Properties
+                + started_on: `2017-04-26` (string, required)
+                + duration: 3600 (number, required) - In seconds
+            + Properties
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `timetracking` (string)
+            + id: `6f052357-142e-499e-a647-36b55ecf447c` (string)
+
+### timetracking.update [POST /timetracking.update]
+
+Update tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `66621f54-3d0d-420f-8d4b-ddd7fc473bf2` (string, required)
+        + work_type_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional, nullable)
+        + One Of
+            + Properties
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
+            + Properties
+                + started_on: `2017-04-26` (string, required)
+                + duration: 3600 (number, required) - In seconds
+            + Properties
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+        + description (string, optional, nullable)
+        + subject (object, optional, nullable)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `88f14220-55d3-4ca6-802b-425e2f53c850` (string, required)
+
++ Response 204
+
+### timetracking.delete [POST /timetracking.delete]
+
+Delete tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `903b25ad-64b8-4633-9e93-d69f1268b496` (string, required)
+
++ Response 204
+
 ### timer.current [GET /timer.current]
 
 Get the current running timer.
@@ -2379,89 +2462,6 @@ Start a new timer based on previously tracked time.
         + data (object)
             + type: `timer` (string)
             + id: `f01adf4a-bb9b-45de-b231-615cd0e941de` (string)
-
-### timetracking.add [POST /timetracking.add]
-
-Add tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + work_type_id: `2175597d-484e-4a1c-a781-cbc3d9f893ba` (string, optional)
-        + One Of
-            + Properties
-                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
-            + Properties
-                + started_on: `2017-04-26` (string, required)
-                + duration: 3600 (number, required) - In seconds
-            + Properties
-                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration: 3600 (number, required) - In seconds
-        + description (string, optional)
-        + subject (object, optional)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
-
-+ Response 201
-
-    + Attributes (object)
-        + data (object)
-            + type: `timetracking` (string)
-            + id: `6f052357-142e-499e-a647-36b55ecf447c` (string)
-
-### timetracking.update [POST /timetracking.update]
-
-Update tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `66621f54-3d0d-420f-8d4b-ddd7fc473bf2` (string, required)
-        + work_type_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional, nullable)
-        + One Of
-            + Properties
-                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
-            + Properties
-                + started_on: `2017-04-26` (string, required)
-                + duration: 3600 (number, required) - In seconds
-            + Properties
-                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration: 3600 (number, required) - In seconds
-        + description (string, optional, nullable)
-        + subject (object, optional, nullable)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `88f14220-55d3-4ca6-802b-425e2f53c850` (string, required)
-
-+ Response 204
-
-### timetracking.delete [POST /timetracking.delete]
-
-Delete tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `903b25ad-64b8-4633-9e93-d69f1268b496` (string, required)
-
-+ Response 204
 
 # Group Other
 
