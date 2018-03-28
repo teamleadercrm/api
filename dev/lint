@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Install dependencies.
-if [ ! -e ./node_modules ]; then
-    docker run -it --rm -v $(pwd):/code -w /code node npm install
-fi
-
-docker run -it --rm -v $(pwd):/code -w /code node npm run lint

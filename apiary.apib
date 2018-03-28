@@ -5,7 +5,7 @@ HOST: https://api.teamleader.eu
 
 #### New API - This is still a BETA version.
 
-Our new API is currently available in beta version for you to test. We invite you to read through the documentation and test the new endpoints. Do you have any feedback? Don’t hesitate to let us know via [api@teamleader.eu](mailto://api@teamleader.eu).
+Our new API is currently available in beta version for you to test. We invite you to read through the documentation and test the new endpoints. Do you have any feedback? Don’t hesitate to let us know via [api@teamleader.eu](mailto:api@teamleader.eu).
 This documentation isn’t final yet and is subject to change prior to our official release, although we will limit this to a minimum.
 
 ## AP-What?
@@ -50,9 +50,9 @@ GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-
 
 ### Responses
 
-Both single objects and collections are returned as JSON objects with a top-level `data` property:
+Both single objects and collections are returned as JSON objects, keyed by `data` in the top level of a JSON object:
 
-```
+```json
 {
     "data": {
         "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
@@ -68,21 +68,38 @@ Responses may also contain meta data for pagination.
 
 ### Errors
 
-Errors are always returned as an array of error objects under an `errors` top level property.
+Errors are always returned as an array of error objects, keyed by `errors` in the top level of a JSON object:
 
-```
+```json
 {
-    "errors": [
-        {
-            "title": "Bad request"
-        }
-    ]
+  "errors": [
+    {
+      "title": "Company name must not be empty"
+    }
+  ]
 }
 ```
 
+### Rate limiting
+
+To ensure a fast and predictable experience for everyone, all our API endpoints have a rate limit of **100 calls per minute** for each integration (or client id) to a Teamleader account.
+
+When you go over this limit, our API will respond with a `HTTP 429 Too Many Requests error`.
+
+If your integrations needs a higher limit, send us an email at [api@teamleader.eu](mailto:api@teamleader.eu) with a detailed explanation why you need an increased rate limit.
+
 ### Status codes
 
-When objects are created, we return a `201` response containing the `id` and `type` of the new resource. When objects are updated or actions are performed, we often return an empty response with a `204` status code.
+When objects are created, we return a `201` response containing the `id` and `type` of the new resource:
+
+```json
+{
+  "type": "contact",
+  "id": "9d4096c3-813f-4bd5-b3c4-4091807b5b74"
+}
+```
+
+When objects are updated or actions are performed, we often return an empty response with a `204` status code.
 
 Common used status codes:
 
@@ -98,36 +115,46 @@ Common used status codes:
 
 ## OAuth 2
 
-OAuth 2 is an authorization framework that lets your integration request authorization to data in a user's Teamleader account without getting their password.
+OAuth 2 is an authorization framework that allows a user to grant limited access to data in a Teamleader account, without having to expose their credentials.
 
-Before starting you will need to register your integration on our [marketplace](https://marketplace.teamleader.eu). Each integration is assigned a unique `client_id` and `client_secret` which will be used in the OAuth flow. Note that the `client_secret` key should not be shared.
+To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
-### Authorization
+Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client side code.
 
-To authenticate users for your integration, redirect the user to the Teamleader authorization page:
+For more detailed information about OAuth 2, we recommend reading [this article](https://auth0.com/docs/protocols/oauth2).
+
+### Authorization flow
+
+To get access to a user's Teamleader data using the *authorization code grant type*, redirect users to the Teamleader authorization page:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
-With the following values as GET parameters:
+The required GET parameters are:
 
  - `client_id` - issued when you create your integration
  - `response_type` - must be "code"
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-The user will then be asked to login to Teamleader server and authorize your integration. If the user approves the client they will be redirected to the previously specified `redirect_uri` with a temporary authorization code and the original state parameter if it was provided. If the states don't match, the request may have been created by a third party and you should abort the process.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these white listed URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+
+After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.teamleader.eu/build).
+
+If the user authorizes your integration, they will be redirected to the specified `redirect_uri` with a temporary authorization code and the original `state` parameter. If the `state` parameter does not match the original value, the response may have been created by a third party and should be ignored.
 
 `https://YOUR_REDIRECT_URI?code=CODE&state=STATE`
 
-If the user denies your request, we will redirect back to the `redirect_uri` with an `error` parameter:
+If the user denies your integration, he will be redirected to the `redirect_uri`, with an `error` parameter:
 
 `https://YOUR_REDIRECT_URI?error=access_denied`
 
-With the authorization code that was sent back to your `redirect_uri`, you can request an access token to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance.
+### Obtaining access tokens
+
+After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send a HTTP POST request to the following endpoint:
 
 `https://app.teamleader.eu/oauth2/access_token`
 
-The following values should be passed as POST parameters:
+The required POST parameters are:
 
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
@@ -135,7 +162,7 @@ The following values should be passed as POST parameters:
  - `grant_type` - must be "authorization_code"
  - `redirect_uri` - the original submitted redirect URL
 
-Please note that a `content-type` header is **required** for this request. These types are supported:
+It is recommended to add `content-type` header to this request. Supported content types are:
 
  - application/x-www-form-urlencoded
  - application/json
@@ -146,12 +173,12 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 {
     "token_type": "Bearer",
     "expires_in": 3600,
-    "access_token": ACCESS_TOKEN,
-    "refresh_token": REFRESH_TOKEN
+    "access_token": "ACCESS_TOKEN",
+    "refresh_token": "REFRESH_TOKEN"
 }
 ```
 
-Use this access token to make API calls on behalf of the user using the `Authorization` header. Example request:
+These access tokens are also know as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
 
 ```
 GET https://api.teamleader.eu/contacts.list HTTP/1.1
@@ -159,54 +186,68 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
 Accept: application/json;charset=utf-8
 ```
 
-### Refresh tokens
+Access tokens expire shortly (usually 1 hour) after they are issued for security reasons. If your integration needs to communicate with our API beyond the access token's lifespan, you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only be used once to get a new access token and refresh token.
 
-Access tokens expire shortly (1 hour) after they are issued for security reasons. If your integration needs to communicate with the API beyond the access token's lifespan you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only used once to get a new access token and refresh token.
+### Using refresh tokens
+
+If an access token is expired, a new access token and refresh token pair can be obtained by sending an HTTP POST request to the following endpoint:
 
 `https://app.teamleader.eu/oauth2/access_token`
 
-The following values should be passed as POST parameters:
+The required POST parameters are:
 
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
  - `refresh_token` - the refresh token
  - `grant_type` - must be "refresh_token"
 
-Refresh tokens will continue functioning until the user uninstalls your integration.
+Refresh tokens will continue functioning until the user revokes them or uninstalls your integration.
 
-### Client side authentication (implicit grant)
+### Client side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authentication method called [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
-Similar to the regular authentication flow, users are redirected to the Teamleader authorization page, but with different query parameters:
+Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `code` as the `response_type`:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
-The following values should be passed as GET parameters:
+The required GET parameters are:
 
  - `client_id` - issued when you create your integration
  - `response_type` - must be "token" (instead of "code")
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-If the user approves the client, they will be redirected back to the authorization server with the following parameters in the **fragment part of the url**:
+After authorization, the user is redirected to the `redirect_uri` with the following parameters in the **fragment part of the url**:
 
  - `token_type` - with the value "Bearer"
  - `expires_in` - the TTL for this access token in seconds
  - `access_token` - the access token
  - `state` - the state parameter sent in the original request
 
-Example url:
+Example:
 
 `https://YOUR_REDIRECT_URI#token_type=Bearer&expires_in=900&access_token=TOKEN&state=STATE`
 
-Note that this implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authentication method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
+Note that the implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authorization method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
 
 ### User Identity
 
-To retrieve information about the user who authorized your application (the resource owner), you can call the following endpoint:
+To retrieve information about the user who authorized your application (the resource owner), call the `users.me` API endpoint:
 
 `https://api.teamleader.eu/users.me`
+
+### PHP code example
+
+You can find a (very) minimal PHP code example, showing how start the OAuth 2 authentication flow, and retrieve the user's identity using the obtained access token.
+
+[https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php](https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php)
+
+A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
+
+## Changelog
+
+There is no formal changelog yet, but you can follow all changes made to our API via our [API Blueprint GitHub repository](https://github.com/teamleadercrm/api).
 
 # Group General
 
@@ -480,6 +521,32 @@ Get a info about a specific custom field definition.
                     + options: foo, bar (array[string])
                     + start_value: 1 (number)
 
+## Work Types [/workTypes]
+
+### workTypes.list [POST /workTypes.list]
+
+Get a list of all work types, sorted alphabetically (on their name).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `6e342192-76d4-4b26-b1d7-e24df46bf603`,`1652ab6f-ad24-4f5c-a2fc-c6a30693a930` (array[string], optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
+                + name `Planning` (string)
+
 # Group CRM
 
 ## Contacts [/contacts]
@@ -502,6 +569,8 @@ Get a list of contacts.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
+            + updated_after: `2016-02-04T16:44:33+00:00` (string, optional)
+            + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -545,6 +614,7 @@ Get a list of contacts.
                 + language: `en` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: prospect, expo (array[string])
 
 ### contacts.info [GET /contacts.info]
 
@@ -599,6 +669,23 @@ Get details for a single contact.
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + custom_fields (array)
+                + (object)
+                    + definition (object)
+                        + type: `customFieldDefinition` (string)
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                    + One Of
+                        + value: `092980616` (string)
+                        + value: `123` (number) - For integer, number and auto-increment fields
+                        + value: true (boolean) - For Yes/No fields
+                        + value (object) - For related Teamleader objects
+                            + type: `company` (enum[string])
+                                + Members
+                                    + company
+                                    + contact
+                                    + product
+                                    + user
+                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
 
 ### contacts.add [POST /contacts.add]
 
@@ -697,6 +784,30 @@ Delete a contact.
 
 + Response 204
 
+### contacts.tag [POST /contacts.tag]
+
+Add a new or existing tag to a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### contacts.untag [POST /contacts.untag]
+
+Remove a tag from a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
 ### contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Link a contact to a company.
@@ -742,6 +853,7 @@ Get a list of companies.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -786,6 +898,7 @@ Get a list of companies.
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: prospect, expo (array[string])
 
 ### companies.info [GET /companies.info]
 
@@ -834,6 +947,24 @@ Get details for a single company.
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + tags: prospect, expo (array[string])
+            + custom_fields (array)
+                + (object)
+                    + definition (object)
+                        + type: `customFieldDefinition` (string)
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                    + One Of
+                        + value: `092980616` (string)
+                        + value: `123` (number) - For integer, number and auto-increment fields
+                        + value: true (boolean) - For Yes/No fields
+                        + value (object) - For related Teamleader objects
+                            + type: `company` (enum[string])
+                                + Members
+                                    + company
+                                    + contact
+                                    + product
+                                    + user
+                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
 
 ### companies.add [POST /companies.add]
 
@@ -869,6 +1000,7 @@ Add a new company.
         + language: `en` (string, optional)
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
         + remarks: `Met at expo` (string, optional)
+        + tags: prospect, expo (array[string], optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -926,6 +1058,30 @@ Delete a company.
 
 + Response 204
 
+### companies.tag [POST /companies.tag]
+
+Add a new or existing tag to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### companies.untag [POST /companies.untag]
+
+Remove a tag from a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
 ## Business Types [/businessTypes]
 
 Each country has a specific set of business types or range of legal entities.
@@ -947,26 +1103,6 @@ Get the names of business types (legal structures) a company can have within a c
             + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
             + name: `VZW/ASBL` (string)
             + country: `BE` (string)
-
-## Quotations [/quotations]
-
-### quotations.info [GET /quotations.info]
-
-Get a quotation
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (object)
-            + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string)
-            + deal (object)
-                + type: `deal` (string)
-                + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
 
 ## Tags [/tags]
 
@@ -998,6 +1134,274 @@ Get a list of tags.
             + (object)
                 + tag: `campaign` (string)
 
+# Group Deals
+
+## Deals [/deals]
+
+### deals.list [GET /deals.list]
+
+Get a list of deals.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
+            + customer (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + created_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `created_at`
+                    + order: `desc`
+
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + title: `Interesting deal` (string)
+                + reference: `2017/2` (string)
+                + status: `won` (enum[string])
+                    + Members
+                        + new
+                        + open
+                        + won
+                        + lost
+                + customer (object)
+                    + type: `contact`
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + department (object)
+                    + type: `department`
+                    + id: `33121d39-44e2-426a-92ef-62178edeec8a` (string)
+                + estimated_value (Money)
+                + estimated_closing_date: `2017-05-09` (string)
+                + estimated_probability: `0.5` (number)
+                + current_phase (object)
+                    + type: `dealPhase`
+                    + id: `521a331d-60d1-4920-bde3-ccd01d09f9f1` (string)
+                + responsible_user (object)
+                    + type: `user`
+                    + id: `bac1c91b-bc86-489b-8590-9be9478f62bb` (string)
+                + closed_at: `2017-05-09T11:31:30+00:00` (string)
+                + source (object)
+                    + type: `dealSource` (string)
+                    + id: `52a4bbb2-d196-48d7-8e43-9ec2f44d06f9` (string)
+                + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + updated_at: `2017-05-09T11:30:58+00:00` (string)
+
+### deals.info [GET /deals.info]
+
+Get details for a single deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
+            + title: `Interesting deal` (string)
+            + reference: `2017/2` (string)
+            + status: `won` (enum[string])
+                + Members
+                    + open
+                    + won
+                    + lost
+            + customer (object)
+                + type: `contact` (string)
+                + id: `69516baf-277f-4f0a-b779-83057f667551` (string)
+            + department (object)
+                + type: `department`
+                + id: `92247818-643e-4f5a-bf87-25cd908e8ad9` (string)
+            + estimated_value (Money)
+            + estimated_closing_date: `2017-05-09` (string)
+            + estimated_probability: `0.5` (number)
+            + current_phase (object)
+                + type: dealPhase (string)
+                + id: `676a6070-f7d3-43a6-bc08-cda0d32c27ab` (string)
+            + responsible_user (object)
+                + type: user (string)
+                + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+            + closed_at: `2017-05-09T11:31:30+00:00` (string)
+            + source (object)
+                + type: `dealSource` (string)
+                + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
+            + phase_history (array)
+                + (object)
+                    + phase (object)
+                        + type: dealPhase (string)
+                        + id: `d5a629f2-7b58-4748-aaca-acf9b6d62404` (string)
+                    + started_at: `2017-05-01 12:00:00` (string)
+                    + started_by (object)
+                        + type: user (string)
+                        + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
+            + created_at: `2017-05-09T11:25:11+00:00` (string)
+            + updated_at: `2017-05-09T11:30:58+00:00` (string)
+            + custom_fields (array)
+                + (object)
+                    + definition (object)
+                        + type: `customFieldDefinition` (string)
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                    + One Of
+                        + value: `092980616` (string)
+                        + value: `123` (number) - For integer, number and auto-increment fields
+                        + value: true (boolean) - For Yes/No fields
+                        + value (object) - For related Teamleader objects
+                            + type: `company` (enum[string])
+                                + Members
+                                    + company
+                                    + contact
+                                    + product
+                                    + user
+                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+### deals.create [POST /deals.create]
+
+Create a new deal for a customer.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + customer (object, required)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + title: `Interesting business deal` (string, required)
+        + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+        + phase_id: `060687bb-a742-4882-a538-199a5e5feb60` (string, optional)
+        + estimated_value (Money, optional)
+        + estimated_probability: `0.75` (number, optional)
+        + estimated_closing_date: `2017-05-09` (string, optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `deal` (string)
+            + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
+
+### deals.update [POST /deals.update]
+
+Update a deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
+        + customer (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + title: `Interesting business deal` (string, optional)
+        + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional, nullable)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional, nullable)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional, nullable)
+        + estimated_value (Money, optional, nullable)
+        + estimated_probability: `0.75` (number, optional, nullable)
+        + estimated_closing_date: `2017-05-09` (string, optional, nullable)
+
++ Response 204
+
+### deals.move [POST /deals.move]
+
+Move the deal to a different phase.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+        + phase_id: `8776abee-d856-43c6-b98d-9ffc912e8b0b` (string, required)
+
++ Response 204
+
+## Deal Phases [/]
+
+### dealPhases.list [GET /dealPhases.list]
+
+Get a list of all phases a deal can go through, sorted by their order in the flow.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
+                + name: `New` (string)
+
+## Quotations [/quotations]
+
+### quotations.info [GET /quotations.info]
+
+Get a quotation
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string)
+            + deal (object)
+                + type: `deal` (string)
+                + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
+            + grouped_lines (array)
+                + (object)
+                    + section (object)
+                        + title (string)
+                    + line_items (array)
+                        + (object)
+                            + product (object, nullable)
+                                + type: `product` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + quantity: 3 (number)
+                            + description: `An awesome product` (string)
+                            + unit_price (object)
+                                + Include Money
+                                + tax: `excluding` (enum[string])
+                                    + Members
+                                        + excluding
+                            + tax (object)
+                                + rate: 0.21 (number)
+                            + discount (object, nullable)
+                                + type: `percentage` (enum[string])
+                                    + Members
+                                        + percentage
+                                + value: 15.00 (number)
+
 # Group Calendar
 
 ## Calendar events [/events]
@@ -1018,6 +1422,12 @@ Get a list of calendar events.
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
+            + link (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1027,6 +1437,7 @@ Get a list of calendar events.
                 + order: `asc` (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: starts_at
@@ -1052,6 +1463,21 @@ Get a list of calendar events.
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
                 + location (string)
+                + attendees (array)
+                    + (object)
+                        + type: `contact` (enum[string])
+                            + Members
+                                + user
+                                + contact
+                        + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+                + links (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + company
+                                + contact
+                        + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
+
 
 ### events.info [GET /events.info]
 
@@ -1086,7 +1512,15 @@ Get details for a single calendar event.
                     + type: `contact` (enum[string])
                         + Members
                             + user
+                            + contact
                     + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+            + links (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + company
+                            + contact
+                    + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 ### events.create [POST /events.create]
 
@@ -1100,6 +1534,20 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1107,6 +1555,21 @@ Create a new calendar event.
         + data (object)
             + type: `event` (string)
             + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
+
+### events.update [POST /events.update]
+
+Update a calendar event.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes
+        + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional, nullable)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+
++ Response 204
 
 ## Activity Types [/activityTypes]
 
@@ -1260,6 +1723,9 @@ Get details for a single invoice.
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + product_category (object, nullable)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                                + type: `productCategory` (string)
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
                             + unit_price (object)
@@ -1320,6 +1786,7 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1361,6 +1828,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 204
 
@@ -1388,7 +1856,7 @@ Book a draft invoice.
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
-        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+        + on: `2016-02-04` (string, required)
 
 + Response 204
 
@@ -1559,6 +2027,19 @@ Get a list of available tax rates.
 + Attributes (object)
     + filter (object, optional)
         + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+    + page (Page, optional)
+    + sort (array, optional)
+        + Default
+            + (array)
+                + (object)
+                    + field: `department_id`
+                    + order: `asc`
+                + (object)
+                    + field: `rate`
+                    + order: `asc`
+                + (object)
+                    + field: `description`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1571,6 +2052,48 @@ Get a list of available tax rates.
                 + department (object)
                     + type: `department` (string)
                     + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
+
+### paymentTerms.list [GET /paymentTerms.list]
+
+Get a list of available payment terms.
+
++ Request (application/json;charset=utf-8)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
+                + Include PaymentTerm
+
+# Group Products
+
+## Product Categories [/productCategories]
+
+### productCategories.list [GET /productCategories.list]
+
+Get a list of product categories.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + name: 'Asian Flowers' (string)
+                + ledgers (array)
+                    + (object)
+                        + department (object)
+                            + type: `department` (string)
+                            + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c6` (string)
+                        + ledger_account_number: `70100` (string)
 
 # Group Projects
 
@@ -1982,7 +2505,6 @@ Their only use is to allow older integrations to migrate their data to the new A
         + data (object)
             + type: `activityType` (string)
             + id: `28f3639d-9b64-44a8-974d-a4df645af6a5` (string)
-
 
 # Data Structures
 

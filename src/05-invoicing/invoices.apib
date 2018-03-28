@@ -123,6 +123,9 @@ Get details for a single invoice.
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + product_category (object, nullable)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                                + type: `productCategory` (string)
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
                             + unit_price (object)
@@ -183,6 +186,7 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -224,6 +228,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 204
 
@@ -251,7 +256,7 @@ Book a draft invoice.
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
-        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+        + on: `2016-02-04` (string, required)
 
 + Response 204
 

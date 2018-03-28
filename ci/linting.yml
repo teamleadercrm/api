@@ -1,0 +1,22 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    params: {save: true}
+
+inputs:
+  - name: git-api
+
+caches:
+  - path: git-api/node_modules
+
+run:
+  path: sh
+  args:
+    - -exec
+    - |
+      cd git-api
+      npm install && npm run lint
