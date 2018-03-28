@@ -2196,7 +2196,7 @@ Update a milestone.
 
 ## Timetracking [/timetracking]
 
-### timetracking.list [GET /timetracking.list]
+### timeTrackings.list [GET /timeTrackings.list]
 
 Get a list of tracked time.
 
@@ -2252,7 +2252,7 @@ Get a list of tracked time.
                             + ticket
                     + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
 
-### timetracking.info [GET /timetracking.info]
+### timeTrackings.info [GET /timeTrackings.info]
 
 Get information about tracked time.
 
@@ -2289,7 +2289,7 @@ Get information about tracked time.
                         + ticket
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
 
-### timetracking.add [POST /timetracking.add]
+### timeTrackings.add [POST /timeTrackings.add]
 
 Add tracked time.
 
@@ -2327,7 +2327,7 @@ Add tracked time.
             + type: `timetracking` (string)
             + id: `6f052357-142e-499e-a647-36b55ecf447c` (string)
 
-### timetracking.update [POST /timetracking.update]
+### timeTrackings.update [POST /timeTrackings.update]
 
 Update tracked time.
 
@@ -2361,7 +2361,7 @@ Update tracked time.
 
 + Response 204
 
-### timetracking.delete [POST /timetracking.delete]
+### timeTrackings.delete [POST /timeTrackings.delete]
 
 Delete tracked time.
 
@@ -2372,7 +2372,7 @@ Delete tracked time.
 
 + Response 204
 
-### timer.current [GET /timer.current]
+### timers.current [GET /timers.current]
 
 Get the current running timer.
 
@@ -2401,7 +2401,7 @@ Get the current running timer.
                         + ticket
                 + id: `31931bc9-4ae8-4c50-ba8d-9ea88498c1c1` (string)
 
-### timer.start [POST /timer.start]
+### timers.start [POST /timers.start]
 
 Start a new timer.
 
@@ -2430,7 +2430,7 @@ Start a new timer.
             + type: `timer` (string)
             + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
 
-### timer.stop [POST /timer.stop]
+### timers.stop [POST /timers.stop]
 
 Stop the current timer. This will add a new time tracking in the background.
 
@@ -2446,7 +2446,7 @@ Stop the current timer. This will add a new time tracking in the background.
             + type: `timeTracking` (string)
             + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
 
-### timer.resume [POST /timer.resume]
+### timers.resume [POST /timers.resume]
 
 Start a new timer based on previously tracked time.
 
