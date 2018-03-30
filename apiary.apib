@@ -537,23 +537,7 @@ Get details for a single contact.
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
-            + custom_fields (array)
-                + (object)
-                    + definition (object)
-                        + type: `customFieldDefinition` (string)
-                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                    + One Of
-                        + value: `092980616` (string)
-                        + value: `123` (number) - For integer, number and auto-increment fields
-                        + value: true (boolean) - For Yes/No fields
-                        + value (object) - For related Teamleader objects
-                            + type: `company` (enum[string])
-                                + Members
-                                    + company
-                                    + contact
-                                    + product
-                                    + user
-                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+            + custom_fields (array[CustomField])
 
 ### contacts.add [POST /contacts.add]
 
@@ -816,23 +800,7 @@ Get details for a single company.
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
             + tags: prospect, expo (array[string])
-            + custom_fields (array)
-                + (object)
-                    + definition (object)
-                        + type: `customFieldDefinition` (string)
-                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                    + One Of
-                        + value: `092980616` (string)
-                        + value: `123` (number) - For integer, number and auto-increment fields
-                        + value: true (boolean) - For Yes/No fields
-                        + value (object) - For related Teamleader objects
-                            + type: `company` (enum[string])
-                                + Members
-                                    + company
-                                    + contact
-                                    + product
-                                    + user
-                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+            + custom_fields (array[CustomField])
 
 ### companies.add [POST /companies.add]
 
@@ -1123,23 +1091,7 @@ Get details for a single deal.
                         + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
-            + custom_fields (array)
-                + (object)
-                    + definition (object)
-                        + type: `customFieldDefinition` (string)
-                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                    + One Of
-                        + value: `092980616` (string)
-                        + value: `123` (number) - For integer, number and auto-increment fields
-                        + value: true (boolean) - For Yes/No fields
-                        + value (object) - For related Teamleader objects
-                            + type: `company` (enum[string])
-                                + Members
-                                    + company
-                                    + contact
-                                    + product
-                                    + user
-                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+            + custom_fields (array[CustomField])
 
 ### deals.create [POST /deals.create]
 
@@ -2457,3 +2409,20 @@ Their only use is to allow older integrations to migrate their data to the new A
         + end_of_month - End of the month of Xth day after the invoice date
         + after_invoice_date - X days after invoice date
 + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+
+## CustomField (object)
++ definition (object)
+    + type: `customFieldDefinition` (string)
+    + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number and auto-increment fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
