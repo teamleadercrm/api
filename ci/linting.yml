@@ -19,4 +19,4 @@ run:
     - -exec
     - |
       cd git-api
-      npm install && npm run lint
+      npm install && npm run build && npm run lint
