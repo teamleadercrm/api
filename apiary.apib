@@ -1394,6 +1394,13 @@ Update a calendar event.
         + description (string, optional, nullable)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 204
 
@@ -1535,11 +1542,11 @@ Get details for a single invoice.
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
             + discounts (array)
                 + (object)
-                    + description: `Discount` (string)
                     + type: `percentage` (enum[string])
                         + Members
                             + percentage
                     + value: 15.00 (number)
+                    + description: `winter promotion` (string)
             + grouped_lines (array)
                 + (object)
                     + section (object)
@@ -1618,6 +1625,13 @@ Draft a new invoice.
                                 + Members
                                     + percentage
         + invoice_date: `2016-02-04` (string, optional)
+        + discounts (array)
+            (object)
+                + value: 10 (number, required) - Values between 0 and 100
+                + type (enum[string], required)
+                    + Members
+                        + percentage
+                + description: `winter promotion` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1720,7 +1734,6 @@ Register a payment for an invoice.
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
 
 + Response 204
-
 
 ## Creditnotes [/creditNotes]
 
