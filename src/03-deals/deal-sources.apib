@@ -1,0 +1,19 @@
+## Deal Sources [/dealSources]
+
+### dealSources.list [GET /dealSources.list]
+
+Get a list of all deal sources, sorted alphabetically (on description)
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `4bd112da-8a39-47b9-b1e2-8ce339c241a3`,`94bd8c65-72ce-4a43-9cdf-9b75f1966010` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id: `b18c298b-0e6f-495d-8fcd-31dfecaea741` (string)
+            + description: `Referral` (string)
