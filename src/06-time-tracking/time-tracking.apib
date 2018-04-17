@@ -176,6 +176,23 @@ Delete tracked time.
 
 + Response 204
 
+### timeTracking.resume [POST /timers.resume]
+
+Start a new timer based on previously tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `06dfa08a-b769-4005-a912-45ab885c5737` (string, required)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `timer` (string)
+            + id: `f01adf4a-bb9b-45de-b231-615cd0e941de` (string)
+
 ### timers.current [GET /timers.current]
 
 Get the current running timer.
@@ -249,20 +266,3 @@ Stop the current timer. This will add a new time tracking in the background.
         + data (object)
             + type: `timeTracking` (string)
             + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
-
-### timers.resume [POST /timers.resume]
-
-Start a new timer based on previously tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `06dfa08a-b769-4005-a912-45ab885c5737` (string, required)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
-
-+ Response 201
-
-    + Attributes (object)
-        + data (object)
-            + type: `timer` (string)
-            + id: `f01adf4a-bb9b-45de-b231-615cd0e941de` (string)
