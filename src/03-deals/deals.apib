@@ -9,7 +9,7 @@ Get a list of deals.
     + Attributes (object)
         + filter (object, optional)
             + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
-            + customer (object, optional)
+            + lead (object, optional)
                 + type (enum[string], required)
                     + Members
                         + company
@@ -44,9 +44,13 @@ Get a list of deals.
                         + open
                         + won
                         + lost
-                + customer (object)
-                    + type: `contact`
-                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + lead (object)
+                    + company (object)
+                        + type: `company` (string)
+                        + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                    + contact (object)
+                        + type: `contact` (string)
+                        + id: `74c6769e-815a-4774-87d7-dfab9b1a0abb` (string)
                 + department (object)
                     + type: `department`
                     + id: `33121d39-44e2-426a-92ef-62178edeec8a` (string)
@@ -87,9 +91,13 @@ Get details for a single deal.
                     + open
                     + won
                     + lost
-            + customer (object)
-                + type: `contact` (string)
-                + id: `69516baf-277f-4f0a-b779-83057f667551` (string)
+            + lead (object)
+                + company (object)
+                    + type: `company` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + contact (object)
+                    + type: `contact` (string)
+                    + id: `74c6769e-815a-4774-87d7-dfab9b1a0abb` (string)
             + department (object)
                 + type: `department`
                 + id: `92247818-643e-4f5a-bf87-25cd908e8ad9` (string)
@@ -126,12 +134,9 @@ Create a new deal for a customer.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object, required)
-            + type (enum[string], required)
-                + Members
-                    + contact
-                    + company
-            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + lead (object, required)
+            + company_id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, optional)
+            + contact_id: `74c6769e-815a-4774-87d7-dfab9b1a0abb` (string, optional)
         + title: `Interesting business deal` (string, required)
         + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
         + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
@@ -156,12 +161,9 @@ Update a deal.
 
     + Attributes (object)
         + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
-        + customer (object, optional)
-            + type (enum[string], required)
-                + Members
-                    + contact
-                    + company
-            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + lead (object, required)
+            + company_id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, optional)
+            + contact_id: `74c6769e-815a-4774-87d7-dfab9b1a0abb` (string, optional)
         + title: `Interesting business deal` (string, optional)
         + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional, nullable)
         + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional, nullable)
