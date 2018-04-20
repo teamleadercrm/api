@@ -117,23 +117,7 @@ Get details for a single deal.
                         + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
-            + custom_fields (array)
-                + (object)
-                    + definition (object)
-                        + type: `customFieldDefinition` (string)
-                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                    + One Of
-                        + value: `092980616` (string)
-                        + value: `123` (number) - For integer, number and auto-increment fields
-                        + value: true (boolean) - For Yes/No fields
-                        + value (object) - For related Teamleader objects
-                            + type: `company` (enum[string])
-                                + Members
-                                    + company
-                                    + contact
-                                    + product
-                                    + user
-                            + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+            + custom_fields (array[CustomField])
 
 ### deals.create [POST /deals.create]
 
