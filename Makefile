@@ -8,7 +8,7 @@ node_modules: package.json
 lint: node_modules
 	docker run -it --init --rm -v $(PWD):/code -w /code node npm run lint
 
-build: apiary.apib node_modules
+build: src node_modules
 	docker run -it --init --rm -v $(PWD):/code -w /code node npm run build
 
 preview: apiary.html node_modules

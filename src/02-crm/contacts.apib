@@ -18,7 +18,7 @@ Get a list of contacts.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
-            + updated_after: `2016-02-04T16:44:33+00:00` (string, optional)
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
         + page (Page, optional)
         + sort (array, optional)
@@ -118,6 +118,7 @@ Get details for a single contact.
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + custom_fields (array[CustomField])
 
 ### contacts.add [POST /contacts.add]
 

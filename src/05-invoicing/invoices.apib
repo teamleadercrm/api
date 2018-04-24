@@ -109,11 +109,11 @@ Get details for a single invoice.
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
             + discounts (array)
                 + (object)
-                    + description: `Discount` (string)
                     + type: `percentage` (enum[string])
                         + Members
                             + percentage
                     + value: 15.00 (number)
+                    + description: `winter promotion` (string)
             + grouped_lines (array)
                 + (object)
                     + section (object)
@@ -186,7 +186,19 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, optional)
+                            + value: 10 (number, required) - Values between 0 and 100
+                            + type (enum[string], required)
+                                + Members
+                                    + percentage
         + invoice_date: `2016-02-04` (string, optional)
+        + discounts (array)
+            (object)
+                + value: 10 (number, required) - Values between 0 and 100
+                + type (enum[string], required)
+                    + Members
+                        + percentage
+                + description: `winter promotion` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -228,6 +240,11 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, required)
+                            + value: 10 (number, required) - Values between 0 and 100
+                            + type (enum[string], required)
+                                + Members
+                                    + percentage
         + invoice_date: `2016-02-04` (string, optional)
 
 + Response 204
@@ -284,4 +301,3 @@ Register a payment for an invoice.
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
 
 + Response 204
-
