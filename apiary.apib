@@ -284,6 +284,7 @@ Get a list of departments.
             + (object)
                 + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
                 + name: `Human Resources` (string)
+                + currency: `EUR` (string)
 
 ### departments.info [GET /departments.info]
 
@@ -300,6 +301,7 @@ Get details for a single department.
         + data  (object)
             + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
             + name: `Human Resources` (string)
+            + currency: `EUR` (string)
 
 ## Users [/users]
 
@@ -467,7 +469,7 @@ Get a list of contacts.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
-            + updated_after: `2016-02-04T16:44:33+00:00` (string, optional)
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
         + page (Page, optional)
         + sort (array, optional)
@@ -771,7 +773,7 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -1416,6 +1418,7 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (string, optional)
         + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
         + attendees (array, optional)
             + (object)
@@ -1451,6 +1454,8 @@ Update a calendar event.
         + description (string, optional, nullable)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+        + location (string, optional)
+        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
         + links (array, optional)
             + (object)
                 + type: `company` (enum[string], required)
