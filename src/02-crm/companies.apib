@@ -17,6 +17,7 @@ Get a list of companies.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
         + page (Page, optional)
         + sort (array, optional)
@@ -53,7 +54,7 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -112,6 +113,7 @@ Get details for a single company.
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
             + tags: prospect, expo (array[string])
+            + custom_fields (array[CustomField])
 
 ### companies.add [POST /companies.add]
 
