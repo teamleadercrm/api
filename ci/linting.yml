@@ -10,9 +10,6 @@ image_resource:
 inputs:
   - name: git-api
 
-caches:
-  - path: git-api/node_modules
-
 run:
   path: sh
   args:
