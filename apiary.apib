@@ -1209,6 +1209,19 @@ Move the deal to a different phase.
 
 + Response 204
 
+### deals.lose [POST /deals.lose]
+
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
+        + reason_id: `da4c902f-2ae5-4c1f-be6f-b50308aabc5c` (string, optional)
+        + extra_info: `Not ready for a change, decision postponed` (string, optional)
+
++ Response 204
+
 ## Deal Phases [/]
 
 ### dealPhases.list [GET /dealPhases.list]
