@@ -1612,7 +1612,8 @@ Get a list of invoices.
                             + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -1699,6 +1700,8 @@ Get details for a single invoice.
                     + paid_at: `2016-03-03T16:44:33+00:00` (string)
                     + payment (object)
                         + Include Money
+            + created_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -1902,7 +1905,8 @@ List credit notes
                             + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### creditNotes.info [GET /creditNotes.info]
 
@@ -1973,6 +1977,8 @@ Get details for a single credit note
                                         + Members
                                             + percentage
                                     + value: `15.00` (number)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ## Tax Rates [/taxRates]
 
