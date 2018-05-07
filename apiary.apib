@@ -586,7 +586,7 @@ Get a list of contacts.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
-            + updated_after: `2016-02-04T16:44:33+00:00` (string, optional)
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
         + page (Page, optional)
         + sort (array, optional)
@@ -620,7 +620,7 @@ Get a list of contacts.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + gender: `male` (enum[string])
                     + Members
                         + male
@@ -854,6 +854,7 @@ Get a list of companies.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
         + page (Page, optional)
         + sort (array, optional)
@@ -890,7 +891,7 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -986,6 +987,22 @@ Add a new company.
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: prospect, expo (array[string], optional)
+        + custom_fields (array, optional)
+            + (object)
+                + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                + One Of
+                    + value: `092980616` (string)
+                    + value: `123` (number) - For integer, number, money and auto-increment fields
+                    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+                    + value: true (boolean) - For Yes/No fields
+                    + value (object) - For related Teamleader objects
+                        + type: `company` (enum[string])
+                            + Members
+                                + company
+                                + contact
+                                + product
+                                + user
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1138,6 +1155,8 @@ Get a list of deals.
                         + company
                         + contact
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + phase_id: `1758e847-cc1f-04ce-bd17-5a852e8c01b4` (string, optional)
+            + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1304,6 +1323,19 @@ Move the deal to a different phase.
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
         + phase_id: `8776abee-d856-43c6-b98d-9ffc912e8b0b` (string, required)
+
++ Response 204
+
+### deals.lose [POST /deals.lose]
+
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
+        + reason_id: `da4c902f-2ae5-4c1f-be6f-b50308aabc5c` (string, optional)
+        + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204
 
@@ -1573,6 +1605,13 @@ Update a calendar event.
         + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
         + location (string, optional)
         + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
         + links (array, optional)
             + (object)
                 + type: `company` (enum[string], required)
@@ -1580,6 +1619,17 @@ Update a calendar event.
                         + company
                         + contact
                 + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
+
++ Response 204
+
+### events.cancel [POST /events.cancel]
+
+Cancel a calendar event (for all attendees).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b519491e-ca80-4efb-bb7b-3f08544936b0` (string, required)
 
 + Response 204
 
@@ -1681,7 +1731,8 @@ Get a list of invoices.
                             + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -1768,6 +1819,8 @@ Get details for a single invoice.
                     + paid_at: `2016-03-03T16:44:33+00:00` (string)
                     + payment (object)
                         + Include Money
+            + created_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -1971,7 +2024,8 @@ List credit notes
                             + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### creditNotes.info [GET /creditNotes.info]
 
@@ -2042,6 +2096,8 @@ Get details for a single credit note
                                         + Members
                                             + percentage
                                     + value: `15.00` (number)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ## Tax Rates [/taxRates]
 

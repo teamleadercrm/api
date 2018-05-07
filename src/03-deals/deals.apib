@@ -15,6 +15,8 @@ Get a list of deals.
                         + company
                         + contact
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + phase_id: `1758e847-cc1f-04ce-bd17-5a852e8c01b4` (string, optional)
+            + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -181,5 +183,18 @@ Move the deal to a different phase.
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
         + phase_id: `8776abee-d856-43c6-b98d-9ffc912e8b0b` (string, required)
+
++ Response 204
+
+### deals.lose [POST /deals.lose]
+
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
+        + reason_id: `da4c902f-2ae5-4c1f-be6f-b50308aabc5c` (string, optional)
+        + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204

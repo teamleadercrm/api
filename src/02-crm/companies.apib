@@ -17,6 +17,7 @@ Get a list of companies.
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
         + page (Page, optional)
         + sort (array, optional)
@@ -53,7 +54,7 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -149,6 +150,22 @@ Add a new company.
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: prospect, expo (array[string], optional)
+        + custom_fields (array, optional)
+            + (object)
+                + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+                + One Of
+                    + value: `092980616` (string)
+                    + value: `123` (number) - For integer, number, money and auto-increment fields
+                    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+                    + value: true (boolean) - For Yes/No fields
+                    + value (object) - For related Teamleader objects
+                        + type: `company` (enum[string])
+                            + Members
+                                + company
+                                + contact
+                                + product
+                                + user
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
 
 + Response 201 (application/json;charset=utf-8)
 
