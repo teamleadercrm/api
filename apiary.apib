@@ -1195,6 +1195,19 @@ Move the deal to a different phase.
 
 + Response 204
 
+### deals.lose [POST /deals.lose]
+
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
+        + reason_id: `da4c902f-2ae5-4c1f-be6f-b50308aabc5c` (string, optional)
+        + extra_info: `Not ready for a change, decision postponed` (string, optional)
+
++ Response 204
+
 ## Deal Phases [/]
 
 ### dealPhases.list [GET /dealPhases.list]
@@ -1587,7 +1600,8 @@ Get a list of invoices.
                             + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -1674,6 +1688,8 @@ Get details for a single invoice.
                     + paid_at: `2016-03-03T16:44:33+00:00` (string)
                     + payment (object)
                         + Include Money
+            + created_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -1682,12 +1698,17 @@ Draft a new invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object, required)
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+        + invoicee (object, required)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
         + payment_term (PaymentTerm, required)
         + grouped_lines (array, required)
@@ -1733,17 +1754,18 @@ Update an invoice.
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
-        + customer (object, required) - Who is the invoice for?
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
+        + invoicee (object, required)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + payment_term (PaymentTerm, required)
-        + for_attention_of (object, required)
-            + One Of
-                + name (string, required)
-                + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + grouped_lines (array, required)
             + (object)
                 + section (object, required)
@@ -1877,7 +1899,8 @@ List credit notes
                             + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### creditNotes.info [GET /creditNotes.info]
 
@@ -1948,6 +1971,8 @@ Get details for a single credit note
                                         + Members
                                             + percentage
                                     + value: `15.00` (number)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ## Tax Rates [/taxRates]
 
