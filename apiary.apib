@@ -1927,7 +1927,7 @@ Update an invoice.
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
-        + invoicee (object, required)
+        + invoicee (object, optional)
             + customer (object, required)
                 + type (enum[string])
                     + Members
@@ -1938,8 +1938,8 @@ Update an invoice.
                 + One Of
                     + name `Finance Dept.` (string, required)
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
-        + payment_term (PaymentTerm, required)
-        + grouped_lines (array, required)
+        + payment_term (PaymentTerm, optional)
+        + grouped_lines (array, optional)
             + (object)
                 + section (object, required)
                     + title (string, required)
