@@ -1282,6 +1282,7 @@ Create a new deal for a customer.
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
         + estimated_closing_date: `2017-05-09` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -2716,6 +2717,22 @@ Their only use is to allow older integrations to migrate their data to the new A
 + One Of
     + value: `092980616` (string)
     + value: `123` (number) - For integer, number and auto-increment fields
+    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## CustomFieldValue (object)
++ id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number, money and auto-increment fields
     + value: `foo`,`bar` (array[string]) - For multiple selection fields
     + value: true (boolean) - For Yes/No fields
     + value (object) - For related Teamleader objects
