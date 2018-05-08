@@ -209,3 +209,32 @@ Mark a deal as lost.
         + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204
+
+### lostReasons.list [GET /lostReasons.list]
+
+Get a list of lost reasons for deals.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + name: `Deal declined` (string)
