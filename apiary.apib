@@ -421,6 +421,123 @@ Get details for a single user.
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
 
+## Custom Fields [/customFieldDefinitions]
+
+### customFieldDefinitions.list [GET /customFieldDefinitions.list]
+
+Get a list of all the definitions of custom fields.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + label
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `label`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `74855f4a-2b61-429c-81d8-c79ad3675a76` (string)
+                + context: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                        + deal
+                        + project
+                        + milestone
+                        + product
+                        + invoice
+                        + subscription
+                        + ticket
+                + type (enum[string])
+                    + Members
+                        + single_line - Single line text
+                        + multi_line - Multiline text
+                        + single_select - Single selection - has configuration
+                        + multi_select - Multiple selection - has configuration
+                        + date - Date
+                        + money - Money
+                        + auto_increment - Automatically incrementing field
+                        + integer - Integer
+                        + number - Number
+                        + boolean - Yes/No
+                        + email - Email address
+                        + telephone - Phone number
+                        + url - URL
+                        + company - Company
+                        + contact - Contact
+                        + product - Product
+                        + user - User
+                + label (string)
+                + group (string)
+                + required: false (boolean)
+                + configuration (object)
+                    + One Of
+                        + options: foo, bar (array[string])
+
+### customFieldDefinitions.info [GET /customFieldDefinitions.info]
+
+Get info about a specific custom field definition.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `9c64570b-4ec1-4e03-9662-af904f78f7fa` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `57e851e2-3d3b-4523-82f8-fe77df5a5d6c` (string)
+            + context: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
+                    + deal
+                    + project
+                    + milestone
+                    + product
+                    + invoice
+                    + subscription
+                    + ticket
+            + type (enum[string])
+                + Members
+                    + single_line - Single line text
+                    + multi_line - Multiline text
+                    + single_select - Single selection - has configuration
+                    + multi_select - Multiple selection - has configuration
+                    + date - Date
+                    + money - Money
+                    + auto_increment - Automatically incrementing field
+                    + integer - Integer
+                    + number - Number
+                    + boolean - Yes/No
+                    + email - Email address
+                    + telephone - Phone number
+                    + url - URL
+                    + company - Company
+                    + contact - Contact
+                    + product - Product
+                    + user - User
+            + label (string)
+            + group (string)
+            + required: false (boolean)
+            + configuration (object)
+                + One Of
+                    + options: foo, bar (array[string])
+
 ## Work Types [/workTypes]
 
 ### workTypes.list [POST /workTypes.list]
