@@ -2553,6 +2553,66 @@ Update a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
+# Group Time Tracking
+
+## Time Tracking [/timeTracking]
+
+### timeTracking.list [GET /timeTracking.list]
+
+Get a list of tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `404c1777-6b61-4368-a388-0301dde8e72a`,`409e3446-96f2-4d9a-b20b-7f7cd055053e` (array[string], optional)
+            + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional)
+            + work_type_id: `ce1287f0-0480-458d-b371-22862d864074` (string, optional)
+            + started_after: `2017-04-26T10:01:49+00:00` (string, optional)
+            + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + started_on
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `started_on`
+                    + order: `asc`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `4f4288b2-c21b-4dac-87f6-a97511309079` (string)
+                + user (object)
+                    + type: `user` (string)
+                    + id: `eb1eb8b8-d0cb-4385-b60a-c995953ec6be` (string)
+                + work_type (object)
+                    + type: `workType` (string)
+                    + id: `8a146eda-c9af-4b11-b63a-ddac47bb254d` (string)
+                + started_on: `2017-04-26` (string)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+                + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+                + duration: 3600 (number) - In seconds
+                + description: `Timer description` (string)
+                + subject (object)
+                    + type: `project` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + event
+                            + todo
+                            + project
+                            + milestone
+                            + ticket
+                    + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
+
 # Group Other
 
 ## Migrating [/migrate]
