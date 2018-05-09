@@ -122,3 +122,29 @@ Add tracked time.
         + data (object)
             + type: `timetracking` (string)
             + id: `6f052357-142e-499e-a647-36b55ecf447c` (string)
+
+### timeTracking.update [POST /timeTracking.update]
+
+Update tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `66621f54-3d0d-420f-8d4b-ddd7fc473bf2` (string, required)
+        + work_type_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional, nullable)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+        + duration: 3600 (number, required) - In seconds
+        + description (string, optional, nullable)
+        + subject (object, optional, nullable)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `88f14220-55d3-4ca6-802b-425e2f53c850` (string, required)
+
++ Response 204
