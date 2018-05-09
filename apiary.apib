@@ -2650,6 +2650,36 @@ Get information about tracked time.
                         + ticket
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
 
+### timeTracking.add [POST /timeTracking.add]
+
+Add tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + work_type_id: `2175597d-484e-4a1c-a781-cbc3d9f893ba` (string, optional)      
+        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+        + duration: 3600 (number, required) - In seconds
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `timetracking` (string)
+            + id: `6f052357-142e-499e-a647-36b55ecf447c` (string)
+
 # Group Other
 
 ## Migrating [/migrate]
