@@ -987,22 +987,7 @@ Add a new company.
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: prospect, expo (array[string], optional)
-        + custom_fields (array, optional)
-            + (object)
-                + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
-                + One Of
-                    + value: `092980616` (string)
-                    + value: `123` (number) - For integer, number, money and auto-increment fields
-                    + value: `foo`,`bar` (array[string]) - For multiple selection fields
-                    + value: true (boolean) - For Yes/No fields
-                    + value (object) - For related Teamleader objects
-                        + type: `company` (enum[string])
-                            + Members
-                                + company
-                                + contact
-                                + product
-                                + user
-                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1046,6 +1031,7 @@ Update a company.
         + language: `en` (string, optional, nullable)
         + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional, nullable)
         + remarks: `Met at expo` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
