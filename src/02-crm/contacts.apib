@@ -61,9 +61,9 @@ Get a list of contacts.
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `en` (string)
+                + tags: prospect, expo (array[string])
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
-                + tags: prospect, expo (array[string])
 
 ### contacts.info [GET /contacts.info]
 
@@ -116,9 +116,10 @@ Get details for a single contact.
                         + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
             + language: `en` (string)
             + remarks: `First contact at expo` (string)
+            + tags: prospect, expo (array[string])
+            + custom_fields (array[CustomField])
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
-            + custom_fields (array[CustomField])
 
 ### contacts.add [POST /contacts.add]
 
@@ -157,6 +158,7 @@ Add a new contact.
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
         + remarks: `Met at expo` (string, optional)
+        + tags: prospect, expo (array[string], optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -203,6 +205,7 @@ Update a contact.
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
         + remarks: `Met at expo` (string, optional, nullable)
+        + tags: prospect, expo (array[string], optional)
 
 + Response 204
 
