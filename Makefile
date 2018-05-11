@@ -1,6 +1,6 @@
 PWD = $(shell pwd)
 
-all: lint build
+all: build lint
 
 node_modules: package.json
 	docker run -it --init --rm -v $(PWD):/code -w /code node npm install
