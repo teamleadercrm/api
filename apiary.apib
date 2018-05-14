@@ -113,13 +113,17 @@ Common used status codes:
  - `429` - Too Many Requests, your client has reached the API rate limit
  - `500` - Internal Server Error, something went wrong on our end
 
-## OAuth 2
+## Authentication
+
+### OAuth 2
 
 OAuth 2 is an authorization framework that allows a user to grant limited access to data in a Teamleader account, without having to expose their credentials.
 
 To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
 Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client side code.
+
+When you register an integration on our [Marketplace](https://marketplace.teamleader.eu), it is required to select all *scopes* your integration wants access to.
 
 For more detailed information about OAuth 2, we recommend reading [this article](https://auth0.com/docs/protocols/oauth2).
 
