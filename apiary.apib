@@ -433,6 +433,8 @@ Get details for a single user.
 
 ## Custom Fields [/customFieldDefinitions]
 
+Custom fields are used to add additional data/properties to entities within Teamleader.
+
 ### customFieldDefinitions.list [GET /customFieldDefinitions.list]
 
 Get a list of all the definitions of custom fields.
@@ -549,6 +551,8 @@ Get info about a specific custom field definition.
                     + options: foo, bar (array[string])
 
 ## Work Types [/workTypes]
+
+Work types define the type of work for events or time tracking. Hourly rates can be added to work types, so that the work can be billed to a customer.
 
 ### workTypes.list [POST /workTypes.list]
 
@@ -1114,8 +1118,7 @@ Remove a tag from a company.
 
 ## Business Types [/businessTypes]
 
-Each country has a specific set of business types or range of legal entities.
-You can specify the business type when adding or updating a company.
+Each country has a specific set of business types or range of legal entities. You can specify the business type when adding or updating a company.
 
 ### businessTypes.list [GET /businessTypes.list]
 
@@ -1135,6 +1138,8 @@ Get the names of business types (legal structures) a company can have within a c
             + country: `BE` (string)
 
 ## Tags [/tags]
+
+Tags are used to label contacts or companies, so that they can easily be filtered or grouped into segments.
 
 ### tags.list [GET /tags.list]
 
@@ -1167,6 +1172,8 @@ Get a list of tags.
 # Group Deals
 
 ## Deals [/deals]
+
+Deals are sale opportunities, which need to be followed up by their responsible user. A deal can move through specific deal phases, and be marked as won or lost.
 
 *Required scopes: `deals`*
 
@@ -1439,7 +1446,9 @@ Get a list of lost reasons for deals.
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + name: `Deal declined` (string)
 
-## Deal Phases [/]
+## Deal Phases [/dealPhases]
+
+Deal phases are the different phases a deal typically goes through. A deal can be moved to either a next or previous phase. A deal can be marked as won or lost independently from the deal phase.
 
 *Required scopes: `deals`*
 
@@ -1463,6 +1472,8 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
                 + name: `New` (string)
 
 ## Deal Sources [/dealSources]
+
+Deal sources are used to track the origin of a deal.
 
 *Required scopes: `deals`*
 
@@ -1491,6 +1502,8 @@ Get a list of all deal sources, sorted alphabetically (on name)
                 + name: `Referral` (string)
 
 ## Quotations [/quotations]
+
+A quotation is a sales offer for a specific customer. It is always attached to a deal. Quotations can be signed online via Cloudsign.
 
 *Required scopes: `quotations`*
 
@@ -1539,9 +1552,7 @@ Get a quotation
 
 ## Calendar events [/events]
 
-Calendar events are scheduled events in your calendar.
-A calendar event involves a particular activity type: a task, meeting or call.
-They can also be linked to one to-do.
+Calendar events are scheduled events in your calendar. A calendar event involves a particular activity type: a task, meeting or call.
 
 *Required scopes: `events`*
 
@@ -1743,9 +1754,7 @@ Cancel a calendar event (for all attendees).
 
 ## Activity Types [/activityTypes]
 
-Activity types are the different types of events (i.e. tasks, meetings or calls) and to-do’s.
-Currently there are three activity types available: tasks, meetings and calls.
-Extra (custom) activities types might become available in the future.
+Activity types identify the different types of events that take place within your organisation. Currently only three activity types are available: tasks, meetings and calls.
 
 ### activityTypes.list [GET /activityTypes.list]
 
@@ -2084,6 +2093,8 @@ Register a payment for an invoice.
 
 ## Credit Notes [/creditNotes]
 
+Credit notes are created when certain products or services are not delivered according to their invoice. The credit note reduces the due amount of the credited invoice.
+
 *Required scopes: `invoices`*
 
 ### creditNotes.list [GET /creditNotes.list]
@@ -2218,9 +2229,7 @@ Get details for a single credit note
 
 ## Tax Rates [/taxRates]
 
-Tax rates provide an overview of different taxation rates used to bill customers.
-Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader.
-The end user also has the option to add additional tax rates.
+Tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The end user also has the option to add additional tax rates.
 
 ### taxRates.list [GET /taxRates.list]
 
@@ -2259,6 +2268,8 @@ Get a list of available tax rates.
 
 ## Payment Terms [/paymentTerms]
 
+Payment terms are the conditions under which an invoice need to be paid.
+
 ### paymentTerms.list [GET /paymentTerms.list]
 
 Get a list of available payment terms.
@@ -2276,6 +2287,8 @@ Get a list of available payment terms.
 # Group Products
 
 ## Product Categories [/productCategories]
+
+Product categories are used to group specific products. They can be linked to a ledger account, which is important for accounting.
 
 *Required scopes: `products`*
 
@@ -2307,8 +2320,7 @@ Get a list of product categories.
 
 ## Projects [/projects]
 
-Projects allow users to work together as a team on a single project.
-They comprise of one or more milestones, have one or more participants and are limited in time and budget.
+Projects allow users to work together as a team on a single project. They consist of one or more milestones, have one or more participants and are limited in time and budget.
 
 *Required scopes: `projects`*
 
@@ -2516,8 +2528,7 @@ Update a participant's role for a project.
 
 ## Milestones [/milestones]
 
-Every projects consists of one or more milestones which are limited in time and budget.
-Budget is however not included in this endpoints (yet).
+Every projects consists of one or more milestones which are limited in time and budget. Budget is however not included in this endpoints (yet).
 
 *Required scopes: `projects`*
 
@@ -2633,6 +2644,8 @@ Update a milestone.
 # Group Time Tracking
 
 ## Time Tracking [/timeTracking]
+
+Time tracking allows users to record time spent on tasks or projects and the type of work. You are able to follow-up on the budgets of your projects and eventually you are able to invoice the billable time.
 
 ### timeTracking.list [GET /timeTracking.list]
 
@@ -2804,6 +2817,8 @@ Start a new timer based on previously tracked time.
 
 ## Timers [/timers]
 
+Timers are an easy way to track time. You can start, stop or resume a timer any time. However, only one timer can run simultaneously per user. Every action will result in the creation or update of a time tracking.
+
 ### timers.current [GET /timers.current]
 
 Get the current running timer.
@@ -2887,6 +2902,8 @@ Their only use is to allow older integrations to migrate their data to the new A
 
 ### migrate.id [GET /migrate.id]
 
+Translate an ID from the deprecated API into a new UUID.
+
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -2935,6 +2952,8 @@ Their only use is to allow older integrations to migrate their data to the new A
 
 ### migrate.taxRate [GET /migrate.taxRate]
 
+Translates tax rated from the deprecated API into a new UUID tax rate.
+
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -2949,6 +2968,8 @@ Their only use is to allow older integrations to migrate their data to the new A
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
 ### migrate.activityType [GET /migrate.activityType]
+
+Translate meeting, call, task into the according activity type UUID.
 
 + Request (application/json;charset=utf-8)
 
