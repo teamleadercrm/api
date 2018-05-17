@@ -113,13 +113,17 @@ Common used status codes:
  - `429` - Too Many Requests, your client has reached the API rate limit
  - `500` - Internal Server Error, something went wrong on our end
 
-## OAuth 2
+## Authentication
+
+### OAuth 2
 
 OAuth 2 is an authorization framework that allows a user to grant limited access to data in a Teamleader account, without having to expose their credentials.
 
 To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
 Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client side code.
+
+When you register an integration on our [Marketplace](https://marketplace.teamleader.eu), it is required to select all *scopes* your integration wants access to.
 
 For more detailed information about OAuth 2, we recommend reading [this article](https://auth0.com/docs/protocols/oauth2).
 
@@ -257,6 +261,8 @@ The changelog can be found [here](https://github.com/teamleadercrm/api/blob/mast
 
 Departments are used to split quotations and invoices for different legal entities or within one organisation.
 
+*Required scopes: `departments`*
+
 ### departments.list [GET /departments.list]
 
 Get a list of departments.
@@ -308,6 +314,8 @@ Get details for a single department.
 ## Users [/users]
 
 Users are co-workers in a Teamleader account.
+
+*Required scopes: `users`*
 
 ### users.me [GET /users.me]
 
@@ -570,8 +578,9 @@ Get a list of all work types, sorted alphabetically (on their name).
 
 ## Contacts [/contacts]
 
-Contacts are physical entities who are added to your CRM database.
-Contacts might be linked to one or more companies.
+Contacts are physical entities who are added to your CRM database. Contacts might be linked to one or more companies.
+
+*Required scopes: `contacts`*
 
 ### contacts.list [GET /contacts.list]
 
@@ -855,6 +864,8 @@ Unlink a contact from a company.
 ## Companies [/companies]
 
 Companies are legal entities, usually linked to a VAT and/or local business number.
+
+*Required scopes: `companies`*
 
 ### companies.list [GET /companies.list]
 
@@ -1155,6 +1166,8 @@ Get a list of tags.
 
 ## Deals [/deals]
 
+*Required scopes: `deals`*
+
 ### deals.list [GET /deals.list]
 
 Get a list of deals.
@@ -1426,6 +1439,8 @@ Get a list of lost reasons for deals.
 
 ## Deal Phases [/]
 
+*Required scopes: `deals`*
+
 ### dealPhases.list [GET /dealPhases.list]
 
 Get a list of all phases a deal can go through, sorted by their order in the flow.
@@ -1446,6 +1461,8 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
                 + name: `New` (string)
 
 ## Deal Sources [/dealSources]
+
+*Required scopes: `deals`*
 
 ### dealSources.list [GET /dealSources.list]
 
@@ -1472,6 +1489,8 @@ Get a list of all deal sources, sorted alphabetically (on name)
                 + name: `Referral` (string)
 
 ## Quotations [/quotations]
+
+*Required scopes: `quotations`*
 
 ### quotations.info [GET /quotations.info]
 
@@ -1521,6 +1540,8 @@ Get a quotation
 Calendar events are scheduled events in your calendar.
 A calendar event involves a particular activity type: a task, meeting or call.
 They can also be linked to one to-do.
+
+*Required scopes: `events`*
 
 ### events.list [GET /events.list]
 
@@ -1747,9 +1768,9 @@ Get a list of all activity types.
 
 ## Invoices [/invoices]
 
-Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
-New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
-Invoices can also be updated, deleted or credited.
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices. New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`. Invoices can also be updated, deleted or credited.
+
+*Required scopes: `invoices`*
 
 ### invoices.list [GET /invoices.list]
 
@@ -2059,7 +2080,9 @@ Register a payment for an invoice.
 
 + Response 204
 
-## Creditnotes [/creditNotes]
+## Credit Notes [/creditNotes]
+
+*Required scopes: `invoices`*
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -2232,6 +2255,8 @@ Get a list of available tax rates.
                     + type: `department` (string)
                     + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
 
+## Payment Terms [/paymentTerms]
+
 ### paymentTerms.list [GET /paymentTerms.list]
 
 Get a list of available payment terms.
@@ -2249,6 +2274,8 @@ Get a list of available payment terms.
 # Group Products
 
 ## Product Categories [/productCategories]
+
+*Required scopes: `products`*
 
 ### productCategories.list [GET /productCategories.list]
 
@@ -2280,6 +2307,8 @@ Get a list of product categories.
 
 Projects allow users to work together as a team on a single project.
 They comprise of one or more milestones, have one or more participants and are limited in time and budget.
+
+*Required scopes: `projects`*
 
 ### projects.list [GET /projects.list]
 
@@ -2487,6 +2516,8 @@ Update a participant's role for a project.
 
 Every projects consists of one or more milestones which are limited in time and budget.
 Budget is however not included in this endpoints (yet).
+
+*Required scopes: `projects`*
 
 ### milestones.list [GET /milestones.list]
 
