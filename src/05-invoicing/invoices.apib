@@ -1,8 +1,8 @@
 ## Invoices [/invoices]
 
-Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
-New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
-Invoices can also be updated, deleted or credited.
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices. New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`. Invoices can also be updated, deleted or credited.
+
+*Required scopes: `invoices`*
 
 ### invoices.list [GET /invoices.list]
 
@@ -69,7 +69,8 @@ Get a list of invoices.
                             + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -156,6 +157,9 @@ Get details for a single invoice.
                     + paid_at: `2016-03-03T16:44:33+00:00` (string)
                     + payment (object)
                         + Include Money
+            + payment_reference: `+++084/2613/66074+++` (string)
+            + created_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -164,12 +168,17 @@ Draft a new invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object, required)
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+        + invoicee (object, required)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
         + payment_term (PaymentTerm, required)
         + grouped_lines (array, required)
@@ -215,18 +224,19 @@ Update an invoice.
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
-        + customer (object, required) - Who is the invoice for?
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
-        + payment_term (PaymentTerm, required)
-        + for_attention_of (object, required)
-            + One Of
-                + name (string, required)
-                + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
-        + grouped_lines (array, required)
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + grouped_lines (array, optional)
             + (object)
                 + section (object, required)
                     + title (string, required)
