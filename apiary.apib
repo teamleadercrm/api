@@ -1957,11 +1957,12 @@ Download an invoice in a specific format.
             + Members
                 + pdf
 
-+ Response 307 (application/json;charset=utf-8)
++ Response 200 (application/json;charset=utf-8)
 
-    + Headers
-
-              Location: The url of the downloadable file. This will remain valid for 30 seconds.
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded from
+            + expires: `2018-02-05T16:44:33+00:00` (string) - When the temporary download link expires
 
 ### invoices.draft [POST /invoices.draft]
 
