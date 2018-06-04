@@ -95,17 +95,13 @@ Get details for a single contact.
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + One Of
-                        + Properties
-                            + type: `primary` (string)
-                            + address (Address)
-                        + Properties
-                            + type: `invoicing` (enum[string])
-                                + Members
-                                    + invoicing
-                                    + delivery
-                                    + visiting
-                            + address (Addressee)
+                    + type: `invoicing` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee) - Primary addresses can not contain an addressee
             + gender: `male` (enum[string])
                 + Members
                     + male
@@ -150,17 +146,13 @@ Add a new contact.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + One Of
-                    + Properties
-                        + type: `primary` (string, required)
-                        + address (Address, required) - Primary addresses can not contain an addressee
-                    + Properties
-                        + type: `invoicing` (enum[string], required)
-                            + Members
-                                + invoicing
-                                + delivery
-                                + visiting
-                        + address (Addressee, required)
+                + type: `invoicing` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
@@ -201,17 +193,13 @@ Update a contact.
         + website: `http://example.com` (string, optional, nullable)
         + addresses (array, optional)
             + (object)
-                + One Of
-                    + Properties
-                        + type: `primary` (string, required)
-                        + address (Address, required) - Primary addresses can not contain an addressee
-                    + Properties
-                        + type: `invoicing` (enum[string], required)
-                            + Members
-                                + invoicing
-                                + delivery
-                                + visiting
-                        + address (Addressee, required)
+                + type: `invoicing` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional, nullable)
             + Members
