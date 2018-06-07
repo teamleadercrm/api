@@ -676,17 +676,13 @@ Get details for a single contact.
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + One Of
-                        + Properties
-                            + type: `primary` (string)
-                            + address (Address)
-                        + Properties
-                            + type: `invoicing` (enum[string])
-                                + Members
-                                    + invoicing
-                                    + delivery
-                                    + visiting
-                            + address (Addressee)
+                    + type: `invoicing` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee) - Primary addresses can not contain an addressee
             + gender: `male` (enum[string])
                 + Members
                     + male
@@ -731,17 +727,13 @@ Add a new contact.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + One Of
-                    + Properties
-                        + type: `primary` (string, required)
-                        + address (Address, required) - Primary addresses can not contain an addressee
-                    + Properties
-                        + type: `invoicing` (enum[string], required)
-                            + Members
-                                + invoicing
-                                + delivery
-                                + visiting
-                        + address (Addressee, required)
+                + type: `invoicing` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
@@ -782,17 +774,13 @@ Update a contact.
         + website: `http://example.com` (string, optional, nullable)
         + addresses (array, optional)
             + (object)
-                + One Of
-                    + Properties
-                        + type: `primary` (string, required)
-                        + address (Address, required) - Primary addresses can not contain an addressee
-                    + Properties
-                        + type: `invoicing` (enum[string], required)
-                            + Members
-                                + invoicing
-                                + delivery
-                                + visiting
-                        + address (Addressee, required)
+                + type: `invoicing` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional, nullable)
             + Members
@@ -969,17 +957,13 @@ Get details for a single company.
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + One Of
-                        + Properties
-                            + type: `primary` (string)
-                            + address (Address)
-                        + Properties
-                            + type: `invoicing` (enum[string])
-                                + Members
-                                    + invoicing
-                                    + delivery
-                                    + visiting
-                            + address (Addressee)
+                    + type: `invoicing` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                            + delivery
+                            + visiting
+                    + address (Addressee) - Primary addresses can not contain an addressee
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
@@ -1017,17 +1001,13 @@ Add a new company.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + One Of
-                    + Properties
-                        + type: `primary` (string, required)
-                        + address (Address, required) - Primary addresses can not contain an addressee
-                    + Properties
-                        + type: `invoicing` (enum[string], required)
-                            + Members
-                                + invoicing
-                                + delivery
-                                + visiting
-                        + address (Addressee, required)
+                + type: `invoicing` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
@@ -1066,17 +1046,13 @@ Update a company.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + One Of
-                    + Properties
-                        + type: `primary` (string, required)
-                        + address (Address, required) - Primary addresses can not contain an addressee
-                    + Properties
-                        + type: `invoicing` (enum[string], required)
-                            + Members
-                                + invoicing
-                                + delivery
-                                + visiting
-                        + address (Addressee, required)
+                + type: `invoicing` (enum[string], required)
+                    + Members
+                        + primary
+                        + invoicing
+                        + delivery
+                        + visiting
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
         + language: `en` (string, optional, nullable)
