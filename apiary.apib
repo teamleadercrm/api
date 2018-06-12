@@ -2232,6 +2232,25 @@ Get details for a single credit note
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
+### creditNotes.download [POST /creditNotes.download]
+
+Download a credit note in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded from
+            + expires: `2018-02-05T16:44:33+00:00` (string) - When the temporary download link expires
+
 ## Tax Rates [/taxRates]
 
 Tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The end user also has the option to add additional tax rates.
