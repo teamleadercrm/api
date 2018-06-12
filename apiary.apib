@@ -699,7 +699,7 @@ Get details for a single contact.
                         + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
             + language: `en` (string)
             + payment_term (PaymentTerm, nullable)
-            + remarks: `First contact at expo` (string) - Uses markdown formatting
+            + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + tags: prospect, expo (array[string])
             + custom_fields (array[CustomField])
             + opted_in_for_mailings: false (boolean)
@@ -742,7 +742,7 @@ Add a new contact.
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Uses markdown formatting
+        + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
 
 + Response 201 (application/json;charset=utf-8)
@@ -789,7 +789,7 @@ Update a contact.
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
-        + remarks: `Met at expo` (string, optional, nullable) - Uses markdown formatting
+        + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
 
 + Response 204
@@ -972,7 +972,7 @@ Get details for a single company.
             + responsible_user (object)
                 + type: `user`
                 + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
-            + remarks: `First contact at expo` (string) - Uses markdown formatting
+            + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
             + tags: prospect, expo (array[string])
@@ -1012,7 +1012,7 @@ Add a new company.
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Uses markdown formatting
+        + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
 
@@ -1057,7 +1057,7 @@ Update a company.
         + bic: `BICBANK` (string, optional, nullable)
         + language: `en` (string, optional, nullable)
         + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional, nullable)
-        + remarks: `Met at expo` (string, optional, nullable) - Uses markdown formatting
+        + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
