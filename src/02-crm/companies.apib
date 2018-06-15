@@ -120,7 +120,7 @@ Get details for a single company.
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
             + tags: prospect, expo (array[string])
             + custom_fields (array[CustomField])
-            + opted_in_for_mailings: false (boolean)
+            + marketing_mails_consent: false (boolean)
 
 ### companies.add [POST /companies.add]
 
@@ -158,6 +158,7 @@ Add a new company.
         + remarks: `Met at expo` (string, optional)
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -202,6 +203,7 @@ Update a company.
         + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional, nullable)
         + remarks: `Met at expo` (string, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 204
 
