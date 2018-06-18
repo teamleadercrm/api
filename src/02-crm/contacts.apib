@@ -163,6 +163,7 @@ Add a new contact.
         + bic: `BICBANK` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: prospect, expo (array[string], optional)
+        + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
 
 + Response 201 (application/json;charset=utf-8)
@@ -211,6 +212,7 @@ Update a contact.
         + bic: `BICBANK` (string, optional, nullable)
         + remarks: `Met at expo` (string, optional, nullable)
         + tags: prospect, expo (array[string], optional)
+        + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
 
 + Response 204
