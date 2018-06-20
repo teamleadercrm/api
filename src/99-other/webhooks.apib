@@ -10,59 +10,36 @@ Register a new webhook.
         + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
         + types (array[enum[string]], required) - Array of event types that should fire the webhook
             + Members
+                + company.added
+                + company.deleted
+                + company.updated
                 + contact.added
-                + contact.updated
                 + contact.deleted
                 + contact.linkedToCompany
                 + contact.unlinkedFromCompany
-                + company.added
-                + company.updated
-                + company.deleted
+                + contact.updated
                 + deal.created
-                + quotation.created
-                + deal.phaseChanged
-                + deal.accepted
-                + deal.refused
                 + deal.deleted
+                + deal.lost
+                + deal.moved
+                + deal.won
+                + event.cancelled
                 + event.created
                 + event.updated
-                + event.deleted
-                + TASK_FINISHED
-                + timetracking.added
-                + timetracking.updated
-                + timetracking.deleted
-                + invoice.drafted
-                + invoice.updated
                 + invoice.booked
-                + invoice.sent
-                + invoice.paid
-                + invoice.notPaid
                 + invoice.deleted
-                + creditNote.created
-                + creditNote.updated
-                + creditNote.sent
-                + creditNote.deleted
-                + product.added
-                + product.updated
-                + product.deleted
-                + project.created
-                + project.updated
-                + project.deleted
+                + invoice.drafted
+                + invoice.paymentRegistered
+                + invoice.paymentRemoved
+                + invoice.sent
+                + invoice.updated
                 + milestone.created
                 + milestone.updated
-                + milestone.closed
-                + milestone.deleted
-                + ticket.created
-                + ticket.updated
-                + ticket.newMessagePosted
-                + ticket.closed
-                + FILE_ADDED
-                + FILE_EDITED
-                + FILE_DELETED
-                + customFieldDefinition.added
-                + customFieldDefinition.updated
-                + customFieldDefinition.deleted
-                + USER_DAYS_OFF_EDITED
-                + COMPANY_CLOSING_DAYS_EDITED
+                + project.created
+                + project.deleted
+                + project.updated
+                + timeTracking.added
+                + timeTracking.deleted
+                + timeTracking.updated
 
 + Response 204
