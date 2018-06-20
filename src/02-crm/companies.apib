@@ -2,6 +2,8 @@
 
 Companies are legal entities, usually linked to a VAT and/or local business number.
 
+*Required scopes: `companies`*
+
 ### companies.list [GET /companies.list]
 
 Get a list of companies.
@@ -9,6 +11,16 @@ Get a list of companies.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + email (object, optional)
+                + type: `primary` (enum[string], required)
+                    + Members
+                         + primary
+                + email: `info@piedpiper.eu` (string, required)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
+            + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -44,15 +56,18 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
+                + preferred_currency: `EUR` (string, nullable)
+                + payment_term (PaymentTerm, nullable)
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: prospect, expo (array[string])
 
 ### companies.info [GET /companies.info]
 
@@ -67,7 +82,7 @@ Get details for a single company.
 
     + Attributes (object)
         + data (object)
-            + id: `c5685b0f-87b8-456f-8d9e-a5866814c47a` (string)
+            + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string)
             + name: `Pied Piper` (string)
             + business_type (object)
                 + type: `businessType` (string)
@@ -85,24 +100,29 @@ Get details for a single company.
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `invoicing` (enum[string])
                         + Members
                             + primary
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee)
+                    + address (Addressee) - Primary addresses can not contain an addressee
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
+            + preferred_currency: `EUR` (string, nullable)
+            + payment_term (PaymentTerm, nullable)
             + responsible_user (object)
                 + type: `user`
                 + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
-            + remarks: `First contact at expo` (string)
+            + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + tags: prospect, expo (array[string])
+            + custom_fields (array[CustomField])
+            + marketing_mails_consent: false (boolean)
 
-### companies.add [POST /companies.create]
+### companies.add [POST /companies.add]
 
 Add a new company.
 
@@ -124,18 +144,21 @@ Add a new company.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `invoicing` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
+        + tags: prospect, expo (array[string], optional)
+        + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -151,34 +174,36 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + name: `Pied Piper` (string, required)
-        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
-        + vat_number: `BE0899623035` (string, required, nullable)
-        + local_business_number: `63326426` (string, required, nullable)
-        + emails (array, required)
+        + id: `4784189d-610b-4488-b3a5-5f324f752417` (string, required)
+        + name: `Pied Piper` (string, optional)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional, nullable)
+        + vat_number: `BE0899623035` (string, optional, nullable)
+        + local_business_number: `63326426` (string, optional, nullable)
+        + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required, nullable)
-        + invoice_email: `invoicing@example.com` (string, required, nullable)
-        + telephones (array[CompanyTelephone], required, nullable)
-        + website: `http://example.com` (string, required, nullable)
-        + addresses (array, required)
+                + email: `info@piedpiper.eu` (string, required)
+        + telephones (array[CompanyTelephone], optional)
+        + website: `http://example.com` (string, optional)
+        + addresses (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `invoicing` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required, nullable)
-        + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string, required, nullable)
-        + language: `en` (string, required, nullable)
-        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, required, nullable)
-        + remarks: `Met at expo` (string, required, nullable)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
+        + iban: `BE12 1234 1234 1234` (string, optional, nullable)
+        + bic: `BICBANK` (string, optional, nullable)
+        + language: `en` (string, optional, nullable)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional, nullable)
+        + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
+        + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 204
 
@@ -190,5 +215,29 @@ Delete a company.
 
     + Attributes (object)
         + id: `f3d67f3e-b8a9-45e8-99b1-17a3b14de8a6` (string, required)
+
++ Response 204
+
+### companies.tag [POST /companies.tag]
+
+Add a new or existing tag to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### companies.untag [POST /companies.untag]
+
+Remove a tag from a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204

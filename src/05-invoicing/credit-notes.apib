@@ -1,0 +1,155 @@
+## Credit Notes [/creditNotes]
+
+Credit notes are created when certain products or services are not delivered according to their invoice. The credit note reduces the due amount of the credited invoice.
+
+*Required scopes: `invoices`*
+
+### creditNotes.list [GET /creditNotes.list]
+
+List credit notes
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + credit_note_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `credit_note_number`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + credit_note_number: `2017/5` (string, nullable)
+                + credit_note_date: `2016-02-04` (string, nullable)
+                + status: `booked` (enum[string])
+                    + Members
+                        + booked
+                + invoice (object, nullable)
+                    + type: `invoice` (string)
+                    + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
+                + paid: `true` (boolean)
+                + paid_at: `2016-03-03T16:44:33+00:00` (string, nullable)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + vat_number: `BE0899623035` (string, nullable)
+                    + customer (object)
+                        + type: `contact` (string)
+                        + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + payable (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: `0.21` (number)
+                            + taxable (Money)
+                            + tax (Money)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### creditNotes.info [GET /creditNotes.info]
+
+Get details for a single credit note
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + credit_note_number: `2017/5` (string, nullable)
+                + credit_note_date: `2016-02-04` (string, nullable)
+                + status: `booked` (enum[string])
+                    + Members
+                        + booked
+                + invoice (object, nullable)
+                    + type: `invoice` (string)
+                    + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
+                + paid: `true` (boolean)
+                + paid_at: `2016-03-03T16:44:33+00:00` (string, nullable)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + vat_number: `BE0899623035` (string, nullable)
+                    + customer (object)
+                        + type: `contact` (string)
+                        + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + payable (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: `0.21` (number)
+                            + taxable (Money)
+                            + tax (Money)
+                + grouped_lines (array)
+                    + (object)
+                        + section (object)
+                            + title (string)
+                        + line_items (array)
+                            + (object)
+                                + product (object, nullable)
+                                    + type: `product` (string)
+                                    + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                                + product_category (object, nullable)
+                                    + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                                    + type: `productCategory` (string)
+                                + quantity: `3` (number)
+                                + description: `An awesome product` (string)
+                                + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                                + unit_price (object)
+                                    + Include Money
+                                    + tax: `excluding` (enum[string])
+                                        + Members
+                                            + excluding
+                                + tax (object)
+                                    + rate: `0.21` (number)
+                                + discount (object, nullable)
+                                    + type: `percentage` (enum[string])
+                                        + Members
+                                            + percentage
+                                    + value: `15.00` (number)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### creditNotes.download [POST /creditNotes.download]
+
+Download a credit note in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link

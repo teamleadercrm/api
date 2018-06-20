@@ -1,0 +1,47 @@
+## Quotations [/quotations]
+
+A quotation is a sales offer for a specific customer. It is always attached to a deal. Quotations can be signed online via Cloudsign.
+
+*Required scopes: `quotations`*
+
+### quotations.info [GET /quotations.info]
+
+Get a quotation
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string)
+            + deal (object)
+                + type: `deal` (string)
+                + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
+            + grouped_lines (array)
+                + (object)
+                    + section (object)
+                        + title (string)
+                    + line_items (array)
+                        + (object)
+                            + product (object, nullable)
+                                + type: `product` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + quantity: 3 (number)
+                            + description: `An awesome product` (string)
+                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                            + unit_price (object)
+                                + Include Money
+                                + tax: `excluding` (enum[string])
+                                    + Members
+                                        + excluding
+                            + tax (object)
+                                + rate: 0.21 (number)
+                            + discount (object, nullable)
+                                + type: `percentage` (enum[string])
+                                    + Members
+                                        + percentage
+                                + value: 15.00 (number)

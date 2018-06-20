@@ -1,8 +1,8 @@
 ## Calendar events [/events]
 
-Calendar events are scheduled events in your calendar.
-A calendar event involves a particular activity type: a task, meeting or call.
-They can also be linked to one to-do.
+Calendar events are scheduled events in your calendar. A calendar event involves a particular activity type: a task, meeting or call.
+
+*Required scopes: `events`*
 
 ### events.list [GET /events.list]
 
@@ -16,6 +16,18 @@ Get a list of calendar events.
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
+            + term: `coffee` (string, optional) - Searches for a term in title or description
+            + attendee (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + link (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -25,6 +37,7 @@ Get a list of calendar events.
                 + order: `asc` (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: starts_at
@@ -50,6 +63,21 @@ Get a list of calendar events.
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
                 + location (string)
+                + attendees (array)
+                    + (object)
+                        + type: `contact` (enum[string])
+                            + Members
+                                + user
+                                + contact
+                        + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+                + links (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + company
+                                + contact
+                        + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
+
 
 ### events.info [GET /events.info]
 
@@ -84,7 +112,15 @@ Get details for a single calendar event.
                     + type: `contact` (enum[string])
                         + Members
                             + user
+                            + contact
                     + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+            + links (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + company
+                            + contact
+                    + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 ### events.create [POST /events.create]
 
@@ -98,6 +134,22 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (string, optional)
+        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -105,3 +157,45 @@ Create a new calendar event.
         + data (object)
             + type: `event` (string)
             + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
+
+### events.update [POST /events.update]
+
+Update a calendar event.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes
+        + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional, nullable)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+        + location (string, optional)
+        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
+
++ Response 204
+
+### events.cancel [POST /events.cancel]
+
+Cancel a calendar event (for all attendees).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b519491e-ca80-4efb-bb7b-3f08544936b0` (string, required)
+
++ Response 204

@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "lint": "apib-lint apiary.apib",
-    "build": "hercule src/apiary.apib -o apiary.apib && apib-lint apiary.apib",
+    "build": "hercule src/apiary.apib -o apiary.apib",
     "watch": "gulp watch"
   },
   "repository": {

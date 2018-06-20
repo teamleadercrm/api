@@ -1,0 +1,31 @@
+## Tags [/tags]
+
+Tags are used to label contacts or companies, so that they can easily be filtered or grouped into segments.
+
+### tags.list [GET /tags.list]
+
+Get a list of tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + tag
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `tag`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + tag: `campaign` (string)

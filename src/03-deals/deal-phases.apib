@@ -1,0 +1,24 @@
+## Deal Phases [/dealPhases]
+
+Deal phases are the different phases a deal typically goes through. A deal can be moved to either a next or previous phase. A deal can be marked as won or lost independently from the deal phase.
+
+*Required scopes: `deals`*
+
+### dealPhases.list [GET /dealPhases.list]
+
+Get a list of all phases a deal can go through, sorted by their order in the flow.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
+                + name: `New` (string)

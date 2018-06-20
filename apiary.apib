@@ -3,10 +3,9 @@ HOST: https://api.teamleader.eu
 
 # Teamleader API
 
-#### New API - This is still a BETA version.
+This is the new Teamleader API. We will make additions and changes to this API, but don't worry; we will keep the documented endpoints backwards compatible for the lifetime of this major API version.
 
-Our new API is currently available in beta version for you to test. We invite you to read through the documentation and test the new endpoints. Do you have any feedback? Don’t hesitate to let us know via [api@teamleader.eu](mailto://api@teamleader.eu).
-This documentation isn’t final yet and is subject to change prior to our official release, although we will limit this to a minimum.
+Do you have any feedback, do you miss functionality to support your use case? Let us know via [api@teamleader.eu](mailto:api@teamleader.eu).
 
 ## AP-What?
 
@@ -50,9 +49,9 @@ GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-
 
 ### Responses
 
-Both single objects and collections are returned as JSON objects with a top-level `data` property:
+Both single objects and collections are returned as JSON objects, keyed by `data` in the top level of a JSON object:
 
-```
+```json
 {
     "data": {
         "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
@@ -68,21 +67,38 @@ Responses may also contain meta data for pagination.
 
 ### Errors
 
-Errors are always returned as an array of error objects under an `errors` top level property.
+Errors are always returned as an array of error objects, keyed by `errors` in the top level of a JSON object:
 
-```
+```json
 {
-    "errors": [
-        {
-            "title": "Bad request"
-        }
-    ]
+  "errors": [
+    {
+      "title": "Company name must not be empty"
+    }
+  ]
 }
 ```
 
+### Rate limiting
+
+To ensure a fast and predictable experience for everyone, all our API endpoints have a rate limit of **100 calls per minute** for each integration (or client id) to a Teamleader account.
+
+When you go over this limit, our API will respond with a `HTTP 429 Too Many Requests error`.
+
+If your integrations needs a higher limit, send us an email at [api@teamleader.eu](mailto:api@teamleader.eu) with a detailed explanation why you need an increased rate limit.
+
 ### Status codes
 
-When objects are created, we return a `201` response containing the `id` and `type` of the new resource. When objects are updated or actions are performed, we often return an empty response with a `204` status code.
+When objects are created, we return a `201` response containing the `id` and `type` of the new resource:
+
+```json
+{
+  "type": "contact",
+  "id": "9d4096c3-813f-4bd5-b3c4-4091807b5b74"
+}
+```
+
+When objects are updated or actions are performed, we often return an empty response with a `204` status code.
 
 Common used status codes:
 
@@ -96,38 +112,52 @@ Common used status codes:
  - `429` - Too Many Requests, your client has reached the API rate limit
  - `500` - Internal Server Error, something went wrong on our end
 
-## OAuth 2
+## Authentication
 
-OAuth 2 is an authorization framework that lets your integration request authorization to data in a user's Teamleader account without getting their password.
+### OAuth 2
 
-Before starting you will need to register your integration on our [marketplace](https://marketplace.teamleader.eu). Each integration is assigned a unique `client_id` and `client_secret` which will be used in the OAuth flow. Note that the `client_secret` key should not be shared.
+OAuth 2 is an authorization framework that allows a user to grant limited access to data in a Teamleader account, without having to expose their credentials.
 
-### Authorization
+To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
-To authenticate users for your integration, redirect the user to the Teamleader authorization page:
+Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client side code.
+
+When you register an integration on our [Marketplace](https://marketplace.teamleader.eu), it is required to select all *scopes* your integration wants access to.
+
+For more detailed information about OAuth 2, we recommend reading [this article](https://auth0.com/docs/protocols/oauth2).
+
+### Authorization flow
+
+To get access to a user's Teamleader data using the *authorization code grant type*, redirect users to the Teamleader authorization page:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
-With the following values as GET parameters:
+The required GET parameters are:
 
  - `client_id` - issued when you create your integration
  - `response_type` - must be "code"
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-The user will then be asked to login to Teamleader server and authorize your integration. If the user approves the client they will be redirected to the previously specified `redirect_uri` with a temporary authorization code and the original state parameter if it was provided. If the states don't match, the request may have been created by a third party and you should abort the process.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these white listed URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+
+After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.teamleader.eu/build).
+
+If the user authorizes your integration, they will be redirected to the specified `redirect_uri` with a temporary authorization code and the original `state` parameter. If the `state` parameter does not match the original value, the response may have been created by a third party and should be ignored.
 
 `https://YOUR_REDIRECT_URI?code=CODE&state=STATE`
 
-If the user denies your request, we will redirect back to the `redirect_uri` with an `error` parameter:
+If the user denies your integration, he will be redirected to the `redirect_uri`, with an `error` parameter:
 
 `https://YOUR_REDIRECT_URI?error=access_denied`
 
-With the authorization code that was sent back to your `redirect_uri`, you can request an access token to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance.
+### Obtaining access tokens
+
+After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send a HTTP POST request to the following endpoint:
 
 `https://app.teamleader.eu/oauth2/access_token`
 
-The following values should be passed as POST parameters:
+The required POST parameters are:
 
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
@@ -135,7 +165,7 @@ The following values should be passed as POST parameters:
  - `grant_type` - must be "authorization_code"
  - `redirect_uri` - the original submitted redirect URL
 
-Please note that a `content-type` header is **required** for this request. These types are supported:
+It is recommended to add `content-type` header to this request. Supported content types are:
 
  - application/x-www-form-urlencoded
  - application/json
@@ -146,12 +176,12 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 {
     "token_type": "Bearer",
     "expires_in": 3600,
-    "access_token": ACCESS_TOKEN,
-    "refresh_token": REFRESH_TOKEN
+    "access_token": "ACCESS_TOKEN",
+    "refresh_token": "REFRESH_TOKEN"
 }
 ```
 
-Use this access token to make API calls on behalf of the user using the `Authorization` header. Example request:
+These access tokens are also know as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
 
 ```
 GET https://api.teamleader.eu/contacts.list HTTP/1.1
@@ -159,60 +189,78 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
 Accept: application/json;charset=utf-8
 ```
 
-### Refresh tokens
+Access tokens expire shortly (usually 1 hour) after they are issued for security reasons. If your integration needs to communicate with our API beyond the access token's lifespan, you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only be used once to get a new access token and refresh token.
 
-Access tokens expire shortly (1 hour) after they are issued for security reasons. If your integration needs to communicate with the API beyond the access token's lifespan you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only used once to get a new access token and refresh token.
+### Using refresh tokens
+
+If an access token is expired, a new access token and refresh token pair can be obtained by sending an HTTP POST request to the following endpoint:
 
 `https://app.teamleader.eu/oauth2/access_token`
 
-The following values should be passed as POST parameters:
+The required POST parameters are:
 
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
  - `refresh_token` - the refresh token
  - `grant_type` - must be "refresh_token"
 
-Refresh tokens will continue functioning until the user uninstalls your integration.
+Refresh tokens will continue functioning until the user revokes them or uninstalls your integration.
 
-### Client side authentication (implicit grant)
+### Client side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authentication method called [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
-Similar to the regular authentication flow, users are redirected to the Teamleader authorization page, but with different query parameters:
+Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `code` as the `response_type`:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
-The following values should be passed as GET parameters:
+The required GET parameters are:
 
  - `client_id` - issued when you create your integration
  - `response_type` - must be "token" (instead of "code")
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-If the user approves the client, they will be redirected back to the authorization server with the following parameters in the **fragment part of the url**:
+After authorization, the user is redirected to the `redirect_uri` with the following parameters in the **fragment part of the url**:
 
  - `token_type` - with the value "Bearer"
  - `expires_in` - the TTL for this access token in seconds
  - `access_token` - the access token
  - `state` - the state parameter sent in the original request
 
-Example url:
+Example:
 
 `https://YOUR_REDIRECT_URI#token_type=Bearer&expires_in=900&access_token=TOKEN&state=STATE`
 
-Note that this implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authentication method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
+Note that the implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authorization method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
 
 ### User Identity
 
-To retrieve information about the user who authorized your application (the resource owner), you can call the following endpoint:
+To retrieve information about the user who authorized your application (the resource owner), call the `users.me` API endpoint:
 
 `https://api.teamleader.eu/users.me`
+
+### PHP code example
+
+You can find a (very) minimal PHP code example, showing how start the OAuth 2 authentication flow, and retrieve the user's identity using the obtained access token.
+
+[https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php](https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php)
+
+A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
+
+## Changelog
+
+You can follow our API progress and ongoing proposals via our [API Blueprint GitHub repository](https://github.com/teamleadercrm/api).
+
+The changelog can be found [here](https://github.com/teamleadercrm/api/blob/master/CHANGELOG.md).
 
 # Group General
 
 ## Departments [/departments]
 
 Departments are used to split quotations and invoices for different legal entities or within one organisation.
+
+*Required scopes: `departments`*
 
 ### departments.list [GET /departments.list]
 
@@ -243,6 +291,7 @@ Get a list of departments.
             + (object)
                 + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
                 + name: `Human Resources` (string)
+                + currency: `EUR` (string)
 
 ### departments.info [GET /departments.info]
 
@@ -259,10 +308,13 @@ Get details for a single department.
         + data  (object)
             + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
             + name: `Human Resources` (string)
+            + currency: `EUR` (string)
 
 ## Users [/users]
 
 Users are co-workers in a Teamleader account.
+
+*Required scopes: `users`*
 
 ### users.me [GET /users.me]
 
@@ -280,8 +332,24 @@ Get the current authenticated user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl` (string)
+            + language: `nl-BE` (enum[string])
+                + Members
+                    + da-DK
+                    + de-DE
+                    + en-GB
+                    + es-ES
+                    + fi-FI
+                    + fr-FR
+                    + it-IT
+                    + nb-NO
+                    + nl-BE
+                    + nl-NL
+                    + pl-PL
+                    + pt-PT
+                    + sv-SE
+                    + tr-TR
             + function: `Sales` (string)
+            + time_zone: `Europe/Brussels` (string)
 
 ### users.list [GET /users.list]
 
@@ -343,15 +411,179 @@ Get details for a single user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl` (string)
+            + language: `nl-BE` (enum[string])
+                + Members
+                    + da-DK
+                    + de-DE
+                    + en-GB
+                    + es-ES
+                    + fi-FI
+                    + fr-FR
+                    + it-IT
+                    + nb-NO
+                    + nl-BE
+                    + nl-NL
+                    + pl-PL
+                    + pt-PT
+                    + sv-SE
+                    + tr-TR
             + function: `Sales` (string)
+            + time_zone: `Europe/Brussels` (string)
+
+## Custom Fields [/customFieldDefinitions]
+
+Custom fields are used to add additional data/properties to entities within Teamleader.
+
+### customFieldDefinitions.list [GET /customFieldDefinitions.list]
+
+Get a list of all the definitions of custom fields.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + label
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `label`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `74855f4a-2b61-429c-81d8-c79ad3675a76` (string)
+                + context: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                        + deal
+                        + project
+                        + milestone
+                        + product
+                        + invoice
+                        + subscription
+                        + ticket
+                + type (enum[string])
+                    + Members
+                        + single_line - Single line text
+                        + multi_line - Multiline text
+                        + single_select - Single selection - has configuration
+                        + multi_select - Multiple selection - has configuration
+                        + date - Date
+                        + money - Money
+                        + auto_increment - Automatically incrementing field
+                        + integer - Integer
+                        + number - Number
+                        + boolean - Yes/No
+                        + email - Email address
+                        + telephone - Phone number
+                        + url - URL
+                        + company - Company
+                        + contact - Contact
+                        + product - Product
+                        + user - User
+                + label (string)
+                + group (string)
+                + required: false (boolean)
+                + configuration (object)
+                    + One Of
+                        + options: foo, bar (array[string])
+
+### customFieldDefinitions.info [GET /customFieldDefinitions.info]
+
+Get info about a specific custom field definition.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `9c64570b-4ec1-4e03-9662-af904f78f7fa` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `57e851e2-3d3b-4523-82f8-fe77df5a5d6c` (string)
+            + context: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
+                    + deal
+                    + project
+                    + milestone
+                    + product
+                    + invoice
+                    + subscription
+                    + ticket
+            + type (enum[string])
+                + Members
+                    + single_line - Single line text
+                    + multi_line - Multiline text
+                    + single_select - Single selection - has configuration
+                    + multi_select - Multiple selection - has configuration
+                    + date - Date
+                    + money - Money
+                    + auto_increment - Automatically incrementing field
+                    + integer - Integer
+                    + number - Number
+                    + boolean - Yes/No
+                    + email - Email address
+                    + telephone - Phone number
+                    + url - URL
+                    + company - Company
+                    + contact - Contact
+                    + product - Product
+                    + user - User
+            + label (string)
+            + group (string)
+            + required: false (boolean)
+            + configuration (object)
+                + One Of
+                    + options: foo, bar (array[string])
+
+## Work Types [/workTypes]
+
+Work types define the type of work for events or time tracking. Hourly rates can be added to work types, so that the work can be billed to a customer.
+
+### workTypes.list [POST /workTypes.list]
+
+Get a list of all work types, sorted alphabetically (on their name).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `6e342192-76d4-4b26-b1d7-e24df46bf603`,`1652ab6f-ad24-4f5c-a2fc-c6a30693a930` (array[string], optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
+                + name `Planning` (string)
 
 # Group CRM
 
 ## Contacts [/contacts]
 
-Contacts are physical entities who are added to your CRM database.
-Contacts might be linked to one or more companies.
+Contacts are physical entities who are added to your CRM database. Contacts might be linked to one or more companies.
+
+*Required scopes: `contacts`*
 
 ### contacts.list [GET /contacts.list]
 
@@ -360,6 +592,16 @@ Get a list of contacts.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + email (object, optional)
+                + type: `primary` (enum[string], required)
+                    + Members
+                         + primary
+                + email: `info@piedpiper.eu` (string, required)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
+            + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -392,7 +634,7 @@ Get a list of contacts.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + gender: `male` (enum[string])
                     + Members
                         + male
@@ -401,6 +643,8 @@ Get a list of contacts.
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `en` (string)
+                + payment_term (PaymentTerm, nullable)
+                + tags: prospect, expo (array[string])
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -432,13 +676,13 @@ Get details for a single contact.
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `invoicing` (enum[string])
                         + Members
                             + primary
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee)
+                    + address (Addressee) - Primary addresses can not contain an addressee
             + gender: `male` (enum[string])
                 + Members
                     + male
@@ -446,8 +690,19 @@ Get details for a single contact.
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
+            + companies (array)
+                + (object)
+                    + position: `CEO` (string)
+                    + decision_maker: true (boolean)
+                    + company (object)
+                        + type: `company` (string)
+                        + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
             + language: `en` (string)
-            + remarks: `First contact at expo` (string)
+            + payment_term (PaymentTerm, nullable)
+            + remarks: `First contact at expo` (string) - Uses Markdown formatting
+            + tags: prospect, expo (array[string])
+            + custom_fields (array[CustomField])
+            + marketing_mails_consent: false (boolean)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -458,7 +713,7 @@ Add a new contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + first_name: `John` (string, required)
+        + first_name: `John` (string, optional)
         + last_name: `Smith` (string, required)
         + emails (array, optional)
             + (object)
@@ -472,20 +727,25 @@ Add a new contact.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `invoicing` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum[string], optional)
             + Members
                 + male
                 + female
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + iban: `BE12123412341234` (string, optional)
+        + bic: `BICBANK` (string, optional)
+        + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
+        + tags: prospect, expo (array[string], optional)
+        + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -502,34 +762,39 @@ Update a contact.
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
-        + first_name: `John` (string, required, nullable)
-        + last_name: `Smith` (string, required, nullable)
-        + salutation: `Mr` (string, required, nullable)
-        + emails (array, required)
+        + first_name: `John` (string, optional, nullable)
+        + last_name: `Smith` (string, optional)
+        + salutation: `Mr` (string, optional, nullable)
+        + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
-        + telephones (array[Telephone], required, nullable)
-        + website: `http://example.com` (string, required, nullable)
-        + addresses (array, required)
+        + telephones (array[Telephone], optional, nullable)
+        + website: `http://example.com` (string, optional, nullable)
+        + addresses (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `invoicing` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required, nullable)
-        + language: `en` (string, required, nullable)
-        + gender: `male` (enum[string], required, nullable)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
+        + language: `en` (string, optional)
+        + gender: `male` (enum[string], optional, nullable)
             + Members
                 + male
                 + female
-        + birthdate: `1989-08-19` (string, required, nullable)
-        + remarks: `Met at expo` (string, required, nullable)
+        + birthdate: `1989-08-19` (string, optional, nullable)
+        + iban: `BE12123412341234` (string, optional, nullable)
+        + bic: `BICBANK` (string, optional, nullable)
+        + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
+        + tags: prospect, expo (array[string], optional)
+        + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 204
 
@@ -541,6 +806,30 @@ Delete a contact.
 
     + Attributes (object)
         + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
+
++ Response 204
+
+### contacts.tag [POST /contacts.tag]
+
+Add a new or existing tag to a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### contacts.untag [POST /contacts.untag]
+
+Remove a tag from a contact.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
@@ -574,6 +863,8 @@ Unlink a contact from a company.
 
 Companies are legal entities, usually linked to a VAT and/or local business number.
 
+*Required scopes: `companies`*
+
 ### companies.list [GET /companies.list]
 
 Get a list of companies.
@@ -581,6 +872,16 @@ Get a list of companies.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + email (object, optional)
+                + type: `primary` (enum[string], required)
+                    + Members
+                         + primary
+                + email: `info@piedpiper.eu` (string, required)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
+            + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -616,15 +917,18 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + address (Address)
+                + primary_address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
+                + preferred_currency: `EUR` (string, nullable)
+                + payment_term (PaymentTerm, nullable)
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: prospect, expo (array[string])
 
 ### companies.info [GET /companies.info]
 
@@ -639,7 +943,7 @@ Get details for a single company.
 
     + Attributes (object)
         + data (object)
-            + id: `c5685b0f-87b8-456f-8d9e-a5866814c47a` (string)
+            + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string)
             + name: `Pied Piper` (string)
             + business_type (object)
                 + type: `businessType` (string)
@@ -657,24 +961,29 @@ Get details for a single company.
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `invoicing` (enum[string])
                         + Members
                             + primary
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee)
+                    + address (Addressee) - Primary addresses can not contain an addressee
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
+            + preferred_currency: `EUR` (string, nullable)
+            + payment_term (PaymentTerm, nullable)
             + responsible_user (object)
                 + type: `user`
                 + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
-            + remarks: `First contact at expo` (string)
+            + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + tags: prospect, expo (array[string])
+            + custom_fields (array[CustomField])
+            + marketing_mails_consent: false (boolean)
 
-### companies.add [POST /companies.create]
+### companies.add [POST /companies.add]
 
 Add a new company.
 
@@ -696,18 +1005,21 @@ Add a new company.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `invoicing` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
         + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
-        + remarks: `Met at expo` (string, optional)
+        + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
+        + tags: prospect, expo (array[string], optional)
+        + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -723,34 +1035,36 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + name: `Pied Piper` (string, required)
-        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, required, nullable)
-        + vat_number: `BE0899623035` (string, required, nullable)
-        + local_business_number: `63326426` (string, required, nullable)
-        + emails (array, required)
+        + id: `4784189d-610b-4488-b3a5-5f324f752417` (string, required)
+        + name: `Pied Piper` (string, optional)
+        + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional, nullable)
+        + vat_number: `BE0899623035` (string, optional, nullable)
+        + local_business_number: `63326426` (string, optional, nullable)
+        + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
-                + email: `info@piedpiper.eu` (string, required, nullable)
-        + invoice_email: `invoicing@example.com` (string, required, nullable)
-        + telephones (array[CompanyTelephone], required, nullable)
-        + website: `http://example.com` (string, required, nullable)
-        + addresses (array, required)
+                + email: `info@piedpiper.eu` (string, required)
+        + telephones (array[CompanyTelephone], optional)
+        + website: `http://example.com` (string, optional)
+        + addresses (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `invoicing` (enum[string], required)
                     + Members
                         + primary
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required, nullable)
-        + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string, required, nullable)
-        + language: `en` (string, required, nullable)
-        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, required, nullable)
-        + remarks: `Met at expo` (string, required, nullable)
+                + address (Addressee, required) - Primary addresses can not contain an addressee
+        + iban: `BE12 1234 1234 1234` (string, optional, nullable)
+        + bic: `BICBANK` (string, optional, nullable)
+        + language: `en` (string, optional, nullable)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional, nullable)
+        + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
+        + custom_fields (array[CustomFieldValue], optional)
+        + marketing_mails_consent: false (boolean, optional)
 
 + Response 204
 
@@ -765,10 +1079,33 @@ Delete a company.
 
 + Response 204
 
+### companies.tag [POST /companies.tag]
+
+Add a new or existing tag to a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
+### companies.untag [POST /companies.untag]
+
+Remove a tag from a company.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
+        + tags: prospect, expo (array[string], required)
+
++ Response 204
+
 ## Business Types [/businessTypes]
 
-Each country has a specific set of business types or range of legal entities.
-You can specify the business type when adding or updating a company.
+Each country has a specific set of business types or range of legal entities. You can specify the business type when adding or updating a company.
 
 ### businessTypes.list [GET /businessTypes.list]
 
@@ -787,13 +1124,429 @@ Get the names of business types (legal structures) a company can have within a c
             + name: `VZW/ASBL` (string)
             + country: `BE` (string)
 
+## Tags [/tags]
+
+Tags are used to label contacts or companies, so that they can easily be filtered or grouped into segments.
+
+### tags.list [GET /tags.list]
+
+Get a list of tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + tag
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `tag`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + tag: `campaign` (string)
+
+# Group Deals
+
+## Deals [/deals]
+
+Deals are sale opportunities, which need to be followed up by their responsible user. A deal can move through specific deal phases, and be marked as won or lost.
+
+*Required scopes: `deals`*
+
+### deals.list [GET /deals.list]
+
+Get a list of deals.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
+            + customer (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + phase_id: `1758e847-cc1f-04ce-bd17-5a852e8c01b4` (string, optional)
+            + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + created_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `created_at`
+                    + order: `desc`
+
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + title: `Interesting deal` (string)
+                + reference: `2017/2` (string)
+                + status: `won` (enum[string])
+                    + Members
+                        + new
+                        + open
+                        + won
+                        + lost
+                + lead (object)
+                    + customer (object)
+                        + type: `company` (enum[string])
+                            + Members
+                                + contact
+                                + company
+                        + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                    + contact_person (object)
+                        + type: `contact` (string)
+                        + id: `74c6769e-815a-4774-87d7-dfab9b1a0abb` (string)
+                + department (object)
+                    + type: `department`
+                    + id: `33121d39-44e2-426a-92ef-62178edeec8a` (string)
+                + estimated_value (Money)
+                + estimated_closing_date: `2017-05-09` (string)
+                + estimated_probability: `0.5` (number)
+                + current_phase (object)
+                    + type: `dealPhase`
+                    + id: `521a331d-60d1-4920-bde3-ccd01d09f9f1` (string)
+                + responsible_user (object)
+                    + type: `user`
+                    + id: `bac1c91b-bc86-489b-8590-9be9478f62bb` (string)
+                + closed_at: `2017-05-09T11:31:30+00:00` (string)
+                + source (object)
+                    + type: `dealSource` (string)
+                    + id: `52a4bbb2-d196-48d7-8e43-9ec2f44d06f9` (string)
+                + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + updated_at: `2017-05-09T11:30:58+00:00` (string)
+
+### deals.info [GET /deals.info]
+
+Get details for a single deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
+            + title: `Interesting deal` (string)
+            + reference: `2017/2` (string)
+            + status: `won` (enum[string])
+                + Members
+                    + open
+                    + won
+                    + lost
+            + lead (object)
+                + customer (object)
+                    + type: `company` (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + contact_person (object)
+                    + type: `contact` (string)
+                    + id: `74c6769e-815a-4774-87d7-dfab9b1a0abb` (string)
+            + department (object)
+                + type: `department`
+                + id: `92247818-643e-4f5a-bf87-25cd908e8ad9` (string)
+            + estimated_value (Money)
+            + estimated_closing_date: `2017-05-09` (string)
+            + estimated_probability: `0.5` (number)
+            + current_phase (object)
+                + type: dealPhase (string)
+                + id: `676a6070-f7d3-43a6-bc08-cda0d32c27ab` (string)
+            + responsible_user (object)
+                + type: user (string)
+                + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+            + closed_at: `2017-05-09T11:31:30+00:00` (string)
+            + source (object)
+                + type: `dealSource` (string)
+                + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
+            + phase_history (array)
+                + (object)
+                    + phase (object)
+                        + type: dealPhase (string)
+                        + id: `d5a629f2-7b58-4748-aaca-acf9b6d62404` (string)
+                    + started_at: `2017-05-01 12:00:00` (string)
+                    + started_by (object)
+                        + type: user (string)
+                        + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
+            + quotations (array)
+                + (object)
+                    + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                    + type: `quotation` (string)
+            + created_at: `2017-05-09T11:25:11+00:00` (string)
+            + updated_at: `2017-05-09T11:30:58+00:00` (string)
+            + custom_fields (array[CustomField])
+
+### deals.create [POST /deals.create]
+
+Create a new deal for a customer.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + lead (object, required)
+            + customer (object, required)
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+            + contact_person_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
+        + title: `Interesting business deal` (string, required)
+        + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+        + phase_id: `060687bb-a742-4882-a538-199a5e5feb60` (string, optional)
+        + estimated_value (Money, optional)
+        + estimated_probability: `0.75` (number, optional)
+        + estimated_closing_date: `2017-05-09` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `deal` (string)
+            + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
+
+### deals.update [POST /deals.update]
+
+Update a deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
+        + lead (object, required)
+            + customer (object, required)
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+            + contact_person_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
+        + title: `Interesting business deal` (string, optional)
+        + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional, nullable)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional, nullable)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional, nullable)
+        + estimated_value (Money, optional, nullable)
+        + estimated_probability: `0.75` (number, optional, nullable)
+        + estimated_closing_date: `2017-05-09` (string, optional, nullable)
+
++ Response 204
+
+### deals.move [POST /deals.move]
+
+Move the deal to a different phase.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+        + phase_id: `8776abee-d856-43c6-b98d-9ffc912e8b0b` (string, required)
+
++ Response 204
+
+### deals.win [POST /deals.win]
+
+Mark a deal as won.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+
++ Response 204
+
+### deals.lose [POST /deals.lose]
+
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
+        + reason_id: `da4c902f-2ae5-4c1f-be6f-b50308aabc5c` (string, optional)
+        + extra_info: `Not ready for a change, decision postponed` (string, optional)
+
++ Response 204
+
+### deals.delete [POST /deals.delete]
+
+Delete a deal.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
+
++ Response 204
+
+### lostReasons.list [GET /lostReasons.list]
+
+Get a list of lost reasons for deals.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + name: `Deal declined` (string)
+
+## Deal Phases [/dealPhases]
+
+Deal phases are the different phases a deal typically goes through. A deal can be moved to either a next or previous phase. A deal can be marked as won or lost independently from the deal phase.
+
+*Required scopes: `deals`*
+
+### dealPhases.list [GET /dealPhases.list]
+
+Get a list of all phases a deal can go through, sorted by their order in the flow.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
+                + name: `New` (string)
+
+## Deal Sources [/dealSources]
+
+Deal sources are used to track the origin of a deal.
+
+*Required scopes: `deals`*
+
+### dealSources.list [GET /dealSources.list]
+
+Get a list of all deal sources, sorted alphabetically (on name)
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `4bd112da-8a39-47b9-b1e2-8ce339c241a3`,`94bd8c65-72ce-4a43-9cdf-9b75f1966010` (array[string], optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `b18c298b-0e6f-495d-8fcd-31dfecaea741` (string)
+                + name: `Referral` (string)
+
+## Quotations [/quotations]
+
+A quotation is a sales offer for a specific customer. It is always attached to a deal. Quotations can be signed online via Cloudsign.
+
+*Required scopes: `quotations`*
+
+### quotations.info [GET /quotations.info]
+
+Get a quotation
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string)
+            + deal (object)
+                + type: `deal` (string)
+                + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
+            + grouped_lines (array)
+                + (object)
+                    + section (object)
+                        + title (string)
+                    + line_items (array)
+                        + (object)
+                            + product (object, nullable)
+                                + type: `product` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + quantity: 3 (number)
+                            + description: `An awesome product` (string)
+                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                            + unit_price (object)
+                                + Include Money
+                                + tax: `excluding` (enum[string])
+                                    + Members
+                                        + excluding
+                            + tax (object)
+                                + rate: 0.21 (number)
+                            + discount (object, nullable)
+                                + type: `percentage` (enum[string])
+                                    + Members
+                                        + percentage
+                                + value: 15.00 (number)
+
 # Group Calendar
 
 ## Calendar events [/events]
 
-Calendar events are scheduled events in your calendar.
-A calendar event involves a particular activity type: a task, meeting or call.
-They can also be linked to one to-do.
+Calendar events are scheduled events in your calendar. A calendar event involves a particular activity type: a task, meeting or call.
+
+*Required scopes: `events`*
 
 ### events.list [GET /events.list]
 
@@ -807,6 +1560,18 @@ Get a list of calendar events.
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
+            + term: `coffee` (string, optional) - Searches for a term in title or description
+            + attendee (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + link (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -816,6 +1581,7 @@ Get a list of calendar events.
                 + order: `asc` (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: starts_at
@@ -841,6 +1607,21 @@ Get a list of calendar events.
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
                 + location (string)
+                + attendees (array)
+                    + (object)
+                        + type: `contact` (enum[string])
+                            + Members
+                                + user
+                                + contact
+                        + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+                + links (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + company
+                                + contact
+                        + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
+
 
 ### events.info [GET /events.info]
 
@@ -875,7 +1656,15 @@ Get details for a single calendar event.
                     + type: `contact` (enum[string])
                         + Members
                             + user
+                            + contact
                     + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+            + links (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + company
+                            + contact
+                    + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 ### events.create [POST /events.create]
 
@@ -889,6 +1678,22 @@ Create a new calendar event.
         + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (string, optional)
+        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -897,11 +1702,51 @@ Create a new calendar event.
             + type: `event` (string)
             + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
 
+### events.update [POST /events.update]
+
+Update a calendar event.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes
+        + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional, nullable)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+        + location (string, optional)
+        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
+
++ Response 204
+
+### events.cancel [POST /events.cancel]
+
+Cancel a calendar event (for all attendees).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b519491e-ca80-4efb-bb7b-3f08544936b0` (string, required)
+
++ Response 204
+
 ## Activity Types [/activityTypes]
 
-Activity types are the different types of events (i.e. tasks, meetings or calls) and to-do’s.
-Currently there are three activity types available: tasks, meetings and calls.
-Extra (custom) activities types might become available in the future.
+Activity types identify the different types of events that take place within your organisation. Currently only three activity types are available: tasks, meetings and calls.
 
 ### activityTypes.list [GET /activityTypes.list]
 
@@ -926,9 +1771,9 @@ Get a list of all activity types.
 
 ## Invoices [/invoices]
 
-Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
-New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
-Invoices can also be updated, deleted or credited.
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices. New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`. Invoices can also be updated, deleted or credited.
+
+*Required scopes: `invoices`*
 
 ### invoices.list [GET /invoices.list]
 
@@ -995,7 +1840,8 @@ Get a list of invoices.
                             + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -1035,11 +1881,11 @@ Get details for a single invoice.
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
             + discounts (array)
                 + (object)
-                    + description: `Discount` (string)
                     + type: `percentage` (enum[string])
                         + Members
                             + percentage
                     + value: 15.00 (number)
+                    + description: `winter promotion` (string)
             + grouped_lines (array)
                 + (object)
                     + section (object)
@@ -1049,8 +1895,12 @@ Get details for a single invoice.
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + product_category (object, nullable)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                                + type: `productCategory` (string)
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
+                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum[string])
@@ -1072,6 +1922,35 @@ Get details for a single invoice.
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+                + due: 0 (number)
+            + payment_term (PaymentTerm)
+            + payments (array)
+                + (object)
+                    + paid_at: `2016-03-03T16:44:33+00:00` (string)
+                    + payment (object)
+                        + Include Money
+            + payment_reference: `+++084/2613/66074+++` (string)
+            + created_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### invoices.download [POST /invoices.download]
+
+Download an invoice in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -1080,20 +1959,19 @@ Draft a new invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object, required)
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+        + invoicee (object, required)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name: `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
-        + payment_term (object, required)
-            + type (enum[string])
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + payment_term (PaymentTerm, required)
         + grouped_lines (array, required)
             + (object)
                 + section (object, optional)
@@ -1102,12 +1980,27 @@ Draft a new invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
+                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string], required)
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, optional)
+                            + value: 10 (number, required) - Values between 0 and 100
+                            + type (enum[string], required)
+                                + Members
+                                    + percentage
+                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + discounts (array)
+            (object)
+                + value: 10 (number, required) - Values between 0 and 100
+                + type (enum[string], required)
+                    + Members
+                        + percentage
+                + description: `winter promotion` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -1124,21 +2017,58 @@ Update an invoice.
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
-        + customer (object, required) - Who is the invoice for?
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
-        + payment_term (object, required)
-            + type (enum[string], required)
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + grouped_lines (array, optional)
+            + (object)
+                + section (object, required)
+                    + title (string, required)
+                + line_items (array, required)
+                    + (object)
+                        + quantity: `3` (number, required)
+                        + description: `An awesome product` (string, required)
+                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + unit_price (object)
+                            + Include Money
+                            + tax: `excluding` (enum[string])
+                                + Members
+                                    + excluding
+                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, required)
+                            + value: 10 (number, required) - Values between 0 and 100
+                            + type (enum[string], required)
+                                + Members
+                                    + percentage
+                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 204
+
+### invoices.copy [POST /invoices.copy]
+
+Creates a new draft invoice based on another invoice
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `invoice` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
 
 ### invoices.book [POST /invoices.book]
 
@@ -1148,7 +2078,7 @@ Book a draft invoice.
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
-        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+        + on: `2016-02-04` (string, required)
 
 + Response 204
 
@@ -1163,11 +2093,179 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
 + Response 204
 
+### invoices.registerPayment [POST /invoices.registerPayment]
+
+Register a payment for an invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
+        + payment (object, required)
+            + Include Money
+        + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
+
++ Response 204
+
+## Credit Notes [/creditNotes]
+
+Credit notes are created when certain products or services are not delivered according to their invoice. The credit note reduces the due amount of the credited invoice.
+
+*Required scopes: `invoices`*
+
+### creditNotes.list [GET /creditNotes.list]
+
+List credit notes
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + credit_note_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `credit_note_number`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + credit_note_number: `2017/5` (string, nullable)
+                + credit_note_date: `2016-02-04` (string, nullable)
+                + status: `booked` (enum[string])
+                    + Members
+                        + booked
+                + invoice (object, nullable)
+                    + type: `invoice` (string)
+                    + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
+                + paid: `true` (boolean)
+                + paid_at: `2016-03-03T16:44:33+00:00` (string, nullable)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + vat_number: `BE0899623035` (string, nullable)
+                    + customer (object)
+                        + type: `contact` (string)
+                        + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + payable (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: `0.21` (number)
+                            + taxable (Money)
+                            + tax (Money)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### creditNotes.info [GET /creditNotes.info]
+
+Get details for a single credit note
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + credit_note_number: `2017/5` (string, nullable)
+                + credit_note_date: `2016-02-04` (string, nullable)
+                + status: `booked` (enum[string])
+                    + Members
+                        + booked
+                + invoice (object, nullable)
+                    + type: `invoice` (string)
+                    + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
+                + paid: `true` (boolean)
+                + paid_at: `2016-03-03T16:44:33+00:00` (string, nullable)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + vat_number: `BE0899623035` (string, nullable)
+                    + customer (object)
+                        + type: `contact` (string)
+                        + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + payable (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: `0.21` (number)
+                            + taxable (Money)
+                            + tax (Money)
+                + grouped_lines (array)
+                    + (object)
+                        + section (object)
+                            + title (string)
+                        + line_items (array)
+                            + (object)
+                                + product (object, nullable)
+                                    + type: `product` (string)
+                                    + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                                + product_category (object, nullable)
+                                    + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                                    + type: `productCategory` (string)
+                                + quantity: `3` (number)
+                                + description: `An awesome product` (string)
+                                + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                                + unit_price (object)
+                                    + Include Money
+                                    + tax: `excluding` (enum[string])
+                                        + Members
+                                            + excluding
+                                + tax (object)
+                                    + rate: `0.21` (number)
+                                + discount (object, nullable)
+                                    + type: `percentage` (enum[string])
+                                        + Members
+                                            + percentage
+                                    + value: `15.00` (number)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### creditNotes.download [POST /creditNotes.download]
+
+Download a credit note in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
+
 ## Tax Rates [/taxRates]
 
-Tax rates provide an overview of different taxation rates used to bill customers.
-Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader.
-The end user also has the option to add additional tax rates.
+Tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The end user also has the option to add additional tax rates.
 
 ### taxRates.list [GET /taxRates.list]
 
@@ -1178,6 +2276,19 @@ Get a list of available tax rates.
 + Attributes (object)
     + filter (object, optional)
         + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+    + page (Page, optional)
+    + sort (array, optional)
+        + Default
+            + (array)
+                + (object)
+                    + field: `department_id`
+                    + order: `asc`
+                + (object)
+                    + field: `rate`
+                    + order: `asc`
+                + (object)
+                    + field: `description`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1191,12 +2302,63 @@ Get a list of available tax rates.
                     + type: `department` (string)
                     + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
 
+## Payment Terms [/paymentTerms]
+
+Payment terms are the conditions under which an invoice need to be paid.
+
+### paymentTerms.list [GET /paymentTerms.list]
+
+Get a list of available payment terms.
+
++ Request (application/json;charset=utf-8)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
+                + Include PaymentTerm
+
+# Group Products
+
+## Product Categories [/productCategories]
+
+Product categories are used to group specific products. They can be linked to a ledger account, which is important for accounting.
+
+*Required scopes: `products`*
+
+### productCategories.list [GET /productCategories.list]
+
+Get a list of product categories.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + name: 'Asian Flowers' (string)
+                + ledgers (array)
+                    + (object)
+                        + department (object)
+                            + type: `department` (string)
+                            + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c6` (string)
+                        + ledger_account_number: `70100` (string)
+
 # Group Projects
 
 ## Projects [/projects]
 
-Projects allow users to work together as a team on a single project.
-They comprise of one or more milestones, have one or more participants and are limited in time and budget.
+Projects allow users to work together as a team on a single project. They consist of one or more milestones, have one or more participants and are limited in time and budget.
+
+*Required scopes: `projects`*
 
 ### projects.list [GET /projects.list]
 
@@ -1402,8 +2564,9 @@ Update a participant's role for a project.
 
 ## Milestones [/milestones]
 
-Every projects consists of one or more milestones which are limited in time and budget.
-Budget is however not included in this endpoints (yet).
+Every projects consists of one or more milestones which are limited in time and budget. Budget is however not included in this endpoints (yet).
+
+*Required scopes: `projects`*
 
 ### milestones.list [GET /milestones.list]
 
@@ -1514,6 +2677,252 @@ Update a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
+# Group Time Tracking
+
+## Time Tracking [/timeTracking]
+
+Time tracking allows users to record time spent on tasks or projects and the type of work. You are able to follow-up on the budgets of your projects and eventually you are able to invoice the billable time.
+
+### timeTracking.list [GET /timeTracking.list]
+
+Get a list of tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional)
+            + started_after: `2017-04-26T10:01:49+00:00` (string, optional)
+            + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + started_on
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `started_on`
+                    + order: `asc`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `4f4288b2-c21b-4dac-87f6-a97511309079` (string)
+                + user (object)
+                    + type: `user` (string)
+                    + id: `eb1eb8b8-d0cb-4385-b60a-c995953ec6be` (string)
+                + work_type (object)
+                    + type: `workType` (string)
+                    + id: `8a146eda-c9af-4b11-b63a-ddac47bb254d` (string)
+                + started_on: `2017-04-26` (string)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+                + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+                + duration: 3600 (number) - In seconds
+                + description: `Timer description` (string)
+                + subject (object)
+                    + type: `milestone` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + event
+                            + todo
+                            + milestone
+                            + ticket
+                    + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
+
+### timeTracking.info [GET /timeTracking.info]
+
+Get information about tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string)
+            + user (object)
+                + type: `user` (string)
+                + id: `56bc6b39-b722-42f5-9ea7-acea4814d7dd` (string)
+            + work_type (object)
+                + type: `workType` (string)
+                + id: `d980dbc6-944e-47fc-bf16-2ed7d5a71889` (string)
+            + started_on: `2017-04-26` (string)
+            + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+            + duration: 3600 (number) - In seconds
+            + description: `Timer description` (string)
+            + subject (object)
+                + type: `milestone` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
+
+### timeTracking.add [POST /timeTracking.add]
+
+Add tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + work_type_id: `2175597d-484e-4a1c-a781-cbc3d9f893ba` (string, optional)
+        + One Of
+            + Properties
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `milestone` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + milestone
+                    + ticket
+            + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `timetracking` (string)
+            + id: `6f052357-142e-499e-a647-36b55ecf447c` (string)
+
+### timeTracking.update [POST /timeTracking.update]
+
+Update tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `66621f54-3d0d-420f-8d4b-ddd7fc473bf2` (string, required)
+        + work_type_id: `a12f4289-3580-4780-bb6d-b4e9f84f80ad` (string, optional, nullable)
+        + One Of
+            + Properties
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+        + description (string, optional, nullable)
+        + subject (object, optional, nullable)
+            + type: `milestone` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + milestone
+                    + ticket
+            + id: `88f14220-55d3-4ca6-802b-425e2f53c850` (string, required)
+
++ Response 204
+
+### timeTracking.resume [POST /timeTracking.resume]
+
+Start a new timer based on previously tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `06dfa08a-b769-4005-a912-45ab885c5737` (string, required)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `timer` (string)
+            + id: `f01adf4a-bb9b-45de-b231-615cd0e941de` (string)
+
+## Timers [/timers]
+
+Timers are an easy way to track time. You can start, stop or resume a timer any time. However, only one timer can run simultaneously per user. Every action will result in the creation or update of a time tracking.
+
+### timers.current [GET /timers.current]
+
+Get the current running timer.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `2b282dec-ba9d-4faa-9b39-944b99ee5c0a` (string)
+            + user (object)
+                + type: `user` (string)
+                + id: `5443a1b9-7673-4922-921f-1da4ff557783` (string)
+            + work_type (object)
+                + type: `workType` (string)
+                + id: `d02de940-9435-4e35-bc0b-3d17f3d0ea7b` (string)
+            + started_at: `2017-04-26T10:01:49+00:00` (string)
+            + description: `Timer description` (string)
+            + subject (object)
+                + type: `milestone` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `31931bc9-4ae8-4c50-ba8d-9ea88498c1c1` (string)
+
+### timers.start [POST /timers.start]
+
+Start a new timer.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + work_type_id: `db41328a-7a25-4e85-8fb9-830baacb7f40` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
+        + description (string, optional)
+        + subject (object, optional)
+            + type: `milestone` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + milestone
+                    + ticket
+            + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `timer` (string)
+            + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
+
+### timers.stop [POST /timers.stop]
+
+Stop the current timer. This will add a new time tracking in the background.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ended_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `timeTracking` (string)
+            + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
+
 # Group Other
 
 ## Migrating [/migrate]
@@ -1522,6 +2931,8 @@ WARNING! These endpoints are not guaranteed to stay backwards compatible.
 Their only use is to allow older integrations to migrate their data to the new API.
 
 ### migrate.id [GET /migrate.id]
+
+Translates an ID from the deprecated API into a new UUID.
 
 + Request (application/json;charset=utf-8)
 
@@ -1571,6 +2982,8 @@ Their only use is to allow older integrations to migrate their data to the new A
 
 ### migrate.taxRate [GET /migrate.taxRate]
 
+Translates tax rates from the deprecated API into a new UUID tax rate.
+
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -1585,6 +2998,8 @@ Their only use is to allow older integrations to migrate their data to the new A
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
 ### migrate.activityType [GET /migrate.activityType]
+
+Translates "meeting", "call" and "task" into their respective activity type UUID.
 
 + Request (application/json;charset=utf-8)
 
@@ -1731,3 +3146,45 @@ Register a new webhook.
     + Default: `20`
 + number: `1` (number, optional)
     + Default: `1`
+
+## PaymentTerm  (object)
++ type (enum[string])
+    + Members
+        + cash - Direct payment, often cash
+        + end_of_month - End of the month of Xth day after the invoice date
+        + after_invoice_date - X days after invoice date
++ days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+
+## CustomField (object)
++ definition (object)
+    + type: `customFieldDefinition` (string)
+    + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number and auto-increment fields
+    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## CustomFieldValue (object)
++ id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number, money and auto-increment fields
+    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)

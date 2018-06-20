@@ -58,3 +58,45 @@
     + Default: `20`
 + number: `1` (number, optional)
     + Default: `1`
+
+## PaymentTerm  (object)
++ type (enum[string])
+    + Members
+        + cash - Direct payment, often cash
+        + end_of_month - End of the month of Xth day after the invoice date
+        + after_invoice_date - X days after invoice date
++ days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+
+## CustomField (object)
++ definition (object)
+    + type: `customFieldDefinition` (string)
+    + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number and auto-increment fields
+    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## CustomFieldValue (object)
++ id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number, money and auto-increment fields
+    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)

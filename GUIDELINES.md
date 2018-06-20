@@ -112,6 +112,39 @@ Endpoints used to update existing objects **MUST**:
  - Not have unexpected side effects
  - Respond with an empty response and the `204` HTTP status code
 
+### Errors
+
+When an error occurs, the endpoint **MUST**:
+
+ - Respond a status code that corresponds to the type of error
+ - Return a top-level `errors` attribute containing one or more errors
+
+Each error object **MUST**:
+
+ - Have a `title` attribute; a short human readable summary of the problem
+
+The error objects **MAY** have the following members:
+
+ - `code`: an application specific error code to identify where the error is coming from
+ - `meta`: additional non-standard meta information about this error
+
+Example of a `400 Bad Request` error:
+
+```json
+{
+  "errors": [
+    {
+      "code": 123,
+      "title": "Company name must not be empty",
+      "status": 400,
+      "meta": {
+        "field": "name"
+      }
+    }
+  ]
+}
+```
+
 ## Designing properties
 
 ### Adding and modifying endpoints
@@ -140,30 +173,29 @@ Example:
 
 ### Date and time
 
-Dates, times and datetimes returned must follow the `ISO8601` standard. Times and datetimes may include timezone information. In PHP this can be generated using `format('c')`.
+Dates, times and datetimes returned must follow the `ISO8601` standard. In PHP this can be generated using `format(DATE_ATOM)`.
 
 Date and datetime properties **MUST**:
 
  - The property name ends on `_on` for dates.
  - The property name ends on `_at` if they include time (time and datetime).
-
-And **MAY**:
-
- - Include timezone information
+ - Always be returned in `UTC` (except for some rare domain cases like Calendar events). It is the responsibility of the client to offset the timezone for users.
 
 Examples:
 
 ```json
 {
   "contacted_on": "2017-10-13",
-  "updated_at": "2017-10-15T10:01:49+01:00",
+  "updated_at": "2017-10-15T10:01:49+00:00",
   "available_at": "11:00:00",
 }
 ```
 
+Writing datetime properties **MUST** accept every timezone.
+
 ### Money
 
-Monetairy values in requests and responses **MUST** me represented as the following data structure:
+Monetary values in requests and responses **MUST** be represented as the following data structure:
 
 ```json
 {

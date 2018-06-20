@@ -1,8 +1,8 @@
 ## Invoices [/invoices]
 
-Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices.
-New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`.
-Invoices can also be updated, deleted or credited.
+Teamleader provides a whole set of endpoints to make it easy to develop integrations with invoices. New invoices are created in accordance with this flow: `invoice.draft` → `invoice.book`. Invoices can also be updated, deleted or credited.
+
+*Required scopes: `invoices`*
 
 ### invoices.list [GET /invoices.list]
 
@@ -69,7 +69,8 @@ Get a list of invoices.
                             + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -109,11 +110,11 @@ Get details for a single invoice.
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
             + discounts (array)
                 + (object)
-                    + description: `Discount` (string)
                     + type: `percentage` (enum[string])
                         + Members
                             + percentage
                     + value: 15.00 (number)
+                    + description: `winter promotion` (string)
             + grouped_lines (array)
                 + (object)
                     + section (object)
@@ -123,8 +124,12 @@ Get details for a single invoice.
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + product_category (object, nullable)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                                + type: `productCategory` (string)
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
+                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum[string])
@@ -146,6 +151,35 @@ Get details for a single invoice.
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+                + due: 0 (number)
+            + payment_term (PaymentTerm)
+            + payments (array)
+                + (object)
+                    + paid_at: `2016-03-03T16:44:33+00:00` (string)
+                    + payment (object)
+                        + Include Money
+            + payment_reference: `+++084/2613/66074+++` (string)
+            + created_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### invoices.download [POST /invoices.download]
+
+Download an invoice in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -154,20 +188,19 @@ Draft a new invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object, required)
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+        + invoicee (object, required)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name: `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
-        + payment_term (object, required)
-            + type (enum[string])
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + payment_term (PaymentTerm, required)
         + grouped_lines (array, required)
             + (object)
                 + section (object, optional)
@@ -176,12 +209,27 @@ Draft a new invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
+                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string], required)
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, optional)
+                            + value: 10 (number, required) - Values between 0 and 100
+                            + type (enum[string], required)
+                                + Members
+                                    + percentage
+                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + discounts (array)
+            (object)
+                + value: 10 (number, required) - Values between 0 and 100
+                + type (enum[string], required)
+                    + Members
+                        + percentage
+                + description: `winter promotion` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -198,21 +246,58 @@ Update an invoice.
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
-        + customer (object, required) - Who is the invoice for?
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `2cc40a9c-e674-43db-9b15-447ccb478200` (string)
-        + payment_term (object, required)
-            + type (enum[string], required)
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + grouped_lines (array, optional)
+            + (object)
+                + section (object, required)
+                    + title (string, required)
+                + line_items (array, required)
+                    + (object)
+                        + quantity: `3` (number, required)
+                        + description: `An awesome product` (string, required)
+                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + unit_price (object)
+                            + Include Money
+                            + tax: `excluding` (enum[string])
+                                + Members
+                                    + excluding
+                        + tax_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, required)
+                            + value: 10 (number, required) - Values between 0 and 100
+                            + type (enum[string], required)
+                                + Members
+                                    + percentage
+                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
+        + invoice_date: `2016-02-04` (string, optional)
 
 + Response 204
+
+### invoices.copy [POST /invoices.copy]
+
+Creates a new draft invoice based on another invoice
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `invoice` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
 
 ### invoices.book [POST /invoices.book]
 
@@ -222,7 +307,7 @@ Book a draft invoice.
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
-        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+        + on: `2016-02-04` (string, required)
 
 + Response 204
 
@@ -234,5 +319,19 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
     + Attributes (object)
         + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
+
++ Response 204
+
+### invoices.registerPayment [POST /invoices.registerPayment]
+
+Register a payment for an invoice.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
+        + payment (object, required)
+            + Include Money
+        + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
 
 + Response 204
