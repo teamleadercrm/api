@@ -2924,6 +2924,28 @@ Stop the current timer. This will add a new time tracking in the background.
             + type: `timeTracking` (string)
             + id: `4ff475b2-f45b-4803-800e-350b9c02aeca` (string)
 
+### timers.update [POST /timers.update]
+
+Update the current timer. Only possible if there is a timer running.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + work_type_id: `db41328a-7a25-4e85-8fb9-830baacb7f40` (string, optional)
+        + description: `Timer Description` (string, optional)
+        + subject (object, optional)
+            + type: `milestone` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + milestone
+                    + ticket
+            + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+
++ Response 204
+
 # Group Other
 
 ## Migrating [/migrate]
