@@ -164,7 +164,7 @@ Create a new deal for a customer.
         + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
         + phase_id: `060687bb-a742-4882-a538-199a5e5feb60` (string, optional)
         + estimated_value (Money, optional)
-        + estimated_probability: `0.75` (number, optional)
+        + estimated_probability: `0.75` (number, optional) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
@@ -196,7 +196,7 @@ Update a deal.
         + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional, nullable)
         + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional, nullable)
         + estimated_value (Money, optional, nullable)
-        + estimated_probability: `0.75` (number, optional, nullable)
+        + estimated_probability: `0.75` (number, optional, nullable) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional, nullable)
 
 + Response 204
