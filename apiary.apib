@@ -3053,6 +3053,49 @@ Translates "meeting", "call" and "task" into their respective activity type UUID
             + type: `activityType` (string)
             + id: `28f3639d-9b64-44a8-974d-a4df645af6a5` (string)
 
+## Webhooks [/webhooks]
+
+### webhooks.register [POST /webhooks.register]
+
+Register a new webhook.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + url: `https://example.com` (string, required) - Your webhook URL
+        + types (array[enum[string]], required) - Array of event types that should fire the webhook
+            + Members
+                + company.added
+                + company.deleted
+                + company.updated
+                + contact.added
+                + contact.deleted
+                + contact.linkedToCompany
+                + contact.unlinkedFromCompany
+                + contact.updated
+                + deal.created
+                + deal.deleted
+                + deal.lost
+                + deal.moved
+                + deal.won
+                + invoice.booked
+                + invoice.deleted
+                + invoice.drafted
+                + invoice.paymentRegistered
+                + invoice.paymentRemoved
+                + invoice.sent
+                + invoice.updated
+                + milestone.created
+                + milestone.updated
+                + project.created
+                + project.deleted
+                + project.updated
+                + timeTracking.added
+                + timeTracking.deleted
+                + timeTracking.updated
+
++ Response 204
+
 # Data Structures
 
 ## Telephone (object)
