@@ -112,15 +112,14 @@ Create a new project.
         + description (string, optional)
         + starts_on: `2016-02-04` (string, required)
         + hourly_rate (object, required)
-            + (object)
-                + One Of
-                    + Properties
-                        + type: `user` (string, required)
-                    + Properties
-                        + type: `task` (string, required)
-                    + Properties
-                        + type: `fixed` (string, required)
-                        + rate: `123` (integer, required)
+            + One Of
+                + Properties
+                    + type: `user` (string, required)
+                + Properties
+                    + type: `task` (string, required)
+                + Properties
+                    + type: `fixed` (string, required)
+                    + rate: `123` (number, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
                 + due_on: `2018-01-01` (string, required)
