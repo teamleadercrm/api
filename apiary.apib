@@ -2474,21 +2474,21 @@ Create a new project.
         + title: `New company website` (string, required)
         + description (string, optional)
         + starts_on: `2016-02-04` (string, required)
-        + billing_method (object, required)
+        + billing_method (object, optional)
             + One Of
                 + Properties
                     + method: `fixed` (string, required)
                     + amount (Money, required)
                 + Properties
-                    + method: `hourly_rate` (string, required)
-                    + hourly_rate (object, required)
+                    + method: `time_material` (string, required)
+                    + rate (object, required)
                         + One Of
                             + Properties
-                                + based_on: `user` (string, required)
+                                + `based_on`: `jezus_christus` (string, required)
                             + Properties
-                                + based_on: `work_type` (string, required)
+                                + `based_on`: `user` (string, required)
                             + Properties
-                                + based_on: `custom` (string, required)
+                                + `based_on`: `custom` (string, required)
                                 + rate (Money, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
