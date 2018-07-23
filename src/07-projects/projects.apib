@@ -114,11 +114,11 @@ Create a new project.
         + hourly_rate (object, required)
             + One Of
                 + Properties
-                    + type: `user` (string, required)
+                    + based_on: `user` (string, required)
                 + Properties
-                    + type: `work_type` (string, required)
+                    + based_on: `work_type` (string, required)
                 + Properties
-                    + type: `fixed` (string, required)
+                    + based_on: `fixed` (string, required)
                     + rate (Money, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
