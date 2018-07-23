@@ -2474,15 +2474,21 @@ Create a new project.
         + title: `New company website` (string, required)
         + description (string, optional)
         + starts_on: `2016-02-04` (string, required)
-        + hourly_rate (object, required)
+        + billing_method (object, required)
             + One Of
                 + Properties
-                    + type: `user` (string, required)
+                    + method: `fixed` (string, required)
+                    + amount (Money, required)
                 + Properties
-                    + type: `task` (string, required)
-                + Properties
-                    + type: `fixed` (string, required)
-                    + rate: `123` (number, required)
+                    + hourly_rate (object, required)
+                        + One Of
+                            + Properties
+                                + based_on: `user` (string, required)
+                            + Properties
+                                + based_on: `work_type` (string, required)
+                            + Properties
+                                + based_on: `custom` (string, required)
+                                + rate (Money, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
                 + due_on: `2018-01-01` (string, required)
