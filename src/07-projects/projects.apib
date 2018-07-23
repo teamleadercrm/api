@@ -118,14 +118,14 @@ Create a new project.
                     + amount (Money, required)
                 + Properties
                     + method: `time_material` (string, required)
-                    + hourly_rate (object, required)
+                    + rate (object, required)
                         + One Of
                             + Properties
-                                + based_on: `user` (string, required)
+                                + `based_on`: `user` (string, required)
                             + Properties
-                                + based_on: `work_type` (string, required)
+                                + `based_on`: `work_type` (string, required)
                             + Properties
-                                + based_on: `custom` (string, required)
+                                + `based_on`: `custom` (string, required)
                                 + rate (Money, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
