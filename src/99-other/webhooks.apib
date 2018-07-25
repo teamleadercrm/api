@@ -19,7 +19,4 @@ List registered webhooks ordered by URL.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + data (array)
-            + (object)
-                + url: `https://example.org/webhook` (string) - Webhook URL
-                + types: company.added, contact.deleted (array[string]) - Event types that fire the webhook
+        + data (array[WebHook])
