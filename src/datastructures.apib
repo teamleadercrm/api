@@ -100,3 +100,36 @@
                 + product
                 + user
         + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## WebHook (object)
++ url: `https://example.com` (string, required) - Your webhook URL
++ types (array[enum[string]], required) - Array of event types that fire the webhook
+    + Members
+        + company.added
+        + company.deleted
+        + company.updated
+        + contact.added
+        + contact.deleted
+        + contact.linkedToCompany
+        + contact.unlinkedFromCompany
+        + contact.updated
+        + deal.created
+        + deal.deleted
+        + deal.lost
+        + deal.moved
+        + deal.won
+        + invoice.booked
+        + invoice.deleted
+        + invoice.drafted
+        + invoice.paymentRegistered
+        + invoice.paymentRemoved
+        + invoice.sent
+        + invoice.updated
+        + milestone.created
+        + milestone.updated
+        + project.created
+        + project.deleted
+        + project.updated
+        + timeTracking.added
+        + timeTracking.deleted
+        + timeTracking.updated
