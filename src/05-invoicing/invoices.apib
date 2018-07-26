@@ -116,6 +116,7 @@ Get details for a single invoice.
                         + Members
                             + percentage
                     + value: 15.00 (number)
+                    + absolute_value (Money)
                     + description: `winter promotion` (string)
             + grouped_lines (array)
                 + (object)
@@ -123,6 +124,9 @@ Get details for a single invoice.
                         + title (string)
                     + line_items (array)
                         + (object)
+                            + total
+                                + tax_exclusive (Money)
+                                + tax_inclusive (Money)
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
@@ -144,7 +148,9 @@ Get details for a single invoice.
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
+                                + absolute_value (Money)
             + total (object)
+                + tax_and_discounts_inclusive (Money)
                 + tax_exclusive (Money)
                 + tax_inclusive (Money)
                 + payable (Money)
