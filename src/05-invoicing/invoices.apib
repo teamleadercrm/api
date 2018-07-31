@@ -123,9 +123,6 @@ Get details for a single invoice.
                         + title (string)
                     + line_items (array)
                         + (object)
-                            + total
-                                + tax_exclusive (Money)
-                                + tax_inclusive (Money)
                             + product (object, nullable)
                                 + type: `product` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
@@ -147,11 +144,17 @@ Get details for a single invoice.
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
+                            + total
+                                + tax_exclusive (Money)
+                                + tax_exclusive_before_discount (Money)
+                                + tax_inclusive (Money)
+                                + tax_inclusive_before_discount (Money)
             + total (object)
-                + tax_and_discounts_inclusive (Money)
                 + tax_exclusive (Money)
+                + tax_exclusive_before_discount (Money)
                 + tax_inclusive (Money)
                 + payable (Money)
+                + tax_inclusive_before_discount (Money)
                 + taxes (array)
                     + (object)
                         + rate: 0.21 (number)
