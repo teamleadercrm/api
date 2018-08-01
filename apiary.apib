@@ -3067,38 +3067,7 @@ Register a new webhook.
 
 + Request (application/json;charset=utf-8)
 
-    + Attributes (object)
-        + url: `https://example.com` (string, required) - Your webhook URL
-        + types (array[enum[string]], required) - Array of event types that should fire the webhook
-            + Members
-                + company.added
-                + company.deleted
-                + company.updated
-                + contact.added
-                + contact.deleted
-                + contact.linkedToCompany
-                + contact.unlinkedFromCompany
-                + contact.updated
-                + deal.created
-                + deal.deleted
-                + deal.lost
-                + deal.moved
-                + deal.won
-                + invoice.booked
-                + invoice.deleted
-                + invoice.drafted
-                + invoice.paymentRegistered
-                + invoice.paymentRemoved
-                + invoice.sent
-                + invoice.updated
-                + milestone.created
-                + milestone.updated
-                + project.created
-                + project.deleted
-                + project.updated
-                + timeTracking.added
-                + timeTracking.deleted
-                + timeTracking.updated
+    + Attributes (WebHook)
 
 + Response 204
 
@@ -3111,10 +3080,17 @@ List registered webhooks ordered by URL.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + data (array)
-            + (object)
-                + url: `https://example.org/webhook` (string) - Webhook URL
-                + types: company.added, contact.deleted (array[string]) - Event types that fire the webhook
+        + data (array[WebHook])
+
+### webhooks.unregister [POST /webhooks.unregister]
+
+Unregister a webhook.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (WebHook)
+
++ Response 204
 
 # Data Structures
 
@@ -3218,3 +3194,36 @@ List registered webhooks ordered by URL.
                 + product
                 + user
         + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## WebHook (object)
++ url: `https://example.com` (string, required) - Your webhook URL
++ types (array[enum[string]], required) - Array of event types that fire the webhook
+    + Members
+        + company.added
+        + company.deleted
+        + company.updated
+        + contact.added
+        + contact.deleted
+        + contact.linkedToCompany
+        + contact.unlinkedFromCompany
+        + contact.updated
+        + deal.created
+        + deal.deleted
+        + deal.lost
+        + deal.moved
+        + deal.won
+        + invoice.booked
+        + invoice.deleted
+        + invoice.drafted
+        + invoice.paymentRegistered
+        + invoice.paymentRemoved
+        + invoice.sent
+        + invoice.updated
+        + milestone.created
+        + milestone.updated
+        + project.created
+        + project.deleted
+        + project.updated
+        + timeTracking.added
+        + timeTracking.deleted
+        + timeTracking.updated
