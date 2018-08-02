@@ -607,14 +607,14 @@ Get a list of contacts.
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + added_at
+                        + name - Sorts alphabetically on last_name and first_name
                 + order (enum[string], optional)
                     + Members
-                        + desc
+                        + asc
             + Default
                 + (object)
-                    + field: `added_at`
-                    + order: `desc`
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
