@@ -27,9 +27,11 @@ Get a list of contacts.
                 + field (enum[string], required)
                     + Members
                         + name - Sorts alphabetically on last_name and first_name
+                        + date_updated - Sorts on date_update
                 + order (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: `name`
