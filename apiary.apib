@@ -607,14 +607,14 @@ Get a list of contacts.
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + added_at
+                        + name - Sorts alphabetically on last_name and first_name
                 + order (enum[string], optional)
                     + Members
-                        + desc
+                        + asc
             + Default
                 + (object)
-                    + field: `added_at`
-                    + order: `desc`
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1547,6 +1547,25 @@ Get a quotation
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
 
+### quotations.download [POST /quotations.download]
+
+Download a quotation in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
+
 # Group Calendar
 
 ## Calendar events [/events]
@@ -1888,6 +1907,8 @@ Get details for a single invoice.
                     + contact (object)
                         + type: `contact` (string)
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
+                + email: `duivels@test.com` (string, nullable)
+                + local_business_number: `123` (string, nullable)
             + discounts (array)
                 + (object)
                     + type: `percentage` (enum[string])
@@ -3084,38 +3105,7 @@ Register a new webhook.
 
 + Request (application/json;charset=utf-8)
 
-    + Attributes (object)
-        + url: `https://example.com` (string, required) - Your webhook URL
-        + types (array[enum[string]], required) - Array of event types that should fire the webhook
-            + Members
-                + company.added
-                + company.deleted
-                + company.updated
-                + contact.added
-                + contact.deleted
-                + contact.linkedToCompany
-                + contact.unlinkedFromCompany
-                + contact.updated
-                + deal.created
-                + deal.deleted
-                + deal.lost
-                + deal.moved
-                + deal.won
-                + invoice.booked
-                + invoice.deleted
-                + invoice.drafted
-                + invoice.paymentRegistered
-                + invoice.paymentRemoved
-                + invoice.sent
-                + invoice.updated
-                + milestone.created
-                + milestone.updated
-                + project.created
-                + project.deleted
-                + project.updated
-                + timeTracking.added
-                + timeTracking.deleted
-                + timeTracking.updated
+    + Attributes (WebHook)
 
 + Response 204
 
@@ -3128,10 +3118,17 @@ List registered webhooks ordered by URL.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + data (array)
-            + (object)
-                + url: `https://example.org/webhook` (string) - Webhook URL
-                + types: company.added, contact.deleted (array[string]) - Event types that fire the webhook
+        + data (array[WebHook])
+
+### webhooks.unregister [POST /webhooks.unregister]
+
+Unregister a webhook.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (WebHook)
+
++ Response 204
 
 # Data Structures
 
@@ -3235,3 +3232,36 @@ List registered webhooks ordered by URL.
                 + product
                 + user
         + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## WebHook (object)
++ url: `https://example.com` (string, required) - Your webhook URL
++ types (array[enum[string]], required) - Array of event types that fire the webhook
+    + Members
+        + company.added
+        + company.deleted
+        + company.updated
+        + contact.added
+        + contact.deleted
+        + contact.linkedToCompany
+        + contact.unlinkedFromCompany
+        + contact.updated
+        + deal.created
+        + deal.deleted
+        + deal.lost
+        + deal.moved
+        + deal.won
+        + invoice.booked
+        + invoice.deleted
+        + invoice.drafted
+        + invoice.paymentRegistered
+        + invoice.paymentRemoved
+        + invoice.sent
+        + invoice.updated
+        + milestone.created
+        + milestone.updated
+        + project.created
+        + project.deleted
+        + project.updated
+        + timeTracking.added
+        + timeTracking.deleted
+        + timeTracking.updated
