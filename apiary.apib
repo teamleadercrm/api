@@ -1542,6 +1542,25 @@ Get a quotation
                                         + percentage
                                 + value: 15.00 (number)
 
+### quotations.download [POST /quotations.download]
+
+Download a quotation in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
+
 # Group Calendar
 
 ## Calendar events [/events]
