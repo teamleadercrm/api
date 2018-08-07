@@ -608,9 +608,11 @@ Get a list of contacts.
                 + field (enum[string], required)
                     + Members
                         + name - Sorts alphabetically on last_name and first_name
+                        + updated_at - Sorts on date updated
                 + order (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: `name`
