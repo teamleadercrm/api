@@ -2910,6 +2910,17 @@ Start a new timer based on previously tracked time.
             + type: `timer` (string)
             + id: `f01adf4a-bb9b-45de-b231-615cd0e941de` (string)
 
+### timeTracking.delete [POST /timeTracking.delete]
+
+Delete a tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string, required)
+
++ Response 204
+
 ## Timers [/timers]
 
 Timers are an easy way to track time. You can start, stop or resume a timer any time. However, only one timer can run simultaneously per user. Every action will result in the creation or update of a time tracking.
