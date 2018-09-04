@@ -11,6 +11,14 @@ Get a list of projects.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + status (enum[string], optional)
+                + Members
+                    + active
+                    + on_hold
+                    + done
+                    + cancelled
+            + participant_id: `ed544eac-02e4-037b-8a1a-c8dd662bf621` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
