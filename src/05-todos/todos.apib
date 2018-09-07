@@ -1,0 +1,27 @@
+## Todos [/todos]
+
+*Required scopes: `planning`*
+
+### todos.info [GET /todos.info]
+
+Get details for a single todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `879770c5-8a7f-0067-8c25-b4993bdb5163` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `879770c5-8a7f-0067-8c25-b4993bdb5163` (string)
+                + description: `Design the landing page` (string)
+                + activity_type (object)
+                    + type: `activityType` (string)
+                    + id: `28158af3-2ef3-4178-ac8b-2542b1481af0` (string)
+                + completed: true (boolean)
+                + completed_at: `2018-02-04T16:00:00+00:00` (string)
+                + ends_at: `2018-02-06T18:00:00+00:00` (string)
+                + estimated_duration: `18000` (number) - In seconds
