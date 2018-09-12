@@ -2048,6 +2048,16 @@ Draft a new invoice.
                         + percentage
                 + description: `winter promotion` (string, required)
         + note: `Invoice comments` (string, optional)
+        + expected_payment_method (object, optional)
+            + method: `sepa_direct_debit` (enum[string], required)
+                + Members
+                    + `sepa_direct_debit`
+                    + `credit_card`
+            + initiator: `supplier` (enum[string], required)
+                + Members
+                    + `supplier`
+                    + `customer`
+            + reference: `AB1234` (string, optional) - The reference is required when the method is sepa_direct_debit and the initiator is supplier
 
 + Response 201 (application/json;charset=utf-8)
 
