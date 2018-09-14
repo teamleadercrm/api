@@ -304,6 +304,16 @@ Update an invoice.
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
+        + expected_payment_method (object, optional, nullable)
+            + method: `sepa_direct_debit` (enum[string], required)
+                + Members
+                    + `sepa_direct_debit`
+                    + `credit_card`
+            + initiator: `supplier` (enum[string], required)
+                + Members
+                    + `supplier`
+                    + `customer`
+            + reference: `AB1234` (string, optional) - The reference is required when the method is sepa_direct_debit and the initiator is supplier
 
 + Response 204
 
