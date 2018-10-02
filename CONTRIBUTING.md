@@ -40,4 +40,4 @@ make preview
 
 ## Guidelines
 
-Have have documented our [API Design Guidelines](GUIDELINES.md). Please follow these recommendations when making a pull request.
+We have documented our [API Design Guidelines](GUIDELINES.md). Please follow these recommendations when making a pull request.
