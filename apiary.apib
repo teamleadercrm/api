@@ -332,24 +332,32 @@ Get the current authenticated user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl-BE` (enum[string])
-                + Members
-                    + da-DK
-                    + de-DE
-                    + en-GB
-                    + es-ES
-                    + fi-FI
-                    + fr-FR
-                    + it-IT
-                    + nb-NO
-                    + nl-BE
-                    + nl-NL
-                    + pl-PL
-                    + pt-PT
-                    + sv-SE
-                    + tr-TR
             + function: `Sales` (string)
-            + time_zone: `Europe/Brussels` (string)
+            + preferences (object)
+                + language: `nl-BE` (enum[string])
+                    + Members
+                        + da-DK
+                        + de-DE
+                        + en-GB
+                        + es-ES
+                        + fi-FI
+                        + fr-FR
+                        + it-IT
+                        + nb-NO
+                        + nl-BE
+                        + nl-NL
+                        + pl-PL
+                        + pt-PT
+                        + sv-SE
+                        + tr-TR
+                + time_zone: `Europe/Brussels` (string)
+                + date_format (object)
+                    + short: `dd/mm/yyyy` (string)
+                    + medium: `dd mmm yyyy` (string)
+                    + long: `dd mmmm yyyy` (string)
+                + number_format (object)
+                    + thousand_separator: ' ' (string)
+                    + decimal_separator: '.' (string)
 
 ### users.list [GET /users.list]
 
