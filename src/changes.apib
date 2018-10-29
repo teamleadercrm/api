@@ -1,0 +1,69 @@
+## Changes & upgrades
+
+We want to keep this API backwards compatible as long as possible, but at the same time we need to make changes to it to match our evolving product.
+
+Therefor we assigned a dated version to your API client when it was created.
+This version controls the API and webhooks behaviour for you API client.
+When we change the API in a backwards-incompatible way, we release a new dated version.
+But to avoid breaking your code, you stay on your assigned version until you [upgrade your API version](./#upgrading-your-api-version).
+
+### Types of changes
+
+We consider the following changes to be backwards-compatible:
+
+- Adding new API endpoints.
+- Adding new optional parameters to existing API requests.
+- Adding new properties to existing API responses.
+- Adding new webhook types.
+- Making existing parameters optional.
+- Changing the order of properties in existing API responses.
+- Fixing (potential) bugs that made an endpoint unusable (HTTP 500 errors).
+- (Currently we also hold ourselves the right to return a different error format, as there is still room for improvement)
+
+We consider the following changes to be backwards-incompatible:
+
+- Renaming or removing an endpoint.
+- Renaming or removing a parameter of API requests.
+- Renaming or removing a property of API responses.
+- Changing the format of a parameter of API responses (eg. integer to float)
+- Making validation of a parameter more strict (eg. making it required)
+- Returning a different HTTP status code.
+
+### Upgrading your API version
+
+This documentation only reflects the latest version of the API.
+If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
+
+You can find your current API version, in the `X-Api-Version` header on any API response.
+The current latest version is **2017-12-06**.
+
+After checking the API changelog to see which endpoints work differently,
+you can upgrade your API version in two ways:
+
+- Sending a `X-Api-Version` header with the request, with a newer version than your current version
+
+  _This will only affect the version of that API call and won't affect any other calls done by your client._
+  _This is a good method to start testing your changes before you permanently upgrade to a newer version._
+
+- Making a call to `/version.update`, according to this documentation.
+
+  _This will affect all your future API calls, so make sure you followed the changelog before you make this call._
+  _You have one week to rollback your version, for when you would have overlooking things during your upgrade process._
+
+
+### Changelog
+
+We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
+
+#### 2018-10-30
+
+- The top-level property `customer` was removed on all deal endpoints.
+  Earlier, this property could already be found under the `lead.customer` property.
+  If you were still using the `customer` property, just wrap it in an object under a `lead` key.
+
+- The `contacts.list` & `companies.list` endpoints used to give back an object under the `address` key.
+  This object is now returned under the `primary_address` key.
+
+### Stay informed
+
+You can follow our API progress and ongoing proposals via our [API Blueprint GitHub repository](https://github.com/teamleadercrm/api).
