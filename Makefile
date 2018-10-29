@@ -1,18 +1,18 @@
 PWD = $(shell pwd)
 
-all: lint build
+all: build lint
 
 node_modules: package.json
-	docker run -it --init --rm -v $(PWD):/code -w /code node npm install
+	docker run -it --init --rm -v $(PWD):/code -w /code node:9 npm install
 
 lint: node_modules
-	docker run -it --init --rm -v $(PWD):/code -w /code node npm run lint
+	docker run -it --init --rm -v $(PWD):/code -w /code node:9 npm run lint
 
-build: apiary.apib node_modules
-	docker run -it --init --rm -v $(PWD):/code -w /code node npm run build
+build: src node_modules
+	docker run -it --init --rm -v $(PWD):/code -w /code node:9 npm run build
 
-preview: apiary.html node_modules
+preview: node_modules
 	docker run -it --init --rm -v $(PWD):/code -w /code apiaryio/client preview --path=/code/apiary.apib --output=/code/apiary.html
 
 watch: node_modules
-	docker run -it --init --rm -v $(PWD):/code -w /code node npm run watch
+	docker run -it --init --rm -v $(PWD):/code -w /code node:9 npm run watch

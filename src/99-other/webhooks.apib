@@ -1,0 +1,32 @@
+## Webhooks [/webhooks]
+
+### webhooks.register [POST /webhooks.register]
+
+Register a new webhook.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (WebHook)
+
++ Response 204
+
+### webhooks.list [GET /webhooks.list]
+
+List registered webhooks ordered by URL.
+
++ Request (application/json;charset=utf-8)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[WebHook])
+
+### webhooks.unregister [POST /webhooks.unregister]
+
+Unregister a webhook.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (WebHook)
+
++ Response 204

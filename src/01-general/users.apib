@@ -2,6 +2,8 @@
 
 Users are co-workers in a Teamleader account.
 
+*Required scopes: `users`*
+
 ### users.me [GET /users.me]
 
 Get the current authenticated user.
@@ -18,7 +20,22 @@ Get the current authenticated user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl` (string)
+            + language: `nl-BE` (enum[string])
+                + Members
+                    + da-DK
+                    + de-DE
+                    + en-GB
+                    + es-ES
+                    + fi-FI
+                    + fr-FR
+                    + it-IT
+                    + nb-NO
+                    + nl-BE
+                    + nl-NL
+                    + pl-PL
+                    + pt-PT
+                    + sv-SE
+                    + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
 
@@ -82,6 +99,21 @@ Get details for a single user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl` (string)
+            + language: `nl-BE` (enum[string])
+                + Members
+                    + da-DK
+                    + de-DE
+                    + en-GB
+                    + es-ES
+                    + fi-FI
+                    + fr-FR
+                    + it-IT
+                    + nb-NO
+                    + nl-BE
+                    + nl-NL
+                    + pl-PL
+                    + pt-PT
+                    + sv-SE
+                    + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)

@@ -1,4 +1,8 @@
-## Creditnotes [/creditNotes]
+## Credit Notes [/creditNotes]
+
+Credit notes are created when certain products or services are not delivered according to their invoice. The credit note reduces the due amount of the credited invoice.
+
+*Required scopes: `invoices`*
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -7,6 +11,9 @@ List credit notes
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -55,7 +62,8 @@ List credit notes
                             + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
-
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### creditNotes.info [GET /creditNotes.info]
 
@@ -91,6 +99,8 @@ Get details for a single credit note
                     + customer (object)
                         + type: `contact` (string)
                         + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
+                    + email: `duivels@test.com` (string, nullable)
+                    + local_business_number: `123` (string, nullable)
                 + total (object)
                     + tax_exclusive (Money)
                     + tax_inclusive (Money)
@@ -109,8 +119,12 @@ Get details for a single credit note
                                 + product (object, nullable)
                                     + type: `product` (string)
                                     + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                                + product_category (object, nullable)
+                                    + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                                    + type: `productCategory` (string)
                                 + quantity: `3` (number)
                                 + description: `An awesome product` (string)
+                                + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                                 + unit_price (object)
                                     + Include Money
                                     + tax: `excluding` (enum[string])
@@ -123,3 +137,29 @@ Get details for a single credit note
                                         + Members
                                             + percentage
                                     + value: `15.00` (number)
+                                + total
+                                    + tax_exclusive (Money)
+                                    + tax_exclusive_before_discount (Money)
+                                    + tax_inclusive (Money)
+                                    + tax_inclusive_before_discount (Money)
+                + created_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
+### creditNotes.download [POST /creditNotes.download]
+
+Download a credit note in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link

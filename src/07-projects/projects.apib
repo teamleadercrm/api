@@ -1,7 +1,8 @@
 ## Projects [/projects]
 
-Projects allow users to work together as a team on a single project.
-They comprise of one or more milestones, have one or more participants and are limited in time and budget.
+Projects allow users to work together as a team on a single project. They consist of one or more milestones, have one or more participants and are limited in time and budget.
+
+*Required scopes: `projects`*
 
 ### projects.list [GET /projects.list]
 
@@ -10,6 +11,20 @@ Get a list of projects.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + customer (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
+            + status (enum[string], optional)
+                + Members
+                    + active
+                    + on_hold
+                    + done
+                    + cancelled
+            + participant_id: `ed544eac-02e4-037b-8a1a-c8dd662bf621` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -125,6 +140,12 @@ Create a new project.
                         + decision_maker
                         + member
                     + Default: `member`
+        + customer (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 

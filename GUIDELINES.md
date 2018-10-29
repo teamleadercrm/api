@@ -112,6 +112,39 @@ Endpoints used to update existing objects **MUST**:
  - Not have unexpected side effects
  - Respond with an empty response and the `204` HTTP status code
 
+### Errors
+
+When an error occurs, the endpoint **MUST**:
+
+ - Respond a status code that corresponds to the type of error
+ - Return a top-level `errors` attribute containing one or more errors
+
+Each error object **MUST**:
+
+ - Have a `title` attribute; a short human readable summary of the problem
+
+The error objects **MAY** have the following members:
+
+ - `code`: an application specific error code to identify where the error is coming from
+ - `meta`: additional non-standard meta information about this error
+
+Example of a `400 Bad Request` error:
+
+```json
+{
+  "errors": [
+    {
+      "code": 123,
+      "title": "Company name must not be empty",
+      "status": 400,
+      "meta": {
+        "field": "name"
+      }
+    }
+  ]
+}
+```
+
 ## Designing properties
 
 ### Adding and modifying endpoints

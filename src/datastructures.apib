@@ -16,9 +16,9 @@
 + number: `092980615` (string, required)
 
 ## Address (object)
-+ line_1: `Dok Noord 3A 101` (string, optional)
-+ postal_code: `9000` (string, optional)
-+ city: `Ghent` (string, optional)
++ line_1: `Dok Noord 3A 101` (string, required, nullable)
++ postal_code: `9000` (string, required, nullable)
++ city: `Ghent` (string, required, nullable)
 + country: `BE` (string, required)
 
 ## Addressee (object)
@@ -66,3 +66,73 @@
         + end_of_month - End of the month of Xth day after the invoice date
         + after_invoice_date - X days after invoice date
 + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+
+## CustomField (object)
++ definition (object)
+    + type: `customFieldDefinition` (string)
+    + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number and auto-increment fields
+    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## CustomFieldValue (object)
++ id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
++ One Of
+    + value: `092980616` (string)
+    + value: `123` (number) - For integer, number, money and auto-increment fields
+    + value: `foo`,`bar` (array[string]) - For multiple selection fields
+    + value: true (boolean) - For Yes/No fields
+    + value (object) - For related Teamleader objects
+        + type: `company` (enum[string])
+            + Members
+                + company
+                + contact
+                + product
+                + user
+        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
+
+## WebHook (object)
++ url: `https://example.com` (string, required) - Your webhook URL
++ types (array[enum[string]], required) - Array of event types that fire the webhook
+    + Members
+        + account.deactivated
+        + account.deleted
+        + company.added
+        + company.deleted
+        + company.updated
+        + contact.added
+        + contact.deleted
+        + contact.linkedToCompany
+        + contact.unlinkedFromCompany
+        + contact.updated
+        + deal.created
+        + deal.deleted
+        + deal.lost
+        + deal.moved
+        + deal.won
+        + invoice.booked
+        + invoice.deleted
+        + invoice.drafted
+        + invoice.paymentRegistered
+        + invoice.paymentRemoved
+        + invoice.sent
+        + invoice.updated
+        + milestone.created
+        + milestone.updated
+        + project.created
+        + project.deleted
+        + project.updated
+        + timeTracking.added
+        + timeTracking.deleted
+        + timeTracking.updated
+        + user.deactivated
