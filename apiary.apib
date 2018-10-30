@@ -287,18 +287,11 @@ If you need to make changes to your client or you want to make use of the latest
 You can find your current API version, in the `X-Api-Version` header on any API response.
 The current latest version is **2018-10-30**.
 
-After checking the API changelog to see which endpoints work differently,
-you can upgrade your API version in two ways:
+After checking the API changelog to see which endpoints work differently, you can upgrade your API version:
 
-- Sending an `X-Api-Version` header with the request, with a newer version than your current version
+Send an `X-Api-Version` header with the request, with a newer version than your current version
 
-  _This will only affect the version for that API call and won't affect any other calls done by your client._
-  _This is a good method to start testing your changes before you permanently upgrade to a newer version._
-
-- Making a call to `/integrations.upgrade`, according to this documentation.
-
-  _This will affect all your future API calls, so make sure you followed the changelog before you make this call._
-  _You have one week to rollback your version, for when you would have overlooked things during your upgrade process._
+_This will only affect the version for that API call and won't affect any other calls done by your client._
 
 
 ### Changelog
