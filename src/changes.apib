@@ -1,11 +1,11 @@
 ## Changes & upgrades
 
-We want to keep this API backwards compatible as long as possible, but at the same time we need to make changes to it to match our evolving product.
+We want to keep this API backwards compatible as long as possible, but at the same time, we need to make changes to it to match our evolving product.
 
-Therefor we assigned a dated version to your API client when it was created.
-This version controls the API and webhooks behaviour for you API client.
+Therefore we assigned a dated version to your API client when it was created.
+This version controls the API and webhooks behaviour for your API client.
 When we change the API in a backwards-incompatible way, we release a new dated version.
-But to avoid breaking your code, you stay on your assigned version until you [upgrade your API version](./#upgrading-your-api-version).
+To avoid breaking your code, you stay on your assigned version until you [upgrade your API version](./#upgrading-your-api-version).
 
 ### Types of changes
 
@@ -18,7 +18,7 @@ We consider the following changes to be backwards-compatible:
 - Making existing parameters optional.
 - Changing the order of properties in existing API responses.
 - Fixing (potential) bugs that made an endpoint unusable (HTTP 500 errors).
-- (Currently we also hold ourselves the right to return a different error format, as there is still room for improvement)
+- (Currently, we also hold ourselves the right to return a different error format, as there is still room for improvement)
 
 We consider the following changes to be backwards-incompatible:
 
@@ -35,20 +35,20 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2017-12-06**.
+The current latest version is **2018-10-30**.
 
 After checking the API changelog to see which endpoints work differently,
 you can upgrade your API version in two ways:
 
-- Sending a `X-Api-Version` header with the request, with a newer version than your current version
+- Sending an `X-Api-Version` header with the request, with a newer version than your current version
 
-  _This will only affect the version of that API call and won't affect any other calls done by your client._
+  _This will only affect the version for that API call and won't affect any other calls done by your client._
   _This is a good method to start testing your changes before you permanently upgrade to a newer version._
 
-- Making a call to `/version.update`, according to this documentation.
+- Making a call to `/integrations.upgrade`, according to this documentation.
 
   _This will affect all your future API calls, so make sure you followed the changelog before you make this call._
-  _You have one week to rollback your version, for when you would have overlooking things during your upgrade process._
+  _You have one week to rollback your version, for when you would have overlooked things during your upgrade process._
 
 
 ### Changelog
