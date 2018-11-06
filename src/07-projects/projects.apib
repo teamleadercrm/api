@@ -114,6 +114,21 @@ Get details for a single project.
                             + decision_maker
                             + member
 
+### projects.profit [GET /projects.profit]
+
+Get the data that makes up the profit of a single project: revenue, costs and profit.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string)
+            + total_revenue (Money)
 
 ### projects.create [POST /projects.create]
 
