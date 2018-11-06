@@ -85,7 +85,7 @@ To ensure a fast and predictable experience for everyone, all our API endpoints 
 
 When you go over this limit, our API will respond with a `HTTP 429 Too Many Requests error`.
 
-If your integrations needs a higher limit, send us an email at [api@teamleader.eu](mailto:api@teamleader.eu) with a detailed explanation why you need an increased rate limit.
+If your integrations need a higher limit, send us an email at [api@teamleader.eu](mailto:api@teamleader.eu) with a detailed explanation of why you need an increased rate limit.
 
 ### Status codes
 
@@ -120,7 +120,7 @@ OAuth 2 is an authorization framework that allows a user to grant limited access
 
 To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
-Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client side code.
+Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client-side code.
 
 When you register an integration on our [Marketplace](https://marketplace.teamleader.eu), it is required to select all *scopes* your integration wants access to.
 
@@ -139,7 +139,7 @@ The required GET parameters are:
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these white listed URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
 
 After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.teamleader.eu/build).
 
@@ -153,7 +153,7 @@ If the user denies your integration, he will be redirected to the `redirect_uri`
 
 ### Obtaining access tokens
 
-After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send a HTTP POST request to the following endpoint:
+After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send an HTTP POST request to the following endpoint:
 
 `https://app.teamleader.eu/oauth2/access_token`
 
@@ -181,7 +181,7 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 }
 ```
 
-These access tokens are also know as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
+These access tokens are also known as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
 
 ```
 GET https://api.teamleader.eu/contacts.list HTTP/1.1
@@ -206,9 +206,9 @@ The required POST parameters are:
 
 Refresh tokens will continue functioning until the user revokes them or uninstalls your integration.
 
-### Client side authorization (implicit grant)
+### Client-side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
 Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `code` as the `response_type`:
 
@@ -232,7 +232,7 @@ Example:
 
 `https://YOUR_REDIRECT_URI#token_type=Bearer&expires_in=900&access_token=TOKEN&state=STATE`
 
-Note that the implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authorization method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
+Note that the implicit grant does not return refresh tokens and that our access tokens have a short TTL value. If you opt for this authorization method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client-side applications.
 
 ### User Identity
 
@@ -242,17 +242,74 @@ To retrieve information about the user who authorized your application (the reso
 
 ### PHP code example
 
-You can find a (very) minimal PHP code example, showing how start the OAuth 2 authentication flow, and retrieve the user's identity using the obtained access token.
+You can find a (very) minimal PHP code example, showing how to start the OAuth 2 authentication flow and retrieve the user's identity using the obtained access token.
 
 [https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php](https://github.com/teamleadercrm/api/blob/master/examples/oauth2.php)
 
 A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
 
-## Changelog
+## Changes & upgrades
+
+We want to keep this API backwards compatible as long as possible, but at the same time, we need to make changes to it to match our evolving product.
+
+Therefore we assigned a dated version to your API client when it was created.
+This version controls the API and webhooks behaviour for your API client.
+When we change the API in a backwards-incompatible way, we release a new dated version.
+To avoid breaking your code, you stay on your assigned version until you [upgrade your API version](./#upgrading-your-api-version).
+
+### Types of changes
+
+We consider the following changes to be backwards-compatible:
+
+- Adding new API endpoints.
+- Adding new optional parameters to existing API requests.
+- Adding new properties to existing API responses.
+- Adding new webhook types.
+- Making existing parameters optional.
+- Changing the order of properties in existing API responses.
+- Fixing (potential) bugs that made an endpoint unusable (HTTP 500 errors).
+- (Currently, we also hold ourselves the right to return a different error format, as there is still room for improvement)
+
+We consider the following changes to be backwards-incompatible:
+
+- Renaming or removing an endpoint.
+- Renaming or removing a parameter of API requests.
+- Renaming or removing a property of API responses.
+- Changing the format of a parameter of API responses (eg. integer to float)
+- Making validation of a parameter more strict (eg. making it required)
+- Returning a different HTTP status code.
+
+### Upgrading your API version
+
+This documentation only reflects the latest version of the API.
+If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
+
+You can find your current API version, in the `X-Api-Version` header on any API response.
+The current latest version is **2018-10-30**.
+
+After checking the API [changelog](./#changelog) to see which endpoints work differently, you can upgrade your API version:
+
+Send an `X-Api-Version` header containing the identifier of a version (newer than your current version) with your requests.
+
+_This will only affect the version for those API calls and won't affect any other calls done by your client._
+
+
+### Changelog
+
+We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
+
+#### 2018-10-30
+
+- The top-level property `customer` was removed on all deal endpoints.
+  Earlier, this property could already be found under the `lead.customer` property.
+  If you were still using the `customer` property, just wrap it in an object under a `lead` key.
+
+- The `contacts.list` & `companies.list` endpoints used to give back an object under the `address` key.
+  This object is now returned under the `primary_address` key.
+
+### Stay informed
 
 You can follow our API progress and ongoing proposals via our [API Blueprint GitHub repository](https://github.com/teamleadercrm/api).
-
-The changelog can be found [here](https://github.com/teamleadercrm/api/blob/master/CHANGELOG.md).
 
 # Group General
 
@@ -601,6 +658,7 @@ Get a list of contacts.
                          + primary
                 + email: `info@piedpiper.eu` (string, required)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + company_id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string, optional)
             + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
@@ -652,6 +710,7 @@ Get a list of contacts.
                 + tags: prospect, expo (array[string])
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + `web_url`: `https://app.teamleader.eu/contact_detail.php?id=2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -710,6 +769,7 @@ Get details for a single contact.
             + marketing_mails_consent: false (boolean)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + `web_url`: `https://app.teamleader.eu/contact_detail.php?id=cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
 
 ### contacts.add [POST /contacts.add]
 
@@ -936,6 +996,7 @@ Get a list of companies.
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + `web_url`: `https://app.teamleader.eu/company_detail.php?id=96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
                 + tags: prospect, expo (array[string])
 
 ### companies.info [GET /companies.info]
@@ -987,6 +1048,7 @@ Get details for a single company.
             + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + `web_url`: `https://app.teamleader.eu/company_detail.php?id=e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string)
             + tags: prospect, expo (array[string])
             + custom_fields (array[CustomField])
             + marketing_mails_consent: false (boolean)
@@ -1247,6 +1309,7 @@ Get a list of deals.
                     + id: `52a4bbb2-d196-48d7-8e43-9ec2f44d06f9` (string)
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
+                + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
 
 ### deals.info [GET /deals.info]
 
@@ -1310,6 +1373,7 @@ Get details for a single deal.
                     + type: `quotation` (string)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
+            + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + custom_fields (array[CustomField])
 
 ### deals.create [POST /deals.create]
@@ -2104,6 +2168,7 @@ Update an invoice.
                                     + percentage
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
+        + note: `Some comments about the invoice` (string, optional, nullable)
 
 + Response 204
 
@@ -2431,6 +2496,12 @@ Get a list of projects.
 
     + Attributes (object)
         + filter (object, optional)
+            + customer (object, optional)
+                + type (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
             + status (enum[string], optional)
                 + Members
                     + active
@@ -3274,6 +3345,8 @@ Unregister a webhook.
 + url: `https://example.com` (string, required) - Your webhook URL
 + types (array[enum[string]], required) - Array of event types that fire the webhook
     + Members
+        + account.deactivated
+        + account.deleted
         + company.added
         + company.deleted
         + company.updated
@@ -3302,3 +3375,4 @@ Unregister a webhook.
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
+        + user.deactivated
