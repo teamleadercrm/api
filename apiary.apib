@@ -348,6 +348,7 @@ Get a list of departments.
             + (object)
                 + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
                 + name: `Human Resources` (string)
+                + vat_number: `BE0899623035` (string)
                 + currency: `EUR` (string)
 
 ### departments.info [GET /departments.info]
@@ -365,7 +366,25 @@ Get details for a single department.
         + data  (object)
             + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
             + name: `Human Resources` (string)
+            + vat_number: `BE0899623035` (string)
+            + address (Address)
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
+            + telephones (array[object])
+                + type: `phone` (enum[string], required)
+                    + Members
+                        + phone
+                        + fax
+                + number: `092980615` (string, required)
+            + website: `https://piedpiper.com` (string)
             + currency: `EUR` (string)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
 
 ## Users [/users]
 
