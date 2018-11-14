@@ -348,6 +348,7 @@ Get a list of departments.
             + (object)
                 + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
                 + name: `Human Resources` (string)
+                + vat_number: `BE0899623035` (string)
                 + currency: `EUR` (string)
 
 ### departments.info [GET /departments.info]
@@ -365,7 +366,25 @@ Get details for a single department.
         + data  (object)
             + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
             + name: `Human Resources` (string)
+            + vat_number: `BE0899623035` (string)
+            + address (Address)
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
+            + telephones (array[object])
+                + type: `phone` (enum[string], required)
+                    + Members
+                        + phone
+                        + fax
+                + number: `092980615` (string, required)
+            + website: `https://piedpiper.com` (string)
             + currency: `EUR` (string)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
 
 ## Users [/users]
 
@@ -634,7 +653,7 @@ Get a list of all work types, sorted alphabetically (on their name).
         + data (array)
             + (object)
                 + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
-                + name `Planning` (string)
+                + name: `Planning` (string)
 
 # Group CRM
 
@@ -2158,7 +2177,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + discount (object, required)
+                        + discount (object, optional)
                             + value: 10 (number, required) - Values between 0 and 100
                             + type (enum[string], required)
                                 + Members
