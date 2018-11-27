@@ -2058,7 +2058,10 @@ Get details for a single invoice.
                     + payment (object)
                         + Include Money
             + payment_reference: `+++084/2613/66074+++` (string)
-            + note: `'Some extra remarks about the invoice'` (string)
+            + note: `Some extra remarks about the invoice` (string)
+            + expected_payment_method (object, nullable)
+                + method: `sepa_direct_debit` (string)
+                + reference: `AB1234` (string, nullable) - Only available when `method` is `sepa_direct_debit` or `credit_card`
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -2131,6 +2134,18 @@ Draft a new invoice.
                         + percentage
                 + description: `winter promotion` (string, required)
         + note: `Invoice comments` (string, optional)
+        + expected_payment_method (object, optional)
+            + method: `sepa_direct_debit` (enum[string], required)
+                + Members
+                    + `sepa_direct_debit`
+                    + `credit_card`
+                    + `cash`
+                    + `cheque`
+                    + `bankers_draft`
+                    + `bank_transfer`
+                    + `payment_card`
+                    + `direct_debit`
+            + reference: `AB1234` (string, optional, nullable) - Only allowed when `method` is `sepa_direct_debit` or `credit_card`
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -2182,6 +2197,18 @@ Update an invoice.
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
+        + expected_payment_method (object, optional)
+            + method: `sepa_direct_debit` (enum[string], required)
+                + Members
+                    + `sepa_direct_debit`
+                    + `credit_card`
+                    + `cash`
+                    + `cheque`
+                    + `bankers_draft`
+                    + `bank_transfer`
+                    + `payment_card`
+                    + `direct_debit`
+            + reference: `AB1234` (string, optional, nullable) - Only allowed when `method` is `sepa_direct_debit` or `credit_card`
 
 + Response 204
 
