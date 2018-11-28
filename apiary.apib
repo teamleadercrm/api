@@ -255,7 +255,7 @@ We want to keep this API backwards compatible as long as possible, but at the sa
 Therefore we assigned a dated version to your API client when it was created.
 This version controls the API and webhooks behaviour for your API client.
 When we change the API in a backwards-incompatible way, we release a new dated version.
-To avoid breaking your code, you stay on your assigned version until you [upgrade your API version](./#upgrading-your-api-version).
+To avoid breaking your code, you stay on your assigned version until you [upgrade your API version](#upgrading-your-api-version).
 
 ### Types of changes
 
@@ -278,7 +278,7 @@ We consider the following changes to be backwards-incompatible:
 - Changing the format of a parameter of API responses (eg. integer to float)
 - Making validation of a parameter more strict (eg. making it required)
 - Returning a different HTTP status code.
-
+<a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
 
 This documentation only reflects the latest version of the API.
@@ -287,13 +287,13 @@ If you need to make changes to your client or you want to make use of the latest
 You can find your current API version, in the `X-Api-Version` header on any API response.
 The current latest version is **2018-10-30**.
 
-After checking the API [changelog](./#changelog) to see which endpoints work differently, you can upgrade your API version:
+After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
 Send an `X-Api-Version` header containing the identifier of a version (newer than your current version) with your requests.
 
 _This will only affect the version for those API calls and won't affect any other calls done by your client._
 
-
+<a name="changelog"></a>
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
