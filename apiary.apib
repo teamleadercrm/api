@@ -2461,6 +2461,32 @@ Get a list of available payment terms.
                 + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
                 + Include PaymentTerm
 
+## Withholding Tax Rates [/withholdingTaxRates]
+
+Withholding tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The countries that use withholding tax rates are Italy and Spain.
+
+### withholdingTaxRates.list [GET /withholdingTaxRates.list]
+
+Get a list of available withholding tax rates.
+
++ Request (application/json;charset=utf-8)
+
++ Attributes (object)
+    + filter (object, optional)
+        + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
+                + description: `Ritenuta d'acconto 23% su 20%` (string)
+                + rate: 0.046 (number)
+
 # Group Products
 
 ## Product Categories [/productCategories]
