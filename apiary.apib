@@ -2021,7 +2021,7 @@ Get details for a single invoice.
                                 + type: `productCategory` (string)
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
-                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                            + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum[string])
@@ -2109,7 +2109,7 @@ Draft a new invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string], required)
@@ -2167,7 +2167,7 @@ Update an invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string])
