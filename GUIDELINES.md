@@ -173,7 +173,7 @@ Example:
 
 ### Request Nullable/Optional properties
 
-#### When to use the `null` in properties
+#### When to use `null` in properties
 
 1. When you want to unassign the value of that property.
 2. If the property is optional and you are creating it you might want to use `null` to avoid the `if`s burden.
