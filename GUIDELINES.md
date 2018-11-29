@@ -191,7 +191,7 @@ When a property is optional you don't need to send the key in your request. The 
 
 #### Note on empty strings
 
-Accepting empty strings does not have any meaning, if the goal is to unassign the value of a property than you should use `null` instead of an `empty string`.
+Accepting empty strings does not have any meaning. If the goal is to unassign the value of a property then you should use `null` instead of an empty string.
 
 ### Date and time
 
