@@ -175,7 +175,7 @@ Example:
 
 #### When to use `null` in properties
 
-1. When you want to unassign the value of that property.
+1. When you want to update a property and unassign it's value.
 2. If the property is optional and you are creating it you might want to use `null` to avoid the `if`s burden.
 
 #### When not to use `null` in properties
@@ -189,9 +189,13 @@ When a property is optional you don't need to send the key in your request. The 
 
 **Note:** `Nullable` applies to the value of the property and `Optional` applies to the key of that property in the payload.
 
-#### Note on empty strings
+#### Note on Empty strings
 
 Accepting empty strings does not have any meaning. If the goal is to unassign the value of a property then you should use `null` instead of an empty string.
+
+#### Note on Collections
+
+When the property you are updating is a collection, you **MUST** send all elements you want to keep or modify otherwise they will be removed.
 
 ### Date and time
 
