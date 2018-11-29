@@ -151,7 +151,7 @@ Example of a `400 Bad Request` error:
 
 Adding endpoints and properties are typically always non-breaking and backwards compatible. Modifying, renaming and removing endpoints and properties is allowed during the beta period. Once our API is released, we will tag our API with a new version for each breaking change.
 
-### Empty properties
+### Response Empty properties
 
 Object properties without a value **MUST**:
 
@@ -170,6 +170,26 @@ Example:
   }
 }
 ```
+
+### Request Nullable/Optional properties
+
+#### When to use the `null` in properties
+
+1. When you want to unassign the value of that property.
+2. If the property is optional and you are creating it you might want to use `null` to avoid the `if`s burden.
+
+#### When not to use the `null` in properties
+
+1. Whenever you are updating a property that is optional/nullable and has a value assigned and you don't want to remove that value.
+
+#### Nullable vs Optional
+
+When you set a property to `null` your intention is to remove any assigned value to it.
+However when a property is optional you might don't want to send it if it's not changed.
+
+#### Note on empty strings
+
+Accepting empty strings does not have any meaning, if the goal is to unassign the value of a property than you should use `null` instead of an `empty string`.
 
 ### Date and time
 
