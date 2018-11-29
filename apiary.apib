@@ -255,7 +255,7 @@ We want to keep this API backwards compatible as long as possible, but at the sa
 Therefore we assigned a dated version to your API client when it was created.
 This version controls the API and webhooks behaviour for your API client.
 When we change the API in a backwards-incompatible way, we release a new dated version.
-To avoid breaking your code, you stay on your assigned version until you [upgrade your API version](./#upgrading-your-api-version).
+To avoid breaking your code, you stay on your assigned version until you [upgrade your API version](#upgrading-your-api-version).
 
 ### Types of changes
 
@@ -278,7 +278,7 @@ We consider the following changes to be backwards-incompatible:
 - Changing the format of a parameter of API responses (eg. integer to float)
 - Making validation of a parameter more strict (eg. making it required)
 - Returning a different HTTP status code.
-
+<a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
 
 This documentation only reflects the latest version of the API.
@@ -287,13 +287,13 @@ If you need to make changes to your client or you want to make use of the latest
 You can find your current API version, in the `X-Api-Version` header on any API response.
 The current latest version is **2018-10-30**.
 
-After checking the API [changelog](./#changelog) to see which endpoints work differently, you can upgrade your API version:
+After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
 Send an `X-Api-Version` header containing the identifier of a version (newer than your current version) with your requests.
 
 _This will only affect the version for those API calls and won't affect any other calls done by your client._
 
-
+<a name="changelog"></a>
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
@@ -348,6 +348,7 @@ Get a list of departments.
             + (object)
                 + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
                 + name: `Human Resources` (string)
+                + vat_number: `BE0899623035` (string)
                 + currency: `EUR` (string)
 
 ### departments.info [GET /departments.info]
@@ -365,7 +366,25 @@ Get details for a single department.
         + data  (object)
             + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
             + name: `Human Resources` (string)
+            + vat_number: `BE0899623035` (string)
+            + address (Address)
+            + emails (array)
+                + (object)
+                    + type: `primary` (enum[string])
+                        + Members
+                            + primary
+                            + invoicing
+                    + email: `info@piedpiper.eu` (string)
+            + telephones (array[object])
+                + type: `phone` (enum[string], required)
+                    + Members
+                        + phone
+                        + fax
+                + number: `092980615` (string, required)
+            + website: `https://piedpiper.com` (string)
             + currency: `EUR` (string)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
             + fiscal_regime: `RF01` (string, nullable)
 
 ## Users [/users]
@@ -635,7 +654,7 @@ Get a list of all work types, sorted alphabetically (on their name).
         + data (array)
             + (object)
                 + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
-                + name `Planning` (string)
+                + name: `Planning` (string)
 
 # Group CRM
 
@@ -708,6 +727,8 @@ Get a list of contacts.
                 + bic: `BICBANK` (string)
                 + language: `en` (string)
                 + payment_term (PaymentTerm, nullable)
+                + invoicing_preferences (object)
+                    + electronic_invoicing_address (string, nullable)
                 + tags: prospect, expo (array[string])
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -764,6 +785,8 @@ Get details for a single contact.
                         + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
             + language: `en` (string)
             + payment_term (PaymentTerm, nullable)
+            + invoicing_preferences (object)
+                + electronic_invoicing_address (string, nullable)
             + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + tags: prospect, expo (array[string])
             + custom_fields (array[CustomField])
@@ -992,6 +1015,8 @@ Get a list of companies.
                 + language: `nl` (string)
                 + preferred_currency: `EUR` (string, nullable)
                 + payment_term (PaymentTerm, nullable)
+                + invoicing_preferences (object)
+                    + electronic_invoicing_address (string, nullable)
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
@@ -1043,6 +1068,8 @@ Get details for a single company.
             + language: `nl` (string)
             + preferred_currency: `EUR` (string, nullable)
             + payment_term (PaymentTerm, nullable)
+            + invoicing_preferences (object)
+                + electronic_invoicing_address (string, nullable)
             + responsible_user (object)
                 + type: `user`
                 + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
@@ -2156,7 +2183,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + discount (object, required)
+                        + discount (object, optional)
                             + value: 10 (number, required) - Values between 0 and 100
                             + type (enum[string], required)
                                 + Members
