@@ -180,7 +180,7 @@ Example:
 
 #### When not to use `null` in properties
 
-1. Whenever you are updating a property that is optional/nullable and has a value assigned and you don't want to remove that value.
+1. Whenever you are updating a property that is optional/nullable and has a value assigned you don't want to remove.
 
 #### Nullable vs Optional
 
