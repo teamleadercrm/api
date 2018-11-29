@@ -178,7 +178,7 @@ Example:
 1. When you want to unassign the value of that property.
 2. If the property is optional and you are creating it you might want to use `null` to avoid the `if`s burden.
 
-#### When not to use the `null` in properties
+#### When not to use `null` in properties
 
 1. Whenever you are updating a property that is optional/nullable and has a value assigned and you don't want to remove that value.
 
