@@ -195,7 +195,7 @@ Accepting empty strings does not have any meaning. If the goal is to unassign th
 
 #### Note on Collections
 
-When the property you are updating is a collection, you **MUST** send all elements you want to keep or modify otherwise they will be removed.
+When the property you are updating is a collection, you **MUST** send all elements you want to keep or modify, otherwise they will be removed.
 
 ### Date and time
 
