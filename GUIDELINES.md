@@ -184,7 +184,7 @@ Example:
 
 #### Nullable vs Optional
 
-When you set a property to `null` your intention is to remove any assigned value to it.
+When you set a property to `null`, your intention is to remove any assigned value to it.
 When a property is optional you don't need to send the key in your request. The value will remain unchanged.
 
 **Note:** `Nullable` applies to the value of the property and `Optional` applies to the key of that property in the payload.
