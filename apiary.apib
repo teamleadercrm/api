@@ -301,6 +301,7 @@ We list all backwards-incompatible changes here. As described above, new additio
 #### Beta
 
 - The property `status` in `invoices.list` and `invoices.info` now returns `due` and `matched` instead of `booked`.
+- The `filter` `status` property in the `invoices.list` request now only accepts an `array` of values.
 
 #### 2018-10-30
 
@@ -1914,8 +1915,8 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `matched` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
-                + Members
+            + status: `due`, `matched` (array[string]) - Empty array returns everything.
+                + (enum[string], optional)
                     + draft
                     + due
                     + matched
