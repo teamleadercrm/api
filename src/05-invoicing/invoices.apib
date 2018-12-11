@@ -13,10 +13,11 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `booked` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
+            + status: `matched` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
                 + Members
                     + draft
-                    + booked
+                    + due
+                    + matched
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
@@ -43,10 +44,11 @@ Get a list of invoices.
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
                 + invoice_number: `2017/5` (string, nullable)
                 + invoice_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `matched` (enum[string])
                     + Members
-                        + booked
                         + draft
+                        + due
+                        + matched
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -94,8 +96,9 @@ Get details for a single invoice.
             + invoice_date: `2016-02-04` (string, nullable)
             + status: `booked` (enum[string])
                 + Members
-                    + booked
                     + draft
+                    + due
+                    + matched
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
