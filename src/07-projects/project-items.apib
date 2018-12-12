@@ -1,0 +1,59 @@
+## Project items [/projectItems]
+
+Project items are added to a project and they affect the profitability. This information is only available for account administrators and project decision makers.
+
+*Required scopes: `projects`*
+
+### projectItems.list [GET /projectItems.list]
+
+Get a list of project items.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, required)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + date
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `date`
+                    + order: `desc`
+
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string)
+                + project (object)
+                    + type: `project` (string)
+                    + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + type: `time_tracked`
+                + description: `Software license` (string)
+                + date: `2018-11-26T16:44:33+00:00` (string)
+                + employee (object)
+                    + type: `employee` (string)
+                    + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b`
+                + milestone (object)
+                    + type: `milestone` (string)
+                    + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + unit_internal_cost (object)
+                    + Include Money
+                + unit_billable_price (object)
+                    + Include Money
+                + quantity: `3.0` (number)
+                + unit: `hour` (string)
+                + total_internal_cost (object)
+                     + Include Money
+                + total_billable_price (object)
+                     + Include Money
