@@ -13,10 +13,10 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `due`, `matched` (array[string], optional) - The statuses you want to filter by.
+            + status: `outstanding`, `matched` (array[string], optional) - The statuses you want to filter by.
                 + (enum[string])
                     + draft
-                    + due
+                    + outstanding
                     + matched
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
         + page (Page, optional)
@@ -47,7 +47,7 @@ Get a list of invoices.
                 + status: `matched` (enum[string])
                     + Members
                         + draft
-                        + due
+                        + outstanding
                         + matched
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
@@ -94,10 +94,10 @@ Get details for a single invoice.
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
             + invoice_number: `2017/5` (string, nullable)
             + invoice_date: `2016-02-04` (string, nullable)
-            + status: `booked` (enum[string])
+            + status: `outstanding` (enum[string])
                 + Members
                     + draft
-                    + due
+                    + outstanding
                     + matched
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
