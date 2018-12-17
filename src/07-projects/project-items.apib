@@ -38,16 +38,16 @@ Get a list of project items.
                 + project (object)
                     + type: `project` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
-                + milestone (object)
+                + milestone (object, nullable)
                     + type: `milestone` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
                 + type: `time_tracked` (enum[string])
                     + Members
                         + time_tracked
                         + external_cost_item
-                + description: `Drafted the document` (string)
+                + description: `Drafted the document` (string, nullable)
                 + date: `2018-11-26T16:44:33+00:00` (string)
-                + employee (object)
+                + employee (object, nullable)
                     + type: `employee` (string)
                     + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b`
                 + unit_internal_cost (object)
@@ -55,7 +55,7 @@ Get a list of project items.
                 + unit_billable_price (object)
                     + Include Money
                 + quantity: `3.25` (number)
-                + unit: `hour` (string)
+                + unit: `hour` (string, nullable)
                 + total
                     + internal_cost (Money)
                     + billable_price (Money)
