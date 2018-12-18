@@ -2921,25 +2921,29 @@ Get a list of project items.
                 + project (object)
                     + type: `project` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
-                + type: `time_tracked`
-                + description: `Drafted the document` (string)
-                + date: `2018-11-26T16:44:33+00:00` (string)
-                + employee (object)
-                    + type: `user` (string)
-                    + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b`
-                + milestone (object)
+                + milestone (object, nullable)
                     + type: `milestone` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + type: `time_tracked` (enum[string])
+                    + Members
+                        + time_tracked
+                        + external_cost_item
+                + description: `Drafted the document` (string, nullable)
+                + date: `2018-11-26T16:44:33+00:00` (string)
+                + employee (object, nullable)
+                    + type: `user` (string)
+                    + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b`
                 + unit_internal_cost (object)
                     + Include Money
                 + unit_billable_price (object)
                     + Include Money
                 + quantity: `3.25` (number)
-                + unit: `hour` (string)
-                + total_internal_cost (object)
-                     + Include Money
-                + total_billable_price (object)
-                     + Include Money
+                + unit: `hour` (string, nullable)
+                + total
+                    + internal_cost (Money)
+                    + billable_price (Money)
+                + added_at: `2018-12-04T16:44:33+00:00` (string)
+                + updated_at: `2018-12-05T16:44:33+00:00` (string)
 
 # Group Time Tracking
 
