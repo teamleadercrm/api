@@ -2944,6 +2944,8 @@ Get a list of project items.
                     + billable_price (Money)
                 + added_at: `2018-12-04T16:44:33+00:00` (string)
                 + updated_at: `2018-12-05T16:44:33+00:00` (string)
+        + _meta (object)
+            + _pagination (Pagination)
 
 # Group Time Tracking
 
@@ -3418,6 +3420,12 @@ Unregister a webhook.
     + Default: `20`
 + number: `1` (number, optional)
     + Default: `1`
+
+## Pagination
++ count: `200` (number)
++ per_page: `10` (number)
++ current_page: `2` (number)
++ total_pages: `20` (number)
 
 ## PaymentTerm  (object)
 + type (enum[string])
