@@ -18,7 +18,7 @@ Get a list of project items.
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + date
+                        + occurred_at
                         + milestone_name
                 + order (enum[string], optional)
                     + Members
@@ -26,7 +26,7 @@ Get a list of project items.
                         + desc
             + Default
                 + (object)
-                    + field: `date`
+                    + field: `occurred_at`
                     + order: `desc`
 
 
@@ -47,7 +47,7 @@ Get a list of project items.
                         + tracked_time
                         + external_cost_item
                 + description: `Drafted the document` (string, nullable)
-                + date: `2018-11-26T16:44:33+00:00` (string)
+                + occurred_at: `2018-11-26T16:44:33+00:00` (string)
                 + participant (object, nullable)
                     + type: `user` (string)
                     + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b` (string)
