@@ -65,6 +65,34 @@ Both single objects and collections are returned as JSON objects, keyed by `data
 
 Responses may also contain meta data for pagination.
 
+Sample response with pagination:
+```json
+{
+    "data": [
+        {
+            "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
+            "first_name": "Erlich",
+            "last_name": "Bachman",
+            "salutation": "Mr",
+            "email": "info@piedpiper.eu"
+        },
+        {
+            "id": "f1dfb84c-3c29-4548-9b9b-9090a080742b",
+            "first_name": "John",
+            "last_name": "Doe",
+            "salutation": "Mr",
+            "email": "john@piedpiper.eu"
+        }
+    ],
+    "pagination": {
+        "count": 200,
+        "per_page": 2,
+        "current_page": 1,
+        "total_pages": 100,
+    }
+}
+```
+
 ### Errors
 
 Errors are always returned as an array of error objects, keyed by `errors` in the top level of a JSON object:
@@ -1682,7 +1710,7 @@ Get a list of calendar events.
 
     + Attributes (object)
         + filter (object, optional)
-            + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, required)
+            + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
