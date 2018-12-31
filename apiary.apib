@@ -65,6 +65,35 @@ Both single objects and collections are returned as JSON objects, keyed by `data
 
 Responses may also contain meta data for pagination.
 
+Sample response with pagination:
+```json
+{
+    "data": [
+        {
+            "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
+            "first_name": "Erlich",
+            "last_name": "Bachman",
+            "salutation": "Mr",
+            "email": "info@piedpiper.eu"
+        },
+        {
+            "id": "f1dfb84c-3c29-4548-9b9b-9090a080742b",
+            "first_name": "John",
+            "last_name": "Doe",
+            "salutation": "Mr",
+            "email": "john@piedpiper.eu"
+        }
+    ],
+    "meta": {
+        "page": {
+            "size": 20,
+            "number": 2
+        },
+        "matches": 200
+    }
+}
+```
+
 ### Errors
 
 Errors are always returned as an array of error objects, keyed by `errors` in the top level of a JSON object:
@@ -3416,6 +3445,10 @@ Unregister a webhook.
     + Default: `20`
 + number: `1` (number, optional)
     + Default: `1`
+
+## Pagination
++ size: `10` (number)
++ number: `2` (number)
 
 ## PaymentTerm  (object)
 + type (enum[string])
