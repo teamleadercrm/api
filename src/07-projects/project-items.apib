@@ -56,10 +56,8 @@ Get a list of project items.
                 + participant (object, nullable)
                     + type: `user` (string)
                     + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b` (string)
-                + unit_internal_cost (object)
-                    + Include Money
-                + unit_billable_price (object)
-                    + Include Money
+                + unit_internal_cost (Money)
+                + unit_billable_price (Money)
                 + quantity: `3.25` (number)
                 + unit: `hour` (string, nullable)
                 + total
@@ -77,6 +75,6 @@ Update a project item.
 
     + Attributes (object)
         + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string, required)
-        + unit_internal_cost: `123.30` (number, optional)
+        + unit_internal_cost: `123.30` (Money, optional)
 
 + Response 204 (application/json;charset=utf-8)
