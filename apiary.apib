@@ -2979,15 +2979,15 @@ Get a list of project items.
                 + updated_at: `2018-12-05T16:44:33+00:00` (string)
         + pagination (Pagination)
 
-### projectItems.update [POST /projectItems.update]
+### projectItems.updateCost [POST /projectItems.updateCost]
 
-Update a project item.
+Update a project item's internal cost.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string, required)
-        + unit_internal_cost (Money, optional)
+        + internal_cost_per_unit (Money)
 
 + Response 204 (application/json;charset=utf-8)
 
