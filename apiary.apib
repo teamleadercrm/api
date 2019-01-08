@@ -2162,6 +2162,7 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required) - Values between 0 and 100
                             + type (enum[string], required)
@@ -2220,6 +2221,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required) - Values between 0 and 100
                             + type (enum[string], required)
@@ -2594,6 +2596,7 @@ Get a list of projects.
                     + done
                     + cancelled
             + participant_id: `ed544eac-02e4-037b-8a1a-c8dd662bf621` (string, optional)
+            + term: `coffee` (string, optional) - Searches for a term in title or description
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -2925,6 +2928,10 @@ Get a list of project items.
     + Attributes (object)
         + filter (object, optional)
             + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
+            + type: `tracked_time` (enum[string])
+                + Members
+                    + tracked_time
+                    + external_cost_item
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -2968,10 +2975,8 @@ Get a list of project items.
                 + participant (object, nullable)
                     + type: `user` (string)
                     + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b` (string)
-                + unit_internal_cost (object)
-                    + Include Money
-                + unit_billable_price (object)
-                    + Include Money
+                + internal_cost_per_unit (Money)
+                + billable_price_per_unit (Money)
                 + quantity: `3.25` (number)
                 + unit: `hour` (string, nullable)
                 + total
@@ -2979,7 +2984,9 @@ Get a list of project items.
                     + billable_price (Money)
                 + added_at: `2018-12-04T16:44:33+00:00` (string)
                 + updated_at: `2018-12-05T16:44:33+00:00` (string)
-        + pagination (Pagination)
+        + meta (object)
+            + page (Pagination)
+            + matches: `120` (number)
 
 ### projectItems.info [GET /projectItems.info]
 
