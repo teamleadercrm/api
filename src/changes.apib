@@ -48,6 +48,10 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
 
+#### Beta
+
+- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints: `companies.info`, `companies.list`, `companies.add`, `companies.update`, `invoices.info` and `creditNotes.info`.
+
 #### 2018-10-30
 
 - The top-level property `customer` was removed on all deal endpoints.
