@@ -120,3 +120,14 @@ Get details for a single user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
+
+### users.invite [POST /users.invite]
+
+Invite a single user to your account
+
++ Request (application/json)
+
+    + Attributes (object)
+        + email: `john@teamleader.eu` (string, required)
+
++ Response 204
