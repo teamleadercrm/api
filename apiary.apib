@@ -65,6 +65,35 @@ Both single objects and collections are returned as JSON objects, keyed by `data
 
 Responses may also contain meta data for pagination.
 
+Sample response with pagination:
+```json
+{
+    "data": [
+        {
+            "id": "f1dfb84c-3c29-4548-9b9b-9090a080742a",
+            "first_name": "Erlich",
+            "last_name": "Bachman",
+            "salutation": "Mr",
+            "email": "info@piedpiper.eu"
+        },
+        {
+            "id": "f1dfb84c-3c29-4548-9b9b-9090a080742b",
+            "first_name": "John",
+            "last_name": "Doe",
+            "salutation": "Mr",
+            "email": "john@piedpiper.eu"
+        }
+    ],
+    "meta": {
+        "page": {
+            "size": 20,
+            "number": 2
+        },
+        "matches": 200
+    }
+}
+```
+
 ### Errors
 
 Errors are always returned as an array of error objects, keyed by `errors` in the top level of a JSON object:
@@ -390,6 +419,7 @@ Get details for a single department.
             + currency: `EUR` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
+            + fiscal_regime: `RF01` (string, nullable)
 
 ## Users [/users]
 
@@ -731,6 +761,8 @@ Get a list of contacts.
                 + bic: `BICBANK` (string)
                 + language: `en` (string)
                 + payment_term (PaymentTerm, nullable)
+                + invoicing_preferences (object)
+                    + electronic_invoicing_address (string, nullable)
                 + tags: prospect, expo (array[string])
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -787,6 +819,8 @@ Get details for a single contact.
                         + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
             + language: `en` (string)
             + payment_term (PaymentTerm, nullable)
+            + invoicing_preferences (object)
+                + electronic_invoicing_address (string, nullable)
             + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + tags: prospect, expo (array[string])
             + custom_fields (array[CustomField])
@@ -1015,6 +1049,8 @@ Get a list of companies.
                 + language: `nl` (string)
                 + preferred_currency: `EUR` (string, nullable)
                 + payment_term (PaymentTerm, nullable)
+                + invoicing_preferences (object)
+                    + electronic_invoicing_address (string, nullable)
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
@@ -1066,6 +1102,8 @@ Get details for a single company.
             + language: `nl` (string)
             + preferred_currency: `EUR` (string, nullable)
             + payment_term (PaymentTerm, nullable)
+            + invoicing_preferences (object)
+                + electronic_invoicing_address (string, nullable)
             + responsible_user (object)
                 + type: `user`
                 + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
@@ -1678,7 +1716,7 @@ Get a list of calendar events.
 
     + Attributes (object)
         + filter (object, optional)
-            + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, required)
+            + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
@@ -2044,6 +2082,9 @@ Get details for a single invoice.
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+                            + withheld_tax (object, nullable)
+                                + type: `withholding_tax` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
             + total (object)
                 + tax_exclusive (Money)
                 + tax_exclusive_before_discount (Money)
@@ -2054,6 +2095,11 @@ Get details for a single invoice.
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+                + withheld_taxes (array)
+                    + (object)
+                        + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                        + taxable (Money)
+                        + withheld (Money)
                 + payable (Money)
                 + due (Money)
             + payment_term (PaymentTerm)
@@ -2121,6 +2167,7 @@ Draft a new invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required) - Values between 0 and 100
                             + type (enum[string], required)
@@ -2179,6 +2226,7 @@ Update an invoice.
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required) - Values between 0 and 100
                             + type (enum[string], required)
@@ -2466,6 +2514,32 @@ Get a list of available payment terms.
                 + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
                 + Include PaymentTerm
 
+## Withholding Tax Rates [/withholdingTaxRates]
+
+Withholding tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The countries that use withholding tax rates are Italy and Spain.
+
+### withholdingTaxRates.list [GET /withholdingTaxRates.list]
+
+Get a list of available withholding tax rates.
+
++ Request (application/json;charset=utf-8)
+
++ Attributes (object)
+    + filter (object, optional)
+        + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `182af0a8-3f68-409b-8941-cf8caf8f28a0` (string)
+                + description: `Ritenuta d'acconto 23% su 20%` (string)
+                + rate: 0.046 (number)
+
 # Group Products
 
 ## Product Categories [/productCategories]
@@ -2527,6 +2601,7 @@ Get a list of projects.
                     + done
                     + cancelled
             + participant_id: `ed544eac-02e4-037b-8a1a-c8dd662bf621` (string, optional)
+            + term: `coffee` (string, optional) - Searches for a term in title or description
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -3316,6 +3391,10 @@ Unregister a webhook.
     + Default: `20`
 + number: `1` (number, optional)
     + Default: `1`
+
+## Pagination
++ size: `10` (number)
++ number: `2` (number)
 
 ## PaymentTerm  (object)
 + type (enum[string])
