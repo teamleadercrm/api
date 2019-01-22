@@ -52,6 +52,7 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 - The property `status` in `invoices.list` and `invoices.info` now returns `outstanding` and `matched` instead of `booked`.
 - The `filter` `status` property in the `invoices.list` request now only accepts an `array` of values.
+- Since the property `status` does not accept the `booked` status anymore in order to do the same filter you will have to filter by `oustanding` and `matched` to have the same results.
 
 #### 2018-10-30
 
