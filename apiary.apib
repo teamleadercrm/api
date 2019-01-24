@@ -337,12 +337,12 @@ We list all backwards-incompatible changes here. As described above, new additio
   This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
 
 - The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
-  `companies.info`,  
-  `companies.list`,  
-  `companies.add`,  
-  `companies.update`,  
-  `invoices.info`  
-  and `creditNotes.info`.
+  - `companies.info`  
+  - `companies.list`  
+  - `companies.add`  
+  - `companies.update`  
+  - `invoices.info`  
+  - `creditNotes.info`  
 
 - An invoice number actually contains the bookyear, so from now on, you will see eg. `2018 / 27` instead of `27`.
   This is reflected in the `invoice_number` property in the `invoices.list` and `invoices.info` endpoints.
