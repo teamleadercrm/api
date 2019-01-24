@@ -329,6 +329,9 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### Beta
 
+- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
+  From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`.
+
 - Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
   Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
   This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
@@ -344,7 +347,6 @@ We list all backwards-incompatible changes here. As described above, new additio
 - Added the bookyear name to the `invoice_number` on `invoices.list` and `invoices.info`.
   Earlier it was only returning the number, e.g. `"27"`.
   Now it adds the name of the bookyear as well, e.g. `"2018 / 27`".
-
 
 #### 2018-10-30
 
@@ -2081,7 +2083,7 @@ Get details for a single invoice.
                                 + type: `productCategory` (string)
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
-                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                            + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum[string])
@@ -2177,7 +2179,7 @@ Draft a new invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string], required)
@@ -2236,7 +2238,7 @@ Update an invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string])
