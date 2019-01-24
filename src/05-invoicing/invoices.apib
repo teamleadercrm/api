@@ -13,10 +13,11 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `booked` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
-                + Members
+            + status: `outstanding`, `matched` (array[string], optional) - The statuses you want to filter by.
+                + (enum[string])
                     + draft
-                    + booked
+                    + outstanding
+                    + matched
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
@@ -41,12 +42,13 @@ Get a list of invoices.
                 + department (object)
                     + type: `department` (string)
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
-                + invoice_number: `2017/5` (string, nullable)
+                + invoice_number: `2017 / 5` (string, nullable)
                 + invoice_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `matched` (enum[string])
                     + Members
-                        + booked
                         + draft
+                        + outstanding
+                        + matched
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -90,12 +92,13 @@ Get details for a single invoice.
             + department (object)
                 + type: `department` (string)
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
-            + invoice_number: `2017/5` (string, nullable)
+            + invoice_number: `2017 / 5` (string, nullable)
             + invoice_date: `2016-02-04` (string, nullable)
-            + status: `booked` (enum[string])
+            + status: `outstanding` (enum[string])
                 + Members
-                    + booked
                     + draft
+                    + outstanding
+                    + matched
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -111,7 +114,7 @@ Get details for a single invoice.
                         + type: `contact` (string)
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
                 + email: `duivels@test.com` (string, nullable)
-                + local_business_number: `123` (string, nullable)
+                + national_identification_number: `123` (string, nullable)
             + discounts (array)
                 + (object)
                     + type: `percentage` (enum[string])
