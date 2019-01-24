@@ -329,7 +329,17 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### Beta
 
-- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints: `companies.info`, `companies.list`, `companies.add`, `companies.update`, `invoices.info` and `creditNotes.info`.
+- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
+  `companies.info`,  
+  `companies.list`,  
+  `companies.add`,  
+  `companies.update`,  
+  `invoices.info`  
+  and `creditNotes.info`.
+
+- Added the bookyear name to the `invoice_number` on `invoices.list` and `invoices.info`.
+  Earlier it was only returning the number, e.g. `"27"`.
+  Now it adds the name of the bookyear as well, e.g. `"2018 / 27`".
 
 #### 2018-10-30
 
@@ -1971,7 +1981,7 @@ Get a list of invoices.
                 + department (object)
                     + type: `department` (string)
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
-                + invoice_number: `2017/5` (string, nullable)
+                + invoice_number: `2017 / 5` (string, nullable)
                 + invoice_date: `2016-02-04` (string, nullable)
                 + status: `booked` (enum[string])
                     + Members
@@ -2020,7 +2030,7 @@ Get details for a single invoice.
             + department (object)
                 + type: `department` (string)
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
-            + invoice_number: `2017/5` (string, nullable)
+            + invoice_number: `2017 / 5` (string, nullable)
             + invoice_date: `2016-02-04` (string, nullable)
             + status: `booked` (enum[string])
                 + Members

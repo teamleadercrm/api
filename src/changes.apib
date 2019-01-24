@@ -50,7 +50,17 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### Beta
 
-- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints: `companies.info`, `companies.list`, `companies.add`, `companies.update`, `invoices.info` and `creditNotes.info`.
+- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
+  `companies.info`,  
+  `companies.list`,  
+  `companies.add`,  
+  `companies.update`,  
+  `invoices.info`  
+  and `creditNotes.info`.
+
+- Added the bookyear name to the `invoice_number` on `invoices.list` and `invoices.info`.
+  Earlier it was only returning the number, e.g. `"27"`.
+  Now it adds the name of the bookyear as well, e.g. `"2018 / 27`".
 
 #### 2018-10-30
 
