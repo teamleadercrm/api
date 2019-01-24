@@ -327,7 +327,7 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
 
-#### Beta
+#### 2019-01-24
 
 - Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
   From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`, to make this more consistent and interchangeable.
