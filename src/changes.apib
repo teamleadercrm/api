@@ -50,6 +50,10 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### Beta
 
+- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
+  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
+  This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
+
 - The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
   `companies.info`,  
   `companies.list`,  

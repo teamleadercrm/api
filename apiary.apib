@@ -329,6 +329,10 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### Beta
 
+- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
+  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
+  This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
+
 - The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
   `companies.info`,  
   `companies.list`,  
@@ -340,6 +344,7 @@ We list all backwards-incompatible changes here. As described above, new additio
 - Added the bookyear name to the `invoice_number` on `invoices.list` and `invoices.info`.
   Earlier it was only returning the number, e.g. `"27"`.
   Now it adds the name of the bookyear as well, e.g. `"2018 / 27`".
+
 
 #### 2018-10-30
 
@@ -1953,10 +1958,11 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `booked` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
-                + Members
+            + status: `outstanding`, `matched` (array[string], optional) - The statuses you want to filter by.
+                + (enum[string])
                     + draft
-                    + booked
+                    + outstanding
+                    + matched
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
@@ -1983,10 +1989,11 @@ Get a list of invoices.
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
                 + invoice_number: `2017 / 5` (string, nullable)
                 + invoice_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `matched` (enum[string])
                     + Members
-                        + booked
                         + draft
+                        + outstanding
+                        + matched
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -2032,10 +2039,11 @@ Get details for a single invoice.
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
             + invoice_number: `2017 / 5` (string, nullable)
             + invoice_date: `2016-02-04` (string, nullable)
-            + status: `booked` (enum[string])
+            + status: `outstanding` (enum[string])
                 + Members
-                    + booked
                     + draft
+                    + outstanding
+                    + matched
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
