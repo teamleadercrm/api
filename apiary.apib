@@ -330,7 +330,7 @@ We list all backwards-incompatible changes here. As described above, new additio
 #### Beta
 
 - Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
-  From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`.
+  From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`, to make this more consistent and interchangeable.
 
 - Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
   Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
@@ -344,9 +344,8 @@ We list all backwards-incompatible changes here. As described above, new additio
   `invoices.info`  
   and `creditNotes.info`.
 
-- Added the bookyear name to the `invoice_number` on `invoices.list` and `invoices.info`.
-  Earlier it was only returning the number, e.g. `"27"`.
-  Now it adds the name of the bookyear as well, e.g. `"2018 / 27`".
+- Invoice number actually contain the bookyear, so from now on, you will see eg. `2018 / 27` instead of `27`.
+  This is reflected in the `invoice_number` property in the `invoices.list` and `invoices.info` endpoints.
 
 #### 2018-10-30
 
