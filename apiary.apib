@@ -1920,6 +1920,112 @@ Cancel a calendar event (for all attendees).
 
 + Response 204
 
+## Tasks [/tasks]
+
+### tasks.list [GET /tasks.list]
+
+Get a list of tasks.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_at
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_at`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + description (string)
+                + completed: false (boolean)
+                + completed_at: `2016-02-04T16:44:33+00:00` (string)
+                + due_at: `2016-02-04T16:44:33+00:00` (string)
+
+### tasks.info [GET /tasks.info]
+
+Get information about a task.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string)
+            + description (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+
+### tasks.create [POST /tasks.create]
+
+Create a new task.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + description (string, required)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `task` (string)
+            + id: `1759dfc1-7365-4f1b-8d90-d29787a5d29d` (string)
+
+### tasks.update [POST /tasks.update]
+
+Update a tasks.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+
++ Response 204
+
+### tasks.complete [POST /tasks.complete]
+
+Mark a task as completed.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string, required)
+
++ Response 204
+
+### tasks.delete [POST /tasks.delete]
+
+Delete a task.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
+
++ Response 204
+
 ## Activity Types [/activityTypes]
 
 Activity types identify the different types of events that take place within your organisation. Currently only three activity types are available: tasks, meetings and calls.
