@@ -1,6 +1,6 @@
 # Contributing to the Teamleader API Definition
 
-#### IMPORTANT: Do not edit `/apiary.apib`
+#### IMPORTANT: Do not edit `/apiary.apib` manually.
 
 Apiary expects a single `apiary.apib` API definition file. For maintainability purposes, this file is built from individual files located in the `src` directory.
 
