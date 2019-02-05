@@ -53,11 +53,12 @@ Get a list of project milestones.
                         + open
                         + closed
                 + billing_method (object)
-                    + method: `time_and_materials` (enum[string])
-                        + Members
-                            + time_and_materials
-                            + fixed_price
-                    + price (Money, optional)
+                    + One Of
+                        + Properties
+                            + method: `time_and_materials` (string)
+                        + Properties
+                            + method: `fixed_price` (string)
+                            + price (Money)
 
 ### milestones.info [GET /milestones.info]
 
