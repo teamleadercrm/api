@@ -775,6 +775,7 @@ Get a list of contacts.
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
+                + `national_identification_number`: 86792345-L (string)
                 + language: `en` (string)
                 + payment_term (PaymentTerm, nullable)
                 + invoicing_preferences (object)
@@ -783,7 +784,6 @@ Get a list of contacts.
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
                 + `web_url`: `https://app.teamleader.eu/contact_detail.php?id=2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
-                + `national_identification_number`: 86792345-L (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -827,6 +827,7 @@ Get details for a single contact.
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
+            + `national_identification_number`: 00051730-A (string)
             + companies (array)
                 + (object)
                     + position: `CEO` (string)
@@ -845,7 +846,6 @@ Get details for a single contact.
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
             + `web_url`: `https://app.teamleader.eu/contact_detail.php?id=cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
-            + `national_identification_number`: 00051730-A (string)
 
 ### contacts.add [POST /contacts.add]
 
@@ -883,11 +883,11 @@ Add a new contact.
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
+        + `national_identification_number`: 01234567-X (string)
         + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
-        + `national_identification_number`: 01234567-X (string)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -933,11 +933,11 @@ Update a contact.
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
+        + `national_identification_number`: 19346758-T (string)
         + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
-        + `national_identification_number`: 19346758-T (string)
 
 + Response 204
 
