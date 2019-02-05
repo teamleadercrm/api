@@ -2618,6 +2618,23 @@ Get a list of products.
                         + description: `dark chocolate` (string)
                 + external_id: `123` (string)
 
+### products.add [POST /products.add]
+
+ Add a new product.
+
+ + Request (application/json;charset=utf-8)
+
+     + Attributes (object)
+        + name: `cookies` (string, required)
+        + external_id (string, optional)
+
+ + Response 201 (application/json;charset=utf-8)
+
+     + Attributes (object)
+        + data (object)
+            + type: `product` (string)
+            + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
+
 # Group Projects
 
 ## Projects [/projects]
