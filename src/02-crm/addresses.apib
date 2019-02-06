@@ -1,0 +1,21 @@
+## Addressess [/levelTwoAreas]
+
+We provide a set of data which can be used to build addresses
+
+### levelTwoAreas.list [GET /levelTwoAreas.list]
+
+Gets all level two areas (which correspond to provinces, departments or states in most countries).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string, required)
+        + language: `nl` (string, optional) - if not passed, we return the name in the primary language of the country
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+            + name: `West-Vlaanderen` (string)
+            + country: `BE` (string)
