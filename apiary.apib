@@ -1306,17 +1306,17 @@ Get a list of tags.
 
 ## Addressess [/levelTwoAreas]
 
-We provide a set of data which can be used to build addresses
+We provide a set of data which can be used to build addresses.
 
 ### levelTwoAreas.list [GET /levelTwoAreas.list]
 
-Gets all level two areas (which correspond to provinces, departments or states in most countries).
+Get a list of level two areas (which correspond to provinces, departments or states in most countries).
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + country: `BE` (string, required)
-        + language: `nl` (string, optional) - if not passed, we return the name in the primary language of the country
+        + language: `nl` (string, optional) - if not passed, the name is returned in the primary language of the country
 
 + Response 200 (application/json;charset=utf-8)
 
