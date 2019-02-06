@@ -2903,13 +2903,10 @@ Get a list of project milestones.
                     + Members
                         + open
                         + closed
-                + billing_method (object)
-                    + One Of
-                        + Properties
-                            + method: `time_and_materials` (string)
-                        + Properties
-                            + method: `fixed_price` (string)
-                            + price (Money)
+                + billing_method: (enum[string])
+                    + Members
+                        + time_and_materials
+                        + fixed_price
 
 ### milestones.info [GET /milestones.info]
 
