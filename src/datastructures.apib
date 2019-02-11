@@ -141,56 +141,6 @@
         + timeTracking.updated
         + user.deactivated
 
-## WorkOrderData (object)
-+ customer (object, required)
-    + type (enum[string], required)
-        + Members
-            + contact
-            + company
-    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-+ datetime: `2017-05-26T10:01:49+00:00` (string, required)
-+ description (string, optional)
-+ department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
-+ layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
-+ milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
-+ event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
-+ intervention_address (object, optional)
-    + Include Address
-    + customer (object, optional)
-        + type (enum[string], required)
-            + Members
-                + contact
-                + company
-        + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-+ distance: `25.2` (number, optional) - Distance in kilometres (km)
-+ users (array, required)
-    + (object)
-        + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
-        + hourly_rate: `65` (number, optional)
-        + work_hours (array, optional)
-            + (object)
-                + One Of
-                    + Properties
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + duration: 3600 (number, required) - In seconds
-                    + Properties
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + ended_at: `2017-04-26T16:02:00+00:00` (string, required)
-                + description (string, optional)
-+ line_items (array, optional)
-    + (object)
-        + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
-        + quantity: `3` (number, optional)
-        + description: `An awesome product` (string, optional)
-        + unit_price (object, optional)
-            + Include Money
-            + tax: `excluding` (enum[string])
-                + Members
-                    + excluding
-        + tax (object, optional)
-            + rate: `0.21` (number)
-+ custom_fields (array[CustomField], optional)
-
 ## WorkOrderInfo (object)
 + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
 + customer (object)
