@@ -155,14 +155,13 @@
 + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
 + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
 + intervention_address (object, optional)
-    + One Of
-        + customer (object, required)
-            + type (enum[string], required)
-                + Members
-                    + contact
-                    + company
-            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + address (Address)
+    + Include Address
+    + customer (object, optional)
+        + type (enum[string], required)
+            + Members
+                + contact
+                + company
+        + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
 + distance: `25.2` (number, optional) - Distance in kilometres (km)
 + users (array, required)
     + (object)
@@ -215,14 +214,13 @@
     + type: `event` (string)
     + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
 + intervention_address (object)
-    + One Of
-        + customer (object)
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-        + address (Address)
+    + Include Address
+    + customer (object)
+        + type (enum[string])
+            + Members
+                + contact
+                + company
+        + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
 + distance: `25.2` (number) - Distance in kilometres (km)
 
 ## WorkOrderInfoDetail (object)
