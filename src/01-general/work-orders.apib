@@ -220,6 +220,10 @@ Return all finalized work orders.
         + data (array)
             + (object)
                 + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
+                + state: `draft` (enum[string])
+                    + Members
+                        + draft
+                        + finalized
                 + customer (object)
                     + type (enum[string])
                         + Members
@@ -264,6 +268,10 @@ Return info for a single (draft or finalized) work order.
     + Attributes (object)
         + data (object)
             + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
+            + state: `draft` (enum[string])
+                + Members
+                    + draft
+                    + finalized
             + customer (object)
                 + type (enum[string])
                     + Members
