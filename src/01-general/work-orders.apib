@@ -122,73 +122,9 @@ Update a draft work order.
 
 + Response 204
 
-### workOrders.drafts [GET /workOrders.drafts]
-
-Return all draft work orders.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + filter (object, optional)
-            + customer (object, required)
-                + type (enum[string], required)
-                    + Members
-                        + contact
-                        + company
-                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + page (Page, optional)
-        + sort (array, optional)
-            + (object)
-                + field (enum[string], required)
-                    + Members
-                        + datetime
-                + order (enum[string], optional)
-                    + Members
-                        + asc
-            + Default
-                + (object)
-                    + field: `datetime`
-                    + order: `asc`
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
-                + customer (object)
-                    + type (enum[string])
-                        + Members
-                            + contact
-                            + company
-                    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-                + datetime: `2017-05-26T10:01:49+00:00` (string)
-                + description: `Pipework intervention` (string)
-                + department (object)
-                    + type: `department` (string)
-                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
-                + layout (object)
-                    + type: `layout` (string)
-                    + id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string)
-                + milestone (object)
-                    + type: `milestone` (string)
-                    + id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string)
-                + event (object)
-                    + type: `event` (string)
-                    + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-                + intervention_address (object)
-                    + Include Address
-                    + customer (object)
-                        + type (enum[string])
-                            + Members
-                                + contact
-                                + company
-                        + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-                + distance: `25.2` (number) - Distance in kilometres (km)
-
 ### workOrders.list [GET /workOrders.list]
 
-Return all finalized work orders.
+Get a list of work orders.
 
 + Request (application/json)
 
