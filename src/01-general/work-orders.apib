@@ -50,14 +50,6 @@ Add a draft work order.
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                 + quantity: `3` (number, optional)
-                + description: `An awesome product` (string, optional)
-                + unit_price (object, optional)
-                    + Include Money
-                    + tax: `excluding` (enum[string])
-                        + Members
-                            + excluding
-                + tax (object, optional)
-                    + rate: `0.21` (number)
         + custom_fields (array[CustomField], optional)
 
 + Response 200 (application/json;charset=utf-8)
@@ -118,14 +110,6 @@ Update a draft work order.
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                 + quantity: `3` (number, optional)
-                + description: `An awesome product` (string, optional)
-                + unit_price (object, optional)
-                    + Include Money
-                    + tax: `excluding` (enum[string])
-                        + Members
-                            + excluding
-                + tax (object, optional)
-                    + rate: `0.21` (number)
         + custom_fields (array[CustomField], optional)
 
 + Response 204
@@ -279,14 +263,6 @@ Return info for a single work order.
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: `3` (number)
-                    + description: `An awesome product` (string)
-                    + unit_price (object)
-                        + Include Money
-                        + tax: `excluding` (enum[string])
-                            + Members
-                                + excluding
-                    + tax (object)
-                        + rate: `0.21` (number)
             + custom_fields (array[CustomField])
 
 ### workOrders.attachImage [POST /workOrders.attachImage]
