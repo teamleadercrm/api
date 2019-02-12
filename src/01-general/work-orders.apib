@@ -251,7 +251,7 @@ Return info for a single work order.
             + images (array)
                 + (object)
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
-                    + image_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string) - PNG image, base64 encoded
+                    + image: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string) - PNG image, base64 encoded
             + custom_fields (array[CustomField])
 
 ### workOrders.attachImage [POST /workOrders.attachImage]
@@ -262,7 +262,7 @@ Attach image to a draft work order.
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
-        + image_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
+        + image: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -291,7 +291,7 @@ Sign a draft work order.
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
-        + signature_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
+        + signature: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
 
 + Response 204
 
