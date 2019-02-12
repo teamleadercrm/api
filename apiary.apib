@@ -3260,7 +3260,46 @@ Add a draft work order.
 
 + Request (application/json;charset=utf-8)
 
-    + Attributes (WorkOrderData)
+    + Attributes (object)
+        + customer (object, required)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + performed_at: `2017-05-26T10:01:49+00:00` (string, required)
+        + description: `Pipework intervention` (string, optional)
+        + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
+        + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
+        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
+        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
+        + intervention_address (object, optional)
+            + Include Address
+            + customer (object, optional) - Customer this address refers to.
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + distance_travelled (object, optional)
+            + type: `km` (enum[string], required)
+                + Members
+                    + km
+            + value: `25.2` (number, required)
+        + assignees (array, required)
+            + (object)
+                + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
+                + hourly_rate (Money, optional)
+                + work_hours (array, optional)
+                    + (object)
+                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                        + duration: 3600 (number, required) - In seconds
+                        + description (string, optional)
+        + products (array, optional)
+            + (object)
+                + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
+                + quantity: `3` (number, optional)
+        + custom_fields (array[CustomField], optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -3277,79 +3316,127 @@ Update a draft work order.
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
-        + Include WorkOrderData
+        + customer (object, required)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + performed_at: `2017-05-26T10:01:49+00:00` (string, required)
+        + description: `Pipework intervention` (string, optional)
+        + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
+        + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
+        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
+        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
+        + intervention_address (object, optional)
+            + Include Address
+            + customer (object, optional) - Customer this address refers to.
+                + type (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + distance_travelled (object, optional)
+            + type: `km` (enum[string], required)
+                + Members
+                    + km
+            + value: `25.2` (number, required)
+        + assignees (array, required)
+            + (object)
+                + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
+                + hourly_rate (Money, optional)
+                + work_hours (array, optional)
+                    + (object)
+                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                        + duration: 3600 (number, required) - In seconds
+                        + description (string, optional)
+        + products (array, optional)
+            + (object)
+                + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
+                + quantity: `3` (number, optional)
+        + custom_fields (array[CustomField], optional)
 
 + Response 204
 
-### workOrders.drafts [GET /workOrders.drafts]
-
-Return all draft work orders.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + filter (object, optional)
-            + customer (object, required)
-                + type (enum[string], required)
-                    + Members
-                        + contact
-                        + company
-                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + page (Page, optional)
-        + sort (array, optional)
-            + (object)
-                + field (enum[string], required)
-                    + Members
-                        + datetime
-                + order (enum[string], optional)
-                    + Members
-                        + asc
-            + Default
-                + (object)
-                    + field: `datetime`
-                    + order: `asc`
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array[WorkOrderInfo])
-
 ### workOrders.list [GET /workOrders.list]
 
-Return all finalized work orders.
+Get a list of work orders.
 
 + Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
-            + customer (object, required)
+            + customer (object, optional)
                 + type (enum[string], required)
                     + Members
                         + contact
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+            + state: `draft`, `finalized` (array[string], optional)
+                + (enum[string])
+                    + draft
+                    + finalized
         + page (Page, optional)
         + sort (array, optional)
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + datetime
+                        + performed_at
                 + order (enum[string], optional)
                     + Members
                         + asc
             + Default
                 + (object)
-                    + field: `datetime`
+                    + field: `performed_at`
                     + order: `asc`
 
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[WorkOrderInfo])
+        + data (array)
+            + (object)
+                + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
+                + state: `draft` (enum[string])
+                    + Members
+                        + draft
+                        + finalized
+                + customer (object)
+                    + type (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+                + performed_at: `2017-05-26T10:01:49+00:00` (string)
+                + description: `Pipework intervention` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+                + layout (object)
+                    + type: `layout` (string)
+                    + id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string)
+                + milestone (object)
+                    + type: `milestone` (string)
+                    + id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string)
+                + event (object)
+                    + type: `event` (string)
+                    + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
+                + intervention_address (object)
+                    + Include Address
+                    + customer (object) - Customer this address refers to.
+                        + type (enum[string])
+                            + Members
+                                + contact
+                                + company
+                        + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+                + distance_travelled (object)
+                    + type: `km` (enum[string])
+                        + Members
+                            + km
+                    + value: `25.2` (number)
 
 ### workOrders.info [GET /workOrders.info]
 
-Return info for a single (draft or finalized) work order.
+Return info for a single work order.
 
 + Request (application/json;charset=utf-8)
 
@@ -3359,7 +3446,67 @@ Return info for a single (draft or finalized) work order.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + data (WorkOrderInfoDetail)
+        + data (object)
+            + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
+            + state: `draft` (enum[string])
+                + Members
+                    + draft
+                    + finalized
+            + customer (object)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+            + performed_at: `2017-05-26T10:01:49+00:00` (string)
+            + description: `Pipework intervention` (string)
+            + department (object)
+                + type: `department` (string)
+                + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+            + layout (object)
+                + type: `layout` (string)
+                + id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string)
+            + milestone (object)
+                + type: `milestone` (string)
+                + id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string)
+            + event (object)
+                + type: `event` (string)
+                + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
+            + intervention_address (object)
+                + Include Address
+                + customer (object) - Customer this address refers to.
+                    + type (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+            + distance_travelled (object)
+                + type: `km` (enum[string])
+                    + Members
+                        + km
+                + value: `25.2` (number)
+            + assignees (array)
+                + (object)
+                    + user (object)
+                        + type: `user` (string)
+                        + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
+                    + hourly_rate (Money)
+                    + work_hours (array)
+                        + (object)
+                            + started_at: `2017-04-26T10:01:49+00:00` (string)
+                            + duration: 3600 (number) - In seconds
+                            + description (string)
+            + products (array)
+                + (object)
+                    + product (object)
+                        + type: `product` (string)
+                        + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                    + quantity: `3` (number)
+            + images (array)
+                + (object)
+                    + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
+                    + image: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string) - PNG image, base64 encoded
+            + custom_fields (array[CustomField])
 
 ### workOrders.attachImage [POST /workOrders.attachImage]
 
@@ -3369,7 +3516,7 @@ Attach image to a draft work order.
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
-        + image_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
+        + image: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -3377,23 +3524,6 @@ Attach image to a draft work order.
         + data (object)
             + type: `workOrderImage` (string)
             + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
-
-### workOrders.listImages [GET /workOrders.listImages]
-
-List images attached to a work order.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
-                + image_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string) - PNG image, base64 encoded
 
 ### workOrders.deleteImage [POST /workOrders.deleteImage]
 
@@ -3415,7 +3545,7 @@ Sign a draft work order.
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
-        + signature_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
+        + signature: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
 
 + Response 204
 
@@ -3440,6 +3570,25 @@ Finalize a draft work order by generating the PDF.
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
 
 + Response 204
+
+### workOrders.download [POST /workOrders.download]
+
+Download a work order in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
 
 ### workOrders.send [POST /workOrders.send]
 
@@ -3721,121 +3870,3 @@ Unregister a webhook.
         + timeTracking.deleted
         + timeTracking.updated
         + user.deactivated
-
-## WorkOrderData (object)
-+ customer (object, required)
-    + type (enum[string], required)
-        + Members
-            + contact
-            + company
-    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-+ datetime: `2017-05-26T10:01:49+00:00` (string, required)
-+ description (string, optional)
-+ department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
-+ layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
-+ milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
-+ event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
-+ intervention_address (object, optional)
-    + One Of
-        + customer (object, required)
-            + type (enum[string], required)
-                + Members
-                    + contact
-                    + company
-            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + address (Address)
-+ distance: `25.2` (number, optional)
-+ users (array, required)
-    + (object)
-        + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
-        + hourly_rate: `65` (number, optional)
-        + work_hours (array, optional)
-            + (object)
-                + One Of
-                    + Properties
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + duration: 3600 (number, required) - In seconds
-                    + Properties
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + ended_at: `2017-04-26T16:02:00+00:00` (string, required)
-                + description (string, optional)
-+ line_items (array, optional)
-    + (object)
-        + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
-        + quantity: `3` (number, optional)
-        + description: `An awesome product` (string, optional)
-        + unit_price (object, optional)
-            + Include Money
-            + tax: `excluding` (enum[string])
-                + Members
-                    + excluding
-        + tax (object, optional)
-            + rate: `0.21` (number)
-+ custom_fields (array[CustomField], optional)
-
-## WorkOrderInfo (object)
-+ id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
-+ customer (object)
-    + type (enum[string])
-        + Members
-            + contact
-            + company
-    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-+ datetime: `2017-05-26T10:01:49+00:00` (string)
-+ description (string)
-+ department (object)
-    + type: `department` (string)
-    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
-+ layout (object)
-    + type: `layout` (string)
-    + id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string)
-+ milestone (object)
-    + type: `milestone` (string)
-    + id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string)
-+ event (object)
-    + type: `event` (string)
-    + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-+ intervention_address (object)
-    + One Of
-        + customer (object)
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-        + address (Address)
-+ distance: `25.2` (number)
-
-## WorkOrderInfoDetail (object)
-+ Include WorkOrderInfo
-+ users (array)
-    + (object)
-        + user (object)
-            + type: `user` (string)
-            + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
-        + hourly_rate: `65` (number)
-        + work_hours (array)
-            + (object)
-                + One Of
-                    + Properties
-                        + started_at: `2017-04-26T10:01:49+00:00` (string)
-                        + duration: 3600 (number) - In seconds
-                    + Properties
-                        + started_at: `2017-04-26T10:01:49+00:00` (string)
-                        + ended_at: `2017-04-26T16:02:00+00:00` (string)
-                + description (string)
-+ line_items (array)
-    + (object)
-        + product (object)
-            + type: `product` (string)
-            + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
-        + quantity: `3` (number)
-        + description: `An awesome product` (string)
-        + unit_price (object)
-            + Include Money
-            + tax: `excluding` (enum[string])
-                + Members
-                    + excluding
-        + tax (object)
-            + rate: `0.21` (number)
-+ custom_fields (array[CustomField])
