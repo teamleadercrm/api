@@ -32,7 +32,7 @@ Add a draft work order.
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + users (array, required)
+        + assignees (array, required)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + hourly_rate: `65` (number, optional)
@@ -100,7 +100,7 @@ Update a draft work order.
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + users (array, required)
+        + assignees (array, required)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + hourly_rate: `65` (number, optional)
@@ -257,7 +257,7 @@ Return info for a single work order.
                     + Members
                         + km
                 + value: `25.2` (number)
-            + users (array)
+            + assignees (array)
                 + (object)
                     + user (object)
                         + type: `user` (string)
