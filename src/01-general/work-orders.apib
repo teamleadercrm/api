@@ -21,7 +21,7 @@ Add a draft work order.
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
         + intervention_address (object, optional)
             + Include Address
-            + customer (object, optional)
+            + customer (object, optional) - Customer this address refers to.
                 + type (enum[string], required)
                     + Members
                         + contact
@@ -85,7 +85,7 @@ Update a draft work order.
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
         + intervention_address (object, optional)
             + Include Address
-            + customer (object, optional)
+            + customer (object, optional) - Customer this address refers to.
                 + type (enum[string], required)
                     + Members
                         + contact
@@ -186,7 +186,7 @@ Get a list of work orders.
                     + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
                 + intervention_address (object)
                     + Include Address
-                    + customer (object)
+                    + customer (object) - Customer this address refers to.
                         + type (enum[string])
                             + Members
                                 + contact
@@ -234,7 +234,7 @@ Return info for a single (draft or finalized) work order.
                 + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
             + intervention_address (object)
                 + Include Address
-                + customer (object)
+                + customer (object) - Customer this address refers to.
                     + type (enum[string])
                         + Members
                             + contact
