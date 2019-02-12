@@ -27,7 +27,11 @@ Add a draft work order.
                         + contact
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + distance: `25.2` (number, optional) - Distance in kilometres (km)
+        + distance (object, optional)
+            + type: `km` (enum[string], required)
+                + Members
+                    + km
+            + value: `25.2` (number, required)
         + users (array, required)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
@@ -91,7 +95,11 @@ Update a draft work order.
                         + contact
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + distance: `25.2` (number, optional) - Distance in kilometres (km)
+        + distance (object, optional)
+            + type: `km` (enum[string], required)
+                + Members
+                    + km
+            + value: `25.2` (number, required)
         + users (array, required)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
@@ -192,7 +200,11 @@ Get a list of work orders.
                                 + contact
                                 + company
                         + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-                + distance: `25.2` (number) - Distance in kilometres (km)
+                + distance (object)
+                    + type: `km` (enum[string])
+                        + Members
+                            + km
+                    + value: `25.2` (number)
 
 ### workOrders.info [GET /workOrders.info]
 
@@ -240,7 +252,11 @@ Return info for a single (draft or finalized) work order.
                             + contact
                             + company
                     + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-            + distance: `25.2` (number) - Distance in kilometres (km)
+            + distance (object)
+                + type: `km` (enum[string])
+                    + Members
+                        + km
+                + value: `25.2` (number)
             + users (array)
                 + (object)
                     + user (object)
