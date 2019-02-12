@@ -248,6 +248,10 @@ Return info for a single work order.
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: `3` (number)
+            + images (array)
+                + (object)
+                    + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
+                    + image_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string) - PNG image, base64 encoded
             + custom_fields (array[CustomField])
 
 ### workOrders.attachImage [POST /workOrders.attachImage]
@@ -266,23 +270,6 @@ Attach image to a draft work order.
         + data (object)
             + type: `workOrderImage` (string)
             + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
-
-### workOrders.listImages [GET /workOrders.listImages]
-
-List images attached to a work order.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
-                + image_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string) - PNG image, base64 encoded
 
 ### workOrders.deleteImage [POST /workOrders.deleteImage]
 
