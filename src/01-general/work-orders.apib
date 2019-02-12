@@ -317,6 +317,25 @@ Finalize a draft work order by generating the PDF.
 
 + Response 204
 
+### workOrders.download [POST /workOrders.download]
+
+Download a work order in a specific format.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
+
 ### workOrders.send [POST /workOrders.send]
 
 Send a finalized work order to the customer.
