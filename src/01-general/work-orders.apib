@@ -13,7 +13,7 @@ Add a draft work order.
                     + contact
                     + company
             + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + datetime: `2017-05-26T10:01:49+00:00` (string, required)
+        + performed_at: `2017-05-26T10:01:49+00:00` (string, required)
         + description: `Pipework intervention` (string, optional)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
@@ -68,7 +68,7 @@ Update a draft work order.
                     + contact
                     + company
             + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + datetime: `2017-05-26T10:01:49+00:00` (string, required)
+        + performed_at: `2017-05-26T10:01:49+00:00` (string, required)
         + description: `Pipework intervention` (string, optional)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
@@ -127,13 +127,13 @@ Get a list of work orders.
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + datetime
+                        + performed_at
                 + order (enum[string], optional)
                     + Members
                         + asc
             + Default
                 + (object)
-                    + field: `datetime`
+                    + field: `performed_at`
                     + order: `asc`
 
 + Response 200 (application/json)
@@ -152,7 +152,7 @@ Get a list of work orders.
                             + contact
                             + company
                     + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-                + datetime: `2017-05-26T10:01:49+00:00` (string)
+                + performed_at: `2017-05-26T10:01:49+00:00` (string)
                 + description: `Pipework intervention` (string)
                 + department (object)
                     + type: `department` (string)
@@ -204,7 +204,7 @@ Return info for a single work order.
                         + contact
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-            + datetime: `2017-05-26T10:01:49+00:00` (string)
+            + performed_at: `2017-05-26T10:01:49+00:00` (string)
             + description: `Pipework intervention` (string)
             + department (object)
                 + type: `department` (string)
