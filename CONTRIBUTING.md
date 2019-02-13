@@ -44,4 +44,4 @@ We have documented our [API Design Guidelines](GUIDELINES.md). Please follow the
 
 ## Changelog
 
-When updating the changelog make sure to update the current latest version in the **Upgrading your API version** section
+When updating the changelog make sure to update the current latest version in the [Upgrading your API version](https://github.com/teamleadercrm/api/blob/master/src/changes.apib)** section.
