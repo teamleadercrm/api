@@ -239,7 +239,7 @@ Refresh tokens will continue functioning until the user revokes them or uninstal
 
 Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
-Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `code` as the `response_type`:
+Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
@@ -326,6 +326,26 @@ _This will only affect the version for those API calls and won't affect any othe
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
+
+#### 2019-01-24
+
+- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
+  From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`, to make this more consistent and interchangeable.
+
+- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
+  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
+  This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
+
+- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
+  - `companies.info`  
+  - `companies.list`  
+  - `companies.add`  
+  - `companies.update`  
+  - `invoices.info`  
+  - `creditNotes.info`  
+
+- An invoice number actually contains the bookyear, so from now on, you will see eg. `2018 / 27` instead of `27`.
+  This is reflected in the `invoice_number` property in the `invoices.list` and `invoices.info` endpoints.
 
 #### 2018-10-30
 
@@ -456,6 +476,8 @@ Get the current authenticated user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
+            + preferences (object)
+                + invoiceable: true (boolean)
 
 ### users.list [GET /users.list]
 
@@ -466,6 +488,7 @@ Get a list of all users.
     + Attributes (object)
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `John` (string, optional) - Filters on first name, last name and email
         + sort (array, optional)
             + (object)
                 + field (enum[string], required)
@@ -1028,7 +1051,7 @@ Get a list of companies.
                     + type: `businessType` (string)
                     + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
                 + vat_number: `BE0899623035` (string)
-                + local_business_number: `63326426` (string)
+                + national_identification_number: `63326426` (string)
                 + emails (array)
                     + (object)
                         + type: `primary` (enum[string])
@@ -1073,7 +1096,7 @@ Get details for a single company.
                 + type: `businessType` (string)
                 + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
             + vat_number: `BE0899623035` (string)
-            + local_business_number: `63326426` (string)
+            + national_identification_number: `63326426` (string)
             + emails (array)
                 + (object)
                     + type: `primary` (enum[string])
@@ -1120,7 +1143,7 @@ Add a new company.
         + name: `Pied Piper` (string, required)
         + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional)
         + vat_number: `BE0899623035` (string, optional)
-        + local_business_number: `63326426` (string, optional)
+        + national_identification_number: `63326426` (string, optional)
         + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
@@ -1166,7 +1189,7 @@ Update a company.
         + name: `Pied Piper` (string, optional)
         + business_type_id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string, optional, nullable)
         + vat_number: `BE0899623035` (string, optional, nullable)
-        + local_business_number: `63326426` (string, optional, nullable)
+        + national_identification_number: `63326426` (string, optional, nullable)
         + emails (array, optional)
             + (object)
                 + type: `primary` (enum[string], required)
@@ -1282,6 +1305,28 @@ Get a list of tags.
         + data (array)
             + (object)
                 + tag: `campaign` (string)
+
+## Addresses [/levelTwoAreas]
+
+We provide a set of data which can be used to build addresses.
+
+### levelTwoAreas.list [GET /levelTwoAreas.list]
+
+Get a list of level two areas (which correspond to provinces, departments or states in most countries).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string, required)
+        + language: `nl` (string, optional) - if not passed, the name is returned in the primary language of the country
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+            + name: `West-Vlaanderen` (string)
+            + country: `BE` (string)
 
 # Group Deals
 
@@ -1939,10 +1984,11 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `booked` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
-                + Members
+            + status: `outstanding`, `matched` (array[string], optional) - The statuses you want to filter by.
+                + (enum[string])
                     + draft
-                    + booked
+                    + outstanding
+                    + matched
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
@@ -1967,12 +2013,13 @@ Get a list of invoices.
                 + department (object)
                     + type: `department` (string)
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
-                + invoice_number: `2017/5` (string, nullable)
+                + invoice_number: `2017 / 5` (string, nullable)
                 + invoice_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `matched` (enum[string])
                     + Members
-                        + booked
                         + draft
+                        + outstanding
+                        + matched
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -2016,12 +2063,13 @@ Get details for a single invoice.
             + department (object)
                 + type: `department` (string)
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
-            + invoice_number: `2017/5` (string, nullable)
+            + invoice_number: `2017 / 5` (string, nullable)
             + invoice_date: `2016-02-04` (string, nullable)
-            + status: `booked` (enum[string])
+            + status: `outstanding` (enum[string])
                 + Members
-                    + booked
                     + draft
+                    + outstanding
+                    + matched
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -2037,7 +2085,7 @@ Get details for a single invoice.
                         + type: `contact` (string)
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
                 + email: `duivels@test.com` (string, nullable)
-                + local_business_number: `123` (string, nullable)
+                + national_identification_number: `123` (string, nullable)
             + discounts (array)
                 + (object)
                     + type: `percentage` (enum[string])
@@ -2059,7 +2107,7 @@ Get details for a single invoice.
                                 + type: `productCategory` (string)
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
-                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                            + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum[string])
@@ -2155,7 +2203,7 @@ Draft a new invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string], required)
@@ -2214,7 +2262,7 @@ Update an invoice.
                     + (object)
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum[string])
@@ -2388,7 +2436,7 @@ Get details for a single credit note
                         + type: `contact` (string)
                         + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
                     + email: `duivels@test.com` (string, nullable)
-                    + local_business_number: `123` (string, nullable)
+                    + national_identification_number: `123` (string, nullable)
                 + total (object)
                     + tax_exclusive (Money)
                     + tax_inclusive (Money)
@@ -2566,6 +2614,33 @@ Get a list of product categories.
                             + type: `department` (string)
                             + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c6` (string)
                         + ledger_account_number: `70100` (string)
+
+## Products [/products]
+
+*Required scopes: `products`*
+
+### products.list [GET /products.list]
+
+Get a list of products.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
+            + term: `cookies` (string, optional) - The name and the external id.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + translations (array)
+                    + (object)
+                        + name: `cookies` (string)
+                        + description: `dark chocolate` (string)
+                + external_id: `123` (string)
 
 # Group Projects
 
@@ -2949,7 +3024,43 @@ Get a list of tracked time.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[TimeTracking])
+        + data (array)
+            + (object)
+                + id: `4f4288b2-c21b-4dac-87f6-a97511309079` (string)
+                + user (object)
+                    + type: `user` (string)
+                    + id: `eb1eb8b8-d0cb-4385-b60a-c995953ec6be` (string)
+                + work_type (object)
+                    + type: `workType` (string)
+                    + id: `8a146eda-c9af-4b11-b63a-ddac47bb254d` (string)
+                + started_on: `2017-04-26` (string)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+                + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+                + duration: 3600 (number) - In seconds
+                + description: `Timer description` (string)
+                + subject (object)
+                    + type: `milestone` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + event
+                            + todo
+                            + milestone
+                            + ticket
+                    + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
+                + invoiceable: true (boolean)
+                + relates_to (array)
+                    + (object)
+                        + type: `company` (enum[string])
+                            + Members
+                                + company
+                                + contact
+                                + event
+                                + todo
+                                + milestone
+                                + project
+                                + ticket
+                        + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
 
 ### timeTracking.info [GET /timeTracking.info]
 
@@ -2963,7 +3074,42 @@ Get information about tracked time.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (TimeTracking)
+        + data (object)
+            + id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string)
+            + user (object)
+                + type: `user` (string)
+                + id: `56bc6b39-b722-42f5-9ea7-acea4814d7dd` (string)
+            + work_type (object)
+                + type: `workType` (string)
+                + id: `d980dbc6-944e-47fc-bf16-2ed7d5a71889` (string)
+            + started_on: `2017-04-26` (string)
+            + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+            + duration: 3600 (number) - In seconds
+            + description: `Timer description` (string)
+            + subject (object)
+                + type: `milestone` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
+            + invoiceable: true (boolean)
+            + relates_to (array)
+                + (object)
+                    + type: `company` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + event
+                            + todo
+                            + milestone
+                            + project
+                            + ticket
+                    + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
 
 ### timeTracking.add [POST /timeTracking.add]
 
@@ -3087,6 +3233,7 @@ Get the current running timer.
                         + milestone
                         + ticket
                 + id: `31931bc9-4ae8-4c50-ba8d-9ea88498c1c1` (string)
+            + invoiceable: true (boolean)
             + relates_to (array)
                 + (object)
                     + type: `company` (enum[string])
@@ -3435,39 +3582,3 @@ Unregister a webhook.
         + timeTracking.deleted
         + timeTracking.updated
         + user.deactivated
-
-## TimeTracking (object)
-+ id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string)
-+ user (object)
-    + type: `user` (string)
-    + id: `56bc6b39-b722-42f5-9ea7-acea4814d7dd` (string)
-+ work_type (object)
-    + type: `workType` (string)
-    + id: `d980dbc6-944e-47fc-bf16-2ed7d5a71889` (string)
-+ started_on: `2017-04-26` (string)
-+ started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
-+ ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-+ duration: 3600 (number) - In seconds
-+ description: `Timer description` (string)
-+ subject (object)
-    + type: `milestone` (enum[string])
-        + Members
-            + company
-            + contact
-            + event
-            + todo
-            + milestone
-            + ticket
-    + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
-+ relates_to (array)
-    + (object)
-        + type: `company` (enum[string])
-            + Members
-                + company
-                + contact
-                + event
-                + todo
-                + milestone
-                + project
-                + ticket
-        + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)

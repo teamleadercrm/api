@@ -32,7 +32,43 @@ Get a list of tracked time.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[TimeTracking])
+        + data (array)
+            + (object)
+                + id: `4f4288b2-c21b-4dac-87f6-a97511309079` (string)
+                + user (object)
+                    + type: `user` (string)
+                    + id: `eb1eb8b8-d0cb-4385-b60a-c995953ec6be` (string)
+                + work_type (object)
+                    + type: `workType` (string)
+                    + id: `8a146eda-c9af-4b11-b63a-ddac47bb254d` (string)
+                + started_on: `2017-04-26` (string)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+                + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+                + duration: 3600 (number) - In seconds
+                + description: `Timer description` (string)
+                + subject (object)
+                    + type: `milestone` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + event
+                            + todo
+                            + milestone
+                            + ticket
+                    + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
+                + invoiceable: true (boolean)
+                + relates_to (array)
+                    + (object)
+                        + type: `company` (enum[string])
+                            + Members
+                                + company
+                                + contact
+                                + event
+                                + todo
+                                + milestone
+                                + project
+                                + ticket
+                        + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
 
 ### timeTracking.info [GET /timeTracking.info]
 
@@ -46,7 +82,42 @@ Get information about tracked time.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (TimeTracking)
+        + data (object)
+            + id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string)
+            + user (object)
+                + type: `user` (string)
+                + id: `56bc6b39-b722-42f5-9ea7-acea4814d7dd` (string)
+            + work_type (object)
+                + type: `workType` (string)
+                + id: `d980dbc6-944e-47fc-bf16-2ed7d5a71889` (string)
+            + started_on: `2017-04-26` (string)
+            + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+            + duration: 3600 (number) - In seconds
+            + description: `Timer description` (string)
+            + subject (object)
+                + type: `milestone` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
+            + invoiceable: true (boolean)
+            + relates_to (array)
+                + (object)
+                    + type: `company` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + event
+                            + todo
+                            + milestone
+                            + project
+                            + ticket
+                    + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
 
 ### timeTracking.add [POST /timeTracking.add]
 
