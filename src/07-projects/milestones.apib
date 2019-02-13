@@ -52,6 +52,11 @@ Get a list of project milestones.
                     + Members
                         + open
                         + closed
+                + profit_info (object)
+                    + total_revenue (Money)
+                    + total_costs (Money)
+                    + profit (Money)
+
 
 ### milestones.info [GET /milestones.info]
 
@@ -79,6 +84,10 @@ Get details for a single milestone.
                 + Members
                     + open
                     + closed
+            + profit_info (object)
+                + total_revenue (Money)
+                + total_costs (Money)
+                + profit (Money)
 
 ### milestones.create [POST /milestones.create]
 
