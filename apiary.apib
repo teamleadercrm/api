@@ -3317,7 +3317,7 @@ Add a draft work order.
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + assignees (array, required)
+        + assignees (array, optional)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + hourly_rate (Money, optional)
@@ -3346,33 +3346,33 @@ Update a draft work order.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
-        + customer (object, required)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+        + customer (object, optional)
             + type (enum[string], required)
                 + Members
                     + contact
                     + company
             + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + performed_at: `2017-05-26T10:01:49+00:00` (string, required)
-        + description: `Pipework intervention` (string, optional)
-        + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
-        + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
-        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
-        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
-        + intervention_address (object, optional)
+        + performed_at: `2017-05-26T10:01:49+00:00` (string, optional)
+        + description: `Pipework intervention` (string, optional, nullable)
+        + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional, nullable)
+        + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional, nullable)
+        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
+        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
+        + intervention_address (object, optional, nullable)
             + Include Address
-            + customer (object, optional) - Customer this address refers to.
+            + customer (object, optional, nullable) - Customer this address refers to.
                 + type (enum[string], required)
                     + Members
                         + contact
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + distance_travelled (object, optional)
+        + distance_travelled (object, optional, nullable)
             + unit: `km` (enum[string], required)
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + assignees (array, required)
+        + assignees (array, optional, nullable)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + hourly_rate (Money, optional)
@@ -3381,11 +3381,11 @@ Update a draft work order.
                         + started_at: `2017-04-26T10:01:49+00:00` (string, required)
                         + duration: 3600 (number, required) - In seconds
                         + description (string, optional)
-        + products (array, optional)
+        + products (array, optional, nullable)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                 + quantity: `3` (number, optional)
-        + custom_fields (array[CustomField], optional)
+        + custom_fields (array[CustomField], optional, nullable)
 
 + Response 204
 
