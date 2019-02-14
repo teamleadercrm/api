@@ -314,7 +314,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2018-10-30**.
+The current latest version is **2019-01-24**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -3313,7 +3313,7 @@ Add a draft work order.
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
         + distance_travelled (object, optional)
-            + type: `km` (enum[string], required)
+            + unit: `km` (enum[string], required)
                 + Members
                     + km
             + value: `25.2` (number, required)
@@ -3368,7 +3368,7 @@ Update a draft work order.
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
         + distance_travelled (object, optional)
-            + type: `km` (enum[string], required)
+            + unit: `km` (enum[string], required)
                 + Members
                     + km
             + value: `25.2` (number, required)
@@ -3407,6 +3407,7 @@ Get a list of work orders.
                 + (enum[string])
                     + draft
                     + finalized
+                    + sent
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -3431,6 +3432,7 @@ Get a list of work orders.
                     + Members
                         + draft
                         + finalized
+                        + sent
                 + customer (object)
                     + type (enum[string])
                         + Members
@@ -3460,7 +3462,7 @@ Get a list of work orders.
                                 + company
                         + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
                 + distance_travelled (object)
-                    + type: `km` (enum[string])
+                    + unit: `km` (enum[string])
                         + Members
                             + km
                     + value: `25.2` (number)
@@ -3483,6 +3485,7 @@ Return info for a single work order.
                 + Members
                     + draft
                     + finalized
+                    + sent
             + customer (object)
                 + type (enum[string])
                     + Members
@@ -3512,7 +3515,7 @@ Return info for a single work order.
                             + company
                     + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
             + distance_travelled (object)
-                + type: `km` (enum[string])
+                + unit: `km` (enum[string])
                     + Members
                         + km
                 + value: `25.2` (number)
