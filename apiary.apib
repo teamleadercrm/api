@@ -476,6 +476,8 @@ Get the current authenticated user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
+            + preferences (object)
+                + invoiceable: true (boolean)
 
 ### users.list [GET /users.list]
 
@@ -775,6 +777,7 @@ Get a list of contacts.
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
+                + national_identification_number: `86792345-L` (string)
                 + language: `en` (string)
                 + payment_term (PaymentTerm, nullable)
                 + invoicing_preferences (object)
@@ -826,6 +829,7 @@ Get details for a single contact.
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
+            + national_identification_number: `00051730-A` (string)
             + companies (array)
                 + (object)
                     + position: `CEO` (string)
@@ -881,6 +885,7 @@ Add a new contact.
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
+        + national_identification_number: `01234567-X` (string)
         + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
@@ -930,6 +935,7 @@ Update a contact.
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
+        + national_identification_number: `19346758-T` (string)
         + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
@@ -1303,6 +1309,28 @@ Get a list of tags.
         + data (array)
             + (object)
                 + tag: `campaign` (string)
+
+## Addresses [/levelTwoAreas]
+
+We provide a set of data which can be used to build addresses.
+
+### levelTwoAreas.list [GET /levelTwoAreas.list]
+
+Get a list of level two areas (which correspond to provinces, departments or states in most countries).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string, required)
+        + language: `nl` (string, optional) - if not passed, the name is returned in the primary language of the country
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+            + name: `West-Vlaanderen` (string)
+            + country: `BE` (string)
 
 # Group Deals
 
@@ -3024,6 +3052,7 @@ Get a list of tracked time.
                             + milestone
                             + ticket
                     + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
+                + invoiceable: true (boolean)
 
 ### timeTracking.info [GET /timeTracking.info]
 
@@ -3060,6 +3089,7 @@ Get information about tracked time.
                         + milestone
                         + ticket
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
+            + invoiceable: true (boolean)
 
 ### timeTracking.add [POST /timeTracking.add]
 
@@ -3183,6 +3213,7 @@ Get the current running timer.
                         + milestone
                         + ticket
                 + id: `31931bc9-4ae8-4c50-ba8d-9ea88498c1c1` (string)
+            + invoiceable: true (boolean)
 
 ### timers.start [POST /timers.start]
 

@@ -41,3 +41,7 @@ make preview
 ## Guidelines
 
 We have documented our [API Design Guidelines](GUIDELINES.md). Please follow these recommendations when making a pull request.
+
+## Changelog
+
+When updating the changelog make sure to update the current latest version in the **[Upgrading your API version](https://github.com/teamleadercrm/api/blob/master/src/changes.apib)** section.
