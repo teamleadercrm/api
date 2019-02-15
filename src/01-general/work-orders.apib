@@ -19,7 +19,7 @@ Add a draft work order.
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
-        + intervention_address (object, optional)
+        + location (object, optional)
             + Include Address
             + customer (object, optional) - Customer this address refers to.
                 + type (enum[string], required)
@@ -74,7 +74,7 @@ Update a draft work order.
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional, nullable)
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
-        + intervention_address (object, optional, nullable)
+        + location (object, optional, nullable)
             + Include Address
             + customer (object, optional, nullable) - Customer this address refers to.
                 + type (enum[string], required)
@@ -168,7 +168,7 @@ Get a list of work orders.
                 + event (object)
                     + type: `event` (string)
                     + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-                + intervention_address (object)
+                + location (object)
                     + Include Address
                     + customer (object) - Customer this address refers to.
                         + type (enum[string])
@@ -221,7 +221,7 @@ Return info for a single work order.
             + event (object)
                 + type: `event` (string)
                 + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-            + intervention_address (object)
+            + location (object)
                 + Include Address
                 + customer (object) - Customer this address refers to.
                     + type (enum[string])
