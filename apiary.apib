@@ -239,7 +239,7 @@ Refresh tokens will continue functioning until the user revokes them or uninstal
 
 Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
-Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `code` as the `response_type`:
+Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
 
 `https://app.teamleader.eu/oauth2/authorize`
 
@@ -314,7 +314,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2018-10-30**.
+The current latest version is **2019-01-24**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -476,6 +476,8 @@ Get the current authenticated user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
+            + preferences (object)
+                + invoiceable: true (boolean)
 
 ### users.list [GET /users.list]
 
@@ -775,6 +777,7 @@ Get a list of contacts.
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
+                + national_identification_number: `86792345-L` (string)
                 + language: `en` (string)
                 + payment_term (PaymentTerm, nullable)
                 + invoicing_preferences (object)
@@ -826,6 +829,7 @@ Get details for a single contact.
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
+            + national_identification_number: `00051730-A` (string)
             + companies (array)
                 + (object)
                     + position: `CEO` (string)
@@ -881,6 +885,7 @@ Add a new contact.
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
+        + national_identification_number: `01234567-X` (string)
         + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
@@ -930,6 +935,7 @@ Update a contact.
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
+        + national_identification_number: `19346758-T` (string)
         + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
@@ -1303,6 +1309,28 @@ Get a list of tags.
         + data (array)
             + (object)
                 + tag: `campaign` (string)
+
+## Addresses [/levelTwoAreas]
+
+We provide a set of data which can be used to build addresses.
+
+### levelTwoAreas.list [GET /levelTwoAreas.list]
+
+Get a list of level two areas (which correspond to provinces, departments or states in most countries).
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string, required)
+        + language: `nl` (string, optional) - if not passed, the name is returned in the primary language of the country
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+            + name: `West-Vlaanderen` (string)
+            + country: `BE` (string)
 
 # Group Deals
 
@@ -2591,6 +2619,33 @@ Get a list of product categories.
                             + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c6` (string)
                         + ledger_account_number: `70100` (string)
 
+## Products [/products]
+
+*Required scopes: `products`*
+
+### products.list [GET /products.list]
+
+Get a list of products.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
+            + term: `cookies` (string, optional) - The name and the external id.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + translations (array)
+                    + (object)
+                        + name: `cookies` (string)
+                        + description: `dark chocolate` (string)
+                + external_id: `123` (string)
+
 # Group Projects
 
 ## Projects [/projects]
@@ -2937,97 +2992,6 @@ Update a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
-# Group Tasks
-
-## Tasks [/tasks]
-
-### tasks.list [GET /tasks.list]
-
-Get a list of tasks.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + page (Page, optional)
-        + sort (array, optional)
-            + (object)
-                + field (enum[string], required)
-                    + Members
-                        + due_at
-                + order (enum[string], optional)
-                    + Members
-                        + asc
-            + Default
-                + (object)
-                    + field: `due_at`
-                    + order: `asc`
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
-                + description (string)
-                + completed: false (boolean)
-                + completed_at: `2016-02-04T16:44:33+00:00` (string)
-                + due_at: `2016-02-04T16:44:33+00:00` (string)
-
-### tasks.info [GET /tasks.info]
-
-Get information about a task.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (object)
-            + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string)
-            + description (string)
-            + completed: false (boolean)
-            + completed_at: `2016-02-04T16:44:33+00:00` (string)
-            + due_at: `2016-02-04T16:44:33+00:00` (string)
-
-### tasks.create [POST /tasks.create]
-
-Create a new task.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + description (string, required)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, required)
-        + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
-        + estimated_duration: 3600 (number, optional)
-        + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (object)
-            + type: `task` (string)
-            + id: `1759dfc1-7365-4f1b-8d90-d29787a5d29d` (string)
-
-### tasks.update [POST /tasks.update]
-
-Update a tasks.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
-        + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
-        + estimated_duration: 3600 (number, optional)
-        + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
-
-+ Response 204
-
 # Group Time Tracking
 
 ## Time Tracking [/timeTracking]
@@ -3088,6 +3052,7 @@ Get a list of tracked time.
                             + milestone
                             + ticket
                     + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
+                + invoiceable: true (boolean)
 
 ### timeTracking.info [GET /timeTracking.info]
 
@@ -3124,6 +3089,7 @@ Get information about tracked time.
                         + milestone
                         + ticket
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
+            + invoiceable: true (boolean)
 
 ### timeTracking.add [POST /timeTracking.add]
 
@@ -3247,6 +3213,7 @@ Get the current running timer.
                         + milestone
                         + ticket
                 + id: `31931bc9-4ae8-4c50-ba8d-9ea88498c1c1` (string)
+            + invoiceable: true (boolean)
 
 ### timers.start [POST /timers.start]
 
