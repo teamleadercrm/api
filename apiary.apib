@@ -3298,34 +3298,24 @@ Add a draft work order.
                     + contact
                     + company
             + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + performed_at: `2017-05-26T10:01:49+00:00` (string, required)
+        + starts_at: `2017-05-26T10:01:49+00:00` (string, required)
         + description: `Pipework intervention` (string, optional)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional)
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
-        + intervention_address (object, optional)
-            + Include Address
-            + customer (object, optional) - Customer this address refers to.
-                + type (enum[string], required)
-                    + Members
-                        + contact
-                        + company
-                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + distance_travelled (object, optional)
+        + location (Address, optional)
+        + distance (object, optional)
             + unit: `km` (enum[string], required)
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + assignees (array, optional)
+        + work_hours (array, optional)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
-                + hourly_rate (Money, optional)
-                + work_hours (array, optional)
-                    + (object)
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + duration: 3600 (number, required) - In seconds
-                        + description (string, optional)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+                + description (string, optional)
         + products (array, optional)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
@@ -3353,34 +3343,24 @@ Update a draft work order.
                     + contact
                     + company
             + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + performed_at: `2017-05-26T10:01:49+00:00` (string, optional)
+        + starts_at: `2017-05-26T10:01:49+00:00` (string, optional)
         + description: `Pipework intervention` (string, optional, nullable)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional, nullable)
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional, nullable)
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
-        + intervention_address (object, optional, nullable)
-            + Include Address
-            + customer (object, optional, nullable) - Customer this address refers to.
-                + type (enum[string], required)
-                    + Members
-                        + contact
-                        + company
-                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-        + distance_travelled (object, optional, nullable)
+        + location (Address, optional, nullable)
+        + distance (object, optional, nullable)
             + unit: `km` (enum[string], required)
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + assignees (array, optional, nullable)
+        + work_hours (array, optional)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
-                + hourly_rate (Money, optional)
-                + work_hours (array, optional)
-                    + (object)
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + duration: 3600 (number, required) - In seconds
-                        + description (string, optional)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+                + description (string, optional)
         + products (array, optional, nullable)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
@@ -3403,7 +3383,7 @@ Get a list of work orders.
                         + contact
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-            + state: `draft`, `finalized` (array[string], optional)
+            + state: `draft`, `finalized` (enum[string], optional)
                 + (enum[string])
                     + draft
                     + finalized
@@ -3413,13 +3393,13 @@ Get a list of work orders.
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + performed_at
+                        + starts_at
                 + order (enum[string], optional)
                     + Members
                         + asc
             + Default
                 + (object)
-                    + field: `performed_at`
+                    + field: `starts_at`
                     + order: `asc`
 
 + Response 200 (application/json)
@@ -3439,7 +3419,7 @@ Get a list of work orders.
                             + contact
                             + company
                     + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-                + performed_at: `2017-05-26T10:01:49+00:00` (string)
+                + starts_at: `2017-05-26T10:01:49+00:00` (string)
                 + description: `Pipework intervention` (string)
                 + department (object)
                     + type: `department` (string)
@@ -3453,19 +3433,14 @@ Get a list of work orders.
                 + event (object)
                     + type: `event` (string)
                     + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-                + intervention_address (object)
-                    + Include Address
-                    + customer (object) - Customer this address refers to.
-                        + type (enum[string])
-                            + Members
-                                + contact
-                                + company
-                        + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-                + distance_travelled (object)
+                + location (Address)
+                + distance (object)
                     + unit: `km` (enum[string])
                         + Members
                             + km
                     + value: `25.2` (number)
+                + created_at: `2019-05-09T11:25:11+00:00` (string)
+                + updated_at: `2019-05-09T11:30:58+00:00` (string)
 
 ### workOrders.info [GET /workOrders.info]
 
@@ -3492,7 +3467,7 @@ Return info for a single work order.
                         + contact
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-            + performed_at: `2017-05-26T10:01:49+00:00` (string)
+            + starts_at: `2017-05-26T10:01:49+00:00` (string)
             + description: `Pipework intervention` (string)
             + department (object)
                 + type: `department` (string)
@@ -3506,30 +3481,22 @@ Return info for a single work order.
             + event (object)
                 + type: `event` (string)
                 + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-            + intervention_address (object)
-                + Include Address
-                + customer (object) - Customer this address refers to.
-                    + type (enum[string])
-                        + Members
-                            + contact
-                            + company
-                    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
-            + distance_travelled (object)
+            + location (Address)
+            + distance (object)
                 + unit: `km` (enum[string])
                     + Members
                         + km
                 + value: `25.2` (number)
-            + assignees (array)
+            + created_at: `2019-05-09T11:25:11+00:00` (string)
+            + updated_at: `2019-05-09T11:30:58+00:00` (string)
+            + work_hours (array)
                 + (object)
                     + user (object)
                         + type: `user` (string)
                         + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
-                    + hourly_rate (Money)
-                    + work_hours (array)
-                        + (object)
-                            + started_at: `2017-04-26T10:01:49+00:00` (string)
-                            + duration: 3600 (number) - In seconds
-                            + description (string)
+                    + started_at: `2017-04-26T10:01:49+00:00` (string)
+                    + duration: 3600 (number) - In seconds
+                    + description (string)
             + products (array)
                 + (object)
                     + product (object)
