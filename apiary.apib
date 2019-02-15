@@ -314,7 +314,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2018-10-30**.
+The current latest version is **2019-01-24**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -3119,6 +3119,7 @@ Add tracked time.
                     + milestone
                     + ticket
             + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 201
 
@@ -3151,6 +3152,7 @@ Update tracked time.
                     + milestone
                     + ticket
             + id: `88f14220-55d3-4ca6-802b-425e2f53c850` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 204
 
@@ -3235,6 +3237,7 @@ Start a new timer.
                     + milestone
                     + ticket
             + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 201
 
@@ -3278,6 +3281,7 @@ Update the current timer. Only possible if there is a timer running.
                     + milestone
                     + ticket
             + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 204
 
