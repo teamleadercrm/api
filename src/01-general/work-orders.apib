@@ -19,14 +19,7 @@ Add a draft work order.
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional)
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
-        + location (object, optional)
-            + Include Address
-            + customer (object, optional) - Customer this address refers to.
-                + type (enum[string], required)
-                    + Members
-                        + contact
-                        + company
-                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + location (Address, optional)
         + distance_travelled (object, optional)
             + unit: `km` (enum[string], required)
                 + Members
@@ -74,14 +67,7 @@ Update a draft work order.
         + layout_id: `a05320f6-b3ef-4ff9-a287-2074a12fb3e9` (string, optional, nullable)
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
-        + location (object, optional, nullable)
-            + Include Address
-            + customer (object, optional, nullable) - Customer this address refers to.
-                + type (enum[string], required)
-                    + Members
-                        + contact
-                        + company
-                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + location (Address, optional, nullable)
         + distance_travelled (object, optional, nullable)
             + unit: `km` (enum[string], required)
                 + Members
@@ -168,14 +154,7 @@ Get a list of work orders.
                 + event (object)
                     + type: `event` (string)
                     + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-                + location (object)
-                    + Include Address
-                    + customer (object) - Customer this address refers to.
-                        + type (enum[string])
-                            + Members
-                                + contact
-                                + company
-                        + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+                + location (Address)
                 + distance_travelled (object)
                     + unit: `km` (enum[string])
                         + Members
@@ -221,14 +200,7 @@ Return info for a single work order.
             + event (object)
                 + type: `event` (string)
                 + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-            + location (object)
-                + Include Address
-                + customer (object) - Customer this address refers to.
-                    + type (enum[string])
-                        + Members
-                            + contact
-                            + company
-                    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+            + location (Address)
             + distance_travelled (object)
                 + unit: `km` (enum[string])
                     + Members
