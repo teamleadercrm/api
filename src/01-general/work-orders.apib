@@ -25,14 +25,12 @@ Add a draft work order.
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + assignees (array, optional)
+        + work_hours (array, optional)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
-                + work_hours (array, optional)
-                    + (object)
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + duration: 3600 (number, required) - In seconds
-                        + description (string, optional)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+                + description (string, optional)
         + products (array, optional)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
@@ -72,14 +70,12 @@ Update a draft work order.
                 + Members
                     + km
             + value: `25.2` (number, required)
-        + assignees (array, optional, nullable)
+        + work_hours (array, optional)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
-                + work_hours (array, optional)
-                    + (object)
-                        + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                        + duration: 3600 (number, required) - In seconds
-                        + description (string, optional)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+                + description (string, optional)
         + products (array, optional, nullable)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
@@ -208,16 +204,14 @@ Return info for a single work order.
                 + value: `25.2` (number)
             + created_at: `2019-05-09T11:25:11+00:00` (string)
             + updated_at: `2019-05-09T11:30:58+00:00` (string)
-            + assignees (array)
+            + work_hours (array)
                 + (object)
                     + user (object)
                         + type: `user` (string)
                         + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
-                    + work_hours (array)
-                        + (object)
-                            + started_at: `2017-04-26T10:01:49+00:00` (string)
-                            + duration: 3600 (number) - In seconds
-                            + description (string)
+                    + started_at: `2017-04-26T10:01:49+00:00` (string)
+                    + duration: 3600 (number) - In seconds
+                    + description (string)
             + products (array)
                 + (object)
                     + product (object)
