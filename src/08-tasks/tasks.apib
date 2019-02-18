@@ -31,6 +31,10 @@ Get a list of tasks.
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
                 + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + estimated_duration: 3600 (number) - In seconds
+                + work_type (object, nullable)
+                    + type: `workType` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -50,6 +54,10 @@ Get information about a task.
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration: 3600 (number) - In seconds
+            + work_type (object, nullable)
+                + type: `workType` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.create [POST /tasks.create]
 
