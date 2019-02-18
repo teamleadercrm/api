@@ -25,11 +25,7 @@ Add a draft work order.
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration (object, required)
-                    + unit: `s` (enum[string], required)
-                        + Members
-                            + s - Seconds
-                    + value: `3600` (number, required)
+                + duration (Duration, required)
                 + description (string, optional)
         + products (array, optional)
             + (object)
@@ -70,11 +66,7 @@ Update a draft work order.
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration (object, required)
-                    + unit: `s` (enum[string], required)
-                        + Members
-                            + s - Seconds
-                    + value: `3600` (number, required)
+                + duration (Duration, required)
                 + description (string, optional)
         + products (array, optional, nullable)
             + (object)
@@ -202,11 +194,7 @@ Return info for a single work order.
                         + type: `user` (string)
                         + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
                     + started_at: `2017-04-26T10:01:49+00:00` (string)
-                    + duration (object)
-                        + unit: `s` (enum[string])
-                            + Members
-                                + s - Seconds
-                        + value: `3600` (number)
+                    + duration (Duration)
                     + description (string)
             + products (array)
                 + (object)
