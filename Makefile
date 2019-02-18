@@ -11,7 +11,7 @@ lint: node_modules
 build: src node_modules
 	docker run -it --init --rm -v $(PWD):/code -w /code node:9 npm run build
 
-preview: node_modules
+preview: build
 	docker run -it --init --rm -v $(PWD):/code -w /code apiaryio/client preview --path=/code/apiary.apib --output=/code/apiary.html
 
 watch: node_modules
