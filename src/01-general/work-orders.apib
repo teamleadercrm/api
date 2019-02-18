@@ -20,11 +20,7 @@ Add a draft work order.
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
         + location (Address, optional)
-        + distance (object, optional)
-            + unit: `km` (enum[string], required)
-                + Members
-                    + km
-            + value: `25.2` (number, required)
+        + distance (Distance, optional)
         + work_hours (array, optional)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
@@ -69,11 +65,7 @@ Update a draft work order.
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
         + location (Address, optional, nullable)
-        + distance (object, optional, nullable)
-            + unit: `km` (enum[string], required)
-                + Members
-                    + km
-            + value: `25.2` (number, required)
+        + distance (Distance, optional, nullable)
         + work_hours (array, optional)
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
@@ -157,11 +149,7 @@ Get a list of work orders.
                     + type: `event` (string)
                     + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
                 + location (Address)
-                + distance (object)
-                    + unit: `km` (enum[string])
-                        + Members
-                            + km
-                    + value: `25.2` (number)
+                + distance (Distance)
                 + created_at: `2019-05-09T11:25:11+00:00` (string)
                 + updated_at: `2019-05-09T11:30:58+00:00` (string)
 
@@ -205,11 +193,7 @@ Return info for a single work order.
                 + type: `event` (string)
                 + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
             + location (Address)
-            + distance (object)
-                + unit: `km` (enum[string])
-                    + Members
-                        + km
-                + value: `25.2` (number)
+            + distance (Distance)
             + created_at: `2019-05-09T11:25:11+00:00` (string)
             + updated_at: `2019-05-09T11:30:58+00:00` (string)
             + work_hours (array)
