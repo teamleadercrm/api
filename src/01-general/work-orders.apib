@@ -34,7 +34,7 @@ Add a draft work order.
         + products (array, optional)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
-                + quantity: `3` (number, optional)
+                + quantity: `3` (number, required)
         + custom_fields (array[CustomField], optional)
 
 + Response 200 (application/json;charset=utf-8)
@@ -79,7 +79,7 @@ Update a draft work order.
         + products (array, optional, nullable)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
-                + quantity: `3` (number, optional)
+                + quantity: `3` (number, required)
         + custom_fields (array[CustomField], optional, nullable)
 
 + Response 204
