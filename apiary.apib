@@ -2648,6 +2648,41 @@ Get a list of products.
                         + description: `dark chocolate` (string)
                 + external_id: `123` (string)
 
+### products.info [GET /products.info]
+
+Get details for a single product.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `722e1eb9-53d5-4b8c-9d17-154dcc65c610` (string)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + prices (array)
+                    + (object)
+                        + price (object)
+                            + Include Money
+                            + applied_tax (object, nullable)
+                                + type: `tax` (string)
+                                + id: `722e1eb9-53d5-4b8c-9d17-154dcc65c611` (string)
+                            + tax: `excluding` (enum[string])
+                                + Members
+                                    + excluding
+                        + price_list (object)
+                            + type: `priceList` (string)
+                            + id: `722e1eb9-53d5-4b8c-9d17-154dcc65c612` (string)
+                + translations (array)
+                    + (object)
+                        + name: `cookies` (string)
+                        + description: `dark chocolate` (string)
+                + external_id: `123` (string)
+
+
 # Group Projects
 
 ## Projects [/projects]
