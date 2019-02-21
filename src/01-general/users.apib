@@ -38,6 +38,8 @@ Get the current authenticated user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
+            + preferences (object)
+                + invoiceable: true (boolean)
 
 ### users.list [GET /users.list]
 
@@ -48,6 +50,7 @@ Get a list of all users.
     + Attributes (object)
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `John` (string, optional) - Filters on first name, last name and email
         + sort (array, optional)
             + (object)
                 + field (enum[string], required)
