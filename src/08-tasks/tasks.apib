@@ -7,6 +7,9 @@ Get a list of tasks.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + assignee_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+            + completed: true (boolean, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -31,6 +34,14 @@ Get a list of tasks.
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
                 + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + estimated_duration (object)
+                    + unit: `s` (enum[string])
+                        + Members
+                            + s - Seconds
+                    + value: `60` (number)
+                + work_type (object, nullable)
+                    + type: `workType` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -50,6 +61,14 @@ Get information about a task.
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration (object)
+                + unit: `s` (enum[string])
+                    + Members
+                        + s - Seconds
+                + value: `60` (number)
+            + work_type (object, nullable)
+                + type: `workType` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.create [POST /tasks.create]
 
@@ -61,7 +80,11 @@ Create a new task.
         + description (string, required)
         + due_at: `2016-02-04T16:44:33+00:00` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
-        + estimated_duration: 3600 (number, optional) - In seconds
+        + estimated_duration (object, optional)
+            + unit: `s` (enum[string], required)
+                + Members
+                    + s - Seconds
+            + value: `60` (number, required)
         + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
 
 + Response 201 (application/json;charset=utf-8)
@@ -81,6 +104,13 @@ Update a tasks.
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + estimated_duration (object, optional)
+            + unit: `s` (enum[string], required)
+                + Members
+                    + s - Seconds
+            + value: `60` (number, required)
+        + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
 
 + Response 204
 
