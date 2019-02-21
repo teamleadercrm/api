@@ -2656,7 +2656,7 @@ Projects allow users to work together as a team on a single project. They consis
 
 ### projects.list [GET /projects.list]
 
-Get a list of projects. "Actuals" is the current financial state of the project and is only accessible to account administrators and users with full admin access for projects.
+Get a list of projects.
 
 + Request (application/json;charset=utf-8)
 
@@ -2713,7 +2713,7 @@ Get a list of projects. "Actuals" is the current financial state of the project 
                 + source (object)
                     + type: `deal` (string)
                     + id: `5023d7c2-80d7-4d4b-b2bd-0fcaa6a1f069` (string)
-                + actuals (object)
+                + actuals (object) - Only available for account administrators and users with full admin access for projects.
                     + revenue (Money)
                     + costs (Money)
                     + result (Money)
@@ -2721,7 +2721,7 @@ Get a list of projects. "Actuals" is the current financial state of the project 
 
 ### projects.info [GET /projects.info]
 
-Get details for a single project. "Actuals" is the current financial state of the project and is only accessible to account administrators and users with full admin access for projects.
+Get details for a single project.
 
 + Request (application/json;charset=utf-8)
 
@@ -2768,7 +2768,7 @@ Get details for a single project. "Actuals" is the current financial state of th
                         + Members
                             + decision_maker
                             + member
-            + actuals (object)
+            + actuals (object) - Only available for account administrators and users with full admin access for projects.
                 + revenue (Money)
                 + costs (Money)
                 + result (Money)
@@ -2892,7 +2892,7 @@ Every projects consists of one or more milestones which are limited in time and 
 
 ### milestones.list [GET /milestones.list]
 
-Get a list of project milestones. "Actuals" is the current financial state of the milestone and is only accessible to account administrators and users with full admin access for projects.
+Get a list of project milestones.
 
 + Request (application/json;charset=utf-8)
 
@@ -2938,14 +2938,14 @@ Get a list of project milestones. "Actuals" is the current financial state of th
                     + Members
                         + open
                         + closed
-                + actuals (object)
+                + actuals (object) - Only available for account administrators and users with full admin access for projects.
                     + revenue (Money)
                     + costs (Money)
                     + result (Money)
 
 ### milestones.info [GET /milestones.info]
 
-Get details for a single milestone. "Actuals" is the current financial state of the milestone and is only accessible to account administrators and users with full admin access for projects.
+Get details for a single milestone.
 
 + Request (application/json;charset=utf-8)
 
@@ -2969,7 +2969,7 @@ Get details for a single milestone. "Actuals" is the current financial state of 
                 + Members
                     + open
                     + closed
-            + actuals (object)
+            + actuals (object) - Only available for account administrators and users with full admin access for projects.
                 + revenue (Money)
                 + costs (Money)
                 + result (Money)
