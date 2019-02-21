@@ -2098,18 +2098,18 @@ Draft a new invoice.
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
                         + discount (object, optional)
-                            + value: 10 (number, required) - Values between 0 and 100
+                            + value: 10 (number, required)
                             + type (enum[string], required)
                                 + Members
-                                    + percentage
+                                    + percentage - Values between 0 and 100
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + discounts (array)
             (object)
-                + value: 10 (number, required) - Values between 0 and 100
+                + value: 10 (number, required)
                 + type (enum[string], required)
                     + Members
-                        + percentage
+                        + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
         + note: `Invoice comments` (string, optional)
 
@@ -2156,19 +2156,19 @@ Update an invoice.
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
                         + discount (object, required)
-                            + value: 10 (number, required) - Values between 0 and 100
+                            + value: 10 (number, required)
                             + type (enum[string], required)
                                 + Members
-                                    + percentage
+                                    + percentage - Values between 0 and 100
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
         + discounts (array)
             (object)
-                + value: 10 (number, required) - Values between 0 and 100
+                + value: 10 (number, required)
                 + type (enum[string], required)
                     + Members
-                        + percentage
+                        + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
 
 + Response 204
