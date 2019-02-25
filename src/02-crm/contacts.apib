@@ -65,6 +65,7 @@ Get a list of contacts.
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
+                + national_identification_number: `86792345-L` (string)
                 + language: `en` (string)
                 + payment_term (PaymentTerm, nullable)
                 + invoicing_preferences (object)
@@ -116,6 +117,7 @@ Get details for a single contact.
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
+            + national_identification_number: `00051730-A` (string)
             + companies (array)
                 + (object)
                     + position: `CEO` (string)
@@ -171,6 +173,7 @@ Add a new contact.
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
+        + national_identification_number: `01234567-X` (string)
         + remarks: `Met at expo` (string, optional) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
@@ -220,6 +223,7 @@ Update a contact.
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
+        + national_identification_number: `19346758-T` (string)
         + remarks: `Met at expo` (string, optional, nullable) - Uses Markdown formatting
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
