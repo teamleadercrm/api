@@ -277,6 +277,60 @@ You can find a (very) minimal PHP code example, showing how to start the OAuth 2
 
 A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
 
+## Sideloading
+
+Sideloading (or compound documents) allows you to retrieve relevant related items as part of a single request. For example, a deal has a reference to a lead which can either be a contact or a company:
+
+```
+{
+  "data": {
+    "id": "f6871b06-6513-4750-b5e6-ff3503b5a029",
+    "title": "Deal with ACME",
+    "lead": {
+      "customer": {
+        "type": "company",
+        "id": "2659dc4d-444b-4ced-b51c-b87591f604d7"
+      }
+    }
+  }
+}
+```
+
+Relationships are always represented by an object with a type/id combination. All of these relationships are candidates for sideloading.
+
+To sideload relationships, use the dot-notation reference of the relationship's property and add it as an `include` parameter to your JSON body or your URL. In this case of our deal's customer, that would be `include=lead.customer`.
+
+The sideloaded relationships are returned as part of an `included` property in the response body.
+
+```
+{
+  "data": {
+    "id": "f6871b06-6513-4750-b5e6-ff3503b5a029",
+    "title": "Deal with ACME",
+    "lead": {
+      "customer": {
+        "type": "company",
+        "id": "2659dc4d-444b-4ced-b51c-b87591f604d7"
+      }
+    }
+  },
+  "included": {
+    "company": [
+      {
+        "id": "2659dc4d-444b-4ced-b51c-b87591f604d7",
+        "name": "ACME"
+      }
+    ]
+  }
+}
+```
+
+Note that the sideloaded relationships are indexed based on their object type. Use the `type` property from your original relationship object to search for the sideloaded relationship in the `included` section.
+
+Multiple relationships can be sideloaded at the same time by passing them as a comma-separated value such as `include=lead.company,responsible_user`.
+
+Sideloading is supported on every endpoint which returns objects.
+
 ## Changes & upgrades
 
 We want to keep this API backwards compatible as long as possible, but at the same time, we need to make changes to it to match our evolving product.
@@ -1349,6 +1403,7 @@ Get a list of deals.
     + Attributes (object)
         + filter (object, optional)
             + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
+            + term: `Interesting deal` (string, optional) - Filters on the title, reference and customer's name
             + customer (object, optional)
                 + type (enum[string], required)
                     + Members
@@ -2157,6 +2212,7 @@ Get details for a single invoice.
                         + Include Money
             + payment_reference: `+++084/2613/66074+++` (string)
             + note: `'Some extra remarks about the invoice'` (string)
+            + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -2230,6 +2286,7 @@ Draft a new invoice.
                         + percentage
                 + description: `winter promotion` (string, required)
         + note: `Invoice comments` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -2931,6 +2988,11 @@ Get a list of project milestones.
                     + Members
                         + open
                         + closed
+                + `invoicing_method`: `time_and_materials` (enum[string])
+                    + Members
+                        + time_and_materials
+                        + fixed_price
+                        + non_invoiceable
 
 ### milestones.info [GET /milestones.info]
 
@@ -3119,6 +3181,7 @@ Add tracked time.
                     + milestone
                     + ticket
             + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 201
 
@@ -3151,6 +3214,7 @@ Update tracked time.
                     + milestone
                     + ticket
             + id: `88f14220-55d3-4ca6-802b-425e2f53c850` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 204
 
@@ -3235,6 +3299,7 @@ Start a new timer.
                     + milestone
                     + ticket
             + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 201
 
@@ -3278,6 +3343,7 @@ Update the current timer. Only possible if there is a timer running.
                     + milestone
                     + ticket
             + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 204
 
@@ -3300,6 +3366,7 @@ Add a draft work order.
            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
        + starts_at: `2017-05-26T10:01:49+00:00` (string, required)
        + description: `Pipework intervention` (string, optional)
+       + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
        + materials (array, optional)
