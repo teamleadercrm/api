@@ -1,0 +1,126 @@
+## Tasks [/tasks]
+
+### tasks.list [GET /tasks.list]
+
+Get a list of tasks.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + assignee_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+            + completed: true (boolean, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_at
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_at`
+                    + order: `asc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + description (string)
+                + completed: false (boolean)
+                + completed_at: `2016-02-04T16:44:33+00:00` (string)
+                + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + estimated_duration (object)
+                    + unit: `min` (enum[string])
+                        + Members
+                            + min - Minutes
+                    + value: `60` (number)
+                + work_type (object, nullable)
+                    + type: `workType` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+
+### tasks.info [GET /tasks.info]
+
+Get information about a task.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string)
+            + description (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration (object)
+                + unit: `min` (enum[string])
+                    + Members
+                        + min - Minutes
+                + value: `60` (number)
+            + work_type (object, nullable)
+                + type: `workType` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+
+### tasks.create [POST /tasks.create]
+
+Create a new task.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + description (string, required)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, required)
+        + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + estimated_duration (object, optional)
+            + unit: `min` (enum[string], required)
+                + Members
+                    + min - Minutes
+            + value: `60` (number, required)
+        + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `task` (string)
+            + id: `1759dfc1-7365-4f1b-8d90-d29787a5d29d` (string)
+
+### tasks.update [POST /tasks.update]
+
+Update a tasks.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + estimated_duration (object, optional)
+            + unit: `min` (enum[string], required)
+                + Members
+                    + min - Minutes
+            + value: `60` (number, required)
+        + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
+
++ Response 204
+
+### tasks.delete [POST /tasks.delete]
+
+Delete a task.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
+
++ Response 204

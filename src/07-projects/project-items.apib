@@ -1,6 +1,6 @@
 ## Project items [/projectItems]
 
-Project items are added to a project and they affect the profitability. This information is only available for account administrators and project decision makers.
+Project items are added to a project and they affect the profitability. This information is only available for account administrators and users with full project admin access.
 
 *Required scopes: `projects`*
 
@@ -60,8 +60,8 @@ Get a list of project items.
                 + participant (object, nullable)
                     + type: `user` (string)
                     + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b` (string)
-                + internal_cost_per_unit (Money)
-                + billable_price_per_unit (Money)
+                + internal_cost_per_unit (Money, nullable)
+                + billable_price_per_unit (Money, nullable)
                 + quantity: `3.25` (number)
                 + unit: `hour` (string, nullable)
                 + total

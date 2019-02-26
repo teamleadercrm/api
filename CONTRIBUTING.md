@@ -1,6 +1,6 @@
 # Contributing to the Teamleader API Definition
 
-#### IMPORTANT: Do not edit `/apiary.apib`
+#### IMPORTANT: Do not edit `/apiary.apib` manually.
 
 Apiary expects a single `apiary.apib` API definition file. For maintainability purposes, this file is built from individual files located in the `src` directory.
 
@@ -41,3 +41,7 @@ make preview
 ## Guidelines
 
 We have documented our [API Design Guidelines](GUIDELINES.md). Please follow these recommendations when making a pull request.
+
+## Changelog
+
+When updating the changelog make sure to update the current latest version in the **[Upgrading your API version](https://github.com/teamleadercrm/api/blob/master/src/changes.apib)** section.
