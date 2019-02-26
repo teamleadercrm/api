@@ -327,6 +327,14 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
 
+#### 2019-03-13
+
+- The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
+  - `invoices.info`
+  - `creditNote.info`
+  - `quotations.info`
+
+
 #### 2019-01-24
 
 - Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
@@ -1684,7 +1692,8 @@ Get a quotation
                                     + Members
                                         + excluding
                             + tax (object)
-                                + rate: 0.21 (number)
+                                + type: `taxRate` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449042`
                             + discount (object, nullable)
                                 + type: `percentage` (enum[string])
                                     + Members
