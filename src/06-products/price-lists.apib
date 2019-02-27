@@ -1,0 +1,24 @@
+## Price Lists [/priceLists]
+
+Price lists are used to provide different calculations of prices for a product.
+
+*Required scopes: `products`*
+
+### priceLists.list [GET /priceLists.list]
+
+Get a list of price lists.
+
++ Request (application/json;charset=utf-8)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + name: 'Cookie price list' (string)
+                + calculation_method: `normal` (enum[string])
+                    + Members
+                        + normal
+                        + price_list
+                        + purchase_price
