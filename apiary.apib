@@ -3518,6 +3518,52 @@ Update the current timer. Only possible if there is a timer running.
 
 ## Work Orders [/workOrders]
 
+### workOrders.info [GET /workOrders.info]
+
+Get details for a single work order
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
+            + state: `draft` (enum[string])
+                + Members
+                    + draft
+                    + finalized
+                    + sent
+            + customer (object)
+                + type (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+            + starts_at: `2017-05-26T10:01:49+00:00` (string)
+            + description: `Pipework intervention` (string)
+            + department (object)
+                + type: `department` (string)
+                + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+            + milestone (object)
+                + type: `milestone` (string)
+                + id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string)
+            + event (object)
+                + type: `event` (string)
+                + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
+            + location (Address)
+            + created_at: `2019-05-09T11:25:11+00:00` (string)
+            + updated_at: `2019-05-09T11:30:58+00:00` (string)
+            + materials (array)
+                + (object)
+                    + product (object)
+                        + type: `product` (string)
+                        + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                    + quantity: `3` (number)
+
 ### workOrders.draft [POST /workOrders.draft]
 
 Add a draft work order.
