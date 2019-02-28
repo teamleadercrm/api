@@ -55,6 +55,9 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `creditNote.info`
   - `quotations.info`
 
+- Product `name` and `description` are no longer wrapped in a `translations` object in `/products.list`.
+- Product `external_id` was renamed to `code` in `/products.list`.
+
 #### 2019-01-24
 
 - Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  

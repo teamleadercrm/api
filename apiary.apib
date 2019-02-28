@@ -314,7 +314,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2018-10-30**.
+The current latest version is **2019-03-13**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -334,6 +334,8 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `creditNote.info`
   - `quotations.info`
 
+- Product `name` and `description` are no longer wrapped in a `translations` object in `/products.list`.
+- Product `external_id` was renamed to `code` in `/products.list`.
 
 #### 2019-01-24
 
@@ -2643,7 +2645,7 @@ Get a list of products.
     + Attributes (object)
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
-            + term: `cookies` (string, optional) - The name and the external id.
+            + term: `cookies` (string, optional) - Will filter on the name or the code.
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2651,11 +2653,9 @@ Get a list of products.
         + data (array)
             + (object)
                 + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
-                + translations (array)
-                    + (object)
-                        + name: `cookies` (string)
-                        + description: `dark chocolate` (string)
-                + external_id: `123` (string)
+                + name: `cookies` (string)
+                + description: `dark chocolate` (string)
+                + code: `123` (string)
 
 # Group Projects
 
