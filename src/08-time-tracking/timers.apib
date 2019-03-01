@@ -29,6 +29,7 @@ Get the current running timer.
                         + milestone
                         + ticket
                 + id: `31931bc9-4ae8-4c50-ba8d-9ea88498c1c1` (string)
+            + invoiceable: true (boolean)
 
 ### timers.start [POST /timers.start]
 
@@ -50,6 +51,7 @@ Start a new timer.
                     + milestone
                     + ticket
             + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 201
 
@@ -93,5 +95,6 @@ Update the current timer. Only possible if there is a timer running.
                     + milestone
                     + ticket
             + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 204
