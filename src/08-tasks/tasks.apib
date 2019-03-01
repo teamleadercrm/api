@@ -42,7 +42,7 @@ Get a list of tasks.
                 + work_type (object, nullable)
                     + type: `workType` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-                + assigned_to (object)
+                + assignee (object)
                     + type: `user` (enum[string])
                         + Members
                             + user
@@ -75,7 +75,7 @@ Get information about a task.
             + work_type (object, nullable)
                 + type: `workType` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-            + assigned_to (object)
+            + assignee (object)
                 + type: `user` (enum[string])
                     + Members
                         + user
@@ -97,7 +97,7 @@ Create a new task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assigned_to (object, optional)
+        + assignee (object, optional)
             + type: `user` (enum[string])
                 + Members
                     + user
@@ -127,7 +127,7 @@ Update a tasks.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assigned_to (object, optional)
+        + assignee (object, optional)
             + type: `user` (enum[string])
                 + Members
                     + user
