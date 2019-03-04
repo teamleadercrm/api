@@ -8,7 +8,7 @@ Get a list of tasks.
 
     + Attributes (object)
         + filter (object, optional)
-            + assignee_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+            + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
             + completed: true (boolean, optional)
         + page (Page, optional)
         + sort (array, optional)
@@ -42,6 +42,12 @@ Get a list of tasks.
                 + work_type (object, nullable)
                     + type: `workType` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + assignee (object)
+                    + type: `user` (enum[string])
+                        + Members
+                            + user
+                            + team
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -69,6 +75,12 @@ Get information about a task.
             + work_type (object, nullable)
                 + type: `workType` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + assignee (object)
+                + type: `user` (enum[string])
+                    + Members
+                        + user
+                        + team
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 ### tasks.create [POST /tasks.create]
 
@@ -85,7 +97,12 @@ Create a new task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
+        + assignee (object, optional)
+            + type: `user` (enum[string])
+                + Members
+                    + user
+                    + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 201 (application/json;charset=utf-8)
 
@@ -110,7 +127,12 @@ Update a tasks.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee_id: `445adf2b-9b76-077b-8b52-9c1c7c32a601` (string, optional)
+        + assignee (object, optional)
+            + type: `user` (enum[string])
+                + Members
+                    + user
+                    + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 204
 
