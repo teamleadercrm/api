@@ -762,6 +762,39 @@ Get a list of all work types, sorted alphabetically (on their name).
                 + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
                 + name: `Planning` (string)
 
+## Templates [/templates]
+
+### templates.list [POST /templates.list]
+
+Get a list of all templates.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+            + type: `invoice` (enum[string])
+                + Members
+                    + delivery_note
+                    + invoice
+                    + order
+                    + order_confirmation
+                    + quotation
+                    + timetracking_report
+                    + workorder
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + type: `invoice` (string)
+                + is_default: true (boolean)
+
 # Group CRM
 
 ## Contacts [/contacts]
