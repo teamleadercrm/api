@@ -2719,6 +2719,25 @@ Get a list of products.
                         + description: `dark chocolate` (string)
                 + external_id: `123` (string)
 
+### products.info [GET /products.info]
+
+Get details for a single product.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+            + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+
+ + Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+            + name: `cookies` (string)
+            + description: `dark chocolate` (string)
+            + code: `1523999er2323712sd1342s333dsdsd38`
+            + `purchase_price`: (Money nullable)
+
 # Group Projects
 
 ## Projects [/projects]
