@@ -368,7 +368,9 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2019-01-24**.
+
+The current latest version is **2019-03-13**.
+
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -380,6 +382,16 @@ _This will only affect the version for those API calls and won't affect any othe
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
+
+#### 2019-03-13
+
+- The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
+  - `invoices.info`
+  - `creditNote.info`
+  - `quotations.info`
+
+- Product `name` and `description` are no longer wrapped in a `translations` object in `/products.list`.
+- Product `external_id` was renamed to `code` in `/products.list`.
 
 #### 2019-01-24
 
@@ -1768,7 +1780,8 @@ Get a quotation
                                     + Members
                                         + excluding
                             + tax (object)
-                                + rate: 0.21 (number)
+                                + type: `taxRate` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449042`
                             + discount (object, nullable)
                                 + type: `percentage` (enum[string])
                                     + Members
@@ -2173,7 +2186,8 @@ Get details for a single invoice.
                                     + Members
                                         + excluding
                             + tax (object)
-                                + rate: 0.21 (number)
+                                + type: `taxRate` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
                             + discount (object, nullable)
                                 + type: `percentage` (enum[string])
                                     + Members
@@ -2540,7 +2554,8 @@ Get details for a single credit note
                                         + Members
                                             + excluding
                                 + tax (object)
-                                    + rate: `0.21` (number)
+                                    + type: `taxRate` (string)
+                                    + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
                                 + discount (object, nullable)
                                     + type: `percentage` (enum[string])
                                         + Members
@@ -2705,7 +2720,7 @@ Get a list of products.
     + Attributes (object)
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
-            + term: `cookies` (string, optional) - The name and the external id.
+            + term: `cookies` (string, optional) - Will filter on the name or the code.
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2713,11 +2728,9 @@ Get a list of products.
         + data (array)
             + (object)
                 + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
-                + translations (array)
-                    + (object)
-                        + name: `cookies` (string)
-                        + description: `dark chocolate` (string)
-                + external_id: `123` (string)
+                + name: `cookies` (string)
+                + description: `dark chocolate` (string)
+                + code: `123` (string)
 
 ### products.info [GET /products.info]
 
