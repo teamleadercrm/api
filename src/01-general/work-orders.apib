@@ -25,7 +25,7 @@ Add a draft work order.
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration (Duration, required)
+                + duration: 3600 (number, required) - In seconds
                 + description (string, optional)
         + materials (array, optional)
             + (object)
@@ -66,7 +66,7 @@ Update a draft work order.
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration (Duration, required)
+                + duration: 3600 (number, required) - In seconds
                 + description (string, optional)
         + materials (array, optional, nullable)
             + (object)
@@ -194,7 +194,7 @@ Return info for a single work order.
                         + type: `user` (string)
                         + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
                     + started_at: `2017-04-26T10:01:49+00:00` (string)
-                    + duration (Duration)
+                    + duration: 3600 (number) - In seconds
                     + description (string)
             + materials (array)
                 + (object)
