@@ -3310,12 +3310,12 @@ Add a draft work order.
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration (Duration, required)
+                + duration: 3600 (number, required) - In seconds
                 + description (string, optional)
         + materials (array, optional)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
-                + quantity: `3` (number, required)
+                + quantity: 3 (number, required)
         + custom_fields (array[CustomField], optional)
 
 + Response 200 (application/json;charset=utf-8)
@@ -3351,12 +3351,12 @@ Update a draft work order.
             + (object)
                 + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-                + duration (Duration, required)
+                + duration: 3600 (number, required) - In seconds
                 + description (string, optional)
         + materials (array, optional, nullable)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
-                + quantity: `3` (number, required)
+                + quantity: 3 (number, required)
         + custom_fields (array[CustomField], optional, nullable)
 
 + Response 204
@@ -3432,7 +3432,7 @@ Get a list of work orders.
 
 ### workOrders.info [GET /workOrders.info]
 
-Return info for a single work order.
+Get details for a single work order.
 
 + Request (application/json;charset=utf-8)
 
@@ -3479,14 +3479,14 @@ Return info for a single work order.
                         + type: `user` (string)
                         + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
                     + started_at: `2017-04-26T10:01:49+00:00` (string)
-                    + duration (Duration)
+                    + duration: 3600 (number) - In seconds
                     + description (string)
             + materials (array)
                 + (object)
                     + product (object)
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
-                    + quantity: `3` (number)
+                    + quantity: 3 (number)
             + images (array)
                 + (object)
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
@@ -3861,9 +3861,3 @@ Unregister a webhook.
     + Members
         + km
 + value: `25.2` (number, required)
-
-## Duration (object)
-+ unit: `s` (enum[string], required)
-    + Members
-        + s - Seconds
-+ value: `3600` (number, required)
