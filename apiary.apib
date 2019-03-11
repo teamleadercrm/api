@@ -383,20 +383,20 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### 2019-01-24
 
-- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
+- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.
   From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`, to make this more consistent and interchangeable.
 
-- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
-  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
+- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).
+  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.
   This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
 
-- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
-  - `companies.info`  
-  - `companies.list`  
-  - `companies.add`  
-  - `companies.update`  
-  - `invoices.info`  
-  - `creditNotes.info`  
+- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:
+  - `companies.info`
+  - `companies.list`
+  - `companies.add`
+  - `companies.update`
+  - `invoices.info`
+  - `creditNotes.info`
 
 - An invoice number actually contains the bookyear, so from now on, you will see eg. `2018 / 27` instead of `27`.
   This is reflected in the `invoice_number` property in the `invoices.list` and `invoices.info` endpoints.
@@ -2718,6 +2718,25 @@ Get a list of products.
                         + name: `cookies` (string)
                         + description: `dark chocolate` (string)
                 + external_id: `123` (string)
+
+### products.info [GET /products.info]
+
+Get details for a single product.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+            + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+
+ + Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+            + name: `cookies` (string)
+            + description: `dark chocolate` (string)
+            + code: `1523999er2323712sd1342s333dsdsd38`
+            + purchase_price (Money, nullable)
 
 # Group Projects
 
