@@ -1,0 +1,53 @@
+## Sideloading
+
+Sideloading (or compound documents) allows you to retrieve relevant related items as part of a single request. For example, a deal has a reference to a lead which can either be a contact or a company:
+
+```
+{
+  "data": {
+    "id": "f6871b06-6513-4750-b5e6-ff3503b5a029",
+    "title": "Deal with ACME",
+    "lead": {
+      "customer": {
+        "type": "company",
+        "id": "2659dc4d-444b-4ced-b51c-b87591f604d7"
+      }
+    }
+  }
+}
+```
+
+Relationships are always represented by an object with a type/id combination. All of these relationships are candidates for sideloading.
+
+To sideload relationships, use the dot-notation reference of the relationship's property and add it as an `include` parameter to your JSON body or your URL. In this case of our deal's customer, that would be `include=lead.customer`.
+
+The sideloaded relationships are returned as part of an `included` property in the response body.
+
+```
+{
+  "data": {
+    "id": "f6871b06-6513-4750-b5e6-ff3503b5a029",
+    "title": "Deal with ACME",
+    "lead": {
+      "customer": {
+        "type": "company",
+        "id": "2659dc4d-444b-4ced-b51c-b87591f604d7"
+      }
+    }
+  },
+  "included": {
+    "company": [
+      {
+        "id": "2659dc4d-444b-4ced-b51c-b87591f604d7",
+        "name": "ACME"
+      }
+    ]
+  }
+}
+```
+
+Note that the sideloaded relationships are indexed based on their object type. Use the `type` property from your original relationship object to search for the sideloaded relationship in the `included` section.
+
+Multiple relationships can be sideloaded at the same time by passing them as a comma-separated value such as `include=lead.customer,responsible_user`.
+
+Sideloading is supported on every endpoint which returns objects.

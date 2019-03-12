@@ -1,0 +1,113 @@
+## Project items [/projectItems]
+
+Project items are added to a project and they affect the profitability. This information is only available for account administrators and users with full project admin access.
+
+*Required scopes: `projects`*
+
+### projectItems.list [GET /projectItems.list]
+
+Get a list of project items.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
+            + type: `tracked_time` (enum[string], optional)
+                + Members
+                    + tracked_time
+                    + external_cost_item
+            + milestone_id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + occurred_at
+                        + milestone_name
+                        + unit_cost
+                        + unit_price
+                        + quantity
+                        + cost
+                        + price
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `occurred_at`
+                    + order: `desc`
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string)
+                + project (object)
+                    + type: `project` (string)
+                    + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + type: `tracked_time` (enum[string])
+                    + Members
+                        + tracked_time
+                        + external_cost_item
+                + description: `Drafted the document` (string, nullable)
+                + occurred_at: `2018-11-26T16:44:33+00:00` (string)
+                + participant (object, nullable)
+                    + type: `user` (string)
+                    + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b` (string)
+                + internal_cost_per_unit (Money, nullable)
+                + billable_price_per_unit (Money, nullable)
+                + quantity: `3.25` (number)
+                + unit: `hour` (string, nullable)
+                + total
+                    + internal_cost (Money)
+                    + billable_price (Money)
+                + added_at: `2018-12-04T16:44:33+00:00` (string)
+                + updated_at: `2018-12-05T16:44:33+00:00` (string)
+        + meta (object)
+            + page (Pagination)
+            + matches: `120` (number)
+
+### projectItems.info [GET /projectItems.info]
+
+Get details for a single project item.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string)
+            + project (object)
+                + type: `project` (string)
+                + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+            + milestone (object, nullable)
+                + type: `milestone` (string)
+                + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+            + type: `tracked_time` (enum[string])
+                + Members
+                    + tracked_time
+                    + external_cost_item
+            + description: `Drafted the document` (string, nullable)
+            + occurred_at: `2018-11-26T16:44:33+00:00` (string)
+            + participant (object, nullable)
+                + type: `user` (string)
+                + id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b` (string)
+            + internal_cost_per_unit (Money, nullable)
+            + billable_price_per_unit (Money, nullable)
+            + quantity: `3.25` (number)
+            + unit: `hour` (string, nullable)
+            + total
+                + internal_cost (Money)
+                + billable_price (Money)
+            + added_at: `2018-12-04T16:44:33+00:00` (string)
+            + updated_at: `2018-12-05T16:44:33+00:00` (string)
