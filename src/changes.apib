@@ -50,7 +50,13 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### 2019-03-13
 
+- The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
+  - `invoices.info`
+  - `creditNote.info`
+  - `quotations.info`
 
+- Product `name` and `description` are no longer wrapped in a `translations` object in `/products.list`.
+- Product `external_id` was renamed to `code` in `/products.list`.
 
 #### 2019-01-24
 
