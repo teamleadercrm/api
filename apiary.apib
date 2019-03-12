@@ -388,8 +388,9 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `creditNote.info`
   - `quotations.info`
 
-- Product `name` and `description` are no longer wrapped in a `translations` object in `/products.list`.
-- Product `external_id` was renamed to `code` in `/products.list`.
+- Product `name` and `description` are no longer wrapped in a `translations` object in `/products.list` and `/products.info`.
+- Product `external_id` was renamed to `code` in `/products.list` and `/products.info`.
+- Product prices are no longer returned on `products.info`.
 
 #### 2019-01-24
 
@@ -2739,7 +2740,7 @@ Get details for a single product.
     + Attributes (object)
          + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
 
- + Response 201 (application/json;charset=utf-8)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + data (object)
