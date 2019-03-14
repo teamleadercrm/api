@@ -171,7 +171,7 @@ Example:
 }
 ```
 
-### User Permissions
+### Restricted properties
 
 #### Fetching objects
 
