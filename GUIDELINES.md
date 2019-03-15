@@ -173,15 +173,11 @@ Example:
 
 ### Restricted properties
 
-#### Fetching objects
+When a User don't have permissions to access a specific property the endpoint **MUST**:
 
-When fetching objects if the User has permissions to fetch it but he lacks a specific property permission then that property will not be returned in the response.
-
-#### Creating/Updating objects
-
-A User that has permission to add a Object might not have permissions to certain properties of that object. In the case 
-he tries to add or update a object with a property that he does not have access to, the request will fail and will 
-return a `403` response with a message explaining what caused it.
+ - Not return that **property** in the response.
+ - When updating or creating an Object and it contains that **property**, then the endpoint **MUST** return a `403` error response with an appropriate explanation. The property **MUST** be optional.
+ - The property **MUST** be documented in API docs as ***optional*** for both cases.
 
 ### Date and time
 
