@@ -2625,8 +2625,9 @@ Get a list of products.
  + Request (application/json;charset=utf-8)
 
      + Attributes (object)
-        + name: `cookies` (string, optional)
-        + code: `my product code` (string, optional)
+         + One Of
+             + name: `cookies` (string, required)
+             + code: `my product code` (string, required)
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
 
