@@ -176,7 +176,7 @@ Example:
 When a User doesn't have permissions to access a specific property the endpoint **MUST**:
 
  - Not return that **property** in the response.
- - When updating or creating an Object and it contains that **property**, then the endpoint **MUST** return a `403` error response with an appropriate explanation. The property **MUST** be optional.
+ - When writing to a resource that contains that **property**, the endpoint **MUST** return a `403` error response with an appropriate message.
  - The property **MUST** be documented in API docs as ***optional*** for both cases.
 
 ### Date and time
