@@ -388,8 +388,10 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `creditNote.info`
   - `quotations.info`
 
-- Product `name` and `description` are no longer wrapped in a `translations` object in `/products.list`.
-- Product `external_id` was renamed to `code` in `/products.list`.
+- We simplified the `products.info` and `products.list` endpoints:
+  - `name` and `description` are no longer wrapped in a `translations` object. 
+  - `external_id` was renamed to `code`
+  - `prices` are temporarily no longer returned, to avoid confusion, as they didn't take into account price lists
 
 #### 2019-01-24
 
@@ -2726,9 +2728,28 @@ Get a list of products.
         + data (array)
             + (object)
                 + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
-                + name: `cookies` (string)
-                + description: `dark chocolate` (string)
-                + code: `123` (string)
+                + name: `cookies` (string, nullable)
+                + description: `dark chocolate` (string, nullable)
+                + code: `COOK-DARKCHOC-42` (string, nullable)
+
+### products.info [GET /products.info]
+
+Get details for a single product.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+         + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+            + name: `cookies` (string, nullable)
+            + description: `dark chocolate` (string, nullable)
+            + code: `COOK-DARKCHOC-42` (string, nullable)
+            + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
 
 # Group Projects
 
