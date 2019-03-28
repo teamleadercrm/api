@@ -72,7 +72,7 @@ We try to interpret HTTP Status codes the right way:
  - `204` - No Content, on resource updates or actions
  - `400` - Bad Request, the request contains invalid data or references non-existing resources
  - `401` - Unauthorized, invalid or missing access token
- - `403` - Forbidden, not allowed to access this resource, or a specific property of a resource
+ - `403` - Forbidden, not allowed to access this resource or update a property you are not allowed to change
  - `404` - Not Found, resource not found
  - `429` - Too Many Requests, client has reached the API rate limit
  - `500` - Internal Server Error, something went wrong on our end
