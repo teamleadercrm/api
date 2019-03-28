@@ -11,7 +11,7 @@ Get a list of products.
     + Attributes (object)
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
-            + term: `cookies` (string, optional) - The name and the external id.
+            + term: `cookies` (string, optional) - Will filter on the name or the code.
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -19,8 +19,25 @@ Get a list of products.
         + data (array)
             + (object)
                 + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
-                + translations (array)
-                    + (object)
-                        + name: `cookies` (string)
-                        + description: `dark chocolate` (string)
-                + external_id: `123` (string)
+                + name: `cookies` (string, nullable)
+                + description: `dark chocolate` (string, nullable)
+                + code: `COOK-DARKCHOC-42` (string, nullable)
+
+### products.info [GET /products.info]
+
+Get details for a single product.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+         + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+            + name: `cookies` (string, nullable)
+            + description: `dark chocolate` (string, nullable)
+            + code: `COOK-DARKCHOC-42` (string, nullable)
+            + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
