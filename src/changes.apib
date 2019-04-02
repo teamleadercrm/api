@@ -35,7 +35,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2018-10-30**.
+The current latest version is **2019-03-13**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -47,6 +47,18 @@ _This will only affect the version for those API calls and won't affect any othe
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
+
+#### 2019-03-13
+
+- The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
+  - `invoices.info`
+  - `creditNote.info`
+  - `quotations.info`
+
+- We simplified the `products.info` and `products.list` endpoints:
+  - `name` and `description` are no longer wrapped in a `translations` object. 
+  - `external_id` was renamed to `code`
+  - `prices` are temporarily no longer returned, to avoid confusion, as they didn't take into account price lists
 
 #### 2019-01-24
 
