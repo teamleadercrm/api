@@ -2762,9 +2762,8 @@ Get details for a single product.
  + Request (application/json;charset=utf-8)
 
      + Attributes (object)
-         + One Of
-             + name: `cookies` (string, required)
-             + code: `my product code` (string, required)
+        + name: `cookies` (string, optional) - You need to send name or code or both
+        + code: `my product code` (string, optional) - You need to send name or code or both
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
 
