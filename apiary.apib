@@ -2062,6 +2062,7 @@ Get a list of invoices.
                     + outstanding
                     + matched
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
+            + purchase_order_number: `000023` (string, optional)
             + payment_reference: `+++084/2613/66074+++` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
@@ -2756,6 +2757,29 @@ Get details for a single product.
             + description: `dark chocolate` (string, nullable)
             + code: `COOK-DARKCHOC-42` (string, nullable)
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
+
+### products.add [POST /products.add]
+
+Add a new product.
+
++ Request (application/json;charset=utf-8)
+    + Attributes (object)
+        + One Of
+            + Properties
+                + name: `cookies` (string, required)
+                + code: `COOK-DARKCHOC-42` (string, optional)
+            + Properties
+                + name: `cookies` (string, optional)
+                + code: `COOK-DARKCHOC-42` (string, required)
+        + purchase_price (Money, optional)
+        + selling_price (Money, optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + type: `product` (string)
+            + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
 
 # Group Projects
 
