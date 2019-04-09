@@ -2098,7 +2098,7 @@ Get a list of invoices.
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
                 + purchase_order_number: `000023` (string, nullable)
-                + payment_reference: `+++084/2613/66074+++` (string)
+                + payment_reference: `+++084/2613/66074+++` (string, nullable)
                 + invoicee (object)
                     + name: `De Rode Duivels` (string)
                     + vat_number: `BE0899623035` (string, nullable)
@@ -2229,7 +2229,7 @@ Get details for a single invoice.
                     + paid_at: `2016-03-03T16:44:33+00:00` (string)
                     + payment (object)
                         + Include Money
-            + payment_reference: `+++084/2613/66074+++` (string)
+            + payment_reference: `+++084/2613/66074+++` (string, nullable)
             + note: `'Some extra remarks about the invoice'` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
