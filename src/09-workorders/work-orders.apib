@@ -90,3 +90,14 @@ Add a draft work order.
         + data (object)
             + type: `workOrder` (string)
             + id: `7c1d8672-f502-4333-9ea4-7a45add15115` (string)
+
+### workOrders.finalize [POST /workOrders.finalize]
+
+ Finalize a draft work order by generating the PDF.
+
+ + Request (application/json;charset=utf-8)
+
+     + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+
+ + Response 204
