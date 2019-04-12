@@ -113,3 +113,14 @@ Update a draft work order.
         + location (Address, optional, nullable)
 
 + Response 204
+
+### workOrders.finalize [POST /workOrders.finalize]
+
+Finalize a draft work order. This will also generate the work order PDF.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+       + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+
++ Response 204
