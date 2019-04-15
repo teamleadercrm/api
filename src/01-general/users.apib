@@ -120,3 +120,15 @@ Get details for a single user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
+
+
+### users.updateRates [POST /users.updateRates]
+
+Update user rates used for timetracking
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + user_id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+        + internal_cost (Money, nullable)
+        + billable_price (Money, nullable)
