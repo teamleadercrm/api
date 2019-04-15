@@ -625,6 +625,20 @@ Get details for a single user.
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
 
+
+### users.updateInternalHourlyCost [POST /users.updateInternalHourlyCost]
+
+Update details for a single user.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+        + internal_hourly_cost (object, nullable)
+            + value (Money)
+
++ Response 204 (application/json;charset=utf-8)
+
 ## Custom Fields [/customFieldDefinitions]
 
 Custom fields are used to add additional data/properties to entities within Teamleader.
