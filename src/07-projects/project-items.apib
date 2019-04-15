@@ -123,7 +123,7 @@ Get details for a single project item.
             + updated_at: `2018-12-05T16:44:33+00:00` (string)
 
 
-### projectItems.setParticipantRates [POST /projectItems.setParticipantRates]
+### projectItems.updateInternalRate [POST /projectItems.updateInternalRate]
 
 Set participant user rates for timetracking project items, optionally for a single project
 
@@ -133,7 +133,7 @@ Set participant user rates for timetracking project items, optionally for a sing
         + filter (object, optional)
             + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
         + participant_id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+        + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
         + internal_cost (Money, nullable)
-        + billable_price (Money, nullable)
 
 + Response 204 (application/json;charset=utf-8)
