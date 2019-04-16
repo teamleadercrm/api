@@ -40,6 +40,7 @@ Get a list of project items.
                 + (object)
                     + field: `occurred_at`
                     + order: `desc`
+        + withTotals: false (boolean, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -78,6 +79,10 @@ Get a list of project items.
         + meta (object)
             + page (Pagination)
             + matches: `120` (number)
+            + totals (object, optional) - Only available when withTotals is true in the request parameters
+                + revenue (Money)
+                + costs (Money)
+                + result (Money)
 
 ### projectItems.info [GET /projectItems.info]
 
