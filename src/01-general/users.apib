@@ -124,13 +124,15 @@ Get details for a single user.
 
 ### users.updateRates [POST /users.updateRates]
 
-Update user rates used for timetracking
+Update user rates used for timetracking.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + user_id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
-        + internal_cost (Money, nullable)
-        + billable_price (Money, nullable)
+        + internal_rate (object, nullable)
+            + value (Money)
+        + billable_price (object, nullable)
+            + value (Money)
 
 + Response 204 (application/json;charset=utf-8)
