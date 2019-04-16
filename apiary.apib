@@ -626,15 +626,15 @@ Get details for a single user.
             + time_zone: `Europe/Brussels` (string)
 
 
-### users.update [POST /users.update]
+### users.updateInternalHourlyCost [POST /users.updateInternalHourlyCost]
 
 Update details for a single user.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + user_id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
-        + internal_rate (object, nullable)
+        + id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+        + internal_hourly_cost (object, nullable)
             + value (Money)
 
 + Response 204 (application/json;charset=utf-8)
