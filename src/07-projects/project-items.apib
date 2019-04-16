@@ -122,6 +122,17 @@ Get details for a single project item.
             + added_at: `2018-12-04T16:44:33+00:00` (string)
             + updated_at: `2018-12-05T16:44:33+00:00` (string)
 
+### projectItems.updateCost [POST /projectItems.updateCost]
+
+Update a project item's internal cost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string, required)
+        + internal_cost_per_unit (Money, required, nullable)
+
++ Response 204 (application/json;charset=utf-8)
 
 ### projectItems.updateInternalRate [POST /projectItems.updateInternalRate]
 
