@@ -124,13 +124,12 @@ Get details for a single user.
 
 ### users.updateInternalHourlyCost [POST /users.updateInternalHourlyCost]
 
-Update details for a single user.
+Update the internal hourly cost for a single user.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
-        + internal_hourly_cost (object, nullable)
-            + value (Money)
+        + internal_hourly_cost (Money, nullable)
 
 + Response 204 (application/json;charset=utf-8)
