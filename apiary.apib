@@ -215,7 +215,7 @@ These access tokens are also known as bearer tokens. You can use this token to c
 ```
 GET https://api.teamleader.eu/contacts.list HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
-Accept: application/json;charset=utf-8
+Accept: application/json
 ```
 
 Access tokens expire shortly (usually 1 hour) after they are issued for security reasons. If your integration needs to communicate with our API beyond the access token's lifespan, you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only be used once to get a new access token and refresh token.
@@ -456,7 +456,7 @@ Get a list of departments.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -475,7 +475,7 @@ Get details for a single department.
     + Attributes (object)
         + id: `92296ad0-2d61-4179-b174-9f354ca2157f` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data  (object)
@@ -549,7 +549,7 @@ Get the current authenticated user.
 
 Get a list of all users.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -569,7 +569,7 @@ Get a list of all users.
                     + order: `asc`
         + page (Page, optional)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -633,7 +633,7 @@ Custom fields are used to add additional data/properties to entities within Team
 
 Get a list of all the definitions of custom fields.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + page (Page, optional)
@@ -652,7 +652,7 @@ Get a list of all the definitions of custom fields.
                     + field: `label`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -699,12 +699,12 @@ Get a list of all the definitions of custom fields.
 
 Get info about a specific custom field definition.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `9c64570b-4ec1-4e03-9662-af904f78f7fa` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -754,7 +754,7 @@ Work types define the type of work for events or time tracking. Hourly rates can
 
 Get a list of all work types, sorted alphabetically (on their name).
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -766,7 +766,7 @@ Get a list of all work types, sorted alphabetically (on their name).
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -786,7 +786,7 @@ Contacts are physical entities who are added to your CRM database. Contacts migh
 
 Get a list of contacts.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -817,7 +817,7 @@ Get a list of contacts.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -857,12 +857,12 @@ Get a list of contacts.
 
 Get details for a single contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -919,7 +919,7 @@ Get details for a single contact.
 
 Add a new contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + first_name: `John` (string, optional)
@@ -957,7 +957,7 @@ Add a new contact.
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -968,7 +968,7 @@ Add a new contact.
 
 Update a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
@@ -1013,7 +1013,7 @@ Update a contact.
 
 Delete a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
@@ -1024,7 +1024,7 @@ Delete a contact.
 
 Add a new or existing tag to a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
@@ -1036,7 +1036,7 @@ Add a new or existing tag to a contact.
 
 Remove a tag from a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
@@ -1048,7 +1048,7 @@ Remove a tag from a contact.
 
 Link a contact to a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `75596038-b9c8-4a37-969d-61059e300a28` (string, required)
@@ -1062,7 +1062,7 @@ Link a contact to a company.
 
 Unlink a contact from a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b4b3160a-b55e-4033-bdae-25b6d22949b4` (string, required)
@@ -1080,7 +1080,7 @@ Companies are legal entities, usually linked to a VAT and/or local business numb
 
 Get a list of companies.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1110,7 +1110,7 @@ Get a list of companies.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -1151,12 +1151,12 @@ Get a list of companies.
 
 Get details for a single company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1207,7 +1207,7 @@ Get details for a single company.
 
 Add a new company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + name: `Pied Piper` (string, required)
@@ -1241,7 +1241,7 @@ Add a new company.
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1252,7 +1252,7 @@ Add a new company.
 
 Update a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4784189d-610b-4488-b3a5-5f324f752417` (string, required)
@@ -1292,7 +1292,7 @@ Update a company.
 
 Delete a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `f3d67f3e-b8a9-45e8-99b1-17a3b14de8a6` (string, required)
@@ -1303,7 +1303,7 @@ Delete a company.
 
 Add a new or existing tag to a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
@@ -1315,7 +1315,7 @@ Add a new or existing tag to a company.
 
 Remove a tag from a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
@@ -1331,12 +1331,12 @@ Each country has a specific set of business types or range of legal entities. Yo
 
 Get the names of business types (legal structures) a company can have within a certain country, sorted alphabetically.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + country: `BE` (string, optional)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array[object])
@@ -1352,7 +1352,7 @@ Tags are used to label contacts or companies, so that they can easily be filtere
 
 Get a list of tags.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + page (Page, optional)
@@ -1369,7 +1369,7 @@ Get a list of tags.
                     + field: `tag`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -1384,13 +1384,13 @@ We provide a set of data which can be used to build addresses.
 
 Get a list of level two areas (which correspond to provinces, departments or states in most countries).
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + country: `BE` (string, required)
         + language: `nl` (string, optional) - if not passed, the name is returned in the primary language of the country
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array[object])
@@ -1410,7 +1410,7 @@ Deals are sale opportunities, which need to be followed up by their responsible 
 
 Get a list of deals.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1440,7 +1440,7 @@ Get a list of deals.
                     + order: `desc`
 
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -1488,12 +1488,12 @@ Get a list of deals.
 
 Get details for a single deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1553,7 +1553,7 @@ Get details for a single deal.
 
 Create a new deal for a customer.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + lead (object, required)
@@ -1574,7 +1574,7 @@ Create a new deal for a customer.
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1585,7 +1585,7 @@ Create a new deal for a customer.
 
 Update a deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
@@ -1612,7 +1612,7 @@ Update a deal.
 
 Move the deal to a different phase.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
@@ -1624,7 +1624,7 @@ Move the deal to a different phase.
 
 Mark a deal as won.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
@@ -1635,7 +1635,7 @@ Mark a deal as won.
 
 Mark a deal as lost.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
@@ -1648,7 +1648,7 @@ Mark a deal as lost.
 
 Delete a deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
@@ -1659,7 +1659,7 @@ Delete a deal.
 
 Get a list of lost reasons for deals.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + page (Page, optional)
@@ -1676,7 +1676,7 @@ Get a list of lost reasons for deals.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -1694,14 +1694,14 @@ Deal phases are the different phases a deal typically goes through. A deal can b
 
 Get a list of all phases a deal can go through, sorted by their order in the flow.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
             + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
         + page (Page, optional)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -1719,7 +1719,7 @@ Deal sources are used to track the origin of a deal.
 
 Get a list of all deal sources, sorted alphabetically (on name)
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1731,7 +1731,7 @@ Get a list of all deal sources, sorted alphabetically (on name)
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -1749,12 +1749,12 @@ A quotation is a sales offer for a specific customer. It is always attached to a
 
 Get a quotation
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1797,7 +1797,7 @@ Get a quotation
 
 Download a quotation in a specific format.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
@@ -1805,7 +1805,7 @@ Download a quotation in a specific format.
             + Members
                 + pdf
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1824,7 +1824,7 @@ Calendar events are scheduled events in your calendar. A calendar event involves
 
 Get a list of calendar events.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1859,7 +1859,7 @@ Get a list of calendar events.
                     + field: starts_at
                     + order: asc
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -1899,12 +1899,12 @@ Get a list of calendar events.
 
 Get details for a single calendar event.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1942,7 +1942,7 @@ Get details for a single calendar event.
 
 Create a new calendar event.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes
         + title: `Meeting with stakeholders` (string, required)
@@ -1967,7 +1967,7 @@ Create a new calendar event.
                         + contact
                 + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -1978,7 +1978,7 @@ Create a new calendar event.
 
 Update a calendar event.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes
         + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
@@ -2009,7 +2009,7 @@ Update a calendar event.
 
 Cancel a calendar event (for all attendees).
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b519491e-ca80-4efb-bb7b-3f08544936b0` (string, required)
@@ -2024,14 +2024,14 @@ Activity types identify the different types of events that take place within you
 
 Get a list of all activity types.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
             + ids: `7fcf5609-25fe-47e2-97b2-dbd9c817796e`,`366b6100-7005-4b1b-a16a-7e88f445f496` (array[string], optional)
         + page (Page, optional)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2051,7 +2051,7 @@ Teamleader provides a whole set of endpoints to make it easy to develop integrat
 
 Get a list of invoices.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -2078,7 +2078,7 @@ Get a list of invoices.
                     + field: `invoice_number`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2126,12 +2126,12 @@ Get a list of invoices.
 
 Get details for a single invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2243,7 +2243,7 @@ Get details for a single invoice.
 
 Download an invoice in a specific format.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
@@ -2251,7 +2251,7 @@ Download an invoice in a specific format.
             + Members
                 + pdf
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2262,7 +2262,7 @@ Download an invoice in a specific format.
 
 Draft a new invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + invoicee (object, required)
@@ -2312,7 +2312,7 @@ Draft a new invoice.
         + note: `Invoice comments` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2323,7 +2323,7 @@ Draft a new invoice.
 
 Update an invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
@@ -2379,12 +2379,12 @@ Update an invoice.
 
 Creates a new draft invoice based on another invoice
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2395,7 +2395,7 @@ Creates a new draft invoice based on another invoice
 
 Book a draft invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
@@ -2407,7 +2407,7 @@ Book a draft invoice.
 
 Delete an existing invoice. Only possible for draft invoices or the last booked invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
@@ -2418,7 +2418,7 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
 Register a payment for an invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
@@ -2438,7 +2438,7 @@ Credit notes are created when certain products or services are not delivered acc
 
 List credit notes
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -2458,7 +2458,7 @@ List credit notes
                     + field: `credit_note_number`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2499,12 +2499,12 @@ List credit notes
 
 Get details for a single credit note
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2584,7 +2584,7 @@ Get details for a single credit note
 
 Download a credit note in a specific format.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
@@ -2592,7 +2592,7 @@ Download a credit note in a specific format.
             + Members
                 + pdf
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2607,7 +2607,7 @@ Tax rates provide an overview of different taxation rates used to bill customers
 
 Get a list of available tax rates.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
 + Attributes (object)
     + filter (object, optional)
@@ -2626,7 +2626,7 @@ Get a list of available tax rates.
                     + field: `description`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2646,9 +2646,9 @@ Payment terms are the conditions under which an invoice need to be paid.
 
 Get a list of available payment terms.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2664,13 +2664,13 @@ Withholding tax rates provide an overview of different taxation rates used to bi
 
 Get a list of available withholding tax rates.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
 + Attributes (object)
     + filter (object, optional)
         + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2694,13 +2694,13 @@ Product categories are used to group specific products. They can be linked to a 
 
 Get a list of product categories.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2722,14 +2722,14 @@ Get a list of product categories.
 
 Get a list of products.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
             + term: `cookies` (string, optional) - Will filter on the name or the code.
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2743,12 +2743,12 @@ Get a list of products.
 
 Get details for a single product.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
          + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2762,7 +2762,7 @@ Get details for a single product.
 
 Add a new product.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
     + Attributes (object)
         + One Of
             + Properties
@@ -2774,7 +2774,7 @@ Add a new product.
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2793,7 +2793,7 @@ Projects allow users to work together as a team on a single project. They consis
 
 Get a list of projects.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -2825,7 +2825,7 @@ Get a list of projects.
                     + field: `due_on`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -2854,12 +2854,12 @@ Get a list of projects.
 
 Get details for a single project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2905,7 +2905,7 @@ Get details for a single project.
 
 Create a new project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + title: `New company website` (string, required)
@@ -2933,7 +2933,7 @@ Create a new project.
                     + company
             + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -2945,7 +2945,7 @@ Create a new project.
 
 Update a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
@@ -2959,26 +2959,26 @@ Update a project.
                 + cancelled
         + starts_on: `2016-02-04` (string, required)
 
-+ Response 204 (application/json;charset=utf-8)
++ Response 204 (application/json)
 
 
 ### projects.delete [POST /projects.delete]
 
 Delete a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json;charset=utf-8)
++ Response 204 (application/json)
 
 
 ### projects.addParticipant [POST /projects.addParticipant]
 
 Add a participant to a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `8dbfa9db-c53f-410c-97d3-755b19685809` (string, required)
@@ -2998,7 +2998,7 @@ Add a participant to a project.
 
 Update a participant's role for a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `55fbe14f-7399-48e5-b4e0-64b7f5c50451` (string, required)
@@ -3022,7 +3022,7 @@ Every projects consists of one or more milestones which are limited in time and 
 
 Get a list of project milestones.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -3048,7 +3048,7 @@ Get a list of project milestones.
                     + field: `due_on`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -3076,12 +3076,12 @@ Get a list of project milestones.
 
 Get details for a single milestone.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `64349fa2-6ca2-4b19-82e6-d3258ceab2d8` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3103,7 +3103,7 @@ Get details for a single milestone.
 
 Create a new milestone.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
@@ -3111,7 +3111,7 @@ Create a new milestone.
         + name: `Initial setup` (string, required)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3122,7 +3122,7 @@ Create a new milestone.
 
 Update a milestone.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
@@ -3130,7 +3130,7 @@ Update a milestone.
         + name: `Initial setup` (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
 
-+ Response 204 (application/json;charset=utf-8)
++ Response 204 (application/json)
 
 # Group Tasks
 
@@ -3140,7 +3140,7 @@ Update a milestone.
 
 Get a list of tasks.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -3160,7 +3160,7 @@ Get a list of tasks.
                     + field: `due_at`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -3189,12 +3189,12 @@ Get a list of tasks.
 
 Get information about a task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3222,7 +3222,7 @@ Get information about a task.
 
 Create a new task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + description (string, required)
@@ -3240,7 +3240,7 @@ Create a new task.
                     + team
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3251,7 +3251,7 @@ Create a new task.
 
 Update a task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
@@ -3276,7 +3276,7 @@ Update a task.
 
 Delete a task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
@@ -3584,7 +3584,7 @@ Update the current timer. Only possible if there is a timer running.
 
 Add a draft work order.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
        + customer (object, required)
@@ -3604,7 +3604,7 @@ Add a draft work order.
                + quantity: 3 (number, required)
        + location (Address, optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3622,7 +3622,7 @@ Their only use is to allow older integrations to migrate their data to the new A
 
 Translates an ID from the deprecated API into a new UUID.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + type: `contact` (enum[string])
@@ -3674,7 +3674,7 @@ Translates an ID from the deprecated API into a new UUID.
 
 Translates tax rates from the deprecated API into a new UUID tax rate.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + department_id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
@@ -3691,7 +3691,7 @@ Translates tax rates from the deprecated API into a new UUID tax rate.
 
 Translates "meeting", "call" and "task" into their respective activity type UUID.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + type: `meeting` (enum[string])
@@ -3713,7 +3713,7 @@ Translates "meeting", "call" and "task" into their respective activity type UUID
 
 Register a new webhook.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (WebHook)
 
@@ -3723,9 +3723,9 @@ Register a new webhook.
 
 List registered webhooks ordered by URL.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array[WebHook])
@@ -3734,7 +3734,7 @@ List registered webhooks ordered by URL.
 
 Unregister a webhook.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (WebHook)
 
