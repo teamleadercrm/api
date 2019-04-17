@@ -230,13 +230,13 @@ Update a participant's role for a project.
 
 ### projects.updateInternalHourlyCost [POST /projects.updateInternalHourlyCost]
 
-Updates the internal hourly cost for a participant for one project, or all projects.
+Updates the internal hourly cost for a participant for one project.
 This does not update the global internal rate of the employee. See `users.updateInternalHourlyCost`.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional) - If there is no specific project id, update for all projects
+        + id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, required)
         + participant_id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
         + internal_hourly_cost (Money, nullable)
 
