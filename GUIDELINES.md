@@ -79,7 +79,7 @@ We try to interpret HTTP Status codes the right way:
 
 ### Content-Type & Accept headers
 
- - `application/json` or `application/json` for request accept headers
+ - `application/json` for request accept headers
  - `application/json` for response content-type headers
 
 ## Response format
