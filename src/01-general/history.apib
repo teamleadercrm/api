@@ -14,3 +14,25 @@ Retrieve a list of records about an item.
                          + contact
                          + company
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + title: `Marc was on a call with John from this company` (string)
+                + description: `An extended description` (string)
+                + recorded_at: `2017-05-09T11:25:11+00:00` (string)
+                + relates_to (object)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + contact
+                                + company
+                                + deal
+                                + invoice
+                                + meeting
+                                + call
+                                + timeTracking
+                         + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
