@@ -7,7 +7,7 @@ Their only use is to allow older integrations to migrate their data to the new A
 
 Translates an ID from the deprecated API into a new UUID.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + type: `contact` (enum[string])
@@ -59,7 +59,7 @@ Translates an ID from the deprecated API into a new UUID.
 
 Translates tax rates from the deprecated API into a new UUID tax rate.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + department_id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
@@ -76,7 +76,7 @@ Translates tax rates from the deprecated API into a new UUID tax rate.
 
 Translates "meeting", "call" and "task" into their respective activity type UUID.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + type: `meeting` (enum[string])

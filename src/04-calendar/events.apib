@@ -8,7 +8,7 @@ Calendar events are scheduled events in your calendar. A calendar event involves
 
 Get a list of calendar events.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -43,7 +43,7 @@ Get a list of calendar events.
                     + field: starts_at
                     + order: asc
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -83,12 +83,12 @@ Get a list of calendar events.
 
 Get details for a single calendar event.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -126,7 +126,7 @@ Get details for a single calendar event.
 
 Create a new calendar event.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes
         + title: `Meeting with stakeholders` (string, required)
@@ -151,7 +151,7 @@ Create a new calendar event.
                         + contact
                 + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -162,7 +162,7 @@ Create a new calendar event.
 
 Update a calendar event.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes
         + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
@@ -193,7 +193,7 @@ Update a calendar event.
 
 Cancel a calendar event (for all attendees).
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b519491e-ca80-4efb-bb7b-3f08544936b0` (string, required)

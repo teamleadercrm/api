@@ -8,7 +8,7 @@ Project items are added to a project and they affect the profitability. This inf
 
 Get a list of project items.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -42,7 +42,7 @@ Get a list of project items.
                     + field: `occurred_at`
                     + order: `desc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -84,12 +84,12 @@ Get a list of project items.
 
 Get details for a single project item.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -127,10 +127,10 @@ Get details for a single project item.
 
 Update a project item's internal cost.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string, required)
         + internal_cost_per_unit (Money, required, nullable)
 
-+ Response 204 (application/json;charset=utf-8)
++ Response 204 (application/json)
