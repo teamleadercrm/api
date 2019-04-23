@@ -3612,6 +3612,11 @@ Get details for a single work order.
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: 3 (number)
+            + images (array) - Only included with request parameter `includes=images`.
+                + (object)
+                    + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
+                    + location: `https://cdn.teamleader.eu/file` (string) - A temporary URL where the image can be downloaded.
+                    + expires: `2019-05-09T13:12:42+00:00` (string) - Expiration time of the temporary download URL.
 
 ### workOrders.draft [POST /workOrders.draft]
 
