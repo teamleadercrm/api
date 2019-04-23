@@ -3701,6 +3701,17 @@ Finalize a draft work order. This will also generate the work order PDF.
 
 + Response 204
 
+### workOrders.send [POST /workOrders.send]
+
+Send a finalized work order to the customer.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+
++ Response 204
+
 # Group Other
 
 ## Migrating [/migrate]
