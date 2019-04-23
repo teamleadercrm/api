@@ -19,3 +19,14 @@ Get a list of all invites that have been sent.
             + email: `john@teamleader.eu` (string)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + expires_at: `2017-05-12T11:25:11+00:00` (string)
+
+### invites.cancel [GET /invites.cancel]
+
+Cancel an invite.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+
++ Response 204
