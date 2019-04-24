@@ -118,6 +118,12 @@ Update a draft work order.
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
         + location (Address, optional, nullable)
+        + time (array, optional)
+            + (object)
+                + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+                + description (string, optional)
         + materials (array, optional)
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
