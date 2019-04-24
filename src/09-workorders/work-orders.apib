@@ -52,6 +52,11 @@ Get details for a single work order.
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: 3 (number)
+            + images (array) - Only included with request parameter `includes=images`.
+                + (object)
+                    + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
+                    + location: `https://cdn.teamleader.eu/file` (string) - A temporary URL where the image can be downloaded.
+                    + expires: `2019-05-09T13:12:42+00:00` (string) - Expiration time of the temporary download URL.
             + created_at: `2019-05-09T11:25:11+00:00` (string)
             + updated_at: `2019-05-09T11:30:58+00:00` (string)
 
@@ -74,6 +79,7 @@ Add a draft work order.
        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
        + location (Address, optional)
+       + distance (Distance, optional)
        + time (array, optional)
            + (object)
                + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
@@ -91,3 +97,52 @@ Add a draft work order.
         + data (object)
             + type: `workOrder` (string)
             + id: `7c1d8672-f502-4333-9ea4-7a45add15115` (string)
+
+### workOrders.update [POST /workOrders.update]
+
+Update a draft work order.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+        + customer (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
+        + starts_at: `2017-05-26T10:01:49+00:00` (string, optional)
+        + description: `Pipework intervention` (string, optional, nullable)
+        + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, optional, nullable)
+        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
+        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
+        + location (Address, optional, nullable)
+        + materials (array, optional)
+            + (object)
+                + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
+                + quantity: `2.2` (number, required)
+
++ Response 204
+
+### workOrders.finalize [POST /workOrders.finalize]
+
+Finalize a draft work order. This will also generate the work order PDF.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+       + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+
++ Response 204
+
+### workOrders.send [POST /workOrders.send]
+
+Send a finalized work order to the customer.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+
++ Response 204
