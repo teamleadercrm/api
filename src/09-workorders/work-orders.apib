@@ -119,6 +119,18 @@ Update a draft work order.
 
 + Response 204
 
+### workOrders.sign [POST /workOrders.sign]
+
+Sign a draft work order.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+        + signature: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
+
++ Response 204
+
 ### workOrders.finalize [POST /workOrders.finalize]
 
 Finalize a draft work order. This will also generate the work order PDF.
