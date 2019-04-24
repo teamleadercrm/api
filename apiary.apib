@@ -3585,17 +3585,18 @@ Get details for a single work order.
                         + company
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
             + starts_at: `2017-05-26T10:01:49+00:00` (string)
-            + description: `Pipework intervention` (string)
-            + department (object)
+            + description: `Pipework intervention` (string, nullable)
+            + department (object, nullable)
                 + type: `department` (string)
                 + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
-            + milestone (object)
+            + milestone (object, nullable)
                 + type: `milestone` (string)
                 + id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string)
-            + event (object)
+            + event (object, nullable)
                 + type: `event` (string)
                 + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-            + location (Address)
+            + location (Address, nullable)
+            + distance (Distance, nullable)
             + signed: false (boolean)
             + created_at: `2019-05-09T11:25:11+00:00` (string)
             + updated_at: `2019-05-09T11:30:58+00:00` (string)
@@ -3618,6 +3619,8 @@ Get details for a single work order.
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
                     + location: `https://cdn.teamleader.eu/file` (string) - A temporary URL where the image can be downloaded.
                     + expires: `2019-05-09T13:12:42+00:00` (string) - Expiration time of the temporary download URL.
+            + created_at: `2019-05-09T11:25:11+00:00` (string)
+            + updated_at: `2019-05-09T11:30:58+00:00` (string)
 
 ### workOrders.draft [POST /workOrders.draft]
 
@@ -3638,6 +3641,7 @@ Add a draft work order.
        + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
        + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
        + location (Address, optional)
+       + distance (Distance, optional)
        + time (array, optional)
            + (object)
                + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
@@ -3676,6 +3680,16 @@ Update a draft work order.
         + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional, nullable)
         + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional, nullable)
         + location (Address, optional, nullable)
+        + time (array, optional)
+            + (object)
+                + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+                + description (string, optional)
+        + materials (array, optional)
+            + (object)
+                + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
+                + quantity: `2.2` (number, required)
 
 + Response 204
 
@@ -3972,3 +3986,9 @@ Unregister a webhook.
         + timeTracking.deleted
         + timeTracking.updated
         + user.deactivated
+
+## Distance (object)
++ unit: `km` (enum[string], required)
+    + Members
+        + km
++ value: 25 (number, required) - Value for the distance as a positive integer
