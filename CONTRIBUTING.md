@@ -44,7 +44,7 @@ We have documented our [API Design Guidelines](GUIDELINES.md). Please follow the
 
 ## Changelog
 
-In every pull request, the essence of the change or addition, should be documented respectively in the [changes](./src/changes-backward-incompatible.apib) or the [additions](./src/changes-backwards-compatible.apib).
+In every pull request, the essence of the change or addition, should be documented respectively in the [changes](./src/changes-backwards-incompatible.apib) or the [additions](./src/changes-backwards-compatible.apib).
 
 For additions, we "archive" them per month, so if you start a new month, group the old records under a month header.
 
