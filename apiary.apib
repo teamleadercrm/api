@@ -3563,12 +3563,12 @@ Update the current timer. Only possible if there is a timer running.
 
 Get details for a single work order.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3624,7 +3624,7 @@ Get details for a single work order.
 
 Add a draft work order.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
        + customer (object, required)
@@ -3651,7 +3651,7 @@ Add a draft work order.
                + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                + quantity: 3 (number, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3662,7 +3662,7 @@ Add a draft work order.
 
 Update a draft work order.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
@@ -3695,13 +3695,13 @@ Update a draft work order.
 
 Attach an image to a draft work order.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
         + image: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8AAAASUVORK5CYII=` (string, required) - PNG image, base64 encoded
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -3724,7 +3724,7 @@ Delete an attached image from a draft work order.
 
 Finalize a draft work order with an optional signature. This will also generate the work order PDF.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
@@ -3736,12 +3736,31 @@ Finalize a draft work order with an optional signature. This will also generate 
 
 Send a finalized work order to the customer.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
 
 + Response 204
+
+### workOrders.download [POST /workOrders.download]
+
+Download a work order in a specific format.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
 
 # Group Other
 
