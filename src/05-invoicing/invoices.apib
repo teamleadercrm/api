@@ -8,7 +8,7 @@ Teamleader provides a whole set of endpoints to make it easy to develop integrat
 
 Get a list of invoices.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -33,7 +33,7 @@ Get a list of invoices.
                     + field: `invoice_number`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -79,12 +79,12 @@ Get a list of invoices.
 
 Get details for a single invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -194,7 +194,7 @@ Get details for a single invoice.
 
 Download an invoice in a specific format.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
@@ -202,7 +202,7 @@ Download an invoice in a specific format.
             + Members
                 + pdf
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -213,7 +213,7 @@ Download an invoice in a specific format.
 
 Draft a new invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + invoicee (object, required)
@@ -262,7 +262,7 @@ Draft a new invoice.
         + note: `Invoice comments` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -273,7 +273,7 @@ Draft a new invoice.
 
 Update an invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
@@ -328,12 +328,12 @@ Update an invoice.
 
 Creates a new draft invoice based on another invoice
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -344,7 +344,7 @@ Creates a new draft invoice based on another invoice
 
 Book a draft invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)
@@ -356,7 +356,7 @@ Book a draft invoice.
 
 Delete an existing invoice. Only possible for draft invoices or the last booked invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `7517d21c-75c1-4b89-8956-0e67f46c8532` (string, required)
@@ -367,7 +367,7 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
 Register a payment for an invoice.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `7abb325c-e063-42a4-8fb4-1b730759645a` (string, required)

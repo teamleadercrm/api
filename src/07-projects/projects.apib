@@ -8,7 +8,7 @@ Projects allow users to work together as a team on a single project. They consis
 
 Get a list of projects.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -40,7 +40,7 @@ Get a list of projects.
                     + field: `due_on`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -69,12 +69,12 @@ Get a list of projects.
 
 Get details for a single project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -120,7 +120,7 @@ Get details for a single project.
 
 Create a new project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + title: `New company website` (string, required)
@@ -148,7 +148,7 @@ Create a new project.
                     + company
             + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -160,7 +160,7 @@ Create a new project.
 
 Update a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
@@ -174,26 +174,26 @@ Update a project.
                 + cancelled
         + starts_on: `2016-02-04` (string, required)
 
-+ Response 204 (application/json;charset=utf-8)
++ Response 204 (application/json)
 
 
 ### projects.delete [POST /projects.delete]
 
 Delete a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json;charset=utf-8)
++ Response 204 (application/json)
 
 
 ### projects.addParticipant [POST /projects.addParticipant]
 
 Add a participant to a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `8dbfa9db-c53f-410c-97d3-755b19685809` (string, required)
@@ -213,7 +213,7 @@ Add a participant to a project.
 
 Update a participant's role for a project.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `55fbe14f-7399-48e5-b4e0-64b7f5c50451` (string, required)
