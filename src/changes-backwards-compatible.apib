@@ -6,23 +6,23 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
-- In `users.list` you can also request deactivated users, by using a new filter on `status`.
-  By default, the endpoint keeps only returning active users. The status is also returned in the response.
+- In `users.list` you can also request deactivated users, by using a new filter on `status`.  
+  By default, the endpoint keeps returning active users only. The status is also returned in the response data.
 
-- We've added a `products.add` endpoint.
-  Because you can provide the selling price of a product in this endpoint, we also return it in `products.info`.
+- We've added a `products.add` endpoint.  
+  Because you can provide the selling price of a product in this endpoint, we also return it in `products.info` from now on.
 
-- On `invoices.draft` and `invoices.update` you can now also provide (a) global discount(s).
+- On `invoices.draft` and `invoices.update` you can now also provide (a) global discount(s) through the `discounts` property.
 
-- We now also return the payment reference of an invoice in the `invoices.list`.
+- We now also return the `payment_reference` of an invoice in the `invoices.list`.  
   We also made it filterable through the `payment_reference` filter.
 
-- We added the purchase order number to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).
+- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
   The property is also filterable through the `purchose_order_number` filter.
 
 - We've published a bunch of `tasks` endpoints (`tasks.list`, `tasks.info`, `tasks.create`, `tasks.update`, `tasks.delete`).
 
-- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.
+- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
 
 #### March 2019
