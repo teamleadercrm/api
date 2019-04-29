@@ -46,6 +46,6 @@ We have documented our [API Design Guidelines](GUIDELINES.md). Please follow the
 
 In every pull request, the essence of the change or addition, should be documented respectively in the [changes](./src/changes-backwards-incompatible.apib) or the [additions](./src/changes-backwards-compatible.apib).
 
-For additions, we "archive" them per month, so if you start a new month, group the old records under a month header.
+For additions, we list them per month, so if you start a new month, group the old records under a month header.
 
 Changes are grouped under the version number, so make sure the current latest version is updated in the **[Upgrading your API version](https://github.com/teamleadercrm/api/blob/master/src/changes.apib)** section.
