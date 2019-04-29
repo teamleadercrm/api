@@ -625,6 +625,54 @@ Get details for a single user.
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
 
+### users.invite [POST /users.invite]
+
+Invite a single user to your account
+
++ Request (application/json)
+
+    + Attributes (object)
+        + first_name: `john` (string, required)
+        + last_name: `doe` (string, required)
+        + email: `john@teamleader.eu` (string, required)
+
++ Response 204
+
+## Invites [/userInvites]
+
+*Required scopes: `users`*
+
+### invites.list [GET /userInvites.list]
+
+Get a list of all invites that have been sent.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + email: `john@teamleader.eu` (string, optional)
+
++ Response 200 (application/json)
+    + Attributes
+        + data (object)
+            + id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string)
+            + first_name: `john` (string)
+            + last_name: `doe` (string)
+            + email: `john@teamleader.eu` (string)
+            + invited_at: `2017-05-09T11:25:11+00:00` (string)
+            + expires_at: `2017-05-12T11:25:11+00:00` (string)
+
+### invites.cancel [GET /userInvites.cancel]
+
+Cancel an invite.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+
++ Response 204
+
 ## Custom Fields [/customFieldDefinitions]
 
 Custom fields are used to add additional data/properties to entities within Teamleader.
