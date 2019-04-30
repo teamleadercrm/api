@@ -370,6 +370,12 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We've added a `userInvites.list` endpoint.
+  To list all invited users. It's also possible to filter out by email address.
+
+- We've added a `userInvites.cancel` endpoint.
+  To cancel an invite that was not yet accepted by the user.
+
 - In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
   By default, the endpoint keeps returning active users only. The status is also returned in the response data.
 
