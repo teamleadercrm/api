@@ -1,0 +1,28 @@
+<a name="additions"></a>
+### Additions
+
+We list all backwards-compatible additions here. These are currently available in all published versions.
+(There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
+
+#### Latest
+
+- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
+  By default, the endpoint keeps returning active users only. The status is also returned in the response data.
+
+- We've added a `products.add` endpoint.  
+  Because you can provide the selling price of a product in this endpoint, we also return it in `products.info` from now on.
+
+- We now also return the `payment_reference` of an invoice in the `invoices.list`.  
+  We also made it filterable through the `payment_reference` filter.
+
+- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
+  The property is also filterable through the `purchose_order_number` filter.
+
+#### March 2019
+
+- On `invoices.draft` and `invoices.update` you can now also provide (a) global discount(s) through the `discounts` property.
+
+- We've published a bunch of `tasks` endpoints (`tasks.list`, `tasks.info`, `tasks.create`, `tasks.update`, `tasks.delete`).
+
+- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
+  That is `quotations.info`, `invoices.info` and `creditNotes.info`.

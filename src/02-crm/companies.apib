@@ -8,7 +8,7 @@ Companies are legal entities, usually linked to a VAT and/or local business numb
 
 Get a list of companies.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -38,7 +38,7 @@ Get a list of companies.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -79,12 +79,12 @@ Get a list of companies.
 
 Get details for a single company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -135,7 +135,7 @@ Get details for a single company.
 
 Add a new company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + name: `Pied Piper` (string, required)
@@ -169,7 +169,7 @@ Add a new company.
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -180,7 +180,7 @@ Add a new company.
 
 Update a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4784189d-610b-4488-b3a5-5f324f752417` (string, required)
@@ -220,7 +220,7 @@ Update a company.
 
 Delete a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `f3d67f3e-b8a9-45e8-99b1-17a3b14de8a6` (string, required)
@@ -231,7 +231,7 @@ Delete a company.
 
 Add a new or existing tag to a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
@@ -243,7 +243,7 @@ Add a new or existing tag to a company.
 
 Remove a tag from a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)

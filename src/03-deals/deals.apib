@@ -8,7 +8,7 @@ Deals are sale opportunities, which need to be followed up by their responsible 
 
 Get a list of deals.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -38,7 +38,7 @@ Get a list of deals.
                     + order: `desc`
 
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -86,12 +86,12 @@ Get a list of deals.
 
 Get details for a single deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -151,7 +151,7 @@ Get details for a single deal.
 
 Create a new deal for a customer.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + lead (object, required)
@@ -172,7 +172,7 @@ Create a new deal for a customer.
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -183,7 +183,7 @@ Create a new deal for a customer.
 
 Update a deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
@@ -210,7 +210,7 @@ Update a deal.
 
 Move the deal to a different phase.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
@@ -222,7 +222,7 @@ Move the deal to a different phase.
 
 Mark a deal as won.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
@@ -233,7 +233,7 @@ Mark a deal as won.
 
 Mark a deal as lost.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
@@ -246,7 +246,7 @@ Mark a deal as lost.
 
 Delete a deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
@@ -257,7 +257,7 @@ Delete a deal.
 
 Get a list of lost reasons for deals.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + page (Page, optional)
@@ -274,7 +274,7 @@ Get a list of lost reasons for deals.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
