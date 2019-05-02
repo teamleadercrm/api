@@ -3567,12 +3567,11 @@ Get a list of work orders.
 
     + Attributes (object)
         + filter (object, optional)
-            + state: `draft`, `sent` (array[string], optional) - The states you want to filter by
-                + (enum[string], required)
-                    + Members
-                        + draft
-                        + finalized
-                        + sent
+            + state (array[enum[string]], optional)
+                + Members
+                    + draft
+                    + finalized
+                    + sent
         + page (Page, optional)
         + sort (array, optional)
             + (object)
