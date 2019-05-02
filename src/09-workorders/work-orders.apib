@@ -1,5 +1,61 @@
 ## Work Orders [/workOrders]
 
+### workOrders.list [GET /workOrders.list]
+
+Get a list of work orders.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + starts_at
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `starts_at`
+                    + order: `asc`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string)
+                + state (enum[string])
+                    + Members
+                        + draft
+                        + finalized
+                        + sent
+                + customer (object)
+                    + type (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string)
+                + starts_at: `2019-05-08T10:12:01+00:00` (string)
+                + description: `Pipework intervention` (string, nullable)
+                + department (object, nullable)
+                    + type: `department` (string)
+                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string)
+                + event (object, nullable)
+                    + type: `event` (string)
+                    + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
+                + location (Address, nullable)
+                + distance (Distance, nullable)
+                + signed: false (boolean)
+                + created_at: `2019-05-09T11:25:11+00:00` (string)
+                + updated_at: `2019-05-09T11:30:58+00:00` (string)
+
 ### workOrders.info [GET /workOrders.info]
 
 Get details for a single work order.
