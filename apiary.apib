@@ -3566,6 +3566,12 @@ Get a list of work orders.
 + Request (application/json)
 
     + Attributes (object)
+        + filter (object, optional)
+            + state (array[enum[string]], optional)
+                + Members
+                    + draft
+                    + finalized
+                    + sent
         + page (Page, optional)
         + sort (array, optional)
             + (object)
