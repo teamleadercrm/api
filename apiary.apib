@@ -370,6 +370,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We've added a `userInvites.resend` endpoint.
+  Since the user invite might have expired or the user deleted the email we added this endpoint to allow to resend the invite again.
+
 - We've added a `userInvites.list` endpoint.
   To list all invited users. It's also possible to filter out by email address.
 
@@ -717,6 +720,22 @@ Cancel a user invite.
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
 
 + Response 204
+
+### userInvites.resend [GET /userInvites.resend]
+
+Resend a user invite.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `user-invite` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
 
 ## Custom Fields [/customFieldDefinitions]
 
