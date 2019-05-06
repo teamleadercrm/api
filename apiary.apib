@@ -3774,11 +3774,22 @@ Attach an image to a draft work order.
 
 Delete an attached image from a draft work order.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
        + file_id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string, required)
+
++ Response 204
+
+### workOrders.delete [POST /workOrders.delete]
+
+Delete a draft work order.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
 
 + Response 204
 
