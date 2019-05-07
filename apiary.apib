@@ -2474,6 +2474,23 @@ Register a payment for an invoice.
 
 + Response 204
 
+### invoices.credit [POST /invoices.credit]
+
+Credit an invoice completely.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + credit_note_date: `2016-02-04` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
+
 ## Credit Notes [/creditNotes]
 
 Credit notes are created when certain products or services are not delivered according to their invoice. The credit note reduces the due amount of the credited invoice.
@@ -2644,24 +2661,6 @@ Download a credit note in a specific format.
         + data (object)
             + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
             + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
-
-
-### invoices.credit [POST /invoices.credit]
-
-Credit an invoice completely.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + invoice_id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
-        + credit_note_date: `2016-02-04` (string, optional)
-
-+ Response 201 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + type: `creditNote` (string)
-            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
 
 ## Tax Rates [/taxRates]
 
