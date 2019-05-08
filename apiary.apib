@@ -370,6 +370,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`
+
+#### April 2019
+
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
 - In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
@@ -2147,6 +2151,7 @@ Get a list of invoices.
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+                + sent: true (boolean)
                 + purchase_order_number: `000023` (string, nullable)
                 + payment_reference: `+++084/2613/66074+++` (string, nullable)
                 + invoicee (object)
@@ -2172,6 +2177,7 @@ Get a list of invoices.
                     + due (Money)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -2199,6 +2205,7 @@ Get details for a single invoice.
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + sent: true (boolean)
             + purchase_order_number: `000023` (string, nullable)
             + invoicee (object)
                 + name: `De Rode Duivels` (string)
