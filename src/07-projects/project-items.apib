@@ -11,8 +11,8 @@ Get a list of project items.
 + Request (application/json)
 
     + Attributes (object)
-        + filter (object, optional)
-            + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
+        + filter (object, required)
+            + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, required)
             + type: `tracked_time` (enum[string], optional)
                 + Members
                     + tracked_time
@@ -77,10 +77,10 @@ Get a list of project items.
                     + type: `product` (string)
                     + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                 + work_type (object, nullable)
-                    + type: `work_type` (string)
+                    + type: `workType` (string)
                     + id: `206bf39b-0161-0058-a015-e530082b0814` (string)
                 + activity_type (object, nullable)
-                    + type: `activity_type` (string)
+                    + type: `activityType` (string)
                     + id: `ec907500-37d0-0245-8b16-2dbedd0a8ee0` (string)
                 + added_at: `2018-12-04T16:44:33+00:00` (string)
                 + updated_at: `2018-12-05T16:44:33+00:00` (string)
@@ -128,6 +128,22 @@ Get details for a single project item.
             + product (object, nullable)
                 + type: `product` (string)
                 + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+            + work_type (object, nullable)
+                + type: `workType` (string)
+                + id: `206bf39b-0161-0058-a015-e530082b0814` (string)
+            + activity_type (object, nullable)
+                + type: `activityType` (string)
+                + id: `ec907500-37d0-0245-8b16-2dbedd0a8ee0` (string)
+            + subject (object, nullable)
+                + type: `task` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + task
+                        + milestone
+                        + ticket
+                + id: `3f32200f-12e7-06c7-9e1c-843933518dbe` (string)
             + added_at: `2018-12-04T16:44:33+00:00` (string)
             + updated_at: `2018-12-05T16:44:33+00:00` (string)
 
