@@ -6,6 +6,12 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`
+- We added an optional filter on `ids` to `invoices.list`.
+- We added `creditNote.booked` and `product.added` to the available webhooks list.
+
+#### April 2019
+
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
 - In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
@@ -20,7 +26,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
   The property is also filterable through the `purchose_order_number` filter.
 
-- We added `creditNote.booked` and `product.added` to the available webhooks list.
+- We added `currency_exchange_rate` to `quotations.info`.
 
 #### March 2019
 

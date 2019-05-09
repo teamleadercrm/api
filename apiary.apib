@@ -370,6 +370,11 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`
+- We added an optional filter on `ids` to `invoices.list`.
+
+#### April 2019
+
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
 - In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
@@ -384,7 +389,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
   The property is also filterable through the `purchose_order_number` filter.
 
-- We added `creditNote.booked` and `product.added` to the available webhooks list.
+- We added `currency_exchange_rate` to `quotations.info`.
 
 #### March 2019
 
@@ -1838,6 +1843,10 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+                            + currency_exchange_rate (object)
+                                + from: `USD` (string)
+                                + to: `EUR` (string)
+                                + rate: 1.1234 (number)
 
 ### quotations.download [POST /quotations.download]
 
@@ -2101,6 +2110,7 @@ Get a list of invoices.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
             + status (array[enum[string]], optional) - The statuses you want to filter by.
                 + Members
@@ -2143,6 +2153,7 @@ Get a list of invoices.
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+                + sent: true (boolean)
                 + purchase_order_number: `000023` (string, nullable)
                 + payment_reference: `+++084/2613/66074+++` (string, nullable)
                 + invoicee (object)
@@ -2168,6 +2179,7 @@ Get a list of invoices.
                     + due (Money)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -2195,6 +2207,7 @@ Get details for a single invoice.
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + sent: true (boolean)
             + purchase_order_number: `000023` (string, nullable)
             + invoicee (object)
                 + name: `De Rode Duivels` (string)
@@ -3913,7 +3926,6 @@ Unregister a webhook.
         + contact.linkedToCompany
         + contact.unlinkedFromCompany
         + contact.updated
-        + creditNote.booked
         + deal.created
         + deal.deleted
         + deal.lost
@@ -3928,7 +3940,6 @@ Unregister a webhook.
         + invoice.updated
         + milestone.created
         + milestone.updated
-        + product.added
         + project.created
         + project.deleted
         + project.updated
