@@ -391,6 +391,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `currency_exchange_rate` to `quotations.info`.
 
+- We added an `invoices.credit` endpoint.
+
 #### March 2019
 
 - On `invoices.draft` and `invoices.update` you can now also provide (a) global discount(s) through the `discounts` property.
@@ -2486,6 +2488,23 @@ Register a payment for an invoice.
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
 
 + Response 204
+
+### invoices.credit [POST /invoices.credit]
+
+Credit an invoice completely.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + credit_note_date: `2016-02-04` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
 
 ## Credit Notes [/creditNotes]
 
