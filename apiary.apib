@@ -370,6 +370,11 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`
+- We added an optional filter on `ids` to `invoices.list`.
+
+#### April 2019
+
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
 - In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
@@ -382,13 +387,15 @@ We list all backwards-compatible additions here. These are currently available i
   We also made it filterable through the `payment_reference` filter.
 
 - We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
-  The property is also filterable through the `purchose_order_number` filter.
+  The property is also filterable through the `purchase_order_number` filter.
 
 - We added `currency_exchange_rate` to `quotations.info`.
 
 - The `events.list` endpoint now has an optional filter property `ids`.
 
 - The `tasks.list` endpoint now has an optional filter property `ids`.
+
+- We added an `invoices.credit` endpoint.
 
 #### March 2019
 
@@ -2110,6 +2117,7 @@ Get a list of invoices.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
             + status (array[enum[string]], optional) - The statuses you want to filter by.
                 + Members
@@ -2152,6 +2160,7 @@ Get a list of invoices.
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+                + sent: true (boolean)
                 + purchase_order_number: `000023` (string, nullable)
                 + payment_reference: `+++084/2613/66074+++` (string, nullable)
                 + invoicee (object)
@@ -2177,6 +2186,7 @@ Get a list of invoices.
                     + due (Money)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -2204,6 +2214,7 @@ Get details for a single invoice.
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + sent: true (boolean)
             + purchase_order_number: `000023` (string, nullable)
             + invoicee (object)
                 + name: `De Rode Duivels` (string)
@@ -2482,6 +2493,23 @@ Register a payment for an invoice.
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
 
 + Response 204
+
+### invoices.credit [POST /invoices.credit]
+
+Credit an invoice completely.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + credit_note_date: `2016-02-04` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
 
 ## Credit Notes [/creditNotes]
 
@@ -3372,11 +3400,11 @@ Get a list of tracked time.
                         + started_on
                 + order (enum[string], optional)
                     + Members
-                        + asc
+                        + desc
             + Default
                 + (object)
                     + field: `started_on`
-                    + order: `asc`
+                    + order: `desc`
 
 + Response 200 (application/json)
 
