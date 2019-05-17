@@ -113,10 +113,12 @@ Get details for a single work order.
                     + description: `Replacing pipework` (string)
             + materials (array)
                 + (object)
-                    + product (object)
+                    + product (object, nullable)
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: 3 (number)
+                    + description: `1/2" pipe` (string)
+                    + price: 30.20 (number)
             + images (array) - Only included with request parameter `includes=images`.
                 + (object)
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
