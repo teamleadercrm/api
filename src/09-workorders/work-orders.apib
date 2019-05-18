@@ -118,7 +118,7 @@ Get details for a single work order.
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: 3 (number)
                     + name: `1/2" pipe` (string)
-                    + price: 30.20 (number)
+                    + unit_price: 30.20 (number)
             + images (array) - Only included with request parameter `includes=images`.
                 + (object)
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
@@ -160,10 +160,10 @@ Add a draft work order.
                    + Properties
                        + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                        + name: `1/2" pipe` (string, optional)
-                       + price: 30.20 (number, optional)
+                       + unit_price: 30.20 (number, optional)
                    + Properties
                        + name: `1/2" pipe` (string, required)
-                       + price: 30.20 (number, required)
+                       + unit_price: 30.20 (number, required)
 
 + Response 201 (application/json)
 
@@ -205,10 +205,10 @@ Update a draft work order.
                     + Properties
                         + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                         + name: `1/2" pipe` (string, optional, nullable)
-                        + price: 30.20 (number, optional, nullable)
+                        + unit_price: 30.20 (number, optional, nullable)
                     + Properties
                         + name: `1/2" pipe` (string, required)
-                        + price: 30.20 (number, required)
+                        + unit_price: 30.20 (number, required)
 
 + Response 204
 
