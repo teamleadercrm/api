@@ -3676,6 +3676,7 @@ Get details for a single work order.
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: 3 (number)
+            + custom_fields (array[CustomField])
             + images (array) - Only included with request parameter `includes=images`.
                 + (object)
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
@@ -3714,6 +3715,7 @@ Add a draft work order.
            + (object)
                + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                + quantity: 3 (number, required)
+       + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -3752,6 +3754,7 @@ Update a draft work order.
             + (object)
                 + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                 + quantity: `2.2` (number, required)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
