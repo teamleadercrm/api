@@ -253,6 +253,31 @@ Delete a deal.
 
 + Response 204
 
+### deals.report [GET /deals.report]
+
+Get reporting data about deals.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+        + grouped_by (enum[string], required)
+            + Members
+                + phase
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + phase (object)
+                    + type: `dealPhase` (string)
+                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+                + count: `6` (number)
+                + total_estimated_value (Money)
+
+
 ### lostReasons.list [GET /lostReasons.list]
 
 Get a list of lost reasons for deals.
