@@ -1708,6 +1708,17 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
             + (object)
                 + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
                 + name: `New` (string)
+                + deal_status: `new` (enum[string])
+                    + Members
+                        + new
+                        + open
+                        + won
+                        + lost
+                + triggers: (array)
+                    + (object)
+                        + action: `create_event` (enum[string])
+                            + Members
+                                + create_event
 
 ## Deal Sources [/dealSources]
 
