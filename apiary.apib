@@ -3155,6 +3155,8 @@ Get a list of project milestones.
                         + time_and_materials
                         + fixed_price
                         + non_invoiceable
+                + `budget` (object) - Only users with access to budgets on projects have access to the budget.
+                    + `spent` (Money)
 
 ### milestones.info [GET /milestones.info]
 
@@ -3187,6 +3189,8 @@ Get details for a single milestone.
                     + time_and_materials
                     + fixed_price
                     + non_invoiceable
+            + `budget` (object) - Only users with access to budgets on projects have access to the budget.
+                + `spent` (Money)
 
 ### milestones.create [POST /milestones.create]
 
