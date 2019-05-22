@@ -113,10 +113,12 @@ Get details for a single work order.
                     + description: `Replacing pipework` (string)
             + materials (array)
                 + (object)
-                    + product (object)
+                    + product (object, nullable)
                         + type: `product` (string)
                         + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
                     + quantity: 3 (number)
+                    + name: `1/2" pipe` (string)
+                    + unit_price (Money)
             + images (array) - Only included with request parameter `includes=images`.
                 + (object)
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
@@ -153,8 +155,15 @@ Add a draft work order.
                + description: `Replacing pipework` (string, optional)
        + materials (array, optional)
            + (object)
-               + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                + quantity: 3 (number, required)
+               + One Of
+                   + Properties
+                       + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
+                       + name: `1/2" pipe` (string, optional)
+                       + unit_price (Money, optional)
+                   + Properties
+                       + name: `1/2" pipe` (string, required)
+                       + unit_price (Money, required)
 
 + Response 201 (application/json)
 
@@ -191,8 +200,15 @@ Update a draft work order.
                 + description (string, optional)
         + materials (array, optional)
             + (object)
-                + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
                 + quantity: `2.2` (number, required)
+                + One Of
+                    + Properties
+                        + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
+                        + name: `1/2" pipe` (string, optional, nullable)
+                        + unit_price (Money, optional, nullable)
+                    + Properties
+                        + name: `1/2" pipe` (string, required)
+                        + unit_price (Money, required)
 
 + Response 204
 
