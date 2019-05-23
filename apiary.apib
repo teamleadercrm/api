@@ -657,6 +657,7 @@ Get a list of all the definitions of custom fields.
                         + invoice
                         + subscription
                         + ticket
+                        + work_order
                 + type (enum[string])
                     + Members
                         + single_line - Single line text
@@ -708,6 +709,7 @@ Get info about a specific custom field definition.
                     + invoice
                     + subscription
                     + ticket
+                    + work_order
             + type (enum[string])
                 + Members
                     + single_line - Single line text
@@ -3678,6 +3680,7 @@ Get details for a single work order.
                     + quantity: 3 (number)
                     + name: `1/2" pipe` (string)
                     + unit_price (Money)
+            + custom_fields (array[CustomField])
             + images (array) - Only included with request parameter `includes=images`.
                 + (object)
                     + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
@@ -3723,6 +3726,7 @@ Add a draft work order.
                    + Properties
                        + name: `1/2" pipe` (string, required)
                        + unit_price (Money, required)
+       + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -3768,6 +3772,7 @@ Update a draft work order.
                     + Properties
                         + name: `1/2" pipe` (string, required)
                         + unit_price (Money, required)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
