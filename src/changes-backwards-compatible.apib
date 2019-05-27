@@ -10,6 +10,11 @@ We list all backwards-compatible additions here. These are currently available i
 - We added an optional filter on `ids` to `invoices.list`.
 - We added `creditNote.booked` and `product.added` to the available webhooks list.
 
+#### June 2019
+
+- In `milestones.list` and `milestones.info`, we added the `budget` property that contains `allocated`, `spent` and `remaining` budget.
+  This property is only available for users that have access to Budgets on Projects.
+
 #### April 2019
 
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
