@@ -8,7 +8,7 @@ node_modules: package.json
 lint: node_modules
 	docker run -it --init --rm -v $(PWD):/code -w /code node:9 npm run lint
 
-build: src node_modules
+build: src node_modules lint
 	docker run -it --init --rm -v $(PWD):/code -w /code node:9 npm run build
 
 preview: build
