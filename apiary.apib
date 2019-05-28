@@ -370,14 +370,18 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `budget` to `milestones.list` and `milestones.info`.
+
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`
 - We added an optional filter on `ids` to `invoices.list`.
 - We added `creditNote.booked` and `product.added` to the available webhooks list.
 
 #### June 2019
 
-- In `milestones.list` and `milestones.info`, we added the `budget` property that contains `allocated`, `spent` and `remaining` budget.
+- In `milestones.list` and `milestones.info`, we added the `budget` property that contains `provided`, `spent` and `remaining` budget.
   This property is only available for users that have access to Budgets on Projects.
+
+#### May 2019
 
 #### April 2019
 
@@ -3162,7 +3166,7 @@ Get a list of project milestones.
                         + fixed_price
                         + non_invoiceable
                 + `budget` (object) - This is only available for users that have access to budgets on projects.
-                    + `allocated` (Money)
+                    + `provided` (Money)
                     + `spent` (Money)
                     + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
 
@@ -3198,7 +3202,7 @@ Get details for a single milestone.
                     + fixed_price
                     + non_invoiceable
             + `budget` (object) - This is only available for users that have access to budgets on projects.
-                + `allocated` (Money)
+                + `provided` (Money)
                 + `spent` (Money)
                 + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
 
