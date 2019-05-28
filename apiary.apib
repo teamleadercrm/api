@@ -804,6 +804,33 @@ Get a list of all document templates.
                         + timetracking_report
                         + workorder
                 + is_default: true (boolean)
+                + variation (object)
+                    + type: `documentTemplateVariation` (string)
+                    + id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string)
+
+## Document Template Variations [/documentTemplateVariations]
+
+### documentTemplateVariations.list [GET /documentTemplateVariations.list]
+
+Get a list of all document template variations.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + department_id: `a344c251-2494-0013-b433-ccee8e8435e5` (string, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + name: `New logo` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
 
 # Group CRM
 
