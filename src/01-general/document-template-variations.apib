@@ -1,0 +1,22 @@
+## Document Template Variations [/documentTemplateVariations]
+
+### documentTemplateVariations.list [GET /documentTemplateVariations.list]
+
+Get a list of all document template variations.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `a344c251-2494-0013-b433-ccee8e8435e5` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + name: `New logo` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
