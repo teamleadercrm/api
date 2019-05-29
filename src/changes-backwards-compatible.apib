@@ -5,6 +5,7 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### Latest
+
 - `tasks.list` and `tasks.info` now returns the milestone and deal objects.
 - In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`
