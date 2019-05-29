@@ -13,15 +13,15 @@ Get a list of work orders.
                     + draft
                     + finalized
                     + sent
-            + starts_after: `2017-03-26T10:01:49+00:00` (string, optional)
-            + starts_before: `2017-05-26T10:01:49+00:00` (string, optional)
-            + term: `John Doe` (string, optional) - Filters on customer name, project name and milestone name
             + customer (object, optional)
                 + type (enum[string], required)
                     + Members
                         + company
                         + contact
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + starts_after: `2017-03-26T10:01:49+00:00` (string, optional)
+            + starts_before: `2017-05-26T10:01:49+00:00` (string, optional)
+            + term: `John Doe` (string, optional) - Filters on customer name, project name and milestone name
         + page (Page, optional)
         + sort (array, optional)
             + (object)
