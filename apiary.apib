@@ -370,6 +370,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- `tasks.info` and `tasks.list` now return information about the customer.
+- We added `customer` parameter to `tasks.create` and `tasks.update`.
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`
 - We added an optional filter on `ids` to `invoices.list`.
 - We added `creditNote.booked` and `product.added` to the available webhooks list.
@@ -378,16 +380,16 @@ We list all backwards-compatible additions here. These are currently available i
 
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
-- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
+- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.
   By default, the endpoint keeps returning active users only. The status is also returned in the response data.
 
-- We've added a `products.add` endpoint.  
+- We've added a `products.add` endpoint.
   Because you can provide the selling price of a product in this endpoint, we also return it in `products.info` from now on.
 
-- We now also return the `payment_reference` of an invoice in the `invoices.list`.  
+- We now also return the `payment_reference` of an invoice in the `invoices.list`.
   We also made it filterable through the `payment_reference` filter.
 
-- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
+- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).
   The property is also filterable through the `purchase_order_number` filter.
 
 - We added `currency_exchange_rate` to `quotations.info`.
@@ -404,7 +406,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We've published a bunch of `tasks` endpoints (`tasks.list`, `tasks.info`, `tasks.create`, `tasks.update`, `tasks.delete`).
 
-- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
+- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
 
 <a name="upgrading-your-api-version"></a>
@@ -3275,6 +3277,12 @@ Get a list of tasks.
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + customer (object, nullable)
+                    + type: `contact` (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -3308,6 +3316,12 @@ Get information about a task.
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + customer (object, nullable)
+                + type: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 ### tasks.create [POST /tasks.create]
 
@@ -3329,6 +3343,12 @@ Create a new task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 201 (application/json)
@@ -3359,6 +3379,12 @@ Update a task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 204

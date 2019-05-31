@@ -49,6 +49,12 @@ Get a list of tasks.
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + customer (object, nullable)
+                    + type: `contact` (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -82,6 +88,12 @@ Get information about a task.
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + customer (object, nullable)
+                + type: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 ### tasks.create [POST /tasks.create]
 
@@ -103,6 +115,12 @@ Create a new task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 201 (application/json)
@@ -133,6 +151,12 @@ Update a task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 204
