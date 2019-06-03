@@ -3691,6 +3691,7 @@ Get details for a single work order.
                     + quantity: 3 (number)
                     + name: `1/2" pipe` (string)
                     + unit_price (Money)
+                    + purchase_price (Money, nullable)
             + custom_fields (array[CustomField])
             + images (array) - Only included with request parameter `includes=images`.
                 + (object)
@@ -3730,6 +3731,7 @@ Add a draft work order.
        + materials (array, optional)
            + (object)
                + quantity: 3 (number, required)
+               + purchase_price (Money, optional)
                + One Of
                    + Properties
                        + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
@@ -3777,6 +3779,7 @@ Update a draft work order.
         + materials (array, optional)
             + (object)
                 + quantity: `2.2` (number, required)
+                + purchase_price (Money, optional)
                 + One Of
                     + Properties
                         + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
