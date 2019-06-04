@@ -415,13 +415,14 @@ We list all backwards-compatible additions here. These are currently available i
 - We now also return the `invoicing_method` of a milestone. Both in `milestones.list` and `milestones.info`.
 
 - We now expose the invoiceability of time trackings and running timers. You can now use the `invoiceable` property on the following endpoints:
-  - `timeTracking.list`  
-  - `timeTracking.info`  
-  - `timeTracking.add`  
-  - `timeTracking.update`  
-  - `timers.current`  
-  - `timers.start`  
-  - `timers.update`  
+  - `timeTracking.list`
+  - `timeTracking.info`
+  - `timeTracking.add`
+  - `timeTracking.update`
+  - `timers.current`
+  - `timers.start`
+  - `timers.update`
+
   We also return an `invoiceable` preference in the `users.me` endpoint that exposes whether a user prefers to track time by default as invoiceable or not.
 
 - We've added a `national_identification_number` property on contacts.
