@@ -4,10 +4,11 @@
 
 Get a list of tasks.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
             + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
             + completed: true (boolean, optional)
         + page (Page, optional)
@@ -24,7 +25,7 @@ Get a list of tasks.
                     + field: `due_at`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -53,12 +54,12 @@ Get a list of tasks.
 
 Get information about a task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -86,7 +87,7 @@ Get information about a task.
 
 Create a new task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + description (string, required)
@@ -104,7 +105,7 @@ Create a new task.
                     + team
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -115,7 +116,7 @@ Create a new task.
 
 Update a task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
@@ -140,7 +141,7 @@ Update a task.
 
 Delete a task.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)

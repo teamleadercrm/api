@@ -8,7 +8,7 @@ Every projects consists of one or more milestones which are limited in time and 
 
 Get a list of project milestones.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -34,7 +34,7 @@ Get a list of project milestones.
                     + field: `due_on`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -62,12 +62,12 @@ Get a list of project milestones.
 
 Get details for a single milestone.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `64349fa2-6ca2-4b19-82e6-d3258ceab2d8` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -84,12 +84,17 @@ Get details for a single milestone.
                 + Members
                     + open
                     + closed
+            + `invoicing_method`: `time_and_materials` (enum[string])
+                + Members
+                    + time_and_materials
+                    + fixed_price
+                    + non_invoiceable
 
 ### milestones.create [POST /milestones.create]
 
 Create a new milestone.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
@@ -97,7 +102,7 @@ Create a new milestone.
         + name: `Initial setup` (string, required)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -108,7 +113,7 @@ Create a new milestone.
 
 Update a milestone.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
@@ -116,4 +121,4 @@ Update a milestone.
         + name: `Initial setup` (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
 
-+ Response 204 (application/json;charset=utf-8)
++ Response 204 (application/json)

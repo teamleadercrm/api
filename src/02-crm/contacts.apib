@@ -8,7 +8,7 @@ Contacts are physical entities who are added to your CRM database. Contacts migh
 
 Get a list of contacts.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -39,7 +39,7 @@ Get a list of contacts.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -79,12 +79,12 @@ Get a list of contacts.
 
 Get details for a single contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -141,7 +141,7 @@ Get details for a single contact.
 
 Add a new contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + first_name: `John` (string, optional)
@@ -179,7 +179,7 @@ Add a new contact.
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -190,7 +190,7 @@ Add a new contact.
 
 Update a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
@@ -235,7 +235,7 @@ Update a contact.
 
 Delete a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
@@ -246,7 +246,7 @@ Delete a contact.
 
 Add a new or existing tag to a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
@@ -258,7 +258,7 @@ Add a new or existing tag to a contact.
 
 Remove a tag from a contact.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
@@ -270,7 +270,7 @@ Remove a tag from a contact.
 
 Link a contact to a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `75596038-b9c8-4a37-969d-61059e300a28` (string, required)
@@ -284,7 +284,7 @@ Link a contact to a company.
 
 Unlink a contact from a company.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `b4b3160a-b55e-4033-bdae-25b6d22949b4` (string, required)

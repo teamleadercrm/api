@@ -8,12 +8,12 @@ A quotation is a sales offer for a specific customer. It is always attached to a
 
 Get a quotation
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -39,7 +39,8 @@ Get a quotation
                                     + Members
                                         + excluding
                             + tax (object)
-                                + rate: 0.21 (number)
+                                + type: `taxRate` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449042`
                             + discount (object, nullable)
                                 + type: `percentage` (enum[string])
                                     + Members
@@ -50,12 +51,16 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+                            + currency_exchange_rate (object)
+                                + from: `USD` (string)
+                                + to: `EUR` (string)
+                                + rate: 1.1234 (number)
 
 ### quotations.download [POST /quotations.download]
 
 Download a quotation in a specific format.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
@@ -63,7 +68,7 @@ Download a quotation in a specific format.
             + Members
                 + pdf
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)

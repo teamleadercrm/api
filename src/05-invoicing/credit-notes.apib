@@ -8,7 +8,7 @@ Credit notes are created when certain products or services are not delivered acc
 
 List credit notes
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
@@ -28,7 +28,7 @@ List credit notes
                     + field: `credit_note_number`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -69,12 +69,12 @@ List credit notes
 
 Get details for a single credit note
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -131,7 +131,8 @@ Get details for a single credit note
                                         + Members
                                             + excluding
                                 + tax (object)
-                                    + rate: `0.21` (number)
+                                    + type: `taxRate` (string)
+                                    + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
                                 + discount (object, nullable)
                                     + type: `percentage` (enum[string])
                                         + Members
@@ -153,7 +154,7 @@ Get details for a single credit note
 
 Download a credit note in a specific format.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
@@ -161,7 +162,7 @@ Download a credit note in a specific format.
             + Members
                 + pdf
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
