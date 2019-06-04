@@ -63,6 +63,10 @@ Get a list of projects.
                 + source (object)
                     + type: `deal` (string)
                     + id: `5023d7c2-80d7-4d4b-b2bd-0fcaa6a1f069` (string)
+                + `budget` (object) - This is only available for users that have access to budgets on projects.
+                    + `provided` (Money)
+                    + `spent` (Money)
+                    + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
 
 
 ### projects.info [GET /projects.info]
@@ -114,6 +118,10 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
+            + `budget` (object) - This is only available for users that have access to budgets on projects.
+                + `provided` (Money)
+                + `spent` (Money)
+                + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
 
 
 ### projects.create [POST /projects.create]
