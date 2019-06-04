@@ -3,6 +3,10 @@
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2019-07-03
+
+- time added to work orders now has multiple users instead of one. You can pass a list of uuid's in the workOrders.draft and workOrders.update endpoints and will receive a list of user entities in workOrders.info.
+
 #### 2019-03-13
 
 - The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
