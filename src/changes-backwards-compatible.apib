@@ -57,7 +57,7 @@ We list all backwards-compatible additions here. These are currently available i
   - `timers.current`  
   - `timers.start`  
   - `timers.update`  
-  We also return an `invoiceable` preference in the `users.me` that expose whether a user prefers to track time by default as invoiceable or not.
+  We also return an `invoiceable` preference in the `users.me` endpoint that exposes whether a user prefers to track time by default as invoiceable or not.
 
 - We've added a `national_identification_number` property on contacts.
   You can read it from `contacts.list` and `contacts.info`.
@@ -67,7 +67,7 @@ We list all backwards-compatible additions here. These are currently available i
   They are returned in `invoices.info`.
   They can be added or updated through `invoices.draft` and `invoices.update`.
   
-- Deal can now be filtered with a `term in `deals.list`.
+- Deal can now be filtered with a `term` in `deals.list`.
   We will return deals of which the term is part of the title, reference or customer's name.
  
 - We have created a way to fetch more data about related resources: sideloading.
@@ -78,7 +78,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### January 2019
 
-- The `projects.list` endpoint has an optional filter to filter by `term` now.
+- The `projects.list` endpoint has an optional filter to filter on `term` now.
   We return projects for which the term appears in the title or description.
   
 - During `invoices.draft` and `invoices.update`, we now allow you to provide a `withholding_tax_rate_id`.
@@ -87,6 +87,6 @@ We list all backwards-compatible additions here. These are currently available i
 - We added a filter on `term` in `users.list`.
   We return those users who have the term in their first name, last name or email address.
   
-- We already had a part of the products APIs for own usage, but since it might be useful to you, we are making it public.
-  `products.list` and `products.info` are now available for usage.
+- We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
+  So `products.list` and `products.info` are now available for usage.
   
