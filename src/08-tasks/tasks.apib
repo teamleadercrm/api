@@ -8,6 +8,7 @@ Get a list of tasks.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
             + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
             + completed: true (boolean, optional)
         + page (Page, optional)
@@ -104,6 +105,8 @@ Create a new task.
         + description (string, required)
         + due_at: `2016-02-04T16:44:33+00:00` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + estimated_duration (object, optional)
             + unit: `min` (enum[string], required)
                 + Members
@@ -134,6 +137,8 @@ Update a task.
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + estimated_duration (object, optional)
             + unit: `min` (enum[string], required)
                 + Members
