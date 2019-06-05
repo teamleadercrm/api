@@ -277,6 +277,7 @@ You can find a (very) minimal PHP code example, showing how to start the OAuth 2
 
 A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
 
+<a name="sideloading"></a>
 ## Sideloading
 
 Sideloading (or compound documents) allows you to retrieve relevant related items as part of a single request. For example, a deal has a reference to a lead which can either be a contact or a company:
@@ -371,7 +372,10 @@ We list all backwards-compatible additions here. These are currently available i
 #### Latest
 
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`
+
 - We added an optional filter on `ids` to `invoices.list`.
+
+- We added `creditNote.booked` and `product.added` to the available webhooks list.
 
 #### April 2019
 
@@ -393,6 +397,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - The `events.list` endpoint now has an optional filter property `ids`.
 
+- The `tasks.list` endpoint now has an optional filter property `ids`.
+
 - We added an `invoices.credit` endpoint.
 
 #### March 2019
@@ -403,6 +409,53 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
+
+#### February 2019
+
+- We now also return the `invoicing_method` of a milestone. Both in `milestones.list` and `milestones.info`.
+
+- We now expose the invoiceability of time trackings and running timers. You can now use the `invoiceable` property on the following endpoints:
+  - `timeTracking.list`
+  - `timeTracking.info`
+  - `timeTracking.add`
+  - `timeTracking.update`
+  - `timers.current`
+  - `timers.start`
+  - `timers.update`
+
+  We also return an `invoiceable` preference in the `users.me` endpoint that exposes whether a user prefers to track time by default as invoiceable or not.
+
+- We've added a `national_identification_number` property on contacts.
+  You can read it from `contacts.list` and `contacts.info`.
+  It's also writeable through `contacts.add` and `contacts.update`.
+  
+- Invoicing custom fields included as `custom_fields`.
+  They are returned in `invoices.info`.
+  They can be added or updated through `invoices.draft` and `invoices.update`.
+  
+- Deal can now be filtered with a `term` in `deals.list`.
+  We will return deals of which the term is part of the title, reference or customer's name.
+ 
+- We have created a way to fetch more data about related resources: sideloading.
+  More information can be found [here](#sideloading).
+  
+- We didn't provide you with a way to find the uuid of a quotation.
+  Based on a v1 deal id, you can now retrieve the uuid of a quotation with `migrate.id`.
+
+#### January 2019
+
+- The `projects.list` endpoint has an optional filter to filter on `term` now.
+  We return projects for which the term appears in the title or description.
+  
+- During `invoices.draft` and `invoices.update`, we now allow you to provide a `withholding_tax_rate_id`.
+  Don't worry if you don't know what this is. Withholding taxes only apply in certain countries, eg Spain or Italy.
+  
+- We added a filter on `term` in `users.list`.
+  We return those users who have the term in their first name, last name or email address.
+  
+- We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
+  So `products.list` and `products.info` are now available for usage.
+  
 
 <a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
@@ -2406,7 +2459,7 @@ Update an invoice.
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array, optional)
             + (object)
-                + section (object, required)
+                + section (object, optional)
                     + title (string, required)
                 + line_items (array, required)
                     + (object)
@@ -3231,6 +3284,7 @@ Get a list of tasks.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
             + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
             + completed: true (boolean, optional)
         + page (Page, optional)
@@ -3648,6 +3702,7 @@ Update the current timer. Only possible if there is a timer running.
 
     + Attributes (object)
         + work_type_id: `db41328a-7a25-4e85-8fb9-830baacb7f40` (string, optional, nullable)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
         + description: `Timer Description` (string, optional, nullable)
         + subject (object, optional, nullable)
             + type: `milestone` (enum[string], required)
@@ -3948,6 +4003,7 @@ Unregister a webhook.
         + contact.linkedToCompany
         + contact.unlinkedFromCompany
         + contact.updated
+        + creditNote.booked
         + deal.created
         + deal.deleted
         + deal.lost
@@ -3962,6 +4018,7 @@ Unregister a webhook.
         + invoice.updated
         + milestone.created
         + milestone.updated
+        + product.added
         + project.created
         + project.deleted
         + project.updated
