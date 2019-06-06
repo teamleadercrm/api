@@ -373,6 +373,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
 
+- `tasks.list` and `tasks.info` now return the milestone and deal objects.
+
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`.
 
 - We added an optional filter on `ids` to `invoices.list`.
@@ -3327,6 +3329,12 @@ Get a list of tasks.
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + deal (object, nullable)
+                    + type: `deal` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -3360,6 +3368,12 @@ Get information about a task.
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + milestone (object, nullable)
+                + type: `milestone` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + deal (object, nullable)
+                + type: `deal` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.create [POST /tasks.create]
 

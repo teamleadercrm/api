@@ -8,6 +8,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
 
+- `tasks.list` and `tasks.info` now return the milestone and deal objects.
+
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`.
 
 - We added an optional filter on `ids` to `invoices.list`.
