@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- `task_id` filter has been added to `/events.list`.
+
 - In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
 
 - `tasks.list` and `tasks.info` now return the milestone and deal objects.
@@ -1961,6 +1963,7 @@ Get a list of calendar events.
                         + contact
                         + company
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
