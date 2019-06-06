@@ -7,6 +7,12 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 - We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
 
+- The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
+  - `tasks.info`
+  - `tasks.list`
+  - `tasks.create`
+  - `tasks.update`
+
 #### 2019-03-13
 
 - The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
