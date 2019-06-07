@@ -371,6 +371,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- `tasks.info` and `tasks.list` now return information about the customer.
+
+- We added `customer` parameter to `tasks.create` and `tasks.update`.
+
 - In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
 
 - `tasks.list` and `tasks.info` now return the milestone and deal objects.
@@ -3329,6 +3333,12 @@ Get a list of tasks.
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + customer (object, nullable)
+                    + type: `contact` (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
                 + milestone (object, nullable)
                     + type: `milestone` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
@@ -3368,6 +3378,12 @@ Get information about a task.
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + customer (object, nullable)
+                + type: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
             + milestone (object, nullable)
                 + type: `milestone` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
@@ -3397,6 +3413,12 @@ Create a new task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 201 (application/json)
@@ -3429,6 +3451,12 @@ Update a task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 204
