@@ -36,7 +36,7 @@ Get a list of tasks.
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
                 + due_at: `2016-02-04T16:44:33+00:00` (string)
                 + estimated_duration (object)
-                    + unit: `min` (enum[string])
+                    + unit (enum[string])
                         + Members
                             + min - Minutes
                     + value: `60` (number)
@@ -81,7 +81,7 @@ Get information about a task.
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + due_at: `2016-02-04T16:44:33+00:00` (string)
             + estimated_duration (object)
-                + unit: `min` (enum[string])
+                + unit (enum[string])
                     + Members
                         + min - Minutes
                 + value: `60` (number)
@@ -120,7 +120,7 @@ Create a new task.
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum[string], required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
@@ -158,7 +158,7 @@ Update a task.
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum[string], required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
