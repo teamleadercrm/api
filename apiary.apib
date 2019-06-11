@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `tasks.schedule` endpoint.
+
 - `task_id` filter has been added to `/events.list`.
 
 - In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
@@ -3446,6 +3448,25 @@ Delete a task.
         + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
 
 + Response 204
+
+
+### tasks.schedule [POST /tasks.schedule]
+
+Schedule a task.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `7c70c54e-6e50-4e6a-b5fd-80234eb535cf` (string, required)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `d7d2d100-d440-46c2-a4a3-177ad4b2a860` (string)
 
 # Group Time Tracking
 
