@@ -427,6 +427,10 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2019-07-03
+
+- Time added to work orders now has multiple users instead of one. You can pass a list of UUIDs in the workOrders.draft and workOrders.update endpoints and will receive a list of user entities in workOrders.info.
+
 #### 2019-03-13
 
 - The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
@@ -3831,9 +3835,10 @@ Get details for a single work order.
             + signed: false (boolean)
             + time (array)
                 + (object)
-                    + user (object)
-                        + type: `user` (string)
-                        + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
+                    + users (array)
+                        + (object)
+                            + type: `user` (string)
+                            + id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string)
                     + started_at: `2019-02-27T10:01:49+00:00` (string)
                     + duration: 3600 (number) - In seconds
                     + description: `Replacing pipework` (string)
@@ -3878,7 +3883,7 @@ Add a draft work order.
        + distance (Distance, optional)
        + time (array, optional)
            + (object)
-               + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
+               + user_ids: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], required)
                + started_at: `2019-02-27T10:01:49+00:00` (string, required)
                + duration: 3600 (number, required) - In seconds
                + description: `Replacing pipework` (string, optional)
@@ -3926,7 +3931,7 @@ Update a draft work order.
         + distance (Distance, optional, nullable)
         + time (array, optional)
             + (object)
-                + user_id: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a` (string, required)
+                + user_ids: `4ec55a8c-2d80-472a-a9c2-5ff5ee7eac6a`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], required)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
                 + duration: 3600 (number, required) - In seconds
                 + description (string, optional)
