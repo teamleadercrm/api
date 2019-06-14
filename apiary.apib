@@ -431,6 +431,10 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### 2019-07-03
 
+- The property `todo` has been renamed to `task` on the following endpoints:
+  - `events.list`
+  - `events.info`
+
 - We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
 
 - The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
@@ -1944,8 +1948,8 @@ Get a list of calendar events.
                 + creator (object)
                     + type: `user` (string)
                     + id: `e51d1a0e-452e-4d5d-a2a1-2c8f75dde560` (string)
-                + todo (object)
-                    + type: `todo` (string)
+                + task (object)
+                    + type: `task` (string)
                     + id: `eb399573-e1ae-4377-bbaf-34358eb19831` (string)
                 + activity_type (object)
                     + type: `activityType` (string)
@@ -1990,8 +1994,8 @@ Get details for a single calendar event.
             + creator (object)
                 + type: `user` (string)
                 + id: `6f45600a-4402-40e0-9dcc-7665384bcd48` (string)
-            + todo (object)
-                + type: `todo` (string)
+            + task (object)
+                + type: `task` (string)
                 + id: `be80d753-f2ee-426d-9596-2a2e1a23a82e` (string)
             + activity_type (object)
                 + type: `activityType` (string)
