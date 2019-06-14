@@ -5,6 +5,10 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### 2019-07-03
 
+- The property `todo` has been renamed to `task` on the following endpoints:
+  - `events.list`
+  - `events.info`
+
 - We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
 
 - The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
