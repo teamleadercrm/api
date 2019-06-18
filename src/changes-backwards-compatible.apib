@@ -9,7 +9,17 @@ We list all backwards-compatible additions here. These are currently available i
 - In `projects.list` and `projects.info`, we added the `budget` property that contains `provided`, `spent` and `remaining` budget.
   This property is only available for users that have access to budgets on projects.
 
-- We added `sent` as a boolean to `invoices.info` and `invoices.list`
+- We added a `tasks.schedule` endpoint.
+
+- `tasks.info` and `tasks.list` now return information about the customer.
+
+- We added `customer` parameter to `tasks.create` and `tasks.update`.
+
+- In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
+
+- `tasks.list` and `tasks.info` now return the milestone and deal objects.
+
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`.
 
 - We added an optional filter on `ids` to `invoices.list`.
 
@@ -53,13 +63,14 @@ We list all backwards-compatible additions here. These are currently available i
 - We now also return the `invoicing_method` of a milestone. Both in `milestones.list` and `milestones.info`.
 
 - We now expose the invoiceability of time trackings and running timers. You can now use the `invoiceable` property on the following endpoints:
-  - `timeTracking.list`  
-  - `timeTracking.info`  
-  - `timeTracking.add`  
-  - `timeTracking.update`  
-  - `timers.current`  
-  - `timers.start`  
-  - `timers.update`  
+  - `timeTracking.list`
+  - `timeTracking.info`
+  - `timeTracking.add`
+  - `timeTracking.update`
+  - `timers.current`
+  - `timers.start`
+  - `timers.update`
+
   We also return an `invoiceable` preference in the `users.me` endpoint that exposes whether a user prefers to track time by default as invoiceable or not.
 
 - We've added a `national_identification_number` property on contacts.

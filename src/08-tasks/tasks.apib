@@ -20,6 +20,7 @@ Get a list of tasks.
                 + order (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: `due_at`
@@ -36,7 +37,7 @@ Get a list of tasks.
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
                 + due_at: `2016-02-04T16:44:33+00:00` (string)
                 + estimated_duration (object)
-                    + unit: `min` (enum[string])
+                    + unit (enum[string])
                         + Members
                             + min - Minutes
                     + value: `60` (number)
@@ -49,6 +50,18 @@ Get a list of tasks.
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + customer (object, nullable)
+                    + type: `contact` (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + deal (object, nullable)
+                    + type: `deal` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -69,7 +82,7 @@ Get information about a task.
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + due_at: `2016-02-04T16:44:33+00:00` (string)
             + estimated_duration (object)
-                + unit: `min` (enum[string])
+                + unit (enum[string])
                     + Members
                         + min - Minutes
                 + value: `60` (number)
@@ -82,6 +95,18 @@ Get information about a task.
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + customer (object, nullable)
+                + type: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + milestone (object, nullable)
+                + type: `milestone` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + deal (object, nullable)
+                + type: `deal` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.create [POST /tasks.create]
 
@@ -93,8 +118,10 @@ Create a new task.
         + description (string, required)
         + due_at: `2016-02-04T16:44:33+00:00` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum[string], required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
@@ -103,6 +130,12 @@ Create a new task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 201 (application/json)
@@ -123,8 +156,10 @@ Update a task.
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum[string], required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
@@ -133,6 +168,12 @@ Update a task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 204
@@ -147,3 +188,21 @@ Delete a task.
         + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
 
 + Response 204
+
+### tasks.schedule [POST /tasks.schedule]
+
+Schedule a task in your calendar.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `7c70c54e-6e50-4e6a-b5fd-80234eb535cf` (string, required)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `d7d2d100-d440-46c2-a4a3-177ad4b2a860` (string)
