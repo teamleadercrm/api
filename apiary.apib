@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added a `tasks.complete` endpoint.
+
 - We added a `tasks.schedule` endpoint.
 
 - `tasks.info` and `tasks.list` now return information about the customer.
@@ -3461,6 +3463,17 @@ Update a task.
                     + contact
                     + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 204
+
+### tasks.complete [POST /tasks.complete]
+
+Mark a task as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
 
 + Response 204
 
