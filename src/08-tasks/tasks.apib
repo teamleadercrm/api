@@ -189,6 +189,17 @@ Mark a task as complete.
 
 + Response 204
 
+### tasks.reopen[POST /tasks.reopen]
+
+Reopen a Task that had been marked as complete. 
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+
++ Response 204
+
 ### tasks.delete [POST /tasks.delete]
 
 Delete a task.
