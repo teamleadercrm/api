@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added a `tasks.schedule` endpoint.
+
 - We added `due_after` and `due_before` to `tasks.list` filters.
 
 - `tasks.info` and `tasks.list` now return information about the customer.
@@ -3310,6 +3312,7 @@ Get a list of tasks.
                 + order (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: `due_at`
@@ -3477,6 +3480,24 @@ Delete a task.
         + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
 
 + Response 204
+
+### tasks.schedule [POST /tasks.schedule]
+
+Schedule a task in your calendar.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `7c70c54e-6e50-4e6a-b5fd-80234eb535cf` (string, required)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `d7d2d100-d440-46c2-a4a3-177ad4b2a860` (string)
 
 # Group Time Tracking
 
