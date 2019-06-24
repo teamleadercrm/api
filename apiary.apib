@@ -949,7 +949,6 @@ Get a list of contacts.
                         + type: `primary` (enum[string])
                             + Members
                                 + primary
-                                + invoicing
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
@@ -993,7 +992,6 @@ Get details for a single contact.
                     + type: `primary` (enum[string])
                         + Members
                             + primary
-                            + invoicing
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
@@ -1047,7 +1045,6 @@ Add a new contact.
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required)
         + salutation: `Mr` (string, optional)
         + telephones (array[Telephone], optional)
@@ -1098,7 +1095,6 @@ Update a contact.
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
         + telephones (array[Telephone], optional, nullable)
         + website: `http://example.com` (string, optional, nullable)
