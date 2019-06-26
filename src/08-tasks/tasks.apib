@@ -11,6 +11,8 @@ Get a list of tasks.
             + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
             + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
             + completed: true (boolean, optional)
+            + due_by: `2019-02-04` (string, optional)
+            + due_from: `2019-10-20` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -199,7 +201,7 @@ Schedule a task in your calendar.
         + id: `7c70c54e-6e50-4e6a-b5fd-80234eb535cf` (string, required)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
-        
+
 + Response 201 (application/json)
 
     + Attributes (object)
