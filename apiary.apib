@@ -371,7 +371,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
-- In `projects.list` and `projects.info`, we added the `budget` property that contains `provided`, `spent` and `remaining` budget.
+- In `projects.list` and `projects.info`, we added the `budget` property that contains `provided`, `spent`, `remaining`, `allocated` and `projected` budget.
   This property is only available for users that have access to budgets on projects.
 
 - We added a `tasks.schedule` endpoint.
@@ -3000,6 +3000,8 @@ Get a list of projects.
                     + `provided` (Money)
                     + `spent` (Money)
                     + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
+                    + `allocated` (Money, optional) - The estimated budget for planned work that is still remaining.
+                    + `projected` (Money, optional) - The estimated budget at completion.
 
 
 ### projects.info [GET /projects.info]
@@ -3055,6 +3057,8 @@ Get details for a single project.
                 + `provided` (Money)
                 + `spent` (Money)
                 + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
+                + `allocated` (Money, optional) - The estimated budget for planned work that is still remaining.
+                + `projected` (Money, optional) - The estimated budget at completion.
 
 
 ### projects.create [POST /projects.create]

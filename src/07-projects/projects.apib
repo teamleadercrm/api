@@ -67,6 +67,8 @@ Get a list of projects.
                     + `provided` (Money)
                     + `spent` (Money)
                     + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
+                    + `allocated` (Money, optional) - The estimated budget for planned work that is still remaining.
+                    + `projected` (Money, optional) - The estimated budget at completion.
 
 
 ### projects.info [GET /projects.info]
@@ -122,6 +124,8 @@ Get details for a single project.
                 + `provided` (Money)
                 + `spent` (Money)
                 + `remaining` (Money) - The actual budget remaining, not taking the planned work into account.
+                + `allocated` (Money, optional) - The estimated budget for planned work that is still remaining.
+                + `projected` (Money, optional) - The estimated budget at completion.
 
 
 ### projects.create [POST /projects.create]
