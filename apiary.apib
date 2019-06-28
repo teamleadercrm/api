@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `tasks.complete` and `tasks.reopen` endpoints.
+
 - We added a `tasks.schedule` endpoint.
 
 - We added `due_by` and `due_from` to `tasks.list` filters.
@@ -3463,6 +3465,28 @@ Update a task.
                     + contact
                     + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 204
+
+### tasks.complete [POST /tasks.complete]
+
+Mark a task as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+
++ Response 204
+
+### tasks.reopen[POST /tasks.reopen]
+
+Reopen a task that had been marked as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
 
 + Response 204
 
