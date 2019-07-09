@@ -19,7 +19,7 @@ We list all backwards-incompatible changes here. As described above, new additio
   
 - We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.
   We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.
-  For older versions, we will link the time tracked to the oldest `open` milestone, if there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
+  For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
 
 #### 2019-03-13
 
