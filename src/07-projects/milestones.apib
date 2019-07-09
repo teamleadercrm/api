@@ -101,6 +101,12 @@ Create a new milestone.
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
+        + `invoicing_method`: `time_and_materials` (enum[string])
+            + Members
+                + time_and_materials
+                + fixed_price
+                + non_invoiceable
+        + `invoicing_amount`: `599.50` (number, optional) - Required when method is `fixed_price`.
 
 + Response 201 (application/json)
 
@@ -120,5 +126,11 @@ Update a milestone.
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
+        + `invoicing_method`: `time_and_materials` (enum[string])
+            + Members
+                + time_and_materials
+                + fixed_price
+                + non_invoiceable
+        + `invoicing_amount`: `599.50` (number, optional) - Required when method is `fixed_price`.
 
 + Response 204 (application/json)
