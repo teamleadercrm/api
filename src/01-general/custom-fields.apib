@@ -12,11 +12,11 @@ Get a list of all the definitions of custom fields.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + label
                         + context
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -31,7 +31,7 @@ Get a list of all the definitions of custom fields.
         + data (array)
             + (object)
                 + id: `74855f4a-2b61-429c-81d8-c79ad3675a76` (string)
-                + context: `contact` (enum[string])
+                + context: `contact` (enum)
                     + Members
                         + contact
                         + company
@@ -42,7 +42,7 @@ Get a list of all the definitions of custom fields.
                         + invoice
                         + subscription
                         + ticket
-                + type (enum[string])
+                + type (enum)
                     + Members
                         + single_line - Single line text
                         + multi_line - Multiline text
@@ -82,7 +82,7 @@ Get info about a specific custom field definition.
     + Attributes (object)
         + data (object)
             + id: `57e851e2-3d3b-4523-82f8-fe77df5a5d6c` (string)
-            + context: `contact` (enum[string])
+            + context: `contact` (enum)
                 + Members
                     + contact
                     + company
@@ -93,7 +93,7 @@ Get info about a specific custom field definition.
                     + invoice
                     + subscription
                     + ticket
-            + type (enum[string])
+            + type (enum)
                 + Members
                     + single_line - Single line text
                     + multi_line - Multiline text

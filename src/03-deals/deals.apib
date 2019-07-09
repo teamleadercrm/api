@@ -15,7 +15,7 @@ Get a list of deals.
             + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
             + term: `Interesting deal` (string, optional) - Filters on the title, reference and customer's name
             + customer (object, optional)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + company
                         + contact
@@ -26,10 +26,10 @@ Get a list of deals.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + created_at
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + desc
             + Default
@@ -46,7 +46,7 @@ Get a list of deals.
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + title: `Interesting deal` (string)
                 + reference: `2017/2` (string)
-                + status: `won` (enum[string])
+                + status: `won` (enum)
                     + Members
                         + new
                         + open
@@ -54,7 +54,7 @@ Get a list of deals.
                         + lost
                 + lead (object)
                     + customer (object)
-                        + type: `company` (enum[string])
+                        + type: `company` (enum)
                             + Members
                                 + contact
                                 + company
@@ -98,14 +98,14 @@ Get details for a single deal.
             + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + title: `Interesting deal` (string)
             + reference: `2017/2` (string)
-            + status: `won` (enum[string])
+            + status: `won` (enum)
                 + Members
                     + open
                     + won
                     + lost
             + lead (object)
                 + customer (object)
-                    + type: `company` (enum[string])
+                    + type: `company` (enum)
                         + Members
                             + contact
                             + company
@@ -156,7 +156,7 @@ Create a new deal for a customer.
     + Attributes (object)
         + lead (object, required)
             + customer (object, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                         + company
@@ -189,7 +189,7 @@ Update a deal.
         + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
         + lead (object, required)
             + customer (object, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                         + company
@@ -263,10 +263,10 @@ Get a list of lost reasons for deals.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default

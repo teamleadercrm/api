@@ -20,7 +20,7 @@ Get the current running timer.
             + started_at: `2017-04-26T10:01:49+00:00` (string)
             + description: `Timer description` (string)
             + subject (object)
-                + type: `milestone` (enum[string])
+                + type: `milestone` (enum)
                     + Members
                         + company
                         + contact
@@ -42,7 +42,7 @@ Start a new timer.
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
         + description (string, optional)
         + subject (object, optional)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -87,7 +87,7 @@ Update the current timer. Only possible if there is a timer running.
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
         + description: `Timer Description` (string, optional, nullable)
         + subject (object, optional, nullable)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
