@@ -18,10 +18,10 @@ Get a list of tracked time.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + started_on
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + desc
             + Default
@@ -47,7 +47,7 @@ Get a list of tracked time.
                 + duration: 3600 (number) - In seconds
                 + description: `Timer description` (string)
                 + subject (object)
-                    + type: `milestone` (enum[string])
+                    + type: `milestone` (enum)
                         + Members
                             + company
                             + contact
@@ -84,7 +84,7 @@ Get information about tracked time.
             + duration: 3600 (number) - In seconds
             + description: `Timer description` (string)
             + subject (object)
-                + type: `milestone` (enum[string])
+                + type: `milestone` (enum)
                     + Members
                         + company
                         + contact
@@ -114,7 +114,7 @@ Add tracked time.
                 + ended_at: `2017-04-26T16:02:00+00:00` (string, required)
         + description (string, optional)
         + subject (object, optional)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -147,7 +147,7 @@ Update tracked time.
                 + duration: 3600 (number, required) - In seconds
         + description (string, optional, nullable)
         + subject (object, optional, nullable)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact

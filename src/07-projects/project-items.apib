@@ -13,7 +13,7 @@ Get a list of project items.
     + Attributes (object)
         + filter (object, required)
             + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, required)
-            + type: `tracked_time` (enum[string], optional)
+            + type: `tracked_time` (enum, optional)
                 + Members
                     + tracked_time
                     + external_cost_item
@@ -26,7 +26,7 @@ Get a list of project items.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + occurred_at
                         + milestone_name
@@ -35,7 +35,7 @@ Get a list of project items.
                         + quantity
                         + cost
                         + price
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -56,7 +56,7 @@ Get a list of project items.
                 + milestone (object, nullable)
                     + type: `milestone` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
-                + type: `tracked_time` (enum[string])
+                + type: `tracked_time` (enum)
                     + Members
                         + tracked_time
                         + external_cost_item
@@ -108,7 +108,7 @@ Get details for a single project item.
             + milestone (object, nullable)
                 + type: `milestone` (string)
                 + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
-            + type: `tracked_time` (enum[string])
+            + type: `tracked_time` (enum)
                 + Members
                     + tracked_time
                     + external_cost_item
@@ -135,7 +135,7 @@ Get details for a single project item.
                 + type: `activityType` (string)
                 + id: `ec907500-37d0-0245-8b16-2dbedd0a8ee0` (string)
             + subject (object, nullable)
-                + type: `task` (enum[string])
+                + type: `task` (enum)
                     + Members
                         + company
                         + contact

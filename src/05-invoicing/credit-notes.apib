@@ -17,10 +17,10 @@ List credit notes
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + credit_note_number
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -39,7 +39,7 @@ List credit notes
                     + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + credit_note_number: `2017/5` (string, nullable)
                 + credit_note_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `booked` (enum)
                     + Members
                         + booked
                 + invoice (object, nullable)
@@ -85,7 +85,7 @@ Get details for a single credit note
                     + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + credit_note_number: `2017/5` (string, nullable)
                 + credit_note_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `booked` (enum)
                     + Members
                         + booked
                 + invoice (object, nullable)
@@ -127,14 +127,14 @@ Get details for a single credit note
                                 + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                                 + unit_price (object)
                                     + Include Money
-                                    + tax: `excluding` (enum[string])
+                                    + tax: `excluding` (enum)
                                         + Members
                                             + excluding
                                 + tax (object)
                                     + type: `taxRate` (string)
                                     + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
                                 + discount (object, nullable)
-                                    + type: `percentage` (enum[string])
+                                    + type: `percentage` (enum)
                                         + Members
                                             + percentage
                                     + value: `15.00` (number)
@@ -158,7 +158,7 @@ Download a credit note in a specific format.
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
-        + format: `pdf` (enum[string], required)
+        + format: `pdf` (enum, required)
             + Members
                 + pdf
 
