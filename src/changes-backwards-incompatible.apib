@@ -3,6 +3,24 @@
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2019-07-03
+
+- The property `todo` has been renamed to `task` on the following endpoints:
+  - `events.list`
+  - `events.info`
+
+- We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
+
+- The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
+  - `tasks.info`
+  - `tasks.list`
+  - `tasks.create`
+  - `tasks.update`
+  
+- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.  
+  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.  
+  For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
+
 #### 2019-03-13
 
 - The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:

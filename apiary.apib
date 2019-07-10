@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- A `task_id` filter has been added to `/events.list`.
+
 - We added `tasks.complete` and `tasks.reopen` endpoints.
 
 - We added a `tasks.schedule` endpoint.
@@ -386,8 +388,6 @@ We list all backwards-compatible additions here. These are currently available i
 - `tasks.list` and `tasks.info` now return the milestone and deal objects.
 
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`.
-
-- We added `sent` as a boolean to `invoices.info` and `invoices.list`
 
 - We added an optional filter on `ids` to `invoices.list`.
 
@@ -492,6 +492,24 @@ _This will only affect the version for those API calls and won't affect any othe
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
+
+#### 2019-07-03
+
+- The property `todo` has been renamed to `task` on the following endpoints:
+  - `events.list`
+  - `events.info`
+
+- We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
+
+- The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
+  - `tasks.info`
+  - `tasks.list`
+  - `tasks.create`
+  - `tasks.update`
+  
+- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.  
+  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.  
+  For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
 
 #### 2019-03-13
 
@@ -1969,6 +1987,7 @@ Get a list of calendar events.
                         + contact
                         + company
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1993,8 +2012,8 @@ Get a list of calendar events.
                 + creator (object)
                     + type: `user` (string)
                     + id: `e51d1a0e-452e-4d5d-a2a1-2c8f75dde560` (string)
-                + todo (object)
-                    + type: `todo` (string)
+                + task (object)
+                    + type: `task` (string)
                     + id: `eb399573-e1ae-4377-bbaf-34358eb19831` (string)
                 + activity_type (object)
                     + type: `activityType` (string)
@@ -2039,8 +2058,8 @@ Get details for a single calendar event.
             + creator (object)
                 + type: `user` (string)
                 + id: `6f45600a-4402-40e0-9dcc-7665384bcd48` (string)
-            + todo (object)
-                + type: `todo` (string)
+            + task (object)
+                + type: `task` (string)
                 + id: `be80d753-f2ee-426d-9596-2a2e1a23a82e` (string)
             + activity_type (object)
                 + type: `activityType` (string)
@@ -3306,14 +3325,14 @@ Get a list of tasks.
             + (object)
                 + field (enum, required)
                     + Members
-                        + due_at
+                        + due_on
                 + order (enum, optional)
                     + Members
                         + asc
                         + desc
             + Default
                 + (object)
-                    + field: `due_at`
+                    + field: `due_on`
                     + order: `asc`
 
 + Response 200 (application/json)
@@ -3325,7 +3344,7 @@ Get a list of tasks.
                 + description (string)
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
-                + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + due_on: `2016-02-04` (string)
                 + estimated_duration (object)
                     + unit (enum)
                         + Members
@@ -3370,7 +3389,7 @@ Get information about a task.
             + description (string)
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
-            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + due_on: `2016-02-04` (string)
             + estimated_duration (object)
                 + unit (enum)
                     + Members
@@ -3406,7 +3425,7 @@ Create a new task.
 
     + Attributes (object)
         + description (string, required)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, required)
+        + due_on: `2016-02-04` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
@@ -3444,7 +3463,7 @@ Update a task.
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
         + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + due_on: `2016-02-04` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
