@@ -277,6 +277,7 @@ You can find a (very) minimal PHP code example, showing how to start the OAuth 2
 
 A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
 
+<a name="sideloading"></a>
 ## Sideloading
 
 Sideloading (or compound documents) allows you to retrieve relevant related items as part of a single request. For example, a deal has a reference to a lead which can either be a contact or a company:
@@ -370,10 +371,26 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
-- A `task_id` filter has been added to `/events.list`.
+- We added `tasks.complete` and `tasks.reopen` endpoints.
+
+- We added a `tasks.schedule` endpoint.
+
+- We added `due_by` and `due_from` to `tasks.list` filters.
+
+- `tasks.info` and `tasks.list` now return information about the customer.
+
+- We added `customer` parameter to `tasks.create` and `tasks.update`.
+
+- In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
+
+- `tasks.list` and `tasks.info` now return the milestone and deal objects.
+
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`.
 
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`
+
 - We added an optional filter on `ids` to `invoices.list`.
+
 - We added `creditNote.booked` and `product.added` to the available webhooks list.
 
 #### April 2019
@@ -409,6 +426,53 @@ We list all backwards-compatible additions here. These are currently available i
 - We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
 
+#### February 2019
+
+- We now also return the `invoicing_method` of a milestone. Both in `milestones.list` and `milestones.info`.
+
+- We now expose the invoiceability of time trackings and running timers. You can now use the `invoiceable` property on the following endpoints:
+  - `timeTracking.list`
+  - `timeTracking.info`
+  - `timeTracking.add`
+  - `timeTracking.update`
+  - `timers.current`
+  - `timers.start`
+  - `timers.update`
+
+  We also return an `invoiceable` preference in the `users.me` endpoint that exposes whether a user prefers to track time by default as invoiceable or not.
+
+- We've added a `national_identification_number` property on contacts.
+  You can read it from `contacts.list` and `contacts.info`.
+  It's also writeable through `contacts.add` and `contacts.update`.
+  
+- Invoicing custom fields included as `custom_fields`.
+  They are returned in `invoices.info`.
+  They can be added or updated through `invoices.draft` and `invoices.update`.
+  
+- Deal can now be filtered with a `term` in `deals.list`.
+  We will return deals of which the term is part of the title, reference or customer's name.
+ 
+- We have created a way to fetch more data about related resources: sideloading.
+  More information can be found [here](#sideloading).
+  
+- We didn't provide you with a way to find the uuid of a quotation.
+  Based on a v1 deal id, you can now retrieve the uuid of a quotation with `migrate.id`.
+
+#### January 2019
+
+- The `projects.list` endpoint has an optional filter to filter on `term` now.
+  We return projects for which the term appears in the title or description.
+  
+- During `invoices.draft` and `invoices.update`, we now allow you to provide a `withholding_tax_rate_id`.
+  Don't worry if you don't know what this is. Withholding taxes only apply in certain countries, eg Spain or Italy.
+  
+- We added a filter on `term` in `users.list`.
+  We return those users who have the term in their first name, last name or email address.
+  
+- We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
+  So `products.list` and `products.info` are now available for usage.
+  
+
 <a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
 
@@ -428,24 +492,6 @@ _This will only affect the version for those API calls and won't affect any othe
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
-
-#### 2019-07-03
-
-- The property `todo` has been renamed to `task` on the following endpoints:
-  - `events.list`
-  - `events.info`
-
-- We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
-
-- The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
-  - `tasks.info`
-  - `tasks.list`
-  - `tasks.create`
-  - `tasks.update`
-  
-- We have removed `project` as a possible `subject` in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.
-  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.
-  For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
 
 #### 2019-03-13
 
@@ -909,7 +955,6 @@ Get a list of contacts.
                         + type: `primary` (enum[string])
                             + Members
                                 + primary
-                                + invoicing
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
@@ -953,7 +998,6 @@ Get details for a single contact.
                     + type: `primary` (enum[string])
                         + Members
                             + primary
-                            + invoicing
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
@@ -1007,7 +1051,6 @@ Add a new contact.
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required)
         + salutation: `Mr` (string, optional)
         + telephones (array[Telephone], optional)
@@ -1058,7 +1101,6 @@ Update a contact.
                 + type: `primary` (enum[string], required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
         + telephones (array[Telephone], optional, nullable)
         + website: `http://example.com` (string, optional, nullable)
@@ -1927,7 +1969,6 @@ Get a list of calendar events.
                         + contact
                         + company
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
-            + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1952,8 +1993,8 @@ Get a list of calendar events.
                 + creator (object)
                     + type: `user` (string)
                     + id: `e51d1a0e-452e-4d5d-a2a1-2c8f75dde560` (string)
-                + task (object)
-                    + type: `task` (string)
+                + todo (object)
+                    + type: `todo` (string)
                     + id: `eb399573-e1ae-4377-bbaf-34358eb19831` (string)
                 + activity_type (object)
                     + type: `activityType` (string)
@@ -1998,8 +2039,8 @@ Get details for a single calendar event.
             + creator (object)
                 + type: `user` (string)
                 + id: `6f45600a-4402-40e0-9dcc-7665384bcd48` (string)
-            + task (object)
-                + type: `task` (string)
+            + todo (object)
+                + type: `todo` (string)
                 + id: `be80d753-f2ee-426d-9596-2a2e1a23a82e` (string)
             + activity_type (object)
                 + type: `activityType` (string)
@@ -2430,7 +2471,7 @@ Update an invoice.
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array, optional)
             + (object)
-                + section (object, required)
+                + section (object, optional)
                     + title (string, required)
                 + line_items (array, required)
                     + (object)
@@ -3258,18 +3299,21 @@ Get a list of tasks.
             + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
             + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
             + completed: true (boolean, optional)
+            + due_by: `2019-02-04` (string, optional)
+            + due_from: `2019-10-20` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
                 + field (enum[string], required)
                     + Members
-                        + due_on
+                        + due_at
                 + order (enum[string], optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
-                    + field: `due_on`
+                    + field: `due_at`
                     + order: `asc`
 
 + Response 200 (application/json)
@@ -3281,9 +3325,9 @@ Get a list of tasks.
                 + description (string)
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
-                + due_on: `2016-02-04` (string)
+                + due_at: `2016-02-04T16:44:33+00:00` (string)
                 + estimated_duration (object)
-                    + unit: `min` (enum[string])
+                    + unit (enum[string])
                         + Members
                             + min - Minutes
                     + value: `60` (number)
@@ -3296,6 +3340,18 @@ Get a list of tasks.
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + customer (object, nullable)
+                    + type: `contact` (enum[string])
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + deal (object, nullable)
+                    + type: `deal` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -3314,9 +3370,9 @@ Get information about a task.
             + description (string)
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
-            + due_on: `2016-02-04` (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
             + estimated_duration (object)
-                + unit: `min` (enum[string])
+                + unit (enum[string])
                     + Members
                         + min - Minutes
                 + value: `60` (number)
@@ -3329,6 +3385,18 @@ Get information about a task.
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + customer (object, nullable)
+                + type: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + milestone (object, nullable)
+                + type: `milestone` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + deal (object, nullable)
+                + type: `deal` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
 
 ### tasks.create [POST /tasks.create]
 
@@ -3338,10 +3406,12 @@ Create a new task.
 
     + Attributes (object)
         + description (string, required)
-        + due_on: `2016-02-04` (string, required)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum[string], required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
@@ -3350,6 +3420,12 @@ Create a new task.
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 201 (application/json)
@@ -3368,10 +3444,12 @@ Update a task.
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
         + description (string, optional)
-        + due_on: `2016-02-04` (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum[string], required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
@@ -3381,6 +3459,34 @@ Update a task.
                     + user
                     + team
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 204
+
+### tasks.complete [POST /tasks.complete]
+
+Mark a task as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+
++ Response 204
+
+### tasks.reopen[POST /tasks.reopen]
+
+Reopen a task that had been marked as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
 
 + Response 204
 
@@ -3394,6 +3500,24 @@ Delete a task.
         + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
 
 + Response 204
+
+### tasks.schedule [POST /tasks.schedule]
+
+Schedule a task in your calendar.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `7c70c54e-6e50-4e6a-b5fd-80234eb535cf` (string, required)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `d7d2d100-d440-46c2-a4a3-177ad4b2a860` (string)
 
 # Group Time Tracking
 
@@ -3673,6 +3797,7 @@ Update the current timer. Only possible if there is a timer running.
 
     + Attributes (object)
         + work_type_id: `db41328a-7a25-4e85-8fb9-830baacb7f40` (string, optional, nullable)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
         + description: `Timer Description` (string, optional, nullable)
         + subject (object, optional, nullable)
             + type: `milestone` (enum[string], required)
