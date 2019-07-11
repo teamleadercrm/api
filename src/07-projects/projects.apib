@@ -13,12 +13,12 @@ Get a list of projects.
     + Attributes (object)
         + filter (object, optional)
             + customer (object, optional)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + company
                         + contact
                 + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
-            + status (enum[string], optional)
+            + status (enum, optional)
                 + Members
                     + active
                     + on_hold
@@ -29,10 +29,10 @@ Get a list of projects.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + due_on
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -49,7 +49,7 @@ Get a list of projects.
                 + reference: `PRO-2` (string)
                 + title: `New company website` (string)
                 + description (string)
-                + status: `active` (enum[string])
+                + status: `active` (enum)
                     + Members
                         + active
                         + on_hold
@@ -82,14 +82,14 @@ Get details for a single project.
             + reference: `PRO-1` (string)
             + title: `New company website` (string)
             + description (string)
-            + status: `active` (enum[string])
+            + status: `active` (enum)
                 + Members
                     + active
                     + on_hold
                     + done
                     + cancelled
             + customer (object)
-                + type: `contact` (enum[string])
+                + type: `contact` (enum)
                     + Members
                         + contact
                         + company
@@ -106,11 +106,11 @@ Get details for a single project.
             + participants (array)
                 + (object)
                     + participant (object)
-                        + type: `user` (enum[string])
+                        + type: `user` (enum)
                             + Members
                                 + user
                         + id: `b0ef899b-143c-4708-90ce-aecb3350e116` (string)
-                    + role (enum[string])
+                    + role (enum)
                         + Members
                             + decision_maker
                             + member
@@ -136,13 +136,13 @@ Create a new project.
                 + participant (object, required)
                     + type: `user` (string, required)
                     + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
-                + role (enum[string], optional)
+                + role (enum, optional)
                     + Members
                         + decision_maker
                         + member
                     + Default: `member`
         + customer (object, optional)
-            + type (enum[string], required)
+            + type (enum, required)
                 + Members
                     + contact
                     + company
@@ -166,7 +166,7 @@ Update a project.
         + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
         + title: `New company website` (string, required)
         + description (string, required)
-        + status: `active` (enum[string], required)
+        + status: `active` (enum, required)
             + Members
                 + active
                 + on_hold
@@ -200,7 +200,7 @@ Add a participant to a project.
         + participant (object, required)
             + type: `user` (string)
             + id: `a1388f3d-6116-4792-ac1c-04657697539e` (string)
-        + role (enum[string], optional)
+        + role (enum, optional)
             + Members
                 + decision_maker
                 + member
@@ -220,7 +220,7 @@ Update a participant's role for a project.
         + participant (object, optional)
             + type: `user` (string)
             + id: `5ccbc008-f65e-4192-836c-4d7e21f54052` (string)
-        + role (enum[string], required)
+        + role (enum, required)
             + Members
                 + decision_maker
                 + member

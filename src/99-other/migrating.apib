@@ -10,7 +10,7 @@ Translates an ID from the deprecated API into a new UUID.
 + Request (application/json)
 
     + Attributes (object)
-        + type: `contact` (enum[string])
+        + type: `contact` (enum)
             + Members
                 + account
                 + user
@@ -35,7 +35,7 @@ Translates an ID from the deprecated API into a new UUID.
 
     + Attributes
         + data (object)
-            + type: `contact` (enum[string])
+            + type: `contact` (enum)
                 + Members
                     + account
                     + user
@@ -79,7 +79,7 @@ Translates "meeting", "call" and "task" into their respective activity type UUID
 + Request (application/json)
 
     + Attributes (object)
-        + type: `meeting` (enum[string])
+        + type: `meeting` (enum)
             + Members
                 + meeting
                 + call

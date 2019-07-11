@@ -20,7 +20,7 @@ Get the current authenticated user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl-BE` (enum[string])
+            + language: `nl-BE` (enum)
                 + Members
                     + da-DK
                     + de-DE
@@ -51,16 +51,16 @@ Get a list of all users.
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `John` (string, optional) - Filters on first name, last name and email
-            + status (array[enum[string]], optional) - Filters on status
+            + status (array[enum], optional) - Filters on status
                 + Members
                     + active - Filters on active users
                     + deactivated - Filters on deactivated users
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -84,7 +84,7 @@ Get a list of all users.
                 + telephones (array[Telephone])
                 + language: `nl` (string)
                 + function: `Sales` (string)
-                + status: `active` (enum[string])
+                + status: `active` (enum)
                     + Members
                         + active
                         + deactivated
@@ -110,7 +110,7 @@ Get details for a single user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl-BE` (enum[string])
+            + language: `nl-BE` (enum)
                 + Members
                     + da-DK
                     + de-DE
@@ -128,7 +128,7 @@ Get details for a single user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
-            + status: `active` (enum[string])
+            + status: `active` (enum)
                 + Members
                     + active
                     + deactivated
