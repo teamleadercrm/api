@@ -13,7 +13,7 @@ Get a list of contacts.
     + Attributes (object)
         + filter (object, optional)
             + email (object, optional)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                          + primary
                 + email: `info@piedpiper.eu` (string, required)
@@ -25,12 +25,12 @@ Get a list of contacts.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + added_at - Sorts on added_at
                         + name - Sorts alphabetically on last_name and first_name
                         + updated_at - Sorts on updated_at
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -50,15 +50,14 @@ Get a list of contacts.
                 + salutation: `Mr` (string)
                 + emails (array)
                     + (object)
-                        + type: `primary` (enum[string])
+                        + type: `primary` (enum)
                             + Members
                                 + primary
-                                + invoicing
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + primary_address (Address)
-                + gender: `male` (enum[string])
+                + gender: `male` (enum)
                     + Members
                         + male
                         + female
@@ -94,23 +93,22 @@ Get details for a single contact.
             + salutation: `Mr` (string)
             + emails (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `primary` (enum)
                         + Members
                             + primary
-                            + invoicing
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + type: `invoicing` (enum[string])
+                    + type: `invoicing` (enum)
                         + Members
                             + primary
                             + invoicing
                             + delivery
                             + visiting
                     + address (Addressee) - Primary addresses can not contain an addressee
-            + gender: `male` (enum[string])
+            + gender: `male` (enum)
                 + Members
                     + male
                     + female
@@ -148,17 +146,16 @@ Add a new contact.
         + last_name: `Smith` (string, required)
         + emails (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required)
         + salutation: `Mr` (string, optional)
         + telephones (array[Telephone], optional)
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + type: `invoicing` (enum[string], required)
+                + type: `invoicing` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -166,7 +163,7 @@ Add a new contact.
                         + visiting
                 + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum[string], optional)
+        + gender: `male` (enum, optional)
             + Members
                 + male
                 + female
@@ -199,16 +196,15 @@ Update a contact.
         + salutation: `Mr` (string, optional, nullable)
         + emails (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
         + telephones (array[Telephone], optional, nullable)
         + website: `http://example.com` (string, optional, nullable)
         + addresses (array, optional)
             + (object)
-                + type: `invoicing` (enum[string], required)
+                + type: `invoicing` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -216,7 +212,7 @@ Update a contact.
                         + visiting
                 + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum[string], optional, nullable)
+        + gender: `male` (enum, optional, nullable)
             + Members
                 + male
                 + female

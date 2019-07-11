@@ -6,8 +6,26 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
-- We added `sent` as a boolean to `invoices.info` and `invoices.list`
+- A `task_id` filter has been added to `/events.list`.
+
+- We added `tasks.complete` and `tasks.reopen` endpoints.
+
+- We added a `tasks.schedule` endpoint.
+
+- We added `due_by` and `due_from` to `tasks.list` filters.
+
+- `tasks.info` and `tasks.list` now return information about the customer.
+
+- We added `customer` parameter to `tasks.create` and `tasks.update`.
+
+- In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
+
+- `tasks.list` and `tasks.info` now return the milestone and deal objects.
+
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`.
+
 - We added an optional filter on `ids` to `invoices.list`.
+
 - We added `creditNote.booked` and `product.added` to the available webhooks list.
 
 #### April 2019
@@ -42,3 +60,50 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
+
+#### February 2019
+
+- We now also return the `invoicing_method` of a milestone. Both in `milestones.list` and `milestones.info`.
+
+- We now expose the invoiceability of time trackings and running timers. You can now use the `invoiceable` property on the following endpoints:
+  - `timeTracking.list`
+  - `timeTracking.info`
+  - `timeTracking.add`
+  - `timeTracking.update`
+  - `timers.current`
+  - `timers.start`
+  - `timers.update`
+
+  We also return an `invoiceable` preference in the `users.me` endpoint that exposes whether a user prefers to track time by default as invoiceable or not.
+
+- We've added a `national_identification_number` property on contacts.
+  You can read it from `contacts.list` and `contacts.info`.
+  It's also writeable through `contacts.add` and `contacts.update`.
+  
+- Invoicing custom fields included as `custom_fields`.
+  They are returned in `invoices.info`.
+  They can be added or updated through `invoices.draft` and `invoices.update`.
+  
+- Deal can now be filtered with a `term` in `deals.list`.
+  We will return deals of which the term is part of the title, reference or customer's name.
+ 
+- We have created a way to fetch more data about related resources: sideloading.
+  More information can be found [here](#sideloading).
+  
+- We didn't provide you with a way to find the uuid of a quotation.
+  Based on a v1 deal id, you can now retrieve the uuid of a quotation with `migrate.id`.
+
+#### January 2019
+
+- The `projects.list` endpoint has an optional filter to filter on `term` now.
+  We return projects for which the term appears in the title or description.
+  
+- During `invoices.draft` and `invoices.update`, we now allow you to provide a `withholding_tax_rate_id`.
+  Don't worry if you don't know what this is. Withholding taxes only apply in certain countries, eg Spain or Italy.
+  
+- We added a filter on `term` in `users.list`.
+  We return those users who have the term in their first name, last name or email address.
+  
+- We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
+  So `products.list` and `products.info` are now available for usage.
+  
