@@ -6,13 +6,21 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- A `task_id` filter has been added to `/events.list`.
+
+- We added a `term` filter to `milestone.list`.
+
+#### June 2019
+
 - We added a `term` filter to `tasks.list`.
 
 - We added `tasks.complete` and `tasks.reopen` endpoints.
 
+- We added `due_by` and `due_from` to `tasks.list` filters.
+
 - We added a `tasks.schedule` endpoint.
 
-- We added `due_by` and `due_from` to `tasks.list` filters.
+- We added the ability to sort `tasks.list` based on a descending `due_at`.
 
 - `tasks.info` and `tasks.list` now return information about the customer.
 
@@ -22,9 +30,11 @@ We list all backwards-compatible additions here. These are currently available i
 
 - `tasks.list` and `tasks.info` now return the milestone and deal objects.
 
-- We added `sent` as a boolean to `invoices.info` and `invoices.list`.
+#### May 2019
 
-- We added `sent` as a boolean to `invoices.info` and `invoices.list`
+- We added a `started_at` property to `timers.update` in order to be able to update the start time of a running timer.
+
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`.
 
 - We added an optional filter on `ids` to `invoices.list`.
 
