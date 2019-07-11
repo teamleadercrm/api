@@ -372,6 +372,7 @@ We list all backwards-compatible additions here. These are currently available i
 #### Latest
 
 - A `task_id` filter has been added to `/events.list`.
+- We added a `term` filter to `milestone.list`.
 
 - We added `tasks.complete` and `tasks.reopen` endpoints.
 
@@ -3200,6 +3201,7 @@ Get a list of project milestones.
                     + closed
             + due_before: `2017-01-01` (string, optional)
             + due_after: `2017-01-01` (string, optional)
+            + term: `coffee` (string, optional) - Searches for a term in title
         + page (Page, optional)
         + sort (array, optional)
             + (object)
