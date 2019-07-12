@@ -13,19 +13,20 @@ Get a list of tasks.
             + completed: true (boolean, optional)
             + due_by: `2019-02-04` (string, optional)
             + due_from: `2019-10-20` (string, optional)
+            + term: `website design` (string, optional) - Searches for a term in the description.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
-                        + due_at
-                + order (enum[string], optional)
+                        + due_on
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
             + Default
                 + (object)
-                    + field: `due_at`
+                    + field: `due_on`
                     + order: `asc`
 
 + Response 200 (application/json)
@@ -37,9 +38,9 @@ Get a list of tasks.
                 + description (string)
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
-                + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + due_on: `2016-02-04` (string)
                 + estimated_duration (object)
-                    + unit (enum[string])
+                    + unit (enum)
                         + Members
                             + min - Minutes
                     + value: `60` (number)
@@ -47,13 +48,13 @@ Get a list of tasks.
                     + type: `workType` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
                 + assignee (object)
-                    + type: `user` (enum[string])
+                    + type: `user` (enum)
                         + Members
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
                 + customer (object, nullable)
-                    + type: `contact` (enum[string])
+                    + type: `contact` (enum)
                         + Members
                             + contact
                             + company
@@ -82,9 +83,9 @@ Get information about a task.
             + description (string)
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
-            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + due_on: `2016-02-04` (string)
             + estimated_duration (object)
-                + unit (enum[string])
+                + unit (enum)
                     + Members
                         + min - Minutes
                 + value: `60` (number)
@@ -92,13 +93,13 @@ Get information about a task.
                 + type: `workType` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
             + assignee (object)
-                + type: `user` (enum[string])
+                + type: `user` (enum)
                     + Members
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
             + customer (object, nullable)
-                + type: `contact` (enum[string])
+                + type: `contact` (enum)
                     + Members
                         + contact
                         + company
@@ -118,23 +119,23 @@ Create a new task.
 
     + Attributes (object)
         + description (string, required)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, required)
+        + due_on: `2016-02-04` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + estimated_duration (object, optional)
-            + unit (enum[string], required)
+            + unit (enum, required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
         + assignee (object, optional)
-            + type: `user` (enum[string])
+            + type: `user` (enum)
                 + Members
                     + user
                     + team
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
         + customer (object, optional)
-            + type: `contact` (enum[string])
+            + type: `contact` (enum)
                 + Members
                     + contact
                     + company
@@ -156,23 +157,23 @@ Update a task.
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
         + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + due_on: `2016-02-04` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + estimated_duration (object, optional)
-            + unit (enum[string], required)
+            + unit (enum, required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
         + assignee (object, optional)
-            + type: `user` (enum[string])
+            + type: `user` (enum)
                 + Members
                     + user
                     + team
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
         + customer (object, optional)
-            + type: `contact` (enum[string])
+            + type: `contact` (enum)
                 + Members
                     + contact
                     + company
