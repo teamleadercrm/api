@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added a filter by `subject` to `timeTracking.list`.
+
 - A `task_id` filter has been added to `/events.list`.
 
 - We added a `term` filter to `milestone.list`.
@@ -3571,6 +3573,16 @@ Get a list of tracked time.
             + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_before: `2017-05-26T10:01:49+00:00` (string, optional)
+            + subject (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
