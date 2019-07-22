@@ -114,7 +114,15 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
-
+            + budget (object) - Only available for users with access to project budgets
+                + provided (Money)
+                + spent (object)
+                    + total (Money)
+                    + time (Money)
+                    + materials (Money)
+                + remaining (Money) - The provided budget minus the actual spent budget
+                + allocated (Money) - The amount of money still expected to spend
+                + forecasted (Money) - The budget needed at completion of the project
 
 ### projects.create [POST /projects.create]
 
