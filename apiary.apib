@@ -371,13 +371,23 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added a filter by `subject` to `timeTracking.list`.
+
 - A `task_id` filter has been added to `/events.list`.
+
+- We added a `term` filter to `milestone.list`.
+
+#### June 2019
+
+- We added a `term` filter to `tasks.list`.
 
 - We added `tasks.complete` and `tasks.reopen` endpoints.
 
+- We added `due_by` and `due_from` to `tasks.list` filters.
+
 - We added a `tasks.schedule` endpoint.
 
-- We added `due_by` and `due_from` to `tasks.list` filters.
+- We added the ability to sort `tasks.list` based on a descending `due_at`.
 
 - `tasks.info` and `tasks.list` now return information about the customer.
 
@@ -386,6 +396,10 @@ We list all backwards-compatible additions here. These are currently available i
 - In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
 
 - `tasks.list` and `tasks.info` now return the milestone and deal objects.
+
+#### May 2019
+
+- We added a `started_at` property to `timers.update` in order to be able to update the start time of a running timer.
 
 - We added `sent` as a boolean to `invoices.info` and `invoices.list`.
 
@@ -3200,6 +3214,7 @@ Get a list of project milestones.
                     + closed
             + due_before: `2017-01-01` (string, optional)
             + due_after: `2017-01-01` (string, optional)
+            + term: `coffee` (string, optional) - Searches for a term in title
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -3324,6 +3339,7 @@ Get a list of tasks.
             + completed: true (boolean, optional)
             + due_by: `2019-02-04` (string, optional)
             + due_from: `2019-10-20` (string, optional)
+            + term: `website design` (string, optional) - Searches for a term in the description.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -3561,6 +3577,16 @@ Get a list of tracked time.
             + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_before: `2017-05-26T10:01:49+00:00` (string, optional)
+            + subject (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
