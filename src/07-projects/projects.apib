@@ -114,6 +114,22 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
+            + tracked_time (object)
+                + total (object)
+                    + unit (enum)
+                        + Members
+                            + h - Hours
+                    + value: `10.25` (number)
+                + billable (object)
+                    + unit (enum)
+                        + Members
+                            + h - Hours
+                    + value: `7.50` (number)
+                + `non-billable` (object)
+                    + unit (enum)
+                        + Members
+                            + h - Hours
+                    + value: `2.75` (number)
 
 
 ### projects.create [POST /projects.create]
