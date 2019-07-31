@@ -371,6 +371,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `tracked_time` to `projects.info`, with a breakdown of billable and non-billable.
+
 - We added `project` to `tasks.info` and `tasks.list`.
 
 - We added a filter by `subject` to `timeTracking.list`.
@@ -3082,6 +3084,22 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
+            + tracked_time (object)
+                + total (object)
+                    + unit (enum)
+                        + Members
+                            + s - Seconds
+                    + value: `12600` (number)
+                + billable (object)
+                    + unit (enum)
+                        + Members
+                            + s - Seconds
+                    + value: `2700` (number)
+                + `non_billable` (object)
+                    + unit (enum)
+                        + Members
+                            + s - Seconds
+                    + value: `9900` (number)
 
 
 ### projects.create [POST /projects.create]
