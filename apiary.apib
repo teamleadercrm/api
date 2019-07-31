@@ -2914,6 +2914,7 @@ Get a list of products.
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
             + term: `cookies` (string, optional) - Will filter on the name or the code.
+            + updated_since: `2019-02-05T16:44:33+00:00` (string, optional)
 
 + Response 200 (application/json)
 
@@ -3086,6 +3087,22 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
+            + tracked_time (object)
+                + total (object)
+                    + unit (enum)
+                        + Members
+                            + s - Seconds
+                    + value: `12600` (number)
+                + billable (object)
+                    + unit (enum)
+                        + Members
+                            + s - Seconds
+                    + value: `2700` (number)
+                + `non_billable` (object)
+                    + unit (enum)
+                        + Members
+                            + s - Seconds
+                    + value: `9900` (number)
 
 
 ### projects.create [POST /projects.create]
