@@ -373,8 +373,6 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added an `updated_since` filter to `products.list`
 
-- We added `tracked_time` to `projects.info`, with a breakdown of billable and non-billable.
-
 - We added `project` to `tasks.info` and `tasks.list`.
 
 - We added a filter by `subject` to `timeTracking.list`.
@@ -500,7 +498,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2019-03-13**.
+The current latest version is **2019-07-03**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -3087,22 +3085,6 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
-            + tracked_time (object)
-                + total (object)
-                    + unit (enum)
-                        + Members
-                            + s - Seconds
-                    + value: `12600` (number)
-                + billable (object)
-                    + unit (enum)
-                        + Members
-                            + s - Seconds
-                    + value: `2700` (number)
-                + `non_billable` (object)
-                    + unit (enum)
-                        + Members
-                            + s - Seconds
-                    + value: `9900` (number)
 
 
 ### projects.create [POST /projects.create]
