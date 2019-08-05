@@ -249,7 +249,9 @@ The required GET parameters are:
  - `client_id` - issued when you create your integration
  - `response_type` - must be "token" (instead of "code")
  - `state` - unique string to be passed back upon completion (optional)
- - `redirect_uri` - URL to redirect back to after authorization - it is required to provide the allowed redirect URI(s) in the build section of our Marketplace
+ - `redirect_uri` - URL to redirect back to after authorization
+
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
 
 After authorization, the user is redirected to the `redirect_uri` with the following parameters in the **fragment part of the url**:
 
