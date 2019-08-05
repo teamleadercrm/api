@@ -237,7 +237,7 @@ Refresh tokens will continue functioning until the user revokes them or uninstal
 
 ### Client-side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). 
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2).  
 The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
 Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
