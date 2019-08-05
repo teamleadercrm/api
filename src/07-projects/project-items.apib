@@ -1,6 +1,6 @@
 ## Project items [/projectItems]
 
-Project items are added to a project and they affect the profitability. This information is only available for account administrators and users with full project admin access.
+Project items are added to a project and they affect the profitability. This information is only available for users with access to profit on projects.
 
 *Required scopes: `projects`*
 
@@ -8,19 +8,25 @@ Project items are added to a project and they affect the profitability. This inf
 
 Get a list of project items.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
-        + filter (object, optional)
-            + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
-            + type: `tracked_time` (enum[string])
+        + filter (object, required)
+            + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, required)
+            + type: `tracked_time` (enum, optional)
                 + Members
                     + tracked_time
                     + external_cost_item
+                    + time_tracking_product
+            + milestone_id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string, optional)
+            + participant_id: `a2d6bc44-2cf6-01c5-9a3c-67cabc1f029b` (string, optional)
+            + internal_cost_per_unit: null (nullable, optional)
+            + work_type_id: `206bf39b-0161-0058-a015-e530082b0814` (string, nullable, optional)
+            + activity_type_id: `ec907500-37d0-0245-8b16-2dbedd0a8ee0` (string, nullable, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + occurred_at
                         + milestone_name
@@ -29,7 +35,7 @@ Get a list of project items.
                         + quantity
                         + cost
                         + price
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -38,8 +44,7 @@ Get a list of project items.
                     + field: `occurred_at`
                     + order: `desc`
 
-
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -51,10 +56,11 @@ Get a list of project items.
                 + milestone (object, nullable)
                     + type: `milestone` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
-                + type: `tracked_time` (enum[string])
+                + type: `tracked_time` (enum)
                     + Members
                         + tracked_time
                         + external_cost_item
+                        + time_tracking_product
                 + description: `Drafted the document` (string, nullable)
                 + occurred_at: `2018-11-26T16:44:33+00:00` (string)
                 + participant (object, nullable)
@@ -67,6 +73,15 @@ Get a list of project items.
                 + total
                     + internal_cost (Money)
                     + billable_price (Money)
+                + product (object, nullable)
+                    + type: `product` (string)
+                    + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                + work_type (object, nullable)
+                    + type: `workType` (string)
+                    + id: `206bf39b-0161-0058-a015-e530082b0814` (string)
+                + activity_type (object, nullable)
+                    + type: `activityType` (string)
+                    + id: `ec907500-37d0-0245-8b16-2dbedd0a8ee0` (string)
                 + added_at: `2018-12-04T16:44:33+00:00` (string)
                 + updated_at: `2018-12-05T16:44:33+00:00` (string)
         + meta (object)
@@ -77,12 +92,12 @@ Get a list of project items.
 
 Get details for a single project item.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -93,10 +108,11 @@ Get details for a single project item.
             + milestone (object, nullable)
                 + type: `milestone` (string)
                 + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
-            + type: `tracked_time` (enum[string])
+            + type: `tracked_time` (enum)
                 + Members
                     + tracked_time
                     + external_cost_item
+                    + time_tracking_product
             + description: `Drafted the document` (string, nullable)
             + occurred_at: `2018-11-26T16:44:33+00:00` (string)
             + participant (object, nullable)
@@ -109,5 +125,50 @@ Get details for a single project item.
             + total
                 + internal_cost (Money)
                 + billable_price (Money)
+            + product (object, nullable)
+                + type: `product` (string)
+                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+            + work_type (object, nullable)
+                + type: `workType` (string)
+                + id: `206bf39b-0161-0058-a015-e530082b0814` (string)
+            + activity_type (object, nullable)
+                + type: `activityType` (string)
+                + id: `ec907500-37d0-0245-8b16-2dbedd0a8ee0` (string)
+            + subject (object, nullable)
+                + type: `task` (enum)
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + task
+                        + milestone
+                        + ticket
+                + id: `3f32200f-12e7-06c7-9e1c-843933518dbe` (string)
             + added_at: `2018-12-04T16:44:33+00:00` (string)
             + updated_at: `2018-12-05T16:44:33+00:00` (string)
+
+### projectItems.updateCost [POST /projectItems.updateCost]
+
+Update a project item's internal cost.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `cfb4146d-06be-41f1-bb39-aa3c929c71dc` (string, required)
+        + internal_cost_per_unit (Money, required, nullable)
+
++ Response 204 (application/json;charset=utf-8)
+
+### projectItems.updateInternalHourlyCost [POST /projectItems.updateInternalHourlyCost]
+
+Updates the internal hourly cost for a participant, for a specific project or all projects. Only account administrators have access to this endpoint.
+This does not update the global internal rate of the employee. See `users.update`.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + employee_id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string, required)
+        + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
+        + internal_hourly_cost (Money, required)
+
++ Response 204 (application/json)

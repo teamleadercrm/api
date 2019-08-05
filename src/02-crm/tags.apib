@@ -6,16 +6,16 @@ Tags are used to label contacts or companies, so that they can easily be filtere
 
 Get a list of tags.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + tag
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -23,7 +23,7 @@ Get a list of tags.
                     + field: `tag`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)

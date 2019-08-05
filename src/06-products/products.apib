@@ -6,21 +6,63 @@
 
 Get a list of products.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
-            + term: `cookies` (string, optional) - The name and the external id.
+            + term: `cookies` (string, optional) - Will filter on the name or the code.
+            + updated_since: `2019-02-05T16:44:33+00:00` (string, optional)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
             + (object)
                 + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
-                + translations (array)
-                    + (object)
-                        + name: `cookies` (string)
-                        + description: `dark chocolate` (string)
-                + external_id: `123` (string)
+                + name: `cookies` (string, nullable)
+                + description: `dark chocolate` (string, nullable)
+                + code: `COOK-DARKCHOC-42` (string, nullable)
+
+### products.info [GET /products.info]
+
+Get details for a single product.
+
++ Request (application/json)
+
+    + Attributes (object)
+         + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+            + name: `cookies` (string, nullable)
+            + description: `dark chocolate` (string, nullable)
+            + code: `COOK-DARKCHOC-42` (string, nullable)
+            + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
+            + selling_price (Money, nullable)
+
+### products.add [POST /products.add]
+
+Add a new product.
+
++ Request (application/json)
+    + Attributes (object)
+        + One Of
+            + Properties
+                + name: `cookies` (string, required)
+                + code: `COOK-DARKCHOC-42` (string, optional)
+            + Properties
+                + name: `cookies` (string, optional)
+                + code: `COOK-DARKCHOC-42` (string, required)
+        + purchase_price (Money, optional)
+        + selling_price (Money, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `product` (string)
+            + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)

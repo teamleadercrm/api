@@ -15,10 +15,10 @@ Get a list of departments.
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -26,7 +26,7 @@ Get a list of departments.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -45,7 +45,7 @@ Get details for a single department.
     + Attributes (object)
         + id: `92296ad0-2d61-4179-b174-9f354ca2157f` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data  (object)
@@ -55,13 +55,13 @@ Get details for a single department.
             + address (Address)
             + emails (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `primary` (enum)
                         + Members
                             + primary
                             + invoicing
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[object])
-                + type: `phone` (enum[string], required)
+                + type: `phone` (enum, required)
                     + Members
                         + phone
                         + fax

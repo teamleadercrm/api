@@ -1,0 +1,63 @@
+<a name="changelog"></a>
+### Changelog
+
+We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
+
+#### 2019-07-03
+
+- The property `todo` has been renamed to `task` on the following endpoints:
+  - `events.list`
+  - `events.info`
+
+- We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
+
+- The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
+  - `tasks.info`
+  - `tasks.list`
+  - `tasks.create`
+  - `tasks.update`
+  
+- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.  
+  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.  
+  For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
+
+#### 2019-03-13
+
+- The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
+  - `invoices.info`
+  - `creditNote.info`
+  - `quotations.info`
+
+- We simplified the `products.info` and `products.list` endpoints:
+  - `name` and `description` are no longer wrapped in a `translations` object. 
+  - `external_id` was renamed to `code`
+  - `prices` are temporarily no longer returned, to avoid confusion, as they didn't take into account price lists
+
+#### 2019-01-24
+
+- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
+  From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`, to make this more consistent and interchangeable.
+
+- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
+  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
+  This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
+
+- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
+  - `companies.info`  
+  - `companies.list`  
+  - `companies.add`  
+  - `companies.update`  
+  - `invoices.info`  
+  - `creditNotes.info`  
+
+- An invoice number actually contains the bookyear, so from now on, you will see eg. `2018 / 27` instead of `27`.
+  This is reflected in the `invoice_number` property in the `invoices.list` and `invoices.info` endpoints.
+
+#### 2018-10-30
+
+- The top-level property `customer` was removed on all deal endpoints.
+  Earlier, this property could already be found under the `lead.customer` property.
+  If you were still using the `customer` property, just wrap it in an object under a `lead` key.
+
+- The `contacts.list` & `companies.list` endpoints used to give back an object under the `address` key.
+  This object is now returned under the `primary_address` key.

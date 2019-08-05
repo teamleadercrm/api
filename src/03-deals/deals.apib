@@ -8,14 +8,14 @@ Deals are sale opportunities, which need to be followed up by their responsible 
 
 Get a list of deals.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
             + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
             + term: `Interesting deal` (string, optional) - Filters on the title, reference and customer's name
             + customer (object, optional)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + company
                         + contact
@@ -26,10 +26,10 @@ Get a list of deals.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + created_at
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + desc
             + Default
@@ -38,7 +38,7 @@ Get a list of deals.
                     + order: `desc`
 
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)
@@ -46,7 +46,7 @@ Get a list of deals.
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + title: `Interesting deal` (string)
                 + reference: `2017/2` (string)
-                + status: `won` (enum[string])
+                + status: `won` (enum)
                     + Members
                         + new
                         + open
@@ -54,7 +54,7 @@ Get a list of deals.
                         + lost
                 + lead (object)
                     + customer (object)
-                        + type: `company` (enum[string])
+                        + type: `company` (enum)
                             + Members
                                 + contact
                                 + company
@@ -86,26 +86,26 @@ Get a list of deals.
 
 Get details for a single deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
             + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + title: `Interesting deal` (string)
             + reference: `2017/2` (string)
-            + status: `won` (enum[string])
+            + status: `won` (enum)
                 + Members
                     + open
                     + won
                     + lost
             + lead (object)
                 + customer (object)
-                    + type: `company` (enum[string])
+                    + type: `company` (enum)
                         + Members
                             + contact
                             + company
@@ -151,12 +151,12 @@ Get details for a single deal.
 
 Create a new deal for a customer.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + lead (object, required)
             + customer (object, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                         + company
@@ -172,7 +172,7 @@ Create a new deal for a customer.
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -183,13 +183,13 @@ Create a new deal for a customer.
 
 Update a deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
         + lead (object, required)
             + customer (object, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                         + company
@@ -210,7 +210,7 @@ Update a deal.
 
 Move the deal to a different phase.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
@@ -222,7 +222,7 @@ Move the deal to a different phase.
 
 Mark a deal as won.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
@@ -233,7 +233,7 @@ Mark a deal as won.
 
 Mark a deal as lost.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `460df7b2-fe82-4c6c-b215-6d0a1bd3c742` (string, required)
@@ -246,7 +246,7 @@ Mark a deal as lost.
 
 Delete a deal.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
@@ -257,16 +257,16 @@ Delete a deal.
 
 Get a list of lost reasons for deals.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -274,7 +274,7 @@ Get a list of lost reasons for deals.
                     + field: `name`
                     + order: `asc`
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 200 (application/json)
 
     + Attributes (object)
         + data (array)

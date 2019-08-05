@@ -28,6 +28,9 @@ We consider the following changes to be backwards-incompatible:
 - Changing the format of a parameter of API responses (eg. integer to float)
 - Making validation of a parameter more strict (eg. making it required)
 - Returning a different HTTP status code.
+
+:[Additions](changes-backwards-compatible.apib)
+
 <a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
 
@@ -35,7 +38,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2019-01-24**.
+The current latest version is **2019-07-03**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -43,39 +46,7 @@ Send an `X-Api-Version` header containing the identifier of a version (newer tha
 
 _This will only affect the version for those API calls and won't affect any other calls done by your client._
 
-<a name="changelog"></a>
-### Changelog
-
-We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and will not appear in this list.
-
-#### 2019-01-24
-
-- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
-  From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`, to make this more consistent and interchangeable.
-
-- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
-  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
-  This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
-
-- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
-  - `companies.info`  
-  - `companies.list`  
-  - `companies.add`  
-  - `companies.update`  
-  - `invoices.info`  
-  - `creditNotes.info`  
-
-- An invoice number actually contains the bookyear, so from now on, you will see eg. `2018 / 27` instead of `27`.
-  This is reflected in the `invoice_number` property in the `invoices.list` and `invoices.info` endpoints.
-
-#### 2018-10-30
-
-- The top-level property `customer` was removed on all deal endpoints.
-  Earlier, this property could already be found under the `lead.customer` property.
-  If you were still using the `customer` property, just wrap it in an object under a `lead` key.
-
-- The `contacts.list` & `companies.list` endpoints used to give back an object under the `address` key.
-  This object is now returned under the `primary_address` key.
+:[Changes & upgrades](changes-backwards-incompatible.apib)
 
 ### Stay informed
 

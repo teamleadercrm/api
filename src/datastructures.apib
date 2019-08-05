@@ -1,7 +1,7 @@
 # Data Structures
 
 ## Telephone (object)
-+ type: `phone` (enum[string], required)
++ type: `phone` (enum, required)
     + Members
         + phone
         + mobile
@@ -9,7 +9,7 @@
 + number: `092980615` (string, required)
 
 ## CompanyTelephone (object)
-+ type: `phone` (enum[string], required)
++ type: `phone` (enum, required)
     + Members
         + phone
         + fax
@@ -27,7 +27,7 @@
 
 ## Money (object)
 + amount: `123.30` (number, required)
-+ currency: `EUR` (enum[string], required)
++ currency: `EUR` (enum, required)
     + Members
         + BAM
         + CAD
@@ -64,7 +64,7 @@
 + number: `2` (number)
 
 ## PaymentTerm  (object)
-+ type (enum[string])
++ type (enum)
     + Members
         + cash - Direct payment, often cash
         + end_of_month - End of the month of Xth day after the invoice date
@@ -81,7 +81,7 @@
     + value: `foo`,`bar` (array[string]) - For multiple selection fields
     + value: true (boolean) - For Yes/No fields
     + value (object) - For related Teamleader objects
-        + type: `company` (enum[string])
+        + type: `company` (enum)
             + Members
                 + company
                 + contact
@@ -97,7 +97,7 @@
     + value: `foo`,`bar` (array[string]) - For multiple selection fields
     + value: true (boolean) - For Yes/No fields
     + value (object) - For related Teamleader objects
-        + type: `company` (enum[string])
+        + type: `company` (enum)
             + Members
                 + company
                 + contact
@@ -107,7 +107,7 @@
 
 ## WebHook (object)
 + url: `https://example.com` (string, required) - Your webhook URL
-+ types (array[enum[string]], required) - Array of event types that fire the webhook
++ types (array[enum], required) - Array of event types that fire the webhook
     + Members
         + account.deactivated
         + account.deleted
@@ -119,6 +119,7 @@
         + contact.linkedToCompany
         + contact.unlinkedFromCompany
         + contact.updated
+        + creditNote.booked
         + deal.created
         + deal.deleted
         + deal.lost
@@ -133,6 +134,7 @@
         + invoice.updated
         + milestone.created
         + milestone.updated
+        + product.added
         + project.created
         + project.deleted
         + project.updated
