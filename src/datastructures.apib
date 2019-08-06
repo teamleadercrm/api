@@ -142,3 +142,21 @@
         + timeTracking.deleted
         + timeTracking.updated
         + user.deactivated
+
+## ExpectedPaymentMethod (object)
++ One Of
+    + Properties
+        + method: `sepa_direct_debit` (enum[string], required)
+            + Members
+                + `sepa_direct_debit`
+                + `direct_debit`
+                + `credit_card`
+        + reference: `AB1234` (string, optional, nullable)
+    + Properties
+        + method: `cash` (enum[string], required)
+            + Members
+                + `cash`
+                + `cheque`
+                + `bankers_draft`
+                + `bank_transfer`
+                + `payment_card`
