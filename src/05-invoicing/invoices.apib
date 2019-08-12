@@ -12,9 +12,10 @@ Get a list of invoices.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `outstanding`, `matched` (array[string], optional) - The statuses you want to filter by.
-                + (enum[string])
+            + status (array[enum], optional) - The statuses you want to filter by.
+                + Members
                     + draft
                     + outstanding
                     + matched
@@ -24,12 +25,13 @@ Get a list of invoices.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + invoice_number
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: `invoice_number`
@@ -46,7 +48,7 @@ Get a list of invoices.
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
                 + invoice_number: `2017 / 5` (string, nullable)
                 + invoice_date: `2016-02-04` (string, nullable)
-                + status: `matched` (enum[string])
+                + status: `matched` (enum)
                     + Members
                         + draft
                         + outstanding
@@ -54,6 +56,7 @@ Get a list of invoices.
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+                + sent: true (boolean)
                 + purchase_order_number: `000023` (string, nullable)
                 + payment_reference: `+++084/2613/66074+++` (string, nullable)
                 + invoicee (object)
@@ -79,6 +82,7 @@ Get a list of invoices.
                     + due (Money)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -98,7 +102,7 @@ Get details for a single invoice.
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
             + invoice_number: `2017 / 5` (string, nullable)
             + invoice_date: `2016-02-04` (string, nullable)
-            + status: `outstanding` (enum[string])
+            + status: `outstanding` (enum)
                 + Members
                     + draft
                     + outstanding
@@ -106,6 +110,7 @@ Get details for a single invoice.
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + sent: true (boolean)
             + purchase_order_number: `000023` (string, nullable)
             + invoicee (object)
                 + name: `De Rode Duivels` (string)
@@ -122,7 +127,7 @@ Get details for a single invoice.
                 + national_identification_number: `123` (string, nullable)
             + discounts (array)
                 + (object)
-                    + type: `percentage` (enum[string])
+                    + type: `percentage` (enum)
                         + Members
                             + percentage
                     + value: 15.00 (number)
@@ -144,14 +149,14 @@ Get details for a single invoice.
                             + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
-                                + tax: `excluding` (enum[string])
+                                + tax: `excluding` (enum)
                                     + Members
                                         + excluding
                             + tax (object)
                                 + type: `taxRate` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
                             + discount (object, nullable)
-                                + type: `percentage` (enum[string])
+                                + type: `percentage` (enum)
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
@@ -192,6 +197,7 @@ Get details for a single invoice.
                 + from: `USD` (string)
                 + to: `EUR` (string)
                 + rate: 1.1234 (number)
+			+ expected_payment_method (ExpectedPaymentMethod, nullable)
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -204,7 +210,7 @@ Download an invoice in a specific format.
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
-        + format: `pdf` (enum[string], required)
+        + format: `pdf` (enum, required)
             + Members
                 + pdf
 
@@ -224,7 +230,7 @@ Draft a new invoice.
     + Attributes (object)
         + invoicee (object, required)
             + customer (object, required)
-                + type (enum[string])
+                + type (enum)
                     + Members
                         + contact
                         + company
@@ -247,14 +253,14 @@ Draft a new invoice.
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
-                            + tax: `excluding` (enum[string], required)
+                            + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
                         + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required)
-                            + type (enum[string], required)
+                            + type (enum, required)
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
@@ -262,11 +268,12 @@ Draft a new invoice.
         + discounts (array, optional)
             (object)
                 + value: 10 (number, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
         + note: `Invoice comments` (string, optional)
+        + expected_payment_method (ExpectedPaymentMethod, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
@@ -286,7 +293,7 @@ Update an invoice.
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
         + invoicee (object, optional)
             + customer (object, required)
-                + type (enum[string])
+                + type (enum)
                     + Members
                         + contact
                         + company
@@ -299,7 +306,7 @@ Update an invoice.
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array, optional)
             + (object)
-                + section (object, required)
+                + section (object, optional)
                     + title (string, required)
                 + line_items (array, required)
                     + (object)
@@ -308,14 +315,14 @@ Update an invoice.
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
-                            + tax: `excluding` (enum[string])
+                            + tax: `excluding` (enum)
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
                         + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required)
-                            + type (enum[string], required)
+                            + type (enum, required)
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
@@ -324,10 +331,11 @@ Update an invoice.
         + discounts (array, optional)
             (object)
                 + value: 10 (number, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
+		+ expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
@@ -384,3 +392,20 @@ Register a payment for an invoice.
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
 
 + Response 204
+
+### invoices.credit [POST /invoices.credit]
+
+Credit an invoice completely.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + credit_note_date: `2016-02-04` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)

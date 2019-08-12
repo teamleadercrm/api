@@ -237,7 +237,8 @@ Refresh tokens will continue functioning until the user revokes them or uninstal
 
 ### Client-side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2).  
+The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
 Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
 
@@ -249,6 +250,8 @@ The required GET parameters are:
  - `response_type` - must be "token" (instead of "code")
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
+
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
 
 After authorization, the user is redirected to the `redirect_uri` with the following parameters in the **fragment part of the url**:
 
@@ -277,6 +280,7 @@ You can find a (very) minimal PHP code example, showing how to start the OAuth 2
 
 A Teamleader PHP SDK is under development. In the meanwhile, we recommend using packages such [Guzzle](http://docs.guzzlephp.org/en/stable) or the [League OAuth2 client](http://oauth2-client.thephpleague.com).
 
+<a name="sideloading"></a>
 ## Sideloading
 
 Sideloading (or compound documents) allows you to retrieve relevant related items as part of a single request. For example, a deal has a reference to a lead which can either be a contact or a company:
@@ -379,19 +383,72 @@ We list all backwards-compatible additions here. These are currently available i
 - We've added a `userInvites.cancel` endpoint.
   To cancel an invite that was not yet accepted by the user.
 
+#### July 2019
+
+- We added an `updated_since` filter to `products.list`
+
+- We added `project` to `tasks.info` and `tasks.list`.
+
+- We added a filter by `subject` to `timeTracking.list`.
+
+- A `task_id` filter has been added to `/events.list`.
+
+- We added a `term` filter to `milestone.list`.
+
+#### June 2019
+
+- We added a `term` filter to `tasks.list`.
+
+- We added `tasks.complete` and `tasks.reopen` endpoints.
+
+- We added `due_by` and `due_from` to `tasks.list` filters.
+
+- We added a `tasks.schedule` endpoint.
+
+- We added the ability to sort `tasks.list` based on a descending `due_at`.
+
+- `tasks.info` and `tasks.list` now return information about the customer.
+
+- We added `customer` parameter to `tasks.create` and `tasks.update`.
+
+- In order to link milestones and deals to a task, we added `milestone_id` and `deal_id` as optional parameters to `tasks.create` and `tasks.update`.
+
+- `tasks.list` and `tasks.info` now return the milestone and deal objects.
+
+#### May 2019
+
+- We added a `started_at` property to `timers.update` in order to be able to update the start time of a running timer.
+
+- We added `sent` as a boolean to `invoices.info` and `invoices.list`.
+
+- We added an optional filter on `ids` to `invoices.list`.
+
+- We added `creditNote.booked` and `product.added` to the available webhooks list.
+
+#### April 2019
+>>>>>>> master
+
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
-- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
+- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.
   By default, the endpoint keeps returning active users only. The status is also returned in the response data.
 
-- We've added a `products.add` endpoint.  
+- We've added a `products.add` endpoint.
   Because you can provide the selling price of a product in this endpoint, we also return it in `products.info` from now on.
 
-- We now also return the `payment_reference` of an invoice in the `invoices.list`.  
+- We now also return the `payment_reference` of an invoice in the `invoices.list`.
   We also made it filterable through the `payment_reference` filter.
 
-- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
-  The property is also filterable through the `purchose_order_number` filter.
+- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).
+  The property is also filterable through the `purchase_order_number` filter.
+
+- We added `currency_exchange_rate` to `quotations.info`.
+
+- The `events.list` endpoint now has an optional filter property `ids`.
+
+- The `tasks.list` endpoint now has an optional filter property `ids`.
+
+- We added an `invoices.credit` endpoint.
 
 #### March 2019
 
@@ -399,8 +456,55 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We've published a bunch of `tasks` endpoints (`tasks.list`, `tasks.info`, `tasks.create`, `tasks.update`, `tasks.delete`).
 
-- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
+- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
+
+#### February 2019
+
+- We now also return the `invoicing_method` of a milestone. Both in `milestones.list` and `milestones.info`.
+
+- We now expose the invoiceability of time trackings and running timers. You can now use the `invoiceable` property on the following endpoints:
+  - `timeTracking.list`
+  - `timeTracking.info`
+  - `timeTracking.add`
+  - `timeTracking.update`
+  - `timers.current`
+  - `timers.start`
+  - `timers.update`
+
+  We also return an `invoiceable` preference in the `users.me` endpoint that exposes whether a user prefers to track time by default as invoiceable or not.
+
+- We've added a `national_identification_number` property on contacts.
+  You can read it from `contacts.list` and `contacts.info`.
+  It's also writeable through `contacts.add` and `contacts.update`.
+
+- Invoicing custom fields included as `custom_fields`.
+  They are returned in `invoices.info`.
+  They can be added or updated through `invoices.draft` and `invoices.update`.
+
+- Deal can now be filtered with a `term` in `deals.list`.
+  We will return deals of which the term is part of the title, reference or customer's name.
+
+- We have created a way to fetch more data about related resources: sideloading.
+  More information can be found [here](#sideloading).
+
+- We didn't provide you with a way to find the uuid of a quotation.
+  Based on a v1 deal id, you can now retrieve the uuid of a quotation with `migrate.id`.
+
+#### January 2019
+
+- The `projects.list` endpoint has an optional filter to filter on `term` now.
+  We return projects for which the term appears in the title or description.
+
+- During `invoices.draft` and `invoices.update`, we now allow you to provide a `withholding_tax_rate_id`.
+  Don't worry if you don't know what this is. Withholding taxes only apply in certain countries, eg Spain or Italy.
+
+- We added a filter on `term` in `users.list`.
+  We return those users who have the term in their first name, last name or email address.
+
+- We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
+  So `products.list` and `products.info` are now available for usage.
+
 
 <a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
@@ -409,7 +513,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2019-03-13**.
+The current latest version is **2019-07-03**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -422,6 +526,24 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2019-07-03
+
+- The property `todo` has been renamed to `task` on the following endpoints:
+  - `events.list`
+  - `events.info`
+
+- We renamed the `context` field for work orders on customFieldDefinitions from `werkbonnen` to `work_orders`
+
+- The property `due_at` was removed in favour of `due_on`. Additionally, `due_on` is a date with format `YYYY-MM-DD`, instead of a ISO8601 datetime. These changes affect the following endpoints:
+  - `tasks.info`
+  - `tasks.list`
+  - `tasks.create`
+  - `tasks.update`
+
+- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.
+  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.
+  For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
+
 #### 2019-03-13
 
 - The property `tax` has been changed. Instead of giving you the `rate` of the tax it now shows the `id` and the `type` of the tax. This has been changed on the following endpoints:
@@ -430,7 +552,7 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `quotations.info`
 
 - We simplified the `products.info` and `products.list` endpoints:
-  - `name` and `description` are no longer wrapped in a `translations` object. 
+  - `name` and `description` are no longer wrapped in a `translations` object.
   - `external_id` was renamed to `code`
   - `prices` are temporarily no longer returned, to avoid confusion, as they didn't take into account price lists
 
@@ -486,10 +608,10 @@ Get a list of departments.
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -526,13 +648,13 @@ Get details for a single department.
             + address (Address)
             + emails (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `primary` (enum)
                         + Members
                             + primary
                             + invoicing
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[object])
-                + type: `phone` (enum[string], required)
+                + type: `phone` (enum, required)
                     + Members
                         + phone
                         + fax
@@ -565,7 +687,7 @@ Get the current authenticated user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl-BE` (enum[string])
+            + language: `nl-BE` (enum)
                 + Members
                     + da-DK
                     + de-DE
@@ -596,17 +718,16 @@ Get a list of all users.
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `John` (string, optional) - Filters on first name, last name and email
-            + status: `active`, `deactivated` (array[string], optional) - Filters on status
-                + (enum[string])
-                    + Members
-                        + active - Filters on active users
-                        + deactivated - Filters on deactivated users
+            + status (array[enum], optional) - Filters on status
+                + Members
+                    + active - Filters on active users
+                    + deactivated - Filters on deactivated users
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -630,7 +751,7 @@ Get a list of all users.
                 + telephones (array[Telephone])
                 + language: `nl` (string)
                 + function: `Sales` (string)
-                + status: `active` (enum[string])
+                + status: `active` (enum)
                     + Members
                         + active
                         + deactivated
@@ -656,7 +777,7 @@ Get details for a single user.
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
             + telephones (array[Telephone])
-            + language: `nl-BE` (enum[string])
+            + language: `nl-BE` (enum)
                 + Members
                     + da-DK
                     + de-DE
@@ -674,7 +795,7 @@ Get details for a single user.
                     + tr-TR
             + function: `Sales` (string)
             + time_zone: `Europe/Brussels` (string)
-            + status: `active` (enum[string])
+            + status: `active` (enum)
                 + Members
                     + active
                     + deactivated
@@ -762,11 +883,11 @@ Get a list of all the definitions of custom fields.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + label
                         + context
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -781,7 +902,7 @@ Get a list of all the definitions of custom fields.
         + data (array)
             + (object)
                 + id: `74855f4a-2b61-429c-81d8-c79ad3675a76` (string)
-                + context: `contact` (enum[string])
+                + context: `contact` (enum)
                     + Members
                         + contact
                         + company
@@ -792,7 +913,7 @@ Get a list of all the definitions of custom fields.
                         + invoice
                         + subscription
                         + ticket
-                + type (enum[string])
+                + type (enum)
                     + Members
                         + single_line - Single line text
                         + multi_line - Multiline text
@@ -832,7 +953,7 @@ Get info about a specific custom field definition.
     + Attributes (object)
         + data (object)
             + id: `57e851e2-3d3b-4523-82f8-fe77df5a5d6c` (string)
-            + context: `contact` (enum[string])
+            + context: `contact` (enum)
                 + Members
                     + contact
                     + company
@@ -843,7 +964,7 @@ Get info about a specific custom field definition.
                     + invoice
                     + subscription
                     + ticket
-            + type (enum[string])
+            + type (enum)
                 + Members
                     + single_line - Single line text
                     + multi_line - Multiline text
@@ -914,7 +1035,7 @@ Get a list of contacts.
     + Attributes (object)
         + filter (object, optional)
             + email (object, optional)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                          + primary
                 + email: `info@piedpiper.eu` (string, required)
@@ -926,12 +1047,12 @@ Get a list of contacts.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + added_at - Sorts on added_at
                         + name - Sorts alphabetically on last_name and first_name
                         + updated_at - Sorts on updated_at
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -951,15 +1072,14 @@ Get a list of contacts.
                 + salutation: `Mr` (string)
                 + emails (array)
                     + (object)
-                        + type: `primary` (enum[string])
+                        + type: `primary` (enum)
                             + Members
                                 + primary
-                                + invoicing
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + primary_address (Address)
-                + gender: `male` (enum[string])
+                + gender: `male` (enum)
                     + Members
                         + male
                         + female
@@ -995,23 +1115,22 @@ Get details for a single contact.
             + salutation: `Mr` (string)
             + emails (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `primary` (enum)
                         + Members
                             + primary
-                            + invoicing
                     + email: `info@piedpiper.eu` (string)
             + telephones (array[Telephone])
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + type: `invoicing` (enum[string])
+                    + type: `invoicing` (enum)
                         + Members
                             + primary
                             + invoicing
                             + delivery
                             + visiting
                     + address (Addressee) - Primary addresses can not contain an addressee
-            + gender: `male` (enum[string])
+            + gender: `male` (enum)
                 + Members
                     + male
                     + female
@@ -1049,17 +1168,16 @@ Add a new contact.
         + last_name: `Smith` (string, required)
         + emails (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required)
         + salutation: `Mr` (string, optional)
         + telephones (array[Telephone], optional)
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + type: `invoicing` (enum[string], required)
+                + type: `invoicing` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -1067,7 +1185,7 @@ Add a new contact.
                         + visiting
                 + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum[string], optional)
+        + gender: `male` (enum, optional)
             + Members
                 + male
                 + female
@@ -1100,16 +1218,15 @@ Update a contact.
         + salutation: `Mr` (string, optional, nullable)
         + emails (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                         + primary
-                        + invoicing
                 + email: `info@piedpiper.eu` (string, required, nullable)
         + telephones (array[Telephone], optional, nullable)
         + website: `http://example.com` (string, optional, nullable)
         + addresses (array, optional)
             + (object)
-                + type: `invoicing` (enum[string], required)
+                + type: `invoicing` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -1117,7 +1234,7 @@ Update a contact.
                         + visiting
                 + address (Addressee, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum[string], optional, nullable)
+        + gender: `male` (enum, optional, nullable)
             + Members
                 + male
                 + female
@@ -1208,7 +1325,7 @@ Get a list of companies.
     + Attributes (object)
         + filter (object, optional)
             + email (object, optional)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                          + primary
                 + email: `info@piedpiper.eu` (string, required)
@@ -1219,12 +1336,12 @@ Get a list of companies.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
                         + added_at
                         + updated_at
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -1247,7 +1364,7 @@ Get a list of companies.
                 + national_identification_number: `63326426` (string)
                 + emails (array)
                     + (object)
-                        + type: `primary` (enum[string])
+                        + type: `primary` (enum)
                             + Members
                                 + primary
                                 + invoicing
@@ -1292,7 +1409,7 @@ Get details for a single company.
             + national_identification_number: `63326426` (string)
             + emails (array)
                 + (object)
-                    + type: `primary` (enum[string])
+                    + type: `primary` (enum)
                         + Members
                             + primary
                             + invoicing
@@ -1301,7 +1418,7 @@ Get details for a single company.
             + website: `https://piedpiper.com` (string)
             + addresses (array)
                 + (object)
-                    + type: `invoicing` (enum[string])
+                    + type: `invoicing` (enum)
                         + Members
                             + primary
                             + invoicing
@@ -1339,7 +1456,7 @@ Add a new company.
         + national_identification_number: `63326426` (string, optional)
         + emails (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -1348,7 +1465,7 @@ Add a new company.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + type: `invoicing` (enum[string], required)
+                + type: `invoicing` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -1385,7 +1502,7 @@ Update a company.
         + national_identification_number: `63326426` (string, optional, nullable)
         + emails (array, optional)
             + (object)
-                + type: `primary` (enum[string], required)
+                + type: `primary` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -1394,7 +1511,7 @@ Update a company.
         + website: `http://example.com` (string, optional)
         + addresses (array, optional)
             + (object)
-                + type: `invoicing` (enum[string], required)
+                + type: `invoicing` (enum, required)
                     + Members
                         + primary
                         + invoicing
@@ -1481,10 +1598,10 @@ Get a list of tags.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + tag
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -1540,7 +1657,7 @@ Get a list of deals.
             + ids: `3f507137-e599-41d4-8625-0e2adba0be4c`,`ae97f6d3-0bb4-43d3-b13d-f06069d07e98` (array[string], optional)
             + term: `Interesting deal` (string, optional) - Filters on the title, reference and customer's name
             + customer (object, optional)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + company
                         + contact
@@ -1551,10 +1668,10 @@ Get a list of deals.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + created_at
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + desc
             + Default
@@ -1571,7 +1688,7 @@ Get a list of deals.
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + title: `Interesting deal` (string)
                 + reference: `2017/2` (string)
-                + status: `won` (enum[string])
+                + status: `won` (enum)
                     + Members
                         + new
                         + open
@@ -1579,7 +1696,7 @@ Get a list of deals.
                         + lost
                 + lead (object)
                     + customer (object)
-                        + type: `company` (enum[string])
+                        + type: `company` (enum)
                             + Members
                                 + contact
                                 + company
@@ -1623,14 +1740,14 @@ Get details for a single deal.
             + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + title: `Interesting deal` (string)
             + reference: `2017/2` (string)
-            + status: `won` (enum[string])
+            + status: `won` (enum)
                 + Members
                     + open
                     + won
                     + lost
             + lead (object)
                 + customer (object)
-                    + type: `company` (enum[string])
+                    + type: `company` (enum)
                         + Members
                             + contact
                             + company
@@ -1681,7 +1798,7 @@ Create a new deal for a customer.
     + Attributes (object)
         + lead (object, required)
             + customer (object, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                         + company
@@ -1714,7 +1831,7 @@ Update a deal.
         + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
         + lead (object, required)
             + customer (object, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                         + company
@@ -1788,10 +1905,10 @@ Get a list of lost reasons for deals.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + name
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -1899,14 +2016,14 @@ Get a quotation
                             + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
-                                + tax: `excluding` (enum[string])
+                                + tax: `excluding` (enum)
                                     + Members
                                         + excluding
                             + tax (object)
                                 + type: `taxRate` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449042`
                             + discount (object, nullable)
-                                + type: `percentage` (enum[string])
+                                + type: `percentage` (enum)
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
@@ -1915,6 +2032,10 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+                            + currency_exchange_rate (object)
+                                + from: `USD` (string)
+                                + to: `EUR` (string)
+                                + rate: 1.1234 (number)
 
 ### quotations.download [POST /quotations.download]
 
@@ -1924,7 +2045,7 @@ Download a quotation in a specific format.
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
-        + format: `pdf` (enum[string], required)
+        + format: `pdf` (enum, required)
             + Members
                 + pdf
 
@@ -1951,29 +2072,31 @@ Get a list of calendar events.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
             + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
             + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
             + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
             + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
             + term: `coffee` (string, optional) - Searches for a term in title or description
             + attendee (object, optional)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
             + link (object, optional)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + contact
                         + company
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field: `starts_at` (enum[string], required)
+                + field: `starts_at` (enum, required)
                     + Members
                         + starts_at
-                + order: `asc` (enum[string], optional)
+                + order: `asc` (enum, optional)
                     + Members
                         + asc
                         + desc
@@ -1991,8 +2114,8 @@ Get a list of calendar events.
                 + creator (object)
                     + type: `user` (string)
                     + id: `e51d1a0e-452e-4d5d-a2a1-2c8f75dde560` (string)
-                + todo (object)
-                    + type: `todo` (string)
+                + task (object)
+                    + type: `task` (string)
                     + id: `eb399573-e1ae-4377-bbaf-34358eb19831` (string)
                 + activity_type (object)
                     + type: `activityType` (string)
@@ -2004,14 +2127,14 @@ Get a list of calendar events.
                 + location (string)
                 + attendees (array)
                     + (object)
-                        + type: `contact` (enum[string])
+                        + type: `contact` (enum)
                             + Members
                                 + user
                                 + contact
                         + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
                 + links (array)
                     + (object)
-                        + type (enum[string])
+                        + type (enum)
                             + Members
                                 + company
                                 + contact
@@ -2037,8 +2160,8 @@ Get details for a single calendar event.
             + creator (object)
                 + type: `user` (string)
                 + id: `6f45600a-4402-40e0-9dcc-7665384bcd48` (string)
-            + todo (object)
-                + type: `todo` (string)
+            + task (object)
+                + type: `task` (string)
                 + id: `be80d753-f2ee-426d-9596-2a2e1a23a82e` (string)
             + activity_type (object)
                 + type: `activityType` (string)
@@ -2048,14 +2171,14 @@ Get details for a single calendar event.
             + location (string)
             + attendees (array)
                 + (object)
-                    + type: `contact` (enum[string])
+                    + type: `contact` (enum)
                         + Members
                             + user
                             + contact
                     + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
             + links (array)
                 + (object)
-                    + type (enum[string])
+                    + type (enum)
                         + Members
                             + company
                             + contact
@@ -2077,14 +2200,14 @@ Create a new calendar event.
         + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
         + attendees (array, optional)
             + (object)
-                + type: `user` (enum[string], required)
+                + type: `user` (enum, required)
                     + Members
                         + user
                         + contact
                 + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
         + links (array, optional)
             + (object)
-                + type: `company` (enum[string], required)
+                + type: `company` (enum, required)
                     + Members
                         + company
                         + contact
@@ -2113,14 +2236,14 @@ Update a calendar event.
         + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
         + attendees (array, optional)
             + (object)
-                + type: `user` (enum[string], required)
+                + type: `user` (enum, required)
                     + Members
                         + user
                         + contact
                 + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
         + links (array, optional)
             + (object)
-                + type: `company` (enum[string], required)
+                + type: `company` (enum, required)
                     + Members
                         + company
                         + contact
@@ -2178,9 +2301,10 @@ Get a list of invoices.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
-            + status: `outstanding`, `matched` (array[string], optional) - The statuses you want to filter by.
-                + (enum[string])
+            + status (array[enum], optional) - The statuses you want to filter by.
+                + Members
                     + draft
                     + outstanding
                     + matched
@@ -2190,12 +2314,13 @@ Get a list of invoices.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + invoice_number
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: `invoice_number`
@@ -2212,7 +2337,7 @@ Get a list of invoices.
                     + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
                 + invoice_number: `2017 / 5` (string, nullable)
                 + invoice_date: `2016-02-04` (string, nullable)
-                + status: `matched` (enum[string])
+                + status: `matched` (enum)
                     + Members
                         + draft
                         + outstanding
@@ -2220,6 +2345,7 @@ Get a list of invoices.
                 + due_on: `2016-03-03` (string, nullable)
                 + paid: true (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+                + sent: true (boolean)
                 + purchase_order_number: `000023` (string, nullable)
                 + payment_reference: `+++084/2613/66074+++` (string, nullable)
                 + invoicee (object)
@@ -2245,6 +2371,7 @@ Get a list of invoices.
                     + due (Money)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+
 ### invoices.info [GET /invoices.info]
 
 Get details for a single invoice.
@@ -2264,7 +2391,7 @@ Get details for a single invoice.
                 + id: `8f802cba-443b-4c69-800f-5852e967000b` (string)
             + invoice_number: `2017 / 5` (string, nullable)
             + invoice_date: `2016-02-04` (string, nullable)
-            + status: `outstanding` (enum[string])
+            + status: `outstanding` (enum)
                 + Members
                     + draft
                     + outstanding
@@ -2272,6 +2399,7 @@ Get details for a single invoice.
             + due_on: `2016-03-03` (string, nullable)
             + paid: true (boolean)
             + paid_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + sent: true (boolean)
             + purchase_order_number: `000023` (string, nullable)
             + invoicee (object)
                 + name: `De Rode Duivels` (string)
@@ -2288,7 +2416,7 @@ Get details for a single invoice.
                 + national_identification_number: `123` (string, nullable)
             + discounts (array)
                 + (object)
-                    + type: `percentage` (enum[string])
+                    + type: `percentage` (enum)
                         + Members
                             + percentage
                     + value: 15.00 (number)
@@ -2310,14 +2438,14 @@ Get details for a single invoice.
                             + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
-                                + tax: `excluding` (enum[string])
+                                + tax: `excluding` (enum)
                                     + Members
                                         + excluding
                             + tax (object)
                                 + type: `taxRate` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
                             + discount (object, nullable)
-                                + type: `percentage` (enum[string])
+                                + type: `percentage` (enum)
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
@@ -2358,6 +2486,7 @@ Get details for a single invoice.
                 + from: `USD` (string)
                 + to: `EUR` (string)
                 + rate: 1.1234 (number)
+                + expected_payment_method (ExpectedPaymentMethod, nullable)
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -2370,7 +2499,7 @@ Download an invoice in a specific format.
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
-        + format: `pdf` (enum[string], required)
+        + format: `pdf` (enum, required)
             + Members
                 + pdf
 
@@ -2390,7 +2519,7 @@ Draft a new invoice.
     + Attributes (object)
         + invoicee (object, required)
             + customer (object, required)
-                + type (enum[string])
+                + type (enum)
                     + Members
                         + contact
                         + company
@@ -2413,14 +2542,14 @@ Draft a new invoice.
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
-                            + tax: `excluding` (enum[string], required)
+                            + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
                         + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required)
-                            + type (enum[string], required)
+                            + type (enum, required)
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
@@ -2428,11 +2557,12 @@ Draft a new invoice.
         + discounts (array, optional)
             (object)
                 + value: 10 (number, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
         + note: `Invoice comments` (string, optional)
+        + expected_payment_method (ExpectedPaymentMethod, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
@@ -2452,7 +2582,7 @@ Update an invoice.
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
         + invoicee (object, optional)
             + customer (object, required)
-                + type (enum[string])
+                + type (enum)
                     + Members
                         + contact
                         + company
@@ -2465,7 +2595,7 @@ Update an invoice.
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array, optional)
             + (object)
-                + section (object, required)
+                + section (object, optional)
                     + title (string, required)
                 + line_items (array, required)
                     + (object)
@@ -2474,23 +2604,24 @@ Update an invoice.
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_price (object)
                             + Include Money
-                            + tax: `excluding` (enum[string])
+                            + tax: `excluding` (enum)
                                 + Members
                                     + excluding
                         + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
                         + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
                         + discount (object, optional)
                             + value: 10 (number, required)
-                            + type (enum[string], required)
+                            + type (enum, required)
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
+        + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + discounts (array, optional)
             (object)
                 + value: 10 (number, required)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
@@ -2551,6 +2682,23 @@ Register a payment for an invoice.
 
 + Response 204
 
+### invoices.credit [POST /invoices.credit]
+
+Credit an invoice completely.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + credit_note_date: `2016-02-04` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
+
 ## Credit Notes [/creditNotes]
 
 Credit notes are created when certain products or services are not delivered according to their invoice. The credit note reduces the due amount of the credited invoice.
@@ -2570,10 +2718,10 @@ List credit notes
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + credit_note_number
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -2592,7 +2740,7 @@ List credit notes
                     + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + credit_note_number: `2017/5` (string, nullable)
                 + credit_note_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `booked` (enum)
                     + Members
                         + booked
                 + invoice (object, nullable)
@@ -2638,7 +2786,7 @@ Get details for a single credit note
                     + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + credit_note_number: `2017/5` (string, nullable)
                 + credit_note_date: `2016-02-04` (string, nullable)
-                + status: `booked` (enum[string])
+                + status: `booked` (enum)
                     + Members
                         + booked
                 + invoice (object, nullable)
@@ -2680,14 +2828,14 @@ Get details for a single credit note
                                 + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                                 + unit_price (object)
                                     + Include Money
-                                    + tax: `excluding` (enum[string])
+                                    + tax: `excluding` (enum)
                                         + Members
                                             + excluding
                                 + tax (object)
                                     + type: `taxRate` (string)
                                     + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
                                 + discount (object, nullable)
-                                    + type: `percentage` (enum[string])
+                                    + type: `percentage` (enum)
                                         + Members
                                             + percentage
                                     + value: `15.00` (number)
@@ -2711,7 +2859,7 @@ Download a credit note in a specific format.
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
-        + format: `pdf` (enum[string], required)
+        + format: `pdf` (enum, required)
             + Members
                 + pdf
 
@@ -2851,6 +2999,7 @@ Get a list of products.
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
             + term: `cookies` (string, optional) - Will filter on the name or the code.
+            + updated_since: `2019-02-05T16:44:33+00:00` (string, optional)
 
 + Response 200 (application/json)
 
@@ -2922,12 +3071,12 @@ Get a list of projects.
     + Attributes (object)
         + filter (object, optional)
             + customer (object, optional)
-                + type (enum[string], required)
+                + type (enum, required)
                     + Members
                         + company
                         + contact
                 + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, required)
-            + status (enum[string], optional)
+            + status (enum, optional)
                 + Members
                     + active
                     + on_hold
@@ -2938,10 +3087,10 @@ Get a list of projects.
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + due_on
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -2958,7 +3107,7 @@ Get a list of projects.
                 + reference: `PRO-2` (string)
                 + title: `New company website` (string)
                 + description (string)
-                + status: `active` (enum[string])
+                + status: `active` (enum)
                     + Members
                         + active
                         + on_hold
@@ -2991,14 +3140,14 @@ Get details for a single project.
             + reference: `PRO-1` (string)
             + title: `New company website` (string)
             + description (string)
-            + status: `active` (enum[string])
+            + status: `active` (enum)
                 + Members
                     + active
                     + on_hold
                     + done
                     + cancelled
             + customer (object)
-                + type: `contact` (enum[string])
+                + type: `contact` (enum)
                     + Members
                         + contact
                         + company
@@ -3015,11 +3164,11 @@ Get details for a single project.
             + participants (array)
                 + (object)
                     + participant (object)
-                        + type: `user` (enum[string])
+                        + type: `user` (enum)
                             + Members
                                 + user
                         + id: `b0ef899b-143c-4708-90ce-aecb3350e116` (string)
-                    + role (enum[string])
+                    + role (enum)
                         + Members
                             + decision_maker
                             + member
@@ -3045,13 +3194,13 @@ Create a new project.
                 + participant (object, required)
                     + type: `user` (string, required)
                     + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
-                + role (enum[string], optional)
+                + role (enum, optional)
                     + Members
                         + decision_maker
                         + member
                     + Default: `member`
         + customer (object, optional)
-            + type (enum[string], required)
+            + type (enum, required)
                 + Members
                     + contact
                     + company
@@ -3075,7 +3224,7 @@ Update a project.
         + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
         + title: `New company website` (string, required)
         + description (string, required)
-        + status: `active` (enum[string], required)
+        + status: `active` (enum, required)
             + Members
                 + active
                 + on_hold
@@ -3109,7 +3258,7 @@ Add a participant to a project.
         + participant (object, required)
             + type: `user` (string)
             + id: `a1388f3d-6116-4792-ac1c-04657697539e` (string)
-        + role (enum[string], optional)
+        + role (enum, optional)
             + Members
                 + decision_maker
                 + member
@@ -3129,7 +3278,7 @@ Update a participant's role for a project.
         + participant (object, optional)
             + type: `user` (string)
             + id: `5ccbc008-f65e-4192-836c-4d7e21f54052` (string)
-        + role (enum[string], required)
+        + role (enum, required)
             + Members
                 + decision_maker
                 + member
@@ -3152,19 +3301,20 @@ Get a list of project milestones.
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
             + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
-            + status (enum[string], optional)
+            + status (enum, optional)
                 + Members
                     + open
                     + closed
             + due_before: `2017-01-01` (string, optional)
             + due_after: `2017-01-01` (string, optional)
+            + term: `coffee` (string, optional) - Searches for a term in title
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + due_on
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -3186,11 +3336,11 @@ Get a list of project milestones.
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-                + status: `done` (enum[string])
+                + status: `done` (enum)
                     + Members
                         + open
                         + closed
-                + `invoicing_method`: `time_and_materials` (enum[string])
+                + `invoicing_method`: `time_and_materials` (enum)
                     + Members
                         + time_and_materials
                         + fixed_price
@@ -3218,11 +3368,11 @@ Get details for a single milestone.
             + responsible_user (object)
                 + type: `user` (string)
                 + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-            + status: `done` (enum[string])
+            + status: `done` (enum)
                 + Members
                     + open
                     + closed
-            + `invoicing_method`: `time_and_materials` (enum[string])
+            + `invoicing_method`: `time_and_materials` (enum)
                 + Members
                     + time_and_materials
                     + fixed_price
@@ -3273,20 +3423,32 @@ Get a list of tasks.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
             + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
+            + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
             + completed: true (boolean, optional)
+            + due_by: `2019-02-04` (string, optional)
+            + due_from: `2019-10-20` (string, optional)
+            + term: `website design` (string, optional) - Searches for a term in the description.
+            + customer (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
-                        + due_at
-                + order (enum[string], optional)
+                        + due_on
+                + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
-                    + field: `due_at`
+                    + field: `due_on`
                     + order: `asc`
 
 + Response 200 (application/json)
@@ -3298,9 +3460,9 @@ Get a list of tasks.
                 + description (string)
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
-                + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + due_on: `2016-02-04` (string)
                 + estimated_duration (object)
-                    + unit: `min` (enum[string])
+                    + unit (enum)
                         + Members
                             + min - Minutes
                     + value: `60` (number)
@@ -3308,11 +3470,26 @@ Get a list of tasks.
                     + type: `workType` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
                 + assignee (object)
-                    + type: `user` (enum[string])
+                    + type: `user` (enum)
                         + Members
                             + user
                             + team
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + customer (object, nullable)
+                    + type: `contact` (enum)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + deal (object, nullable)
+                    + type: `deal` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + project (object, nullable)
+                    + type: `project` (string)
+                    + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
 
 ### tasks.info [GET /tasks.info]
 
@@ -3331,9 +3508,9 @@ Get information about a task.
             + description (string)
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
-            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + due_on: `2016-02-04` (string)
             + estimated_duration (object)
-                + unit: `min` (enum[string])
+                + unit (enum)
                     + Members
                         + min - Minutes
                 + value: `60` (number)
@@ -3341,11 +3518,26 @@ Get information about a task.
                 + type: `workType` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
             + assignee (object)
-                + type: `user` (enum[string])
+                + type: `user` (enum)
                     + Members
                         + user
                         + team
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + customer (object, nullable)
+                + type: `contact` (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + milestone (object, nullable)
+                + type: `milestone` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + deal (object, nullable)
+                + type: `deal` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + project (object, nullable)
+                + type: `project` (string)
+                + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
 
 ### tasks.create [POST /tasks.create]
 
@@ -3355,18 +3547,26 @@ Create a new task.
 
     + Attributes (object)
         + description (string, required)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, required)
+        + due_on: `2016-02-04` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum, required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
         + assignee (object, optional)
-            + type: `user` (enum[string])
+            + type: `user` (enum)
                 + Members
                     + user
                     + team
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum)
+                + Members
+                    + contact
+                    + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 + Response 201 (application/json)
@@ -3385,19 +3585,49 @@ Update a task.
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
         + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + due_on: `2016-02-04` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + estimated_duration (object, optional)
-            + unit: `min` (enum[string], required)
+            + unit (enum, required)
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
         + assignee (object, optional)
-            + type: `user` (enum[string])
+            + type: `user` (enum)
                 + Members
                     + user
                     + team
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + customer (object, optional)
+            + type: `contact` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 204
+
+### tasks.complete [POST /tasks.complete]
+
+Mark a task as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+
++ Response 204
+
+### tasks.reopen[POST /tasks.reopen]
+
+Reopen a task that had been marked as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
 
 + Response 204
 
@@ -3411,6 +3641,24 @@ Delete a task.
         + id: `5f0afd8a-8a40-48a4-bbe6-7d0e9c61bb6d` (string, required)
 
 + Response 204
+
+### tasks.schedule [POST /tasks.schedule]
+
+Schedule a task in your calendar.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `7c70c54e-6e50-4e6a-b5fd-80234eb535cf` (string, required)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `d7d2d100-d440-46c2-a4a3-177ad4b2a860` (string)
 
 # Group Time Tracking
 
@@ -3431,19 +3679,29 @@ Get a list of tracked time.
             + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_before: `2017-05-26T10:01:49+00:00` (string, optional)
+            + subject (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + started_on
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
-                        + asc
+                        + desc
             + Default
                 + (object)
                     + field: `started_on`
-                    + order: `asc`
+                    + order: `desc`
 
 + Response 200 (application/json)
 
@@ -3463,7 +3721,7 @@ Get a list of tracked time.
                 + duration: 3600 (number) - In seconds
                 + description: `Timer description` (string)
                 + subject (object)
-                    + type: `milestone` (enum[string])
+                    + type: `milestone` (enum)
                         + Members
                             + company
                             + contact
@@ -3500,7 +3758,7 @@ Get information about tracked time.
             + duration: 3600 (number) - In seconds
             + description: `Timer description` (string)
             + subject (object)
-                + type: `milestone` (enum[string])
+                + type: `milestone` (enum)
                     + Members
                         + company
                         + contact
@@ -3530,7 +3788,7 @@ Add tracked time.
                 + ended_at: `2017-04-26T16:02:00+00:00` (string, required)
         + description (string, optional)
         + subject (object, optional)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -3563,7 +3821,7 @@ Update tracked time.
                 + duration: 3600 (number, required) - In seconds
         + description (string, optional, nullable)
         + subject (object, optional, nullable)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -3626,7 +3884,7 @@ Get the current running timer.
             + started_at: `2017-04-26T10:01:49+00:00` (string)
             + description: `Timer description` (string)
             + subject (object)
-                + type: `milestone` (enum[string])
+                + type: `milestone` (enum)
                     + Members
                         + company
                         + contact
@@ -3648,7 +3906,7 @@ Start a new timer.
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
         + description (string, optional)
         + subject (object, optional)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -3690,9 +3948,10 @@ Update the current timer. Only possible if there is a timer running.
 
     + Attributes (object)
         + work_type_id: `db41328a-7a25-4e85-8fb9-830baacb7f40` (string, optional, nullable)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
         + description: `Timer Description` (string, optional, nullable)
         + subject (object, optional, nullable)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -3717,7 +3976,7 @@ Add a draft work order.
 
     + Attributes (object)
        + customer (object, required)
-           + type (enum[string], required)
+           + type (enum, required)
                + Members
                    + contact
                    + company
@@ -3754,7 +4013,7 @@ Translates an ID from the deprecated API into a new UUID.
 + Request (application/json)
 
     + Attributes (object)
-        + type: `contact` (enum[string])
+        + type: `contact` (enum)
             + Members
                 + account
                 + user
@@ -3779,7 +4038,7 @@ Translates an ID from the deprecated API into a new UUID.
 
     + Attributes
         + data (object)
-            + type: `contact` (enum[string])
+            + type: `contact` (enum)
                 + Members
                     + account
                     + user
@@ -3823,7 +4082,7 @@ Translates "meeting", "call" and "task" into their respective activity type UUID
 + Request (application/json)
 
     + Attributes (object)
-        + type: `meeting` (enum[string])
+        + type: `meeting` (enum)
             + Members
                 + meeting
                 + call
@@ -3872,7 +4131,7 @@ Unregister a webhook.
 # Data Structures
 
 ## Telephone (object)
-+ type: `phone` (enum[string], required)
++ type: `phone` (enum, required)
     + Members
         + phone
         + mobile
@@ -3880,7 +4139,7 @@ Unregister a webhook.
 + number: `092980615` (string, required)
 
 ## CompanyTelephone (object)
-+ type: `phone` (enum[string], required)
++ type: `phone` (enum, required)
     + Members
         + phone
         + fax
@@ -3898,7 +4157,7 @@ Unregister a webhook.
 
 ## Money (object)
 + amount: `123.30` (number, required)
-+ currency: `EUR` (enum[string], required)
++ currency: `EUR` (enum, required)
     + Members
         + BAM
         + CAD
@@ -3935,7 +4194,7 @@ Unregister a webhook.
 + number: `2` (number)
 
 ## PaymentTerm  (object)
-+ type (enum[string])
++ type (enum)
     + Members
         + cash - Direct payment, often cash
         + end_of_month - End of the month of Xth day after the invoice date
@@ -3952,7 +4211,7 @@ Unregister a webhook.
     + value: `foo`,`bar` (array[string]) - For multiple selection fields
     + value: true (boolean) - For Yes/No fields
     + value (object) - For related Teamleader objects
-        + type: `company` (enum[string])
+        + type: `company` (enum)
             + Members
                 + company
                 + contact
@@ -3968,7 +4227,7 @@ Unregister a webhook.
     + value: `foo`,`bar` (array[string]) - For multiple selection fields
     + value: true (boolean) - For Yes/No fields
     + value (object) - For related Teamleader objects
-        + type: `company` (enum[string])
+        + type: `company` (enum)
             + Members
                 + company
                 + contact
@@ -3978,7 +4237,7 @@ Unregister a webhook.
 
 ## WebHook (object)
 + url: `https://example.com` (string, required) - Your webhook URL
-+ types (array[enum[string]], required) - Array of event types that fire the webhook
++ types (array[enum], required) - Array of event types that fire the webhook
     + Members
         + account.deactivated
         + account.deleted
@@ -3990,6 +4249,7 @@ Unregister a webhook.
         + contact.linkedToCompany
         + contact.unlinkedFromCompany
         + contact.updated
+        + creditNote.booked
         + deal.created
         + deal.deleted
         + deal.lost
@@ -4004,6 +4264,7 @@ Unregister a webhook.
         + invoice.updated
         + milestone.created
         + milestone.updated
+        + product.added
         + project.created
         + project.deleted
         + project.updated
@@ -4011,3 +4272,21 @@ Unregister a webhook.
         + timeTracking.deleted
         + timeTracking.updated
         + user.deactivated
+
+## ExpectedPaymentMethod (object)
++ One Of
+    + Properties
+        + method: `sepa_direct_debit` (enum[string], required)
+            + Members
+                + `sepa_direct_debit`
+                + `direct_debit`
+                + `credit_card`
+        + reference: `AB1234` (string, optional, nullable)
+    + Properties
+        + method: `cash` (enum[string], required)
+            + Members
+                + `cash`
+                + `cheque`
+                + `bankers_draft`
+                + `bank_transfer`
+                + `payment_card`

@@ -14,19 +14,20 @@ Get a list of project milestones.
         + filter (object, optional)
             + ids: `bbbfe0da-e692-4ee3-9d3d-0716808d6523`,`722e1eb9-53d5-4b8c-9d17-154dcc65c610` (array[string], optional)
             + project_id: `082e6289-30c5-45ad-bcd0-190b02d21e81` (string, optional)
-            + status (enum[string], optional)
+            + status (enum, optional)
                 + Members
                     + open
                     + closed
             + due_before: `2017-01-01` (string, optional)
             + due_after: `2017-01-01` (string, optional)
+            + term: `coffee` (string, optional) - Searches for a term in title
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + due_on
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
                         + asc
             + Default
@@ -48,11 +49,11 @@ Get a list of project milestones.
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-                + status: `done` (enum[string])
+                + status: `done` (enum)
                     + Members
                         + open
                         + closed
-                + `invoicing_method`: `time_and_materials` (enum[string])
+                + `invoicing_method`: `time_and_materials` (enum)
                     + Members
                         + time_and_materials
                         + fixed_price
@@ -80,11 +81,11 @@ Get details for a single milestone.
             + responsible_user (object)
                 + type: `user` (string)
                 + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-            + status: `done` (enum[string])
+            + status: `done` (enum)
                 + Members
                     + open
                     + closed
-            + `invoicing_method`: `time_and_materials` (enum[string])
+            + `invoicing_method`: `time_and_materials` (enum)
                 + Members
                     + time_and_materials
                     + fixed_price

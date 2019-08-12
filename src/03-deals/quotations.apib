@@ -35,14 +35,14 @@ Get a quotation
                             + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
                             + unit_price (object)
                                 + Include Money
-                                + tax: `excluding` (enum[string])
+                                + tax: `excluding` (enum)
                                     + Members
                                         + excluding
                             + tax (object)
                                 + type: `taxRate` (string)
                                 + id: `e2314517-3cab-4aa9-8471-450e73449042`
                             + discount (object, nullable)
-                                + type: `percentage` (enum[string])
+                                + type: `percentage` (enum)
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
@@ -51,6 +51,10 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+                            + currency_exchange_rate (object)
+                                + from: `USD` (string)
+                                + to: `EUR` (string)
+                                + rate: 1.1234 (number)
 
 ### quotations.download [POST /quotations.download]
 
@@ -60,7 +64,7 @@ Download a quotation in a specific format.
 
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
-        + format: `pdf` (enum[string], required)
+        + format: `pdf` (enum, required)
             + Members
                 + pdf
 
