@@ -32,3 +32,19 @@ Cancel a user invite.
         + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
 
 + Response 204
+
+### userInvites.resend [GET /userInvites.resend]
+
+Resend a user invite by cancelling the previous invite and creating a new one.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `e88131bf-50c4-49d3-8ae3-47e5d9626bf6` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `userInvite` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
