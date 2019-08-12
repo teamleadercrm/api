@@ -16,9 +16,9 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `tasks.list`
   - `tasks.create`
   - `tasks.update`
-  
-- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.  
-  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.  
+
+- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.
+  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.
   For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
 
 #### 2019-03-13
@@ -29,7 +29,7 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `quotations.info`
 
 - We simplified the `products.info` and `products.list` endpoints:
-  - `name` and `description` are no longer wrapped in a `translations` object. 
+  - `name` and `description` are no longer wrapped in a `translations` object.
   - `external_id` was renamed to `code`
   - `prices` are temporarily no longer returned, to avoid confusion, as they didn't take into account price lists
 
