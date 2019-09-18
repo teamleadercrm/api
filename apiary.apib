@@ -422,16 +422,16 @@ We list all backwards-compatible additions here. These are currently available i
 
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
-- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.
+- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
   By default, the endpoint keeps returning active users only. The status is also returned in the response data.
 
-- We've added a `products.add` endpoint.
+- We've added a `products.add` endpoint.  
   Because you can provide the selling price of a product in this endpoint, we also return it in `products.info` from now on.
 
-- We now also return the `payment_reference` of an invoice in the `invoices.list`.
+- We now also return the `payment_reference` of an invoice in the `invoices.list`.  
   We also made it filterable through the `payment_reference` filter.
 
-- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).
+- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
   The property is also filterable through the `purchase_order_number` filter.
 
 - We added `currency_exchange_rate` to `quotations.info`.
@@ -448,7 +448,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We've published a bunch of `tasks` endpoints (`tasks.list`, `tasks.info`, `tasks.create`, `tasks.update`, `tasks.delete`).
 
-- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.
+- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
 
 #### February 2019
@@ -469,17 +469,17 @@ We list all backwards-compatible additions here. These are currently available i
 - We've added a `national_identification_number` property on contacts.
   You can read it from `contacts.list` and `contacts.info`.
   It's also writeable through `contacts.add` and `contacts.update`.
-
+  
 - Invoicing custom fields included as `custom_fields`.
   They are returned in `invoices.info`.
   They can be added or updated through `invoices.draft` and `invoices.update`.
-
+  
 - Deal can now be filtered with a `term` in `deals.list`.
   We will return deals of which the term is part of the title, reference or customer's name.
-
+ 
 - We have created a way to fetch more data about related resources: sideloading.
   More information can be found [here](#sideloading).
-
+  
 - We didn't provide you with a way to find the uuid of a quotation.
   Based on a v1 deal id, you can now retrieve the uuid of a quotation with `migrate.id`.
 
@@ -487,16 +487,16 @@ We list all backwards-compatible additions here. These are currently available i
 
 - The `projects.list` endpoint has an optional filter to filter on `term` now.
   We return projects for which the term appears in the title or description.
-
+  
 - During `invoices.draft` and `invoices.update`, we now allow you to provide a `withholding_tax_rate_id`.
   Don't worry if you don't know what this is. Withholding taxes only apply in certain countries, eg Spain or Italy.
-
+  
 - We added a filter on `term` in `users.list`.
   We return those users who have the term in their first name, last name or email address.
-
+  
 - We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
   So `products.list` and `products.info` are now available for usage.
-
+  
 
 <a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
@@ -531,9 +531,9 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `tasks.list`
   - `tasks.create`
   - `tasks.update`
-
-- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.
-  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.
+  
+- We won't accept `project` as a `subject` anymore in `timeTracking.add`, `timeTracking.update`, `timers.start` and `timers.update`.  
+  We wrongly accepted this in the past, but time tracking always needs to be coupled to a milestone. Please use the `milestone` subject instead.  
   For older versions, we will link the time tracked to the oldest `open` milestone. If there is no `open` milestone, it's linked to the most recent `closed` or `done` milestone.
 
 #### 2019-03-13
@@ -544,7 +544,7 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `quotations.info`
 
 - We simplified the `products.info` and `products.list` endpoints:
-  - `name` and `description` are no longer wrapped in a `translations` object.
+  - `name` and `description` are no longer wrapped in a `translations` object. 
   - `external_id` was renamed to `code`
   - `prices` are temporarily no longer returned, to avoid confusion, as they didn't take into account price lists
 
@@ -1588,6 +1588,10 @@ Get a list of deals.
             + phase_id: `1758e847-cc1f-04ce-bd17-5a852e8c01b4` (string, optional)
             + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
             + updated_since: `2018-02-11T16:45:30+00:00` (string, optional)
+            + health (enum, optional) - Filters on the activity level of the deal
+                + Members
+                    + healthy
+                    + rotten
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1646,7 +1650,10 @@ Get a list of deals.
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
-
+                + health: `healthy` (enum)
+                    + Members
+                        + healthy
+                        + rotten
 ### deals.info [GET /deals.info]
 
 Get details for a single deal.
@@ -1711,6 +1718,10 @@ Get details for a single deal.
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
             + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + custom_fields (array[CustomField])
+            + health: `healthy` (enum)
+                + Members
+                    + healthy
+                    + rotten
 
 ### deals.create [POST /deals.create]
 
@@ -2409,7 +2420,7 @@ Get details for a single invoice.
                 + from: `USD` (string)
                 + to: `EUR` (string)
                 + rate: 1.1234 (number)
-                + expected_payment_method (ExpectedPaymentMethod, nullable)
+			+ expected_payment_method (ExpectedPaymentMethod, nullable)
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -2540,7 +2551,6 @@ Update an invoice.
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
-        + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + discounts (array, optional)
             (object)
                 + value: 10 (number, required)
@@ -2548,6 +2558,7 @@ Update an invoice.
                     + Members
                         + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
+		+ expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
