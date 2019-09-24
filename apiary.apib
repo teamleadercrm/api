@@ -3313,6 +3313,12 @@ Create a new milestone.
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
+        + `billing_method` (enum, required)
+            + Members
+                + `time_and_materials`
+                + `non_invoiceable`
+                + `fixed_price`
+        + budget (Money) - Required if the billing method is `fixed_price`
 
 + Response 201 (application/json)
 
