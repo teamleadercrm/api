@@ -518,6 +518,10 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### Experimental
+
+- We added `billing_method` and `budget` to `milestones.create`. `billing_method` is required. `budget` is only required if the `billing_method` is `fixed_price.`. If the budget is omitted, it will be saved as `0` for now, until the budget is truly optional.
+
 #### 2019-07-03
 
 - The property `todo` has been renamed to `task` on the following endpoints:
