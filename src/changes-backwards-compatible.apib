@@ -57,16 +57,16 @@ We list all backwards-compatible additions here. These are currently available i
 
 - In `users.info`, we added the `status` property to the response since it is now possible to retrieve deactivated users.
 
-- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.  
+- In `users.list`, you can now also request deactivated users, by using a new filter on `status`.
   By default, the endpoint keeps returning active users only. The status is also returned in the response data.
 
-- We've added a `products.add` endpoint.  
+- We've added a `products.add` endpoint.
   Because you can provide the selling price of a product in this endpoint, we also return it in `products.info` from now on.
 
-- We now also return the `payment_reference` of an invoice in the `invoices.list`.  
+- We now also return the `payment_reference` of an invoice in the `invoices.list`.
   We also made it filterable through the `payment_reference` filter.
 
-- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).  
+- We added the `purchase_order_number` to all relevant endpoints (`invoices.draft`, `invoices.update`, `invoices.info` and `invoices.list`).
   The property is also filterable through the `purchase_order_number` filter.
 
 - We added `currency_exchange_rate` to `quotations.info`.
@@ -83,7 +83,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We've published a bunch of `tasks` endpoints (`tasks.list`, `tasks.info`, `tasks.create`, `tasks.update`, `tasks.delete`).
 
-- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.  
+- We now also return a `currency_exchange_rate` on all `.info` endpoints where we support multi-currency.
   That is `quotations.info`, `invoices.info` and `creditNotes.info`.
 
 #### February 2019
@@ -104,17 +104,17 @@ We list all backwards-compatible additions here. These are currently available i
 - We've added a `national_identification_number` property on contacts.
   You can read it from `contacts.list` and `contacts.info`.
   It's also writeable through `contacts.add` and `contacts.update`.
-  
+
 - Invoicing custom fields included as `custom_fields`.
   They are returned in `invoices.info`.
   They can be added or updated through `invoices.draft` and `invoices.update`.
-  
+
 - Deal can now be filtered with a `term` in `deals.list`.
   We will return deals of which the term is part of the title, reference or customer's name.
- 
+
 - We have created a way to fetch more data about related resources: sideloading.
   More information can be found [here](#sideloading).
-  
+
 - We didn't provide you with a way to find the uuid of a quotation.
   Based on a v1 deal id, you can now retrieve the uuid of a quotation with `migrate.id`.
 
@@ -122,13 +122,12 @@ We list all backwards-compatible additions here. These are currently available i
 
 - The `projects.list` endpoint has an optional filter to filter on `term` now.
   We return projects for which the term appears in the title or description.
-  
+
 - During `invoices.draft` and `invoices.update`, we now allow you to provide a `withholding_tax_rate_id`.
   Don't worry if you don't know what this is. Withholding taxes only apply in certain countries, eg Spain or Italy.
-  
+
 - We added a filter on `term` in `users.list`.
   We return those users who have the term in their first name, last name or email address.
-  
+
 - We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
   So `products.list` and `products.info` are now available for usage.
-  

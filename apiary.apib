@@ -375,6 +375,8 @@ We list all backwards-compatible additions here. These are currently available i
 #### Latest
 
 - We added a `estimated_closing_date` filter to `deals.list`.
+- We added a filter `created_before` to `deal.list`.
+
 
 #### July 2019
 
@@ -497,7 +499,6 @@ We list all backwards-compatible additions here. These are currently available i
 - We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
   So `products.list` and `products.info` are now available for usage.
 
-
 <a name="upgrading-your-api-version"></a>
 ### Upgrading your API version
 
@@ -550,20 +551,20 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### 2019-01-24
 
-- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.  
+- Previously, the `invoices.info` endpoint returned an _non-existing_ or _empty_ `extended_description` as an empty string, while `invoices.draft` and `invoices.update` didn't allow an empty string as `extended_description`.
   From now on, `invoices.info` will return an _non-existing_ or _empty_ `extended_description` as `null`, to make this more consistent and interchangeable.
 
-- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).  
-  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.  
+- Invoices can now have three statuses (`draft`, `outstanding` or `matched`) instead of two (`draft` or `booked`).
+  Therefore the `status` property in `invoices.list` and `invoices.info` will either return `outstanding` or `matched` for invoices that were previously just `booked`.
   This is also reflected in the `status` filter on `invoices.list`: to allow you to still query all `outstanding` and `matched` invoices (previously all `booked`) , it now *only* accepts an array of filter values (eg. `["outstanding", "matched"]` or `["draft"]`).
 
-- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:  
-  - `companies.info`  
-  - `companies.list`  
-  - `companies.add`  
-  - `companies.update`  
-  - `invoices.info`  
-  - `creditNotes.info`  
+- The property `local_business_number` was renamed to `national_identification_number` on the following endpoints:
+  - `companies.info`
+  - `companies.list`
+  - `companies.add`
+  - `companies.update`
+  - `invoices.info`
+  - `creditNotes.info`
 
 - An invoice number actually contains the bookyear, so from now on, you will see eg. `2018 / 27` instead of `27`.
   This is reflected in the `invoice_number` property in the `invoices.list` and `invoices.info` endpoints.
@@ -2411,7 +2412,7 @@ Get details for a single invoice.
                 + from: `USD` (string)
                 + to: `EUR` (string)
                 + rate: 1.1234 (number)
-                + expected_payment_method (ExpectedPaymentMethod, nullable)
+            + expected_payment_method (ExpectedPaymentMethod, nullable)
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -2542,7 +2543,6 @@ Update an invoice.
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
-        + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + discounts (array, optional)
             (object)
                 + value: 10 (number, required)
@@ -2550,6 +2550,7 @@ Update an invoice.
                     + Members
                         + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
+        + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
