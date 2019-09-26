@@ -104,15 +104,15 @@ Create a new milestone.
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
         + One Of
             + Properties
-                + `billing_method`: `time_and_materials` (enum) - If omitted, `time_and_materials` is used
+                + `billing_method` (enum)
                     + Members
                         + `non_invoiceable`
                         + `time_and_materials`
-                + budget (Money) - If omitted, the budget will default to `0.00`
+                    + Default
+                        + `time_and_materials`
+                + budget (Money) - If omitted, the budget will default to zero
             + Properties
-                + `billing_method`: `fixed_price` (enum, required)
-                    + Members
-                        + `fixed_price`
+                + `billing_method`: `fixed_price` (string, required)
                 + price (Money, required)
 
 + Response 201 (application/json)
