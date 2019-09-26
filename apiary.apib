@@ -518,9 +518,11 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
-#### Experimental
+#### 2019-10-09
 
-- We added `billing_method` and `budget` to `milestones.create`. `billing_method` is required. `budget` is only required if the `billing_method` is `fixed_price.`. If the budget is omitted, it will be saved as `0` for now, until the budget is truly optional.
+- We added `billing_method` and `budget`, and `billing_method` and `price` to `milestones.create`.
+  - When choosing `time_and_materials` or `non_invoiceable` as the billing method, you can provide a `budget`.
+  - When choosing `fixed_price` as the billing method, you need to provide the `price`.
 
 #### 2019-07-03
 
@@ -3317,12 +3319,18 @@ Create a new milestone.
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
-        + `billing_method` (enum, required)
-            + Members
-                + `time_and_materials`
-                + `non_invoiceable`
-                + `fixed_price`
-        + budget (Money) - Required if the billing method is `fixed_price`
+        + One Of
+            + Properties
+                + `billing_method`: `time_and_materials` (enum) - If omitted, `time_and_materials` is used
+                    + Members
+                        + `non_invoiceable`
+                        + `time_and_materials`
+                + budget (Money) - If omitted, the budget will default to `0.00`
+            + Properties
+                + `billing_method`: `fixed_price` (enum, required)
+                    + Members
+                        + `fixed_price`
+                + price (Money, required)
 
 + Response 201 (application/json)
 

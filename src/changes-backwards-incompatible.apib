@@ -3,9 +3,11 @@
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
-#### Experimental
+#### 2019-10-09
 
-- We added `billing_method` and `budget` to `milestones.create`. `billing_method` is required. `budget` is only required if the `billing_method` is `fixed_price.`. If the budget is omitted, it will be saved as `0` for now, until the budget is truly optional.
+- We added `billing_method` and `budget`, and `billing_method` and `price` to `milestones.create`.
+  - When choosing `time_and_materials` or `non_invoiceable` as the billing method, you can provide a `budget`.
+  - When choosing `fixed_price` as the billing method, you need to provide the `price`.
 
 #### 2019-07-03
 
