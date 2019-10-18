@@ -102,6 +102,18 @@ Create a new milestone.
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
+        + One Of
+            + Properties
+                + `billing_method` (enum)
+                    + Members
+                        + `non_invoiceable`
+                        + `time_and_materials`
+                    + Default
+                        + `time_and_materials`
+                + budget (Money) - If omitted, the budget will default to zero
+            + Properties
+                + `billing_method`: `fixed_price` (string, required)
+                + price (Money, required)
 
 + Response 201 (application/json)
 
