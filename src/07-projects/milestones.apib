@@ -90,6 +90,7 @@ Get details for a single milestone.
                     + time_and_materials
                     + fixed_price
                     + non_invoiceable
+            + custom_fields (array[CustomField])
 
 ### milestones.create [POST /milestones.create]
 
@@ -114,6 +115,7 @@ Create a new milestone.
             + Properties
                 + `billing_method`: `fixed_price` (string, required)
                 + price (Money, required)
+            + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -133,5 +135,6 @@ Update a milestone.
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
