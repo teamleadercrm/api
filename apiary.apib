@@ -374,11 +374,15 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `milestones.delete`.
+
 - We added a `estimated_closing_date` filter to `deals.list`.
 
 - We added a filter `created_before` to `deal.list`.
 
 - We modified filter `responsible_user_id` in `deal.list` to also accept an array of responsible_user_ids.
+
+- Task custom fields are now included as `custom_fields` on `tasks.info`. They can also be added and updated through the `tasks.create` / `tasks.update` endpoints.
 
 - Milestone custom fields are now included as `custom_fields` on `milestones.info`. They can also be added and updated through the `milestones.create` / `milestones.update` endpoints.
 
@@ -3275,7 +3279,7 @@ Get a list of project milestones.
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-                + status: `done` (enum)
+                + status: `open` (enum)
                     + Members
                         + open
                         + closed
@@ -3307,7 +3311,7 @@ Get details for a single milestone.
             + responsible_user (object)
                 + type: `user` (string)
                 + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-            + status: `done` (enum)
+            + status: `open` (enum)
                 + Members
                     + open
                     + closed
@@ -3364,6 +3368,17 @@ Update a milestone.
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
+
+### milestones.delete [POST /milestones.delete]
+
+Delete a milestone.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+
++ Response 204
 
 # Group Tasks
 
@@ -3492,6 +3507,7 @@ Get information about a task.
             + project (object, nullable)
                 + type: `project` (string)
                 + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+            + custom_fields (array[CustomField])
 
 ### tasks.create [POST /tasks.create]
 
@@ -3522,6 +3538,7 @@ Create a new task.
                     + contact
                     + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -3560,6 +3577,7 @@ Update a task.
                     + contact
                     + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 

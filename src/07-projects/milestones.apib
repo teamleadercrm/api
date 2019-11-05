@@ -49,7 +49,7 @@ Get a list of project milestones.
                 + responsible_user (object)
                     + type: `user` (string)
                     + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-                + status: `done` (enum)
+                + status: `open` (enum)
                     + Members
                         + open
                         + closed
@@ -81,7 +81,7 @@ Get details for a single milestone.
             + responsible_user (object)
                 + type: `user` (string)
                 + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
-            + status: `done` (enum)
+            + status: `open` (enum)
                 + Members
                     + open
                     + closed
@@ -138,3 +138,14 @@ Update a milestone.
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
+
+### milestones.delete [POST /milestones.delete]
+
+Delete a milestone.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+
++ Response 204
