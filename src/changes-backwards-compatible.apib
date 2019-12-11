@@ -6,7 +6,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
-- The task assignee is now nullable.
+- The task assignee is now nullable: you can create / update unassigned tasks by sending null as assignee. The tasks.list and tasks.info endpoints also return null as assignee in case the task is unassigned.
+
+- On API versions older than 2019-10-09, the assignee is returned as { type: user, id: null } in case the task is unassigned.
 
 - We added `milestones.delete`.
 
