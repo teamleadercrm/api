@@ -525,6 +525,10 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2019-12-11
+
+- The task assignee is now nullable.
+
 #### 2019-10-09
 
 - We added `billing_method` and `budget`, and `billing_method` and `price` to `milestones.create`.
@@ -3521,7 +3525,7 @@ Create a new task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee (object, optional)
+        + assignee (object, optional, nullable)
             + type: `user` (enum)
                 + Members
                     + user
@@ -3560,7 +3564,7 @@ Update a task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee (object, optional)
+        + assignee (object, optional, nullable)
             + type: `user` (enum)
                 + Members
                     + user
