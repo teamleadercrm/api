@@ -8,6 +8,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added filters `estimated_closing_date_from` and `estimated_closing_date_until` to `deals.list`.
 
+- We added a new sorting option `weighted_value` to `deals.list` and will allow ascending as well as descending orders on sorts.
+  The default remains created_at and descending as before if nothing is passed.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -140,6 +143,3 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We already had a part of the products APIs for our own usage, but since it might be useful to you, we are making it public.
   So `products.list` and `products.info` are now available for usage.
-
-- We added a new sorting option `weighted_value` to `deals.list` and will allow ascending as well as descending orders on sorts
-  The default remains created_at and descending as before if nothing is passed.
