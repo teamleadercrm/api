@@ -374,6 +374,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added format `ubl/e-fff` to `invoices.download`.
+
 - We added filters `estimated_closing_date_from` and `estimated_closing_date_until` to `deals.list`.
 
 - We added a new sorting option `weighted_value` to `deals.list` and will allow ascending as well as descending orders on sorts.
@@ -2455,6 +2457,7 @@ Download an invoice in a specific format.
         + format: `pdf` (enum, required)
             + Members
                 + pdf
+                + ubl/e-fff
 
 + Response 200 (application/json)
 
