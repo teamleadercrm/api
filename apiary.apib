@@ -376,6 +376,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added filters `estimated_closing_date_from` and `estimated_closing_date_until` to `deals.list`.
 
+- We added a new sorting option `weighted_value` to `deals.list` and will allow ascending as well as descending orders on sorts.
+  The default remains created_at and descending as before if nothing is passed.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -1618,8 +1621,10 @@ Get a list of deals.
                 + field (enum, required)
                     + Members
                         + created_at
+                        + weighted_value
                 + order (enum, optional)
                     + Members
+                        + asc
                         + desc
             + Default
                 + (object)
