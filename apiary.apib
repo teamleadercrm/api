@@ -379,6 +379,8 @@ We list all backwards-compatible additions here. These are currently available i
 - We added a new sorting option `weighted_value` to `deals.list` and will allow ascending as well as descending orders on sorts.
   The default remains created_at and descending as before if nothing is passed.
 
+- We will return the `weighted_value` in the response of both deals.list and deals.info requests.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -1659,6 +1661,7 @@ Get a list of deals.
                 + department (object)
                     + type: `department`
                     + id: `33121d39-44e2-426a-92ef-62178edeec8a` (string)
+                + weighted_value (Money)
                 + estimated_value (Money)
                 + estimated_closing_date: `2017-05-09` (string)
                 + estimated_probability: `0.5` (number)
@@ -1710,6 +1713,7 @@ Get details for a single deal.
             + department (object)
                 + type: `department`
                 + id: `92247818-643e-4f5a-bf87-25cd908e8ad9` (string)
+            + weighted_value (Money)
             + estimated_value (Money)
             + estimated_closing_date: `2017-05-09` (string)
             + estimated_probability: `0.5` (number)
