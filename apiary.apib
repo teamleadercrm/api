@@ -3404,7 +3404,7 @@ Get a list of tasks.
     + Attributes (object)
         + filter (object, optional)
             + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
-            + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Returns Tasks that are assigned to this user or to a team to which this user belongs.
+            + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional, nullable) - Returns tasks that are assigned to this user or to a team to which this user belongs. When passing `null`, it returns tasks that are unassigned.
             + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
             + completed: true (boolean, optional)
             + due_by: `2019-02-04` (string, optional)
