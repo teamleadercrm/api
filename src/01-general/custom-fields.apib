@@ -64,9 +64,9 @@ Get a list of all the definitions of custom fields.
                 + label (string)
                 + group (string)
                 + required: false (boolean)
-                + configuration (object)
-                    + One Of
-                        + options: foo, bar (array[string])
+                + configuration (object, optional)
+                    + options: foo, bar (array[string])
+                    + extra_option_allowed: true (boolean)
 
 ### customFieldDefinitions.info [GET /customFieldDefinitions.info]
 
@@ -115,6 +115,6 @@ Get info about a specific custom field definition.
             + label (string)
             + group (string)
             + required: false (boolean)
-            + configuration (object)
-                + One Of
-                    + options: foo, bar (array[string])
+            + configuration (object, optional)
+                + options: foo, bar (array[string])
+                + extra_option_allowed: true (boolean)
