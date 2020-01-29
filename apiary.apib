@@ -381,6 +381,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added the `weighted_value` to the response of both `deals.list` and `deals.info` requests.
 
+- We added the `extra_option_allowed` information (for single select custom fields) to `customFieldDefinitions.list` and `customFieldDefinitions.info` endpoints.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -880,9 +882,9 @@ Get a list of all the definitions of custom fields.
                 + label (string)
                 + group (string)
                 + required: false (boolean)
-                + configuration (object)
-                    + One Of
-                        + options: foo, bar (array[string])
+                + configuration (object, optional)
+                    + options: foo, bar (array[string])
+                    + extra_option_allowed: true (boolean)
 
 ### customFieldDefinitions.info [GET /customFieldDefinitions.info]
 
@@ -931,9 +933,9 @@ Get info about a specific custom field definition.
             + label (string)
             + group (string)
             + required: false (boolean)
-            + configuration (object)
-                + One Of
-                    + options: foo, bar (array[string])
+            + configuration (object, optional)
+                + options: foo, bar (array[string])
+                + extra_option_allowed: true (boolean)
 
 ## Work Types [/workTypes]
 
