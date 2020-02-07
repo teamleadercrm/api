@@ -385,6 +385,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added the `extra_option_allowed` information (for single select custom fields) to `customFieldDefinitions.list` and `customFieldDefinitions.info` endpoints.
 
+- We added format `ubl/e-fff` to `creditNotes.download`.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -2824,6 +2826,7 @@ Download a credit note in a specific format.
         + format: `pdf` (enum, required)
             + Members
                 + pdf
+                + `ubl/e-fff`
 
 + Response 200 (application/json)
 
