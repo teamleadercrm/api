@@ -104,9 +104,9 @@ Get information about tracked time.
                         + ticket
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
             + invoiceable: true (boolean)
-            + locked: true (boolean)
+            + locked: true (boolean) - If true, the time tracking entry's owner cannot update it anymore
         + meta (object)
-            + can_update: true (boolean)
+            + can_update: true (boolean) - If true, the current user can update the entry even if it is locked
 
 ### timeTracking.add [POST /timeTracking.add]
 
