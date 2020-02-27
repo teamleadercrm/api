@@ -389,6 +389,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added a filter `term` to `invoices.list`.
 
+- We added the `summary` to the response of both the `deals.list` and `deals.info` request. The `summary` can also be added and updated through the `deals.create` / `deals.update` endpoints.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -1672,6 +1674,7 @@ Get a list of deals.
                 + estimated_value (Money)
                 + estimated_closing_date: `2017-05-09` (string)
                 + estimated_probability: `0.5` (number)
+                + summary: `Additional information` (string, nullable)
                 + weighted_value (Money)
                 + current_phase (object)
                     + type: `dealPhase`
@@ -1725,6 +1728,7 @@ Get details for a single deal.
             + estimated_closing_date: `2017-05-09` (string)
             + estimated_probability: `0.5` (number)
             + weighted_value (Money)
+            + summary: `Additional information` (string, nullable)
             + current_phase (object)
                 + type: dealPhase (string)
                 + id: `676a6070-f7d3-43a6-bc08-cda0d32c27ab` (string)
@@ -1777,6 +1781,7 @@ Create a new deal for a customer.
         + estimated_probability: `0.75` (number, optional) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
+        + summary: `Additional information` (string, optional)
 
 + Response 201 (application/json)
 
@@ -1809,6 +1814,7 @@ Update a deal.
         + estimated_probability: `0.75` (number, optional, nullable) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
+        + summary: `Additional information` (string, optional)
 
 + Response 204
 
