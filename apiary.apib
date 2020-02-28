@@ -374,6 +374,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `lost_reason` to the response of `deals.info`.
+
 - We added `lost_reason` to the response of `deals.list`. This is composed of a `lostReason` object along with a more elaborate `remark`.
 
 - We added format `ubl/e-fff` to `invoices.download`.
@@ -386,6 +388,10 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `weighted_value` to the response of both `deals.list` and `deals.info` requests.
 
 - We added the `extra_option_allowed` information (for single select custom fields) to `customFieldDefinitions.list` and `customFieldDefinitions.info` endpoints.
+
+- We added format `ubl/e-fff` to `creditNotes.download`.
+
+- We added a filter `term` to `invoices.list`.
 
 #### October 2019
 
@@ -1751,6 +1757,11 @@ Get details for a single deal.
                 + (object)
                     + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
                     + type: `quotation` (string)
+            + lost_reason (object, nullable)
+                + reason (object, nullable)
+                    + type: lostReason (string)
+                    + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+                + remark: `Too expensive` (string, nullable)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
             + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
@@ -2270,6 +2281,7 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `Interesting invoice` (string, optional) - Filters on invoice number, purchase order number, payment reference and invoicee
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
             + status (array[enum], optional) - The statuses you want to filter by.
                 + Members
@@ -2831,6 +2843,7 @@ Download a credit note in a specific format.
         + format: `pdf` (enum, required)
             + Members
                 + pdf
+                + `ubl/e-fff`
 
 + Response 200 (application/json)
 

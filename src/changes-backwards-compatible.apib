@@ -6,6 +6,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `lost_reason` to the response of `deals.info`.
+
 - We added `lost_reason` to the response of `deals.list`. This is composed of a `lostReason` object along with a more elaborate `remark`.
 
 - We added format `ubl/e-fff` to `invoices.download`.
@@ -18,6 +20,10 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `weighted_value` to the response of both `deals.list` and `deals.info` requests.
 
 - We added the `extra_option_allowed` information (for single select custom fields) to `customFieldDefinitions.list` and `customFieldDefinitions.info` endpoints.
+
+- We added format `ubl/e-fff` to `creditNotes.download`.
+
+- We added a filter `term` to `invoices.list`.
 
 #### October 2019
 
