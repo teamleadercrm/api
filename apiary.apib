@@ -237,7 +237,7 @@ Refresh tokens will continue functioning until the user revokes them or uninstal
 
 ### Client-side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2).
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2).  
 The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
 Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
@@ -393,9 +393,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added a filter `term` to `invoices.list`.
 
-- We added the `summary` to the response of both the `deals.list` and `deals.info` request. The `summary` can also be added and updated through the `deals.create` / `deals.update` endpoints.
-
 - We added the `purchase_order_number` to the response of both `deals.list` and `deals.info` request.
+
+- We added the `summary` to the response of both the `deals.list` and `deals.info` request. The `summary` can also be added and updated through the `deals.create` / `deals.update` endpoints.
 
 #### October 2019
 
@@ -1657,6 +1657,7 @@ Get a list of deals.
             + (object)
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + title: `Interesting deal` (string)
+                + summary: `Additional information` (string, nullable)
                 + reference: `2017/2` (string)
                 + status: `won` (enum)
                     + Members
@@ -1680,7 +1681,6 @@ Get a list of deals.
                 + estimated_value (Money)
                 + estimated_closing_date: `2017-05-09` (string)
                 + estimated_probability: `0.5` (number)
-                + summary: `Additional information` (string, nullable)
                 + weighted_value (Money)
                 + purchase_order_number: `000023` (string, nullable)
                 + current_phase (object)
@@ -1717,6 +1717,7 @@ Get details for a single deal.
         + data (object)
             + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + title: `Interesting deal` (string)
+            + summary: `Additional information` (string, nullable)
             + reference: `2017/2` (string)
             + status: `won` (enum)
                 + Members
@@ -1740,7 +1741,6 @@ Get details for a single deal.
             + estimated_closing_date: `2017-05-09` (string)
             + estimated_probability: `0.5` (number)
             + weighted_value (Money)
-            + summary: `Additional information` (string, nullable)
             + purchase_order_number: `000023` (string, nullable)
             + current_phase (object)
                 + type: dealPhase (string)
@@ -1791,6 +1791,7 @@ Create a new deal for a customer.
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
             + contact_person_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
         + title: `Interesting business deal` (string, required)
+        + summary: `Additional information` (string, optional)
         + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
         + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
         + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
@@ -1799,7 +1800,6 @@ Create a new deal for a customer.
         + estimated_probability: `0.75` (number, optional) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
-        + summary: `Additional information` (string, optional)
 
 + Response 201 (application/json)
 
@@ -1825,6 +1825,7 @@ Update a deal.
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
             + contact_person_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
         + title: `Interesting business deal` (string, optional)
+        + summary: `Additional information` (string, optional)
         + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional, nullable)
         + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional, nullable)
         + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional, nullable)
@@ -1832,7 +1833,6 @@ Update a deal.
         + estimated_probability: `0.75` (number, optional, nullable) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
-        + summary: `Additional information` (string, optional)
 
 + Response 204
 
