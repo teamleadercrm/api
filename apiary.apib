@@ -237,7 +237,7 @@ Refresh tokens will continue functioning until the user revokes them or uninstal
 
 ### Client-side authorization (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2).  
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications, we have an alternative authorization method called using the [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2).
 The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
 Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
@@ -374,6 +374,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `lost_reason` to the response of `deals.info`.
+
+- We added `lost_reason` to the response of `deals.list`. This is composed of a `lostReason` object along with a more elaborate `remark`.
+
 - We added format `ubl/e-fff` to `invoices.download`.
 
 - We added filters `estimated_closing_date_from` and `estimated_closing_date_until` to `deals.list`.
@@ -390,6 +394,8 @@ We list all backwards-compatible additions here. These are currently available i
 - We added a filter `term` to `invoices.list`.
 
 - We added the `summary` to the response of both the `deals.list` and `deals.info` request. The `summary` can also be added and updated through the `deals.create` / `deals.update` endpoints.
+
+- We added the `purchase_order_number` to the response of both `deals.list` and `deals.info` request.
 
 #### October 2019
 
@@ -1676,6 +1682,7 @@ Get a list of deals.
                 + estimated_probability: `0.5` (number)
                 + summary: `Additional information` (string, nullable)
                 + weighted_value (Money)
+                + purchase_order_number: `000023` (string, nullable)
                 + current_phase (object)
                     + type: `dealPhase`
                     + id: `521a331d-60d1-4920-bde3-ccd01d09f9f1` (string)
@@ -1686,6 +1693,11 @@ Get a list of deals.
                 + source (object)
                     + type: `dealSource` (string)
                     + id: `52a4bbb2-d196-48d7-8e43-9ec2f44d06f9` (string)
+                + lost_reason (object, nullable)
+                    + reason (object, nullable)
+                        + type: lostReason (string)
+                        + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+                    + remark: `Too expensive` (string, nullable)
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
@@ -1729,6 +1741,7 @@ Get details for a single deal.
             + estimated_probability: `0.5` (number)
             + weighted_value (Money)
             + summary: `Additional information` (string, nullable)
+            + purchase_order_number: `000023` (string, nullable)
             + current_phase (object)
                 + type: dealPhase (string)
                 + id: `676a6070-f7d3-43a6-bc08-cda0d32c27ab` (string)
@@ -1752,6 +1765,11 @@ Get details for a single deal.
                 + (object)
                     + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
                     + type: `quotation` (string)
+            + lost_reason (object, nullable)
+                + reason (object, nullable)
+                    + type: lostReason (string)
+                    + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+                + remark: `Too expensive` (string, nullable)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
             + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)

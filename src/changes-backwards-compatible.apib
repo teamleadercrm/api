@@ -6,6 +6,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added `lost_reason` to the response of `deals.info`.
+
+- We added `lost_reason` to the response of `deals.list`. This is composed of a `lostReason` object along with a more elaborate `remark`.
+
 - We added format `ubl/e-fff` to `invoices.download`.
 
 - We added filters `estimated_closing_date_from` and `estimated_closing_date_until` to `deals.list`.
@@ -20,6 +24,8 @@ We list all backwards-compatible additions here. These are currently available i
 - We added format `ubl/e-fff` to `creditNotes.download`.
 
 - We added a filter `term` to `invoices.list`.
+
+- We added the `purchase_order_number` to the response of both `deals.list` and `deals.info` request.
 
 - We added the `summary` to the response of both the `deals.list` and `deals.info` request. The `summary` can also be added and updated through the `deals.create` / `deals.update` endpoints.
 
