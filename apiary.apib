@@ -3786,6 +3786,43 @@ Get information about tracked time.
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
             + invoiceable: true (boolean)
 
+### timeTracking.report [POST /timeTracking.report]
+
+Returns totals of tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional)
+            + started_after: `2017-04-26T10:01:49+00:00` (string, optional)
+            + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
+            + ended_after: `2017-04-26T10:01:49+00:00` (string, optional)
+            + ended_before: `2017-05-26T10:01:49+00:00` (string, optional)
+            + subject (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + subject_types (array, optional) - Include all tracked time with one of the provided subject types. For tracked time without a subject type, provide `null`
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + milestone
+                    + ticket
+            + relates_to (object, optional) - Find all tracked time linked directly and indirectly to a subject
+                + type (enum, required)
+                    + Members
+                        + milestone
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+
 ### timeTracking.add [POST /timeTracking.add]
 
 Add tracked time.
