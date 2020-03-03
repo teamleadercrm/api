@@ -3828,6 +3828,34 @@ Returns totals of tracked time.
                     + subject_type
                     + related_milestone
 
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + One Of
+                    + Properties
+                        + subject (object, nullable) - If null, the totals are for tracked time without a subject
+                            + type: `contact` (string)
+                            + id: `d980dbc6-944e-47fc-bf16-2ed7d5a71889` (string)
+                    + Properties
+                        + subject_type: `ticket` (string, nullable) - If null, the totals are for tracked time without a subject
+                    + Properties
+                        + milestone (object, nullable) - If null, the totals are for tracked time without a milestone
+                            + type: `milestone` (string)
+                            + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string)
+                + totals (object)
+                    + tracked_time (object)
+                        + unit: `min` (string)
+                        + value: `180` (number)
+                    + invoiceable (object)
+                        + unit: `min` (string)
+                        + value: `120` (number)
+                    + `non-invoiceable` (object)
+                        + unit: `min` (string)
+                        + value: `60` (number)
+                    + count: `3` (number) - The number of distinct time tracking entries
+
 ### timeTracking.add [POST /timeTracking.add]
 
 Add tracked time.
