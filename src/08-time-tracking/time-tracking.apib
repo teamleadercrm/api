@@ -169,15 +169,9 @@ Returns totals of tracked time.
                             + type: `milestone` (string)
                             + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string)
                 + totals (object)
-                    + tracked_time (object)
-                        + unit: `min` (string)
-                        + value: `180` (number)
-                    + invoiceable (object)
-                        + unit: `min` (string)
-                        + value: `120` (number)
-                    + `non-invoiceable` (object)
-                        + unit: `min` (string)
-                        + value: `60` (number)
+                    + `tracked_time` (Duration)
+                    + invoiceable (Duration)
+                    + `non_invoiceable` (Duration)
                     + count: `3` (number) - The number of distinct time tracking entries
 
 ### timeTracking.add [POST /timeTracking.add]
