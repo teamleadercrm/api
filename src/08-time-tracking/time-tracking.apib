@@ -25,6 +25,14 @@ Get a list of tracked time.
                         + milestone
                         + ticket
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + subject_types (array, optional) - Include all tracked time with one of the provided subject types. For tracked time without a subject type, provide `null`
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + milestone
+                    + ticket
             + relates_to (object, optional) - Find all tracked time linked directly and indirectly to a subject
                 + type (enum, required)
                     + Members
