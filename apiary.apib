@@ -3995,41 +3995,6 @@ Update the current timer. Only possible if there is a timer running.
 
 + Response 204
 
-# Group Work Orders
-
-## Work Orders [/workOrders]
-
-### workOrders.draft [POST /workOrders.draft]
-
-Add a draft work order.
-
-+ Request (application/json)
-
-    + Attributes (object)
-       + customer (object, required)
-           + type (enum, required)
-               + Members
-                   + contact
-                   + company
-           + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
-       + starts_at: `2017-05-26T10:01:49+00:00` (string, required)
-       + description: `Pipework intervention` (string, optional)
-       + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
-       + milestone_id: `e94c1363-3426-46a4-921d-fce03f39bbd5` (string, optional)
-       + event_id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string, optional)
-       + materials (array, optional)
-           + (object)
-               + product_id: `e2314517-3cab-4aa9-8471-450e73449040` (string, required)
-               + quantity: 3 (number, required)
-       + location (Address, optional)
-
-+ Response 201 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + type: `workOrder` (string)
-            + id: `7c1d8672-f502-4333-9ea4-7a45add15115` (string)
-
 # Group Other
 
 ## Migrating [/migrate]
