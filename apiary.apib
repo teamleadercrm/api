@@ -397,6 +397,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added the `summary` to the response of both the `deals.list` and `deals.info` request. The `summary` can also be added and updated through the `deals.create` / `deals.update` endpoints.
 
+- We added `depends_on` to the `milestones.info` and `milestones.list` endpoints.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -3337,6 +3339,9 @@ Get a list of project milestones.
                         + time_and_materials
                         + fixed_price
                         + non_invoiceable
+                + depends_on (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string)
 
 ### milestones.info [GET /milestones.info]
 
@@ -3369,6 +3374,9 @@ Get details for a single milestone.
                     + time_and_materials
                     + fixed_price
                     + non_invoiceable
+            + depends_on (object, nullable)
+                + type: `milestone` (string)
+                + id: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string)
 
 ### milestones.create [POST /milestones.create]
 
