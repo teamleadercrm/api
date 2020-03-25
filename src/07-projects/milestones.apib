@@ -61,6 +61,10 @@ Get a list of project milestones.
                 + depends_on (object, nullable)
                     + type: `milestone` (string)
                     + id: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string)
+                + dependency_for (array)
+                    + (object)
+                        + type: `milestone` (string)
+                        + id: `b71ff11f-074e-0705-9450-589342af4f4f` (string)
 
 ### milestones.info [GET /milestones.info]
 
@@ -96,6 +100,10 @@ Get details for a single milestone.
             + depends_on (object, nullable)
                 + type: `milestone` (string)
                 + id: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string)
+            + dependency_for (array)
+                + (object)
+                    + type: `milestone` (string)
+                    + id: `b71ff11f-074e-0705-9450-589342af4f4f` (string)
 
 ### milestones.create [POST /milestones.create]
 
