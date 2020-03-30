@@ -128,6 +128,7 @@ Create a new milestone.
             + Properties
                 + `billing_method`: `fixed_price` (string, required)
                 + price (Money, required)
+        + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
 
 + Response 201 (application/json)
 
@@ -147,6 +148,7 @@ Update a milestone.
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
+        + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
 
 + Response 204 (application/json)
 
