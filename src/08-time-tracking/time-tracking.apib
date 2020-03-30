@@ -15,19 +15,43 @@ Get a list of tracked time.
             + started_before: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + ended_before: `2017-05-26T10:01:49+00:00` (string, optional)
+            + subject (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + milestone
+                        + ticket
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + subject_types (array, optional) - Include all tracked time with one of the provided subject types. For tracked time without a subject type, provide `null`
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + milestone
+                    + ticket
+            + relates_to (object, optional) - Find all tracked time linked directly and indirectly to a subject
+                + type (enum, required)
+                    + Members
+                        + milestone
+                        + project
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
-                + field (enum[string], required)
+                + field (enum, required)
                     + Members
                         + started_on
-                + order (enum[string], optional)
+                + order (enum, optional)
                     + Members
-                        + asc
+                        + desc
             + Default
                 + (object)
                     + field: `started_on`
-                    + order: `asc`
+                    + order: `desc`
 
 + Response 200 (application/json)
 
@@ -47,7 +71,7 @@ Get a list of tracked time.
                 + duration: 3600 (number) - In seconds
                 + description: `Timer description` (string)
                 + subject (object)
-                    + type: `milestone` (enum[string])
+                    + type: `milestone` (enum)
                         + Members
                             + company
                             + contact
@@ -84,7 +108,7 @@ Get information about tracked time.
             + duration: 3600 (number) - In seconds
             + description: `Timer description` (string)
             + subject (object)
-                + type: `milestone` (enum[string])
+                + type: `milestone` (enum)
                     + Members
                         + company
                         + contact
@@ -114,7 +138,7 @@ Add tracked time.
                 + ended_at: `2017-04-26T16:02:00+00:00` (string, required)
         + description (string, optional)
         + subject (object, optional)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -123,6 +147,7 @@ Add tracked time.
                     + milestone
                     + ticket
             + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 201
 
@@ -146,7 +171,7 @@ Update tracked time.
                 + duration: 3600 (number, required) - In seconds
         + description (string, optional, nullable)
         + subject (object, optional, nullable)
-            + type: `milestone` (enum[string], required)
+            + type: `milestone` (enum, required)
                 + Members
                     + company
                     + contact
@@ -155,6 +180,7 @@ Update tracked time.
                     + milestone
                     + ticket
             + id: `88f14220-55d3-4ca6-802b-425e2f53c850` (string, required)
+        + invoiceable: true (boolean, optional)
 
 + Response 204
 

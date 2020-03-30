@@ -7,10 +7,10 @@ Their only use is to allow older integrations to migrate their data to the new A
 
 Translates an ID from the deprecated API into a new UUID.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
-        + type: `contact` (enum[string])
+        + type: `contact` (enum)
             + Members
                 + account
                 + user
@@ -28,13 +28,14 @@ Translates an ID from the deprecated API into a new UUID.
                 + invoice
                 + creditNote
                 + subscription
+                + quotation
         + id: `1` (number)
 
 + Response 200 (application/json)
 
     + Attributes
         + data (object)
-            + type: `contact` (enum[string])
+            + type: `contact` (enum)
                 + Members
                     + account
                     + user
@@ -51,13 +52,14 @@ Translates an ID from the deprecated API into a new UUID.
                     + invoice
                     + creditNote
                     + subscription
+                    + quotation
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
 ### migrate.taxRate [GET /migrate.taxRate]
 
 Translates tax rates from the deprecated API into a new UUID tax rate.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
         + department_id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
@@ -74,10 +76,10 @@ Translates tax rates from the deprecated API into a new UUID tax rate.
 
 Translates "meeting", "call" and "task" into their respective activity type UUID.
 
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
-        + type: `meeting` (enum[string])
+        + type: `meeting` (enum)
             + Members
                 + meeting
                 + call

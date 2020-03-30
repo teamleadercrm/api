@@ -72,15 +72,15 @@ We try to interpret HTTP Status codes the right way:
  - `204` - No Content, on resource updates or actions
  - `400` - Bad Request, the request contains invalid data or references non-existing resources
  - `401` - Unauthorized, invalid or missing access token
- - `403` - Forbidden, not allowed to access this resource
+ - `403` - Forbidden, not allowed to access this resource or update a property you are not allowed to change
  - `404` - Not Found, resource not found
  - `429` - Too Many Requests, client has reached the API rate limit
  - `500` - Internal Server Error, something went wrong on our end
 
 ### Content-Type & Accept headers
 
- - `application/json` or `application/json;charset=utf-8` for request accept headers
- - `application/json;charset=utf-8` for response content-type headers
+ - `application/json` for request accept headers
+ - `application/json` for response content-type headers
 
 ## Response format
 
@@ -170,6 +170,14 @@ Example:
   }
 }
 ```
+
+### Restricted properties
+
+When a User doesn't have permissions to access a specific property the endpoint **MUST**:
+
+ - Not return that **property** in the response.
+ - When writing to a resource that contains that **property**, the endpoint **MUST** return a `403` error response with an appropriate message.
+ - The property **MUST** be documented in API docs as ***optional*** for both cases.
 
 ### Date and time
 
