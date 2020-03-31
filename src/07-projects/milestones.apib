@@ -108,6 +108,10 @@ Get details for a single milestone.
                 + (object)
                     + type: `milestone` (string)
                     + id: `b71ff11f-074e-0705-9450-589342af4f4f` (string)
+            + actuals (object) - Only accessible for administrators of this project
+                + `billable_amount` (Money)
+                + costs (Money)
+                + result (Money) - The billable amount minus the costs, so the profit or loss
 
 ### milestones.create [POST /milestones.create]
 
