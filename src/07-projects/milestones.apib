@@ -117,10 +117,19 @@ Get details for a single milestone.
                 + (object)
                     + type: `milestone` (string)
                     + id: `b71ff11f-074e-0705-9450-589342af4f4f` (string)
-            + actuals (object) - Only accessible for administrators of this project
+            + actuals (object) - Only accessible for administrators of the project this milestone belongs to
                 + `billable_amount` (Money)
                 + costs (Money)
                 + result (Money) - The billable amount minus the costs, so the profit or loss
+            + budget (object) - Only accessible for administrators of the project this milestone belongs to
+                + provided (Money)
+                + spent (object)
+                    + total (Money)
+                    + time (Money)
+                    + materials (Money)
+                + remaining (Money)
+                + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is data missing
+                + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion
 
 ### milestones.create [POST /milestones.create]
 
