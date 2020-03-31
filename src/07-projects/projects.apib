@@ -119,6 +119,11 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
+            + actuals (object) - Only accessible for administrators of this project
+                + `billable_amount` (Money)
+                + costs (Money)
+                + result (Money) - The billable amount minus the costs, so the profit or loss
+                + `profit_percentage` (number)
 
 
 ### projects.create [POST /projects.create]
