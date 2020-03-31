@@ -124,6 +124,15 @@ Get details for a single project.
                 + costs (Money)
                 + result (Money) - The billable amount minus the costs, so the profit or loss
                 + `profit_percentage` (number)
+            + budget (object) - Only accessible for administrators of this project
+                + provided (Money)
+                + spent (object)
+                    + total (Money)
+                    + time (Money)
+                    + materials (Money)
+                + remaining (Money)
+                + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is data missing
+                + forecasted (Money, nullable) - A prediction of the spent budget upon project completion
 
 
 ### projects.create [POST /projects.create]
