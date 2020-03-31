@@ -75,8 +75,8 @@ Get a list of projects.
                         + time (Money)
                         + materials (Money)
                     + remaining (Money)
-                    + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is data missing
-                    + forecasted (Money, nullable) - A prediction of the spent budget upon project completion
+                    + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
+                    + forecasted (Money, nullable) - A prediction of the spent budget upon project completion. This is null if there is not enough data to calculate
 
 
 ### projects.info [GET /projects.info]
@@ -140,8 +140,8 @@ Get details for a single project.
                     + time (Money)
                     + materials (Money)
                 + remaining (Money)
-                + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is data missing
-                + forecasted (Money, nullable) - A prediction of the spent budget upon project completion
+                + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
+                + forecasted (Money, nullable) - A prediction of the spent budget upon project completion. This is null if there is not enough data to calculate
 
 
 ### projects.create [POST /projects.create]
