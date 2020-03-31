@@ -63,6 +63,11 @@ Get a list of projects.
                 + source (object)
                     + type: `deal` (string)
                     + id: `5023d7c2-80d7-4d4b-b2bd-0fcaa6a1f069` (string)
+                + actuals (object) - Only accessible for administrators of this project
+                    + `billable_amount` (Money)
+                    + costs (Money)
+                    + result (Money) - The billable amount minus the costs, so the profit or loss
+                    + `profit_percentage` (number)
 
 
 ### projects.info [GET /projects.info]
