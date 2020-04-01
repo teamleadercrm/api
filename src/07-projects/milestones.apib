@@ -85,6 +85,7 @@ Get details for a single milestone.
                 + id: `fffaf951-b65a-4cb1-bfb6-4b93e0e60c10` (string)
             + due_on: `2018-01-01` (string)
             + name: `Initial setup` (string)
+            + description (string)
             + responsible_user (object)
                 + type: `user` (string)
                 + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
@@ -115,6 +116,7 @@ Create a new milestone.
         + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
+        + description (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
         + One Of
             + Properties
@@ -147,6 +149,7 @@ Update a milestone.
         + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
+        + description (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
         + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
 
