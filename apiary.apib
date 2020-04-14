@@ -3393,10 +3393,7 @@ Get a list of project milestones.
                     + result (Money) - The billable amount minus the costs, so the profit or loss
                 + budget (object) - Only accessible for administrators of the project this milestone belongs to
                     + provided (Money)
-                    + spent (object)
-                        + total (Money)
-                        + time (Money)
-                        + materials (Money)
+                    + spent (Money)
                     + remaining (Money)
                     + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
                     + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion. This is null if there is not enough data to calculate
@@ -3446,10 +3443,7 @@ Get details for a single milestone.
                 + result (Money) - The billable amount minus the costs, so the profit or loss
             + budget (object) - Only accessible for administrators of the project this milestone belongs to
                 + provided (Money)
-                + spent (object)
-                    + total (Money)
-                    + time (Money)
-                    + materials (Money)
+                + spent (Money)
                 + remaining (Money)
                 + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
                 + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion. This is null if there is not enough data to calculate
