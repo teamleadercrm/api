@@ -407,6 +407,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `depends_on` to the `milestones.create` and `milestones.update` endpoints. It allows setting a dependency on another milestone of the same project.
 
+- We added `margin` to `deals.info` response.
+
 #### October 2019
 
 - We added `milestones.delete`.
@@ -1751,6 +1753,7 @@ Get details for a single deal.
             + estimated_closing_date: `2017-05-09` (string)
             + estimated_probability: `0.5` (number)
             + weighted_value (Money)
+            + margin (Money, nullable)
             + purchase_order_number: `000023` (string, nullable)
             + current_phase (object)
                 + type: dealPhase (string)
