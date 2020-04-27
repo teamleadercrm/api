@@ -3,6 +3,10 @@
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2020-05-01
+
+- We added a `title` property on `tasks.list`, `tasks.info`, `tasks.create`, and `tasks.update`. This is required. The `description` property is optional, and nullable.
+
 #### 2019-10-09
 
 - We added `billing_method` and `budget`, and `billing_method` and `price` to `milestones.create`.
