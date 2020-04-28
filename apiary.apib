@@ -565,6 +565,7 @@ We list all backwards-incompatible changes here. As described above, new additio
 #### 2020-05-01
 
 - We added a `title` property on `tasks.list`, `tasks.info`, `tasks.create`, and `tasks.update`. This is required. The `description` property is optional, and nullable.
+  For tasks that were created before this change (and thus only had a required description), we treat the first line of that description as the "new" title, and the other lines as the actual description.
 
 #### 2019-10-09
 
