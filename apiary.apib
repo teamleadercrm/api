@@ -3560,7 +3560,7 @@ Get a list of tasks.
             + (object)
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
                 + title: `Prepare demo` (string)
-                + description: `**Important note:** Bring VGA cable` (string, nullable)
+                + description: `**Important note:** Bring VGA cable` (string, nullable) - Can contain markup (Markdown) and multiple lines
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
                 + due_on: `2016-02-04` (string)
@@ -3609,7 +3609,7 @@ Get information about a task.
         + data (object)
             + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string)
             + title: `Prepare demo` (string)
-            + description: `**Important note:** Bring VGA cable` (string, nullable)
+            + description: `**Important note:** Bring VGA cable` (string, nullable) - Can contain markup (Markdown) and multiple lines
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
             + due_on: `2016-02-04` (string)
@@ -3652,7 +3652,7 @@ Create a new task.
 
     + Attributes (object)
         + title: `Prepare demo` (string, required)
-        + description: `**Important note:** Bring VGA cable` (string, optional)
+        + description: `**Important note:** Bring VGA cable` (string, optional) - May contain markup (Markdown) and multiple lines
         + due_on: `2016-02-04` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
@@ -3692,7 +3692,7 @@ Update a task.
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
         + title: `Prepare final demo` (string, optional)
-        + description: `**Important note:** Bring HDMI cable` (string, optional, nullable)
+        + description: `**Important note:** Bring HDMI cable` (string, optional, nullable) - May contain markup (Markdown) and multiple lines
         + due_on: `2016-02-04` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
