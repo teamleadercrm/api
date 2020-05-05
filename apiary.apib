@@ -376,6 +376,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added the `description` field to `milestones.info`, `milestones.create`, and `milestones.update`
 
+- We added the `propagate_date_changes` property to `milestones.update`. This allows propagating the new due date difference to the due date of all open tasks in the milestone.
+
 #### March 2020
 
 - We added actuals and budget to `projects.list`, `projects.info`, `milestones.list`, and `milestones.info`
@@ -3500,6 +3502,7 @@ Update a milestone.
         + description (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
         + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
+        + propagate_date_changes: false (boolean, optional)
 
 + Response 204 (application/json)
 
