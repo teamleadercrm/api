@@ -378,6 +378,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added the `propagate_date_changes` property to `milestones.update`. This allows propagating the new due date difference to the due date of all open tasks of that milestone, and recursively to all depending milestones.
 
+- We added the `date_before` and `date_after` properties to `invoices.list`. This allows filtering on the date the invoice was booked.
+
 #### March 2020
 
 - We added actuals and budget to `projects.list`, `projects.info`, `milestones.list`, and `milestones.info`
@@ -2320,6 +2322,8 @@ Get a list of invoices.
                     + draft
                     + outstanding
                     + matched
+            + date_before: `2016-02-04` (string, optional)
+            + date_after: `2016-02-04` (string, optional)
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + purchase_order_number: `000023` (string, optional)
             + payment_reference: `+++084/2613/66074+++` (string, optional)
