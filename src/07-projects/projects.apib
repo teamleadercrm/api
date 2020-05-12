@@ -128,7 +128,7 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
-            + purchase_order_number: `000023` (string)
+            + purchase_order_number: `000023` (string, nullable)
             + actuals (object) - Only accessible for administrators of this project
                 + `billable_amount` (Money)
                 + costs (Money)
@@ -203,7 +203,7 @@ Update a project.
                 + done
                 + cancelled
         + starts_on: `2016-02-04` (string, required)
-        + purchase_order_number: `000023` (string, optional)
+        + purchase_order_number: `000023` (string, optional, nullable)
 
 + Response 204 (application/json)
 
