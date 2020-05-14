@@ -6,6 +6,53 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added the `description` field to `milestones.info`, `milestones.create`, and `milestones.update`
+
+- We added the `propagate_date_changes` property to `milestones.update`. This allows propagating the new due date difference to the due date of all open tasks of that milestone, and recursively to all depending milestones.
+
+- We added the `vat_number` property to `contacts.info`.
+
+#### March 2020
+
+- We added actuals and budget to `projects.list`, `projects.info`, `milestones.list`, and `milestones.info`
+
+- We added `depends_on` to the `milestones.info` and `milestones.list` endpoints.
+
+- We added `dependency_for` to the `milestones.info` and `milestones.list` endpoints. This indicates all the milestones for which the current milestone is a dependency.
+
+- We added `depends_on` to the `milestones.create` and `milestones.update` endpoints. It allows setting a dependency on another milestone of the same project.
+
+#### February 2020
+
+- We added an `ids` filter to `lostReasons.list`.
+
+- We added `lost_reason` to the response of `deals.info`.
+
+- We added `lost_reason` to the response of `deals.list`. This is composed of a `lostReason` object along with a more elaborate `remark`.
+
+- We added a filter `term` to `invoices.list`.
+
+- We added the `purchase_order_number` to the response of both `deals.list` and `deals.info` request.
+
+- We added the `summary` to the response of both the `deals.list` and `deals.info` request. The `summary` can also be added and updated through the `deals.create` / `deals.update` endpoints.
+
+#### January 2020
+
+- We added format `ubl/e-fff` to `invoices.download`.
+
+- We added filters `estimated_closing_date_from` and `estimated_closing_date_until` to `deals.list`.
+
+- We added a new sorting option `weighted_value` to `deals.list` and will allow ascending as well as descending orders on sorts.
+  The default remains created_at and descending as before if nothing is passed.
+
+- We added the `weighted_value` to the response of both `deals.list` and `deals.info` requests.
+
+- We added the `extra_option_allowed` information (for single select custom fields) to `customFieldDefinitions.list` and `customFieldDefinitions.info` endpoints.
+
+- We added format `ubl/e-fff` to `creditNotes.download`.
+
+#### October 2019
+
 - We added `milestones.delete`.
 
 - We added a `estimated_closing_date` filter to `deals.list`.

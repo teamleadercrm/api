@@ -58,6 +58,23 @@ Get a list of project milestones.
                         + time_and_materials
                         + fixed_price
                         + non_invoiceable
+                + depends_on (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string)
+                + dependency_for (array)
+                    + (object)
+                        + type: `milestone` (string)
+                        + id: `b71ff11f-074e-0705-9450-589342af4f4f` (string)
+                + actuals (object) - Only accessible for administrators of the project this milestone belongs to
+                    + `billable_amount` (Money)
+                    + costs (Money)
+                    + result (Money) - The billable amount minus the costs, so the profit or loss
+                + budget (object) - Only accessible for administrators of the project this milestone belongs to
+                    + provided (Money)
+                    + spent (Money)
+                    + remaining (Money)
+                    + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
+                    + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion. This is null if there is not enough data to calculate
 
 ### milestones.info [GET /milestones.info]
 
@@ -78,6 +95,7 @@ Get details for a single milestone.
                 + id: `fffaf951-b65a-4cb1-bfb6-4b93e0e60c10` (string)
             + due_on: `2018-01-01` (string)
             + name: `Initial setup` (string)
+            + description (string)
             + responsible_user (object)
                 + type: `user` (string)
                 + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
@@ -90,6 +108,23 @@ Get details for a single milestone.
                     + time_and_materials
                     + fixed_price
                     + non_invoiceable
+            + depends_on (object, nullable)
+                + type: `milestone` (string)
+                + id: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string)
+            + dependency_for (array)
+                + (object)
+                    + type: `milestone` (string)
+                    + id: `b71ff11f-074e-0705-9450-589342af4f4f` (string)
+            + actuals (object) - Only accessible for administrators of the project this milestone belongs to
+                + `billable_amount` (Money)
+                + costs (Money)
+                + result (Money) - The billable amount minus the costs, so the profit or loss
+            + budget (object) - Only accessible for administrators of the project this milestone belongs to
+                + provided (Money)
+                + spent (Money)
+                + remaining (Money)
+                + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
+                + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion. This is null if there is not enough data to calculate
             + custom_fields (array[CustomField])
 
 ### milestones.create [POST /milestones.create]
@@ -102,6 +137,7 @@ Create a new milestone.
         + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
+        + description (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
         + One Of
             + Properties
@@ -115,7 +151,8 @@ Create a new milestone.
             + Properties
                 + `billing_method`: `fixed_price` (string, required)
                 + price (Money, required)
-            + custom_fields (array[CustomFieldValue], optional)
+        + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -134,7 +171,10 @@ Update a milestone.
         + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
+        + description (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
+        + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
+        + propagate_date_changes: false (boolean, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
