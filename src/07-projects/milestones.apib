@@ -125,6 +125,7 @@ Get details for a single milestone.
                 + remaining (Money)
                 + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
                 + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion. This is null if there is not enough data to calculate
+            + custom_fields (array[CustomField])
 
 ### milestones.create [POST /milestones.create]
 
@@ -151,6 +152,7 @@ Create a new milestone.
                 + `billing_method`: `fixed_price` (string, required)
                 + price (Money, required)
         + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -173,6 +175,7 @@ Update a milestone.
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
         + depends_on: `0488d792-ba9b-059f-bd57-bea75d3f4f4e` (string, nullable)
         + propagate_date_changes: false (boolean, optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
 
