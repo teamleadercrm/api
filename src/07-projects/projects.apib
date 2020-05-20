@@ -129,6 +129,7 @@ Get details for a single project.
                             + decision_maker
                             + member
             + purchase_order_number: `000023` (string, nullable)
+            + custom_fields (array[CustomField])
             + actuals (object) - Only accessible for administrators of this project
                 + `billable_amount` (Money)
                 + costs (Money)
@@ -171,6 +172,7 @@ Create a new project.
                         + member
                     + Default: `member`
         + purchase_order_number: `000023` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
         + customer (object, optional)
             + type (enum, required)
                 + Members
@@ -204,6 +206,7 @@ Update a project.
                 + cancelled
         + starts_on: `2016-02-04` (string, required)
         + purchase_order_number: `000023` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
 
