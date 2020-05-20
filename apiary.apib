@@ -374,6 +374,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added the `purchase_order_number` field to `projects.info`, `projects.create`, and `projects.update`
+
+#### April 2020
+
 - We added the `description` field to `milestones.info`, `milestones.create`, and `milestones.update`.
 
 - We added the `propagate_date_changes` property to `milestones.update`. This allows propagating the new due date difference to the due date of all open tasks of that milestone, and recursively to all depending milestones.
@@ -3208,6 +3212,7 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
+            + purchase_order_number: `000023` (string, nullable)
             + custom_fields (array[CustomField])
             + actuals (object) - Only accessible for administrators of this project
                 + `billable_amount` (Money)
@@ -3250,6 +3255,7 @@ Create a new project.
                         + decision_maker
                         + member
                     + Default: `member`
+        + purchase_order_number: `000023` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
         + customer (object, optional)
             + type (enum, required)
@@ -3283,6 +3289,7 @@ Update a project.
                 + done
                 + cancelled
         + starts_on: `2016-02-04` (string, required)
+        + purchase_order_number: `000023` (string, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
