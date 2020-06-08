@@ -1009,6 +1009,34 @@ Get a list of all work types, sorted alphabetically (on their name).
                 + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
                 + name: `Planning` (string)
 
+## Segments [/segments]
+
+Segments are used to segment different resources within Teamleader.
+
+*Required scopes: `segments`*
+
+### segments.list [GET /segments.list]
+
+Get a list of segments.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object)
+            + resource: `companies` (enum, required)
+                + Members
+                    + companies
+                    + contacts
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
+                + name: `Belgian companies` (string)
+                + matches: `50` (number)
+
 # Group CRM
 
 ## Contacts [/contacts]
@@ -1035,6 +1063,7 @@ Get a list of contacts.
             + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
+            + segment_id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string, optional) - Filters contacts that belong to this segment
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1325,6 +1354,7 @@ Get a list of companies.
             + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
+            + segment_id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string, optional) - Filters companies that belong to this segment
         + page (Page, optional)
         + sort (array, optional)
             + (object)

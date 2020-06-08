@@ -1,0 +1,27 @@
+## Segments [/segments]
+
+Segments are used to segment different resources within Teamleader.
+
+*Required scopes: `segments`*
+
+### segments.list [GET /segments.list]
+
+Get a list of segments.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object)
+            + resource: `companies` (enum, required)
+                + Members
+                    + companies
+                    + contacts
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
+                + name: `Belgian companies` (string)
+                + matches: `50` (number)
