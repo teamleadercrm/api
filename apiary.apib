@@ -372,6 +372,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### June 2020
+
+- We added filtering on a linked `deal` to `events.list`.
+
 #### May 2020
 
 - We added the `purchase_order_number` field to `projects.info`, `projects.create`, and `projects.update`
@@ -2111,6 +2115,7 @@ Get a list of calendar events.
                     + Members
                         + contact
                         + company
+                        + deal
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
             + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
         + page (Page, optional)
