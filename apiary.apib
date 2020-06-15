@@ -374,6 +374,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- We added a filter `scheduled` to `tasks.list`.
+
 - We added filtering on a linked `deal` to `events.list`.
 
 #### May 2020
@@ -3560,6 +3562,7 @@ Get a list of tasks.
             + user_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional, nullable) - Returns tasks that are assigned to this user or to a team to which this user belongs. When passing `null`, it returns tasks that are unassigned.
             + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
             + completed: true (boolean, optional)
+            + scheduled: true (boolean, optional)
             + due_by: `2019-02-04` (string, optional)
             + due_from: `2019-10-20` (string, optional)
             + term: `website design` (string, optional) - Searches for a term in the description.
