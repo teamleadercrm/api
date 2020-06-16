@@ -372,11 +372,13 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### Latest
+
+- We added the `starts_on` field on `milestones.create`, `milestones.update` and `projects.create` for milestones
+
 #### May 2020
 
 - We no longer require all fields in `projects.update`, only the id remains required.
-
-#### May 2020
 
 - We added the `purchase_order_number` field to `projects.info`, `projects.create`, and `projects.update`
 
@@ -3248,7 +3250,8 @@ Create a new project.
         + starts_on: `2016-02-04` (string, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
-                + due_on: `2018-01-01` (string, required)
+                + starts_on: `2020-06-15` (string, optional)
+                + due_on: `2020-08-01` (string, required)
                 + name: `Initial setup` (string, required)
                 + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
         + participants (array, required) - At least one decision making participant is required
@@ -3488,7 +3491,8 @@ Create a new milestone.
 
     + Attributes (object)
         + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
-        + due_on: `2018-01-01` (string, required)
+        + due_on: `2020-08-01` (string, required)
+        + starts_on: `2020-06-15` (string, optional)
         + name: `Initial setup` (string, required)
         + description (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
@@ -3522,7 +3526,8 @@ Update a milestone.
 
     + Attributes (object)
         + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
-        + due_on: `2018-01-01` (string, optional)
+        + due_on: `2020-08-01` (string, optional)
+        + starts_on: `2020-06-15` (string, nullable, optional)
         + name: `Initial setup` (string, optional)
         + description (string, optional)
         + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, optional)
