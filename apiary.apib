@@ -404,6 +404,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added an `ids` filter to `lostReasons.list`.
 
+- We added link type `deal` to the filter and response of `events.list`.
+
 - We added `lost_reason` to the response of `deals.info`.
 
 - We added `lost_reason` to the response of `deals.list`. This is composed of a `lostReason` object along with a more elaborate `remark`.
@@ -2115,6 +2117,7 @@ Get a list of calendar events.
                     + Members
                         + contact
                         + company
+                        + deal
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
             + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
         + page (Page, optional)
@@ -2165,6 +2168,7 @@ Get a list of calendar events.
                             + Members
                                 + company
                                 + contact
+                                + deal
                         + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 
