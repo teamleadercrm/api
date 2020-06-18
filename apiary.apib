@@ -705,6 +705,10 @@ Get a list of departments.
                                 + primary
                                 + invoicing
                         + email: `info@piedpiper.eu` (string)
+                + status: `active` (enum)
+                    + Members
+                        + active
+                        + archived
 
 ### departments.info [GET /departments.info]
 
@@ -741,6 +745,10 @@ Get details for a single department.
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + fiscal_regime: `RF01` (string, nullable)
+            + status: `active` (enum)
+                + Members
+                    + active
+                    + archived
 
 ## Users [/users]
 
