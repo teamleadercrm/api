@@ -196,17 +196,17 @@ Update a project.
 
     + Attributes (object)
         + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
-        + title: `New company website` (string, required)
-        + description (string, required)
-        + status: `active` (enum, required)
+        + title: `New company website` (string)
+        + description (string)
+        + status: `active` (enum)
             + Members
                 + active
                 + on_hold
                 + done
                 + cancelled
-        + starts_on: `2016-02-04` (string, required)
-        + purchase_order_number: `000023` (string, optional, nullable)
-        + custom_fields (array[CustomFieldValue], optional)
+        + starts_on: `2016-02-04` (string)
+        + purchase_order_number: `000023` (string, nullable)
+        + custom_fields (array[CustomFieldValue])
 
 + Response 204 (application/json)
 

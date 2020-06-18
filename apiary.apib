@@ -372,7 +372,11 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
-#### Latest
+#### May 2020
+
+- We no longer require all fields in `projects.update`, only the id remains required.
+
+#### May 2020
 
 - We added the `purchase_order_number` field to `projects.info`, `projects.create`, and `projects.update`
 
@@ -399,6 +403,8 @@ We list all backwards-compatible additions here. These are currently available i
 #### February 2020
 
 - We added an `ids` filter to `lostReasons.list`.
+
+- We added link type `deal` to the filter and response of `events.list`.
 
 - We added `lost_reason` to the response of `deals.info`.
 
@@ -1578,10 +1584,11 @@ Get the names of business types (legal structures) a company can have within a c
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[object])
-            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
-            + name: `VZW/ASBL` (string)
-            + country: `BE` (string)
+        + data (array)
+            + (object)
+                + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+                + name: `VZW/ASBL` (string)
+                + country: `BE` (string)
 
 ## Tags [/tags]
 
@@ -1632,10 +1639,11 @@ Get a list of level two areas (which correspond to provinces, departments or sta
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[object])
-            + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
-            + name: `West-Vlaanderen` (string)
-            + country: `BE` (string)
+        + data (array)
+            + (object)
+                + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
+                + name: `West-Vlaanderen` (string)
+                + country: `BE` (string)
 
 # Group Deals
 
@@ -2116,6 +2124,7 @@ Get a list of calendar events.
                     + Members
                         + contact
                         + company
+                        + deal
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
             + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
         + page (Page, optional)
@@ -2166,6 +2175,7 @@ Get a list of calendar events.
                             + Members
                                 + company
                                 + contact
+                                + deal
                         + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 
@@ -3287,17 +3297,17 @@ Update a project.
 
     + Attributes (object)
         + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
-        + title: `New company website` (string, required)
-        + description (string, required)
-        + status: `active` (enum, required)
+        + title: `New company website` (string)
+        + description (string)
+        + status: `active` (enum)
             + Members
                 + active
                 + on_hold
                 + done
                 + cancelled
-        + starts_on: `2016-02-04` (string, required)
-        + purchase_order_number: `000023` (string, optional, nullable)
-        + custom_fields (array[CustomFieldValue], optional)
+        + starts_on: `2016-02-04` (string)
+        + purchase_order_number: `000023` (string, nullable)
+        + custom_fields (array[CustomFieldValue])
 
 + Response 204 (application/json)
 
