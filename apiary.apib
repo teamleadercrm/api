@@ -374,7 +374,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
-- We added the `starts_on` field on `milestones.create`, `milestones.update` and `projects.create` for milestones
+- We added the `starts_on` field on `milestones.create`, `milestones.update`, `milestones.info`, `milestones.list` and `projects.create` for milestones
 
 #### May 2020
 
@@ -3400,7 +3400,8 @@ Get a list of project milestones.
                 + project (object)
                     + type: `project` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
-                + due_on: `2018-01-01` (string)
+                + starts_on: `2020-06-15` (string, nullable)
+                + due_on: `2020-07-01` (string)
                 + name: `Initial setup` (string)
                 + responsible_user (object)
                     + type: `user` (string)
@@ -3449,7 +3450,8 @@ Get details for a single milestone.
             + project (object)
                 + type: `project` (string)
                 + id: `fffaf951-b65a-4cb1-bfb6-4b93e0e60c10` (string)
-            + due_on: `2018-01-01` (string)
+            + starts_on: `2020-06-15` (string, nullable)
+            + due_on: `2020-07-01` (string)
             + name: `Initial setup` (string)
             + description (string)
             + responsible_user (object)
