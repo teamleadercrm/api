@@ -410,7 +410,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added an `ids` filter to `lostReasons.list`.
 
-- We added link type `deal` to the filter and response of `events.list`.
+- As events can be linked to deals, we added the `deal` link type to `events.list` and `events.info`, and allow filtering on deals in `events.list`.
 
 - We added `lost_reason` to the response of `deals.info`.
 
@@ -2227,6 +2227,7 @@ Get details for a single calendar event.
                             + company
                             + contact
                             + work_order
+                            + deal
                     + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 ### events.create [POST /events.create]
