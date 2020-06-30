@@ -21,16 +21,25 @@ Get a list of deals.
                         + contact
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
             + phase_id: `1758e847-cc1f-04ce-bd17-5a852e8c01b4` (string, optional)
-            + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
-            + updated_since: `2018-02-11T16:45:30+00:00` (string, optional)
+            + estimated_closing_date: `2018-02-11` (string, optional, nullable)
+            + estimated_closing_date_from: `2020-01-01` (string, optional) - This date is inclusive
+            + estimated_closing_date_until: `2020-01-31` (string, optional) - This date is inclusive
+            + One Of
+                + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+                + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22`, `98b2863e-7b01-4232-82f5-ede1f0b9db24` (array[string], optional)
+            + updated_since: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
+            + created_before: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
+            + status: `open`, `won`, `lost` (array[string], optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
                 + field (enum, required)
                     + Members
                         + created_at
+                        + weighted_value
                 + order (enum, optional)
                     + Members
+                        + asc
                         + desc
             + Default
                 + (object)
@@ -45,6 +54,7 @@ Get a list of deals.
             + (object)
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + title: `Interesting deal` (string)
+                + summary: `Additional information` (string, nullable)
                 + reference: `2017/2` (string)
                 + status: `won` (enum)
                     + Members
@@ -68,6 +78,8 @@ Get a list of deals.
                 + estimated_value (Money)
                 + estimated_closing_date: `2017-05-09` (string)
                 + estimated_probability: `0.5` (number)
+                + weighted_value (Money)
+                + purchase_order_number: `000023` (string, nullable)
                 + current_phase (object)
                     + type: `dealPhase`
                     + id: `521a331d-60d1-4920-bde3-ccd01d09f9f1` (string)
@@ -78,6 +90,11 @@ Get a list of deals.
                 + source (object)
                     + type: `dealSource` (string)
                     + id: `52a4bbb2-d196-48d7-8e43-9ec2f44d06f9` (string)
+                + lost_reason (object, nullable)
+                    + reason (object, nullable)
+                        + type: lostReason (string)
+                        + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+                    + remark: `Too expensive` (string, nullable)
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
@@ -97,6 +114,7 @@ Get details for a single deal.
         + data (object)
             + id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + title: `Interesting deal` (string)
+            + summary: `Additional information` (string, nullable)
             + reference: `2017/2` (string)
             + status: `won` (enum)
                 + Members
@@ -119,6 +137,8 @@ Get details for a single deal.
             + estimated_value (Money)
             + estimated_closing_date: `2017-05-09` (string)
             + estimated_probability: `0.5` (number)
+            + weighted_value (Money)
+            + purchase_order_number: `000023` (string, nullable)
             + current_phase (object)
                 + type: dealPhase (string)
                 + id: `676a6070-f7d3-43a6-bc08-cda0d32c27ab` (string)
@@ -142,6 +162,11 @@ Get details for a single deal.
                 + (object)
                     + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
                     + type: `quotation` (string)
+            + lost_reason (object, nullable)
+                + reason (object, nullable)
+                    + type: lostReason (string)
+                    + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
+                + remark: `Too expensive` (string, nullable)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
             + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
@@ -163,6 +188,7 @@ Create a new deal for a customer.
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
             + contact_person_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
         + title: `Interesting business deal` (string, required)
+        + summary: `Additional information` (string, optional)
         + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
         + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
         + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
@@ -187,7 +213,7 @@ Update a deal.
 
     + Attributes (object)
         + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string, required)
-        + lead (object, required)
+        + lead (object, optional)
             + customer (object, required)
                 + type (enum, required)
                     + Members
@@ -196,6 +222,7 @@ Update a deal.
                 + id: `09e5d75f-f817-4872-9723-57fbb8ff710d` (string, required)
             + contact_person_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional)
         + title: `Interesting business deal` (string, optional)
+        + summary: `Additional information` (string, optional, nullable)
         + source_id: `b38ebb9b-6e46-4bf4-a1e2-af747d6b64ae` (string, optional, nullable)
         + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional, nullable)
         + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional, nullable)
@@ -260,6 +287,8 @@ Get a list of lost reasons for deals.
 + Request (application/json)
 
     + Attributes (object)
+        + filter (object, optional)
+            + ids: `6fe903a7-1bf7-0f82-b917-c8b60aafbb63`,`b298edc3-a0cf-0f42-8413-f3063c7dc364` (array[string], optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)

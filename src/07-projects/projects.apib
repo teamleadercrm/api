@@ -63,6 +63,20 @@ Get a list of projects.
                 + source (object)
                     + type: `deal` (string)
                     + id: `5023d7c2-80d7-4d4b-b2bd-0fcaa6a1f069` (string)
+                + actuals (object) - Only accessible for administrators of this project
+                    + `billable_amount` (Money)
+                    + costs (Money)
+                    + result (Money) - The billable amount minus the costs, so the profit or loss
+                    + `profit_percentage` (number)
+                + budget (object) - Only accessible for administrators of this project
+                    + provided (Money)
+                    + spent (object)
+                        + total (Money)
+                        + time (Money)
+                        + materials (Money)
+                    + remaining (Money)
+                    + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
+                    + forecasted (Money, nullable) - A prediction of the spent budget upon project completion. This is null if there is not enough data to calculate
 
 
 ### projects.info [GET /projects.info]
@@ -114,6 +128,22 @@ Get details for a single project.
                         + Members
                             + decision_maker
                             + member
+            + purchase_order_number: `000023` (string, nullable)
+            + custom_fields (array[CustomField])
+            + actuals (object) - Only accessible for administrators of this project
+                + `billable_amount` (Money)
+                + costs (Money)
+                + result (Money) - The billable amount minus the costs, so the profit or loss
+                + `profit_percentage` (number)
+            + budget (object) - Only accessible for administrators of this project
+                + provided (Money)
+                + spent (object)
+                    + total (Money)
+                    + time (Money)
+                    + materials (Money)
+                + remaining (Money)
+                + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
+                + forecasted (Money, nullable) - A prediction of the spent budget upon project completion. This is null if there is not enough data to calculate
 
 
 ### projects.create [POST /projects.create]
@@ -141,6 +171,8 @@ Create a new project.
                         + decision_maker
                         + member
                     + Default: `member`
+        + purchase_order_number: `000023` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
         + customer (object, optional)
             + type (enum, required)
                 + Members
@@ -164,15 +196,17 @@ Update a project.
 
     + Attributes (object)
         + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
-        + title: `New company website` (string, required)
-        + description (string, required)
-        + status: `active` (enum, required)
+        + title: `New company website` (string)
+        + description (string)
+        + status: `active` (enum)
             + Members
                 + active
                 + on_hold
                 + done
                 + cancelled
-        + starts_on: `2016-02-04` (string, required)
+        + starts_on: `2016-02-04` (string)
+        + purchase_order_number: `000023` (string, nullable)
+        + custom_fields (array[CustomFieldValue])
 
 + Response 204 (application/json)
 

@@ -13,6 +13,7 @@ Get a list of invoices.
     + Attributes (object)
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + term: `Interesting invoice` (string, optional) - Filters on invoice number, purchase order number, payment reference and invoicee
             + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter on.
             + status (array[enum], optional) - The statuses you want to filter by.
                 + Members
@@ -82,6 +83,7 @@ Get a list of invoices.
                     + due (Money)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + `web_url`: `https://app.teamleader.eu/invoice_detail.php?id=2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
 
 ### invoices.info [GET /invoices.info]
 
@@ -213,6 +215,7 @@ Download an invoice in a specific format.
         + format: `pdf` (enum, required)
             + Members
                 + pdf
+                + `ubl/e-fff`
 
 + Response 200 (application/json)
 
