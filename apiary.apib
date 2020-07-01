@@ -379,6 +379,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added a filter `scheduled` to `tasks.list`.
 
+- We added `quotations.list`.
+
 #### May 2020
 
 - We no longer require all fields in `projects.update`, only the id remains required.
@@ -2039,6 +2041,39 @@ Get a list of all deal sources, sorted alphabetically (on name)
 A quotation is a sales offer for a specific customer. It is always attached to a deal. Quotations can be signed online via Cloudsign.
 
 *Required scopes: `quotations`*
+
+### quotations.list [GET /quotations.list]
+
+Get a list of quotations.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `5b16f6ee-e302-0079-901b-50c26c4a55b1`, `2700006a-b351-070b-b311-fb45ed99abe2` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string)
+                + deal (object)
+                    + type: `deal` (string)
+                    + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
+                + currency_exchange_rate (object)
+                    + from: `USD` (string)
+                    + to: `EUR` (string)
+                    + rate: 1.1234 (number)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: 0.21 (number)
+                            + taxable (Money)
+                            + tax (Money)
 
 ### quotations.info [GET /quotations.info]
 
