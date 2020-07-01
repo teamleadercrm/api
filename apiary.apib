@@ -379,6 +379,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added a filter `scheduled` to `tasks.list`.
 
+- We added the `total` field to `quotations.info`.
+
 - We added `quotations.list`.
 
 #### May 2020
@@ -2126,6 +2128,14 @@ Get a quotation
                 + from: `USD` (string)
                 + to: `EUR` (string)
                 + rate: 1.1234 (number)
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: 0.21 (number)
+                        + taxable (Money)
+                        + tax (Money)
 
 ### quotations.download [POST /quotations.download]
 

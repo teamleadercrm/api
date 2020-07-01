@@ -88,6 +88,14 @@ Get a quotation
                 + from: `USD` (string)
                 + to: `EUR` (string)
                 + rate: 1.1234 (number)
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: 0.21 (number)
+                        + taxable (Money)
+                        + tax (Money)
 
 ### quotations.download [POST /quotations.download]
 
