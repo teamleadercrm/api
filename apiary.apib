@@ -374,11 +374,18 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
+- We added `quotations.list`.
+
+- We added `quotations.create`.
+
+### June 2020
+
 - We added the `emails` property to `departments.list`.
+- We added the `status` property to `departments.info` and `departments.list`, this property is also available as a filter on `departments.list`.
 
 - We added a filter `scheduled` to `tasks.list`.
 
-- We added `quotations.create`.
+- We added the `total` field to `quotations.info`.
 
 #### May 2020
 
@@ -680,6 +687,10 @@ Get a list of departments.
     + Attributes (object)
         + filter (object)
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
+            + status (array[enum], optional) - Filters on status
+                + Members
+                    + active - Filters on active departments
+                    + archived - Filters on archived departments
         + sort (array, optional)
             + (object)
                 + field (enum, required)
@@ -709,6 +720,10 @@ Get a list of departments.
                                 + primary
                                 + invoicing
                         + email: `info@piedpiper.eu` (string)
+                + status: `active` (enum)
+                    + Members
+                        + active
+                        + archived
 
 ### departments.info [GET /departments.info]
 
@@ -745,6 +760,10 @@ Get details for a single department.
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + fiscal_regime: `RF01` (string, nullable)
+            + status: `active` (enum)
+                + Members
+                    + active
+                    + archived
 
 ## Users [/users]
 
@@ -2029,6 +2048,39 @@ A quotation is a sales offer for a specific customer. It is always attached to a
 
 *Required scopes: `quotations`*
 
+### quotations.list [GET /quotations.list]
+
+Get a list of quotations.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `5b16f6ee-e302-0079-901b-50c26c4a55b1`, `2700006a-b351-070b-b311-fb45ed99abe2` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string)
+                + deal (object)
+                    + type: `deal` (string)
+                    + id: `53474a7a-f9b2-4dd4-88a8-40ce773c7a64` (string)
+                + currency_exchange_rate (object)
+                    + from: `USD` (string)
+                    + to: `EUR` (string)
+                    + rate: 1.1234 (number)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: 0.21 (number)
+                            + taxable (Money)
+                            + tax (Money)
+
 ### quotations.info [GET /quotations.info]
 
 Get a quotation
@@ -2076,10 +2128,18 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
-                            + currency_exchange_rate (object)
-                                + from: `USD` (string)
-                                + to: `EUR` (string)
-                                + rate: 1.1234 (number)
+            + currency_exchange_rate (object)
+                + from: `USD` (string)
+                + to: `EUR` (string)
+                + rate: 1.1234 (number)
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: 0.21 (number)
+                        + taxable (Money)
+                        + tax (Money)
 
 ### quotations.download [POST /quotations.download]
 
