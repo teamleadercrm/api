@@ -157,3 +157,40 @@ Download a quotation in a specific format.
         + data (object)
             + type: `quotation` (string)
             + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
+
+### quotations.update [POST /quotations.update]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + quotation_id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string, required)
+        + `grouped_lines` (array, optional)
+            + (object)
+                + section (object, optional)
+                    + title (string, required)
+                + line_items (array, required)
+                    + (object)
+                        + quantity: `3` (number, required)
+                        + description: `An awesome product` (string, required)
+                        + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
+                        + unit_price (object, required)
+                            + Include Money
+                            + tax: `excluding` (enum, required)
+                                + Members
+                                    + excluding
+                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, optional)
+                            + value: 10 (number, required)
+                            + type (enum, required)
+                                + Members
+                                    + percentage - Values between 0 and 100
+        + discounts (array, optional)
+            + (object)
+                + value: 10 (number, required)
+                + type (enum, required)
+                    + Members
+                        + percentage - Values between 0 and 100
+                + description: `winter promotion` (string, required)
+        + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
+
++ Response 204
