@@ -115,3 +115,45 @@ Download a quotation in a specific format.
         + data (object)
             + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
             + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
+
+### quotations.create [POST /quotations.create]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, required)
+        + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
+            + (object)
+                + section (object, optional)
+                    + title (string, required)
+                + line_items (array, required)
+                    + (object)
+                        + quantity: `3` (number, required)
+                        + description: `An awesome product` (string, required)
+                        + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
+                        + unit_price (object, required)
+                            + Include Money
+                            + tax: `excluding` (enum, required)
+                                + Members
+                                    + excluding
+                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+                        + discount (object, optional)
+                            + value: 10 (number, required)
+                            + type (enum, required)
+                                + Members
+                                    + percentage - Values between 0 and 100
+        + discounts (array, optional)
+            + (object)
+                + value: 10 (number, required)
+                + type (enum, required)
+                    + Members
+                        + percentage - Values between 0 and 100
+                + description: `winter promotion` (string, required)
+        + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `quotation` (string)
+            + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
