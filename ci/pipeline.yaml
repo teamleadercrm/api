@@ -29,7 +29,7 @@ resources:
     type: git
     source:
       uri: git@github.com:teamleadercrm/api.git
-      branch: move-ci-to-pipeline
+      branch: master
       paths: [ci]
       private_key: ((TEAMLEADER_PRIVATE_KEY))
     icon: github
