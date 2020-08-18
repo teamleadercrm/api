@@ -1,0 +1,215 @@
+---
+resource_types:
+  - name: slack-notification
+    type: docker-image
+    source:
+      repository: cfcommunity/slack-notification-resource
+      tag: latest
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: teliaoss/github-pr-resource
+
+resources:
+
+  - name: git-pull-request
+    type: pull-request
+    source:
+      access_token: ((GITHUB_ACCESS_TOKEN))
+      repository: teamleadercrm/api
+    icon: github-circle
+  - name: git-ci-pull-request
+    type: pull-request
+    source:
+      access_token: ((GITHUB_ACCESS_TOKEN))
+      repository: teamleadercrm/api
+      paths: ['ci/*']
+    icon: github-circle
+  - name: git-ci-api
+    type: git
+    source:
+      uri: git@github.com:teamleadercrm/api.git
+      branch: master
+      paths: [ci]
+      private_key: ((TEAMLEADER_PRIVATE_KEY))
+    icon: github
+
+  - name: docker-node
+    type: docker-image
+    source:
+      repository: node
+      tag: 9
+    icon: docker
+  - name: docker-fly-validate
+    type: docker-image
+    source:
+      repository: teamleader/concourse-fly
+      tag: 6.2
+      username: ((DOCKER_HUB_USERNAME))
+      password: ((DOCKER_HUB_PASSWORD))
+  - name: docker-yamllint
+    type: docker-image
+    source:
+      repository: teamleader/yamllint
+      tag: latest
+      username: ((DOCKER_HUB_USERNAME))
+      password: ((DOCKER_HUB_PASSWORD))
+
+  - name: slack-alert
+    type: slack-notification
+    source:
+      url: ((DEV_CI_HOOK))
+    icon: slack
+
+groups:
+  - name: api
+    jobs:
+      - linting
+  - name: api-ops
+    jobs:
+      - pr-yamllint
+      - pr-fly-validate
+      - yamllint
+      - fly-validate
+      - set-pipeline
+
+jobs:
+
+  - name: linting
+    build_logs_to_retain: 100
+    plan:
+      - in_parallel:
+          - get: docker-node
+            params: {save: true}
+          - get: git-pull-request
+            trigger: true
+            version: every
+      - put: git-pull-request
+        params:
+          path: git-pull-request
+          status: pending
+          context: linting
+      - task: linting
+        image: docker-node
+        config:
+          platform: linux
+          inputs:
+            - name: git-pull-request
+          caches:
+            - path: git-pull-request/node_modules
+          run:
+            path: sh
+            args:
+              - -exec
+              - |
+                cd git-pull-request
+                npm install && npm run build && npm run lint
+        on_success:
+          put: git-pull-request
+          params:
+            path: git-pull-request
+            context: linting
+            status: success
+        on_failure:
+          put: git-pull-request
+          params:
+            path: git-pull-request
+            context: linting
+            status: failure
+
+  # OPS jobs
+
+  - name: pr-yamllint
+    plan:
+      - in_parallel:
+          - get: git-ci-pull-request
+            trigger: true
+            version: every
+          - get: docker-yamllint
+            params: {save: true}
+      - put: git-ci-pull-request
+        params:
+          path: git-ci-pull-request
+          status: pending
+          context: yamllint
+      - task: yamllint
+        image: docker-yamllint
+        file: git-ci-pull-request/ci/yamllint.yaml
+        input_mapping:
+          git-ci-api: git-ci-pull-request
+    on_success:
+      put: git-ci-pull-request
+      params:
+        path: git-ci-pull-request
+        status: success
+        context: yamllint
+    on_failure:
+      put: git-ci-pull-request
+      params:
+        path: git-ci-pull-request
+        status: failure
+        context: yamllint
+
+  - name: pr-fly-validate
+    plan:
+      - in_parallel:
+          - get: git-ci-pull-request
+            trigger: true
+            version: every
+          - get: docker-fly-validate
+            params: {save: true}
+      - put: git-ci-pull-request
+        params:
+          path: git-ci-pull-request
+          status: pending
+          context: fly-validate
+      - task: fly-validate
+        image: docker-fly-validate
+        file: git-ci-pull-request/ci/fly-validate.yaml
+        input_mapping:
+          git-ci-api: git-ci-pull-request
+    on_success:
+      put: git-ci-pull-request
+      params:
+        path: git-ci-pull-request
+        status: success
+        context: fly-validate
+    on_failure:
+      put: git-ci-pull-request
+      params:
+        path: git-ci-pull-request
+        status: failure
+        context: fly-validate
+
+  - name: fly-validate
+    plan:
+      - in_parallel:
+          - get: docker-fly-validate
+            params: {save: true}
+          - get: git-ci-api
+            trigger: true
+      - task: fly-validate
+        image: docker-fly-validate
+        file: git-ci-api/ci/fly-validate.yaml
+
+  - name: yamllint
+    plan:
+      - in_parallel:
+          - get: docker-yamllint
+            params: {save: true}
+          - get: git-ci-api
+            trigger: true
+      - task: yamllint
+        image: docker-yamllint
+        file: git-ci-api/ci/yamllint.yaml
+
+  - name: set-pipeline
+    plan:
+      - get: git-ci-api
+        trigger: true
+        passed: [fly-validate, yamllint]
+      - set_pipeline: api
+        file: git-ci-api/ci/pipeline.yaml
+        var_files:
+          - git-ci-api/ci/common-vars.yaml
+    on_failure: ((SLACK_ON_FAILURE))
