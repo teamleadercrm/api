@@ -1,0 +1,13 @@
+---
+platform: linux
+
+inputs:
+  - name: git-ci-api
+
+run:
+  path: sh
+  args:
+    - -exec
+    - |
+      cd git-ci-api/ci
+      yamllint . -d .yamllint
