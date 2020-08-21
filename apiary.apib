@@ -374,11 +374,12 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
+- We added a filter `done` to `events.list`.
 - We added the `currency_exchange_rate` to `invoices.list`.
+- We added the `product_id` property to `quotations.create`, `quotations.update`, `invoices.draft` and `invoices.update`.
 
 ### July 2020
 
-- We added the `product_id` property to `quotations.create`, `quotations.update`, `invoices.draft` and `invoices.update`.
 - We added `quotations.list`, `quotations.create` and `quotations.update`.
 
 ### June 2020
@@ -2283,6 +2284,7 @@ Get a list of calendar events.
                         + deal
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
             + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
+            + done: false (boolean, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
