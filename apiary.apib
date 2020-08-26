@@ -439,6 +439,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added the time tracking `locked` and `updatable` properties to `timeTracking.info`.
 
+- We exposed the "Freeze time tracking after a number of days" preference in `users.me`.
+
 - We added format `ubl/e-fff` to `invoices.download`.
 
 - We added filters `estimated_closing_date_from` and `estimated_closing_date_until` to `deals.list`.
@@ -813,6 +815,11 @@ Get the current authenticated user.
             + time_zone: `Europe/Brussels` (string)
             + preferences (object)
                 + invoiceable: true (boolean)
+                + historic_time_tracking_limit (object, nullable)
+                    + unit (enum)
+                        + Members
+                            + hour - Hours
+                    + value: 24 (number)
 
 ### users.list [GET /users.list]
 
