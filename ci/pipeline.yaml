@@ -14,12 +14,14 @@ resources:
 
   - name: git-pull-request
     type: pull-request
+    check_every: 30m
     source:
       access_token: ((GITHUB_ACCESS_TOKEN))
       repository: teamleadercrm/api
     icon: github-circle
   - name: git-ci-pull-request
     type: pull-request
+    check_every: 30m
     source:
       access_token: ((GITHUB_ACCESS_TOKEN))
       repository: teamleadercrm/api
