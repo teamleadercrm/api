@@ -374,7 +374,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
-- We added the `purchase_price` field to `quotations.list`.
+- We added the `purchase_price` field to `quotations.list` and `quotations.info`.
 
 ### August 2020
 
@@ -2158,6 +2158,7 @@ Get a quotation
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+                + purchase_price (Money, nullable)
 
 ### quotations.download [POST /quotations.download]
 
