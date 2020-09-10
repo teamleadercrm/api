@@ -374,6 +374,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
+- We added the `purchase_price` field to `quotations.list`.
+
+### August 2020
+
 - We added a filter `done` to `events.list`.
 - We added the `currency_exchange_rate` to `invoices.list`.
 - We added the `product_id` property to `quotations.create`, `quotations.update`, `invoices.draft` and `invoices.update`.
@@ -2093,6 +2097,7 @@ Get a list of quotations.
                             + rate: 0.21 (number)
                             + taxable (Money)
                             + tax (Money)
+                    + purchase_price (Money, nullable)
 
 ### quotations.info [GET /quotations.info]
 
