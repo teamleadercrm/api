@@ -211,6 +211,18 @@ Update a project.
 + Response 204 (application/json)
 
 
+### projects.close [POST /projects.close]
+
+Closes a project, all its phases, and all tasks within each phase (but not meetings).
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
+
++ Response 204 (application/json)
+
+
 ### projects.delete [POST /projects.delete]
 
 Delete a project.
