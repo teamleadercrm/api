@@ -374,7 +374,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
-- We added `projects.close` endpoint.
+- We added `projects.close` and `projects.reopen` endpoints.
 - We added a filter `done` to `events.list`.
 - We added the `currency_exchange_rate` to `invoices.list`.
 - We added the `product_id` property to `quotations.create`, `quotations.update`, `invoices.draft` and `invoices.update`.
@@ -3497,6 +3497,18 @@ Closes a project, all its phases, and all tasks within each phase (but not meeti
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
 + Response 204 (application/json)
+
+
+### projects.reopen [POST /projects.reopen]
+
+Reopens a project, changing its status to "active".
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
+
++ Response 204
 
 
 ### projects.delete [POST /projects.delete]
