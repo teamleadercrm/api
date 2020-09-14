@@ -375,6 +375,7 @@ We list all backwards-compatible additions here. These are currently available i
 ### Latest
 
 - We added the `purchase_price` field to `quotations.list` and `quotations.info`.
+- We added `projects.close` endpoint.
 
 ### August 2020
 
@@ -3488,6 +3489,18 @@ Update a project.
         + starts_on: `2016-02-04` (string)
         + purchase_order_number: `000023` (string, nullable)
         + custom_fields (array[CustomFieldValue])
+
++ Response 204 (application/json)
+
+
+### projects.close [POST /projects.close]
+
+Closes a project, all its phases, and all tasks within each phase (but not meetings).
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
 + Response 204 (application/json)
 
