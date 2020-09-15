@@ -375,7 +375,7 @@ We list all backwards-compatible additions here. These are currently available i
 ### Latest
 
 - We added the `purchase_price` field to `quotations.list` and `quotations.info`.
-- We added `projects.close` endpoint.
+- We added `projects.close` and `projects.reopen` endpoints.
 
 ### August 2020
 
@@ -3490,7 +3490,7 @@ Update a project.
         + purchase_order_number: `000023` (string, nullable)
         + custom_fields (array[CustomFieldValue])
 
-+ Response 204 (application/json)
++ Response 204
 
 
 ### projects.close [POST /projects.close]
@@ -3502,7 +3502,19 @@ Closes a project, all its phases, and all tasks within each phase (but not meeti
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json)
++ Response 204
+
+
+### projects.reopen [POST /projects.reopen]
+
+Reopens a project, changing its status to "active".
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
+
++ Response 204
 
 
 ### projects.delete [POST /projects.delete]
@@ -3514,7 +3526,7 @@ Delete a project.
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json)
++ Response 204
 
 
 ### projects.addParticipant [POST /projects.addParticipant]
@@ -3734,7 +3746,7 @@ Update a milestone.
         + propagate_date_changes: false (boolean, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 204 (application/json)
++ Response 204
 
 ### milestones.delete [POST /milestones.delete]
 
