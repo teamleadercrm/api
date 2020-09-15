@@ -2160,6 +2160,13 @@ Get a quotation
                         + taxable (Money)
                         + tax (Money)
                 + purchase_price (Money, nullable)
+            + discounts (array, optional)
+                + (object)
+                    + value: 10 (number, required)
+                    + type (enum, required)
+                        + Members
+                            + percentage - Values between 0 and 100
+                    + description: `winter promotion` (string, required)
 
 ### quotations.download [POST /quotations.download]
 
