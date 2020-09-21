@@ -374,6 +374,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
+- We added the `created_at` and `updated_at` fields to `quotations.list` and `quotations.info`.  
+  Please note that these fields are nullable and will only be filled in for future quotations.
+
 - We added the `discounts` field to `quotations.info`.
 - We added the `purchase_price` field to `quotations.list` and `quotations.info`.
 - We added `projects.close` and `projects.reopen` endpoints.
@@ -2100,6 +2103,8 @@ Get a list of quotations.
                             + taxable (Money)
                             + tax (Money)
                     + purchase_price (Money, nullable)
+                + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+                + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
 
 ### quotations.info [GET /quotations.info]
 
@@ -2168,6 +2173,8 @@ Get a quotation
                         + Members
                             + percentage - Values between 0 and 100
                     + description: `winter promotion` (string, required)
+            + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+            + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
 
 ### quotations.download [POST /quotations.download]
 
