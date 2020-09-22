@@ -374,9 +374,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
-- We added the `created_at` and `updated_at` fields to `quotations.list` and `quotations.info`.  
-  Please note that these fields are nullable and will only be filled in for future quotations.
-
+- We added the `milestones.close` and `milestones.open` endpoints.
+- We added the `created_at` and `updated_at` fields to `quotations.list` and `quotations.info`. Please note that these fields are nullable and will only be filled in for future quotations.
 - We added the `discounts` field to `quotations.info`.
 - We added the `purchase_price` field to `quotations.list` and `quotations.info`.
 - We added `projects.close` and `projects.reopen` endpoints.
@@ -3766,6 +3765,28 @@ Update a milestone.
 ### milestones.delete [POST /milestones.delete]
 
 Delete a milestone.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+
++ Response 204
+
+### milestones.close [POST /milestones.close]
+
+Close a milestone. All open tasks will be closed, open meetings will remain open. Closing the last open milestone will also close the project.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+
++ Response 204
+
+### milestones.open [POST /milestones.open]
+
+(Re)open a milestone. If the milestone's project is closed, the project will be reopened.
 
 + Request (application/json)
 
