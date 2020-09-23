@@ -377,7 +377,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `milestones.close` and `milestones.open` endpoints.
 - We added the `created_at` and `updated_at` fields to `quotations.list` and `quotations.info`. Please note that these fields are nullable and will only be filled in for future quotations.
 - We added the `discounts` field to `quotations.info`.
-- We added the `purchase_price` field to `quotations.list` and `quotations.info`.
+- We added the `purchase_price` field to `quotations.list`, `quotations.info`, `quotations.create` and `quotations.update`.
 - We added `projects.close` and `projects.reopen` endpoints.
 
 ### August 2020
@@ -2224,6 +2224,7 @@ Create a quotation.
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
+                        + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array, optional)
             + (object)
                 + value: 10 (number, required)
@@ -2269,6 +2270,7 @@ Update a quotation.
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
+                        + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array, optional)
             + (object)
                 + value: 10 (number, required)
