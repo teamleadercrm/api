@@ -2609,7 +2609,7 @@ Get a list of invoices.
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
                 + `web_url`: `https://app.teamleader.eu/invoice_detail.php?id=2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
                 + pdf_file (object)
-                    + type: `file`
+                    + type: `file` (string)
                     + id: `39a02b79-b9a9-46e3-a44d-6c473b2fe350` (string)
 
 ### invoices.info [GET /invoices.info]
@@ -2728,7 +2728,7 @@ Get details for a single invoice.
                 + rate: 1.1234 (number)
             + expected_payment_method (ExpectedPaymentMethod, nullable)
             + pdf_file (object)
-                + type: `file`
+                + type: `file` (string)
                 + id: `39a02b79-b9a9-46e3-a44d-6c473b2fe350` (string)
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
