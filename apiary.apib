@@ -374,6 +374,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
+- We added `customer` on `projects.update`.
 - We added `starts_on` and `desc` to the sort options on `milestones.list`.
 - We added `file` to `invoices.list` and `invoices.info`.
 
@@ -3515,6 +3516,12 @@ Update a project.
                 + done
                 + cancelled
         + starts_on: `2016-02-04` (string)
+        + customer (object, nullable) - Null will unlink the customer from the project
+            + type: `company` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
         + purchase_order_number: `000023` (string, nullable)
         + custom_fields (array[CustomFieldValue])
 
