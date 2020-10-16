@@ -374,6 +374,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
+- We added `starts_on` to `milestones.create`, `milestones.update`, `milestones.list`, `milestones.info`, and `projects.create` (in the milestone context)
 - We added `budget` on `projects.update`.
 - We added `customer` on `projects.update`.
 - We added `starts_on` and `desc` to the sort options on `milestones.list`.
@@ -3470,6 +3471,7 @@ Create a new project.
         + starts_on: `2016-02-04` (string, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
+                + starts_on: `2017-01-01` (string, optional, nullable)
                 + due_on: `2018-01-01` (string, required)
                 + name: `Initial setup` (string, required)
                 + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
@@ -3652,6 +3654,7 @@ Get a list of project milestones.
                 + project (object)
                     + type: `project` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + starts_on: `2017-01-01` (string, nullable)
                 + due_on: `2018-01-01` (string)
                 + name: `Initial setup` (string)
                 + responsible_user (object)
@@ -3701,6 +3704,7 @@ Get details for a single milestone.
             + project (object)
                 + type: `project` (string)
                 + id: `fffaf951-b65a-4cb1-bfb6-4b93e0e60c10` (string)
+            + starts_on: `2017-01-01` (string, nullable)
             + due_on: `2018-01-01` (string)
             + name: `Initial setup` (string)
             + description (string)
@@ -3743,6 +3747,7 @@ Create a new milestone.
 
     + Attributes (object)
         + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
+        + starts_on: `2017-01-01` (string, optional, nullable)
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
         + description (string, optional)
@@ -3777,6 +3782,7 @@ Update a milestone.
 
     + Attributes (object)
         + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+        + starts_on: `2017-01-01` (string, optional, nullable)
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
         + description (string, optional)
