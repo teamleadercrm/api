@@ -764,7 +764,7 @@ Get details for a single department.
             + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
             + name: `Human Resources` (string)
             + vat_number: `BE0899623035` (string)
-            + address (Address)
+            + address (AddressResponse)
             + emails (array)
                 + (object)
                     + type: `primary` (enum)
@@ -1137,7 +1137,7 @@ Get a list of contacts.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + primary_address (Address)
+                + primary_address (AddressResponse)
                 + gender: `male` (enum)
                     + Members
                         + male
@@ -1189,7 +1189,7 @@ Get details for a single contact.
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee) - Primary addresses can not contain an addressee
+                    + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
             + gender: `male` (enum)
                 + Members
                     + male
@@ -1243,7 +1243,7 @@ Add a new contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum, optional)
             + Members
@@ -1292,7 +1292,7 @@ Update a contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum, optional, nullable)
             + Members
@@ -1431,7 +1431,7 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + primary_address (Address)
+                + primary_address (AddressResponse)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -1484,7 +1484,7 @@ Get details for a single company.
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee) - Primary addresses can not contain an addressee
+                    + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
@@ -1531,7 +1531,7 @@ Add a new company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
@@ -1577,7 +1577,7 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
         + language: `en` (string, optional, nullable)
@@ -4535,15 +4535,29 @@ Unregister a webhook.
         + fax
 + number: `092980615` (string, required)
 
-## Address (object)
+## AddressRequest (object)
 + line_1: `Dok Noord 3A 101` (string, required, nullable)
 + postal_code: `9000` (string, required, nullable)
 + city: `Ghent` (string, required, nullable)
 + country: `BE` (string, required)
++ area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
 
-## Addressee (object)
+## AddressResponse (object)
++ line_1: `Dok Noord 3A 101` (string, nullable)
++ postal_code: `9000` (string, nullable)
++ city: `Ghent` (string, nullable)
++ country: `BE` (string)
++ area_level_two (object, nullable)
+    + type: `area_level_two` (string)
+    + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+
+## AddressWithAddresseeRequest (object)
 + addressee: `Teamleader HQ` (string, optional)
-+ Include Address
++ Include AddressRequest
+
+## AddressWithAddresseeResponse (object)
++ addressee: `Teamleader HQ` (string, optional)
++ Include AddressResponse
 
 ## Money (object)
 + amount: `123.30` (number, required)
