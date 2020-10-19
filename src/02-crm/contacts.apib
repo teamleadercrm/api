@@ -56,7 +56,7 @@ Get a list of contacts.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + primary_address (Address)
+                + primary_address (AddressResponse)
                 + gender: `male` (enum)
                     + Members
                         + male
@@ -108,7 +108,7 @@ Get details for a single contact.
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee) - Primary addresses can not contain an addressee
+                    + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
             + gender: `male` (enum)
                 + Members
                     + male
@@ -162,7 +162,7 @@ Add a new contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum, optional)
             + Members
@@ -211,7 +211,7 @@ Update a contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum, optional, nullable)
             + Members

@@ -15,15 +15,29 @@
         + fax
 + number: `092980615` (string, required)
 
-## Address (object)
+## AddressRequest (object)
 + line_1: `Dok Noord 3A 101` (string, required, nullable)
 + postal_code: `9000` (string, required, nullable)
 + city: `Ghent` (string, required, nullable)
 + country: `BE` (string, required)
++ area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
 
-## Addressee (object)
+## AddressResponse (object)
++ line_1: `Dok Noord 3A 101` (string, nullable)
++ postal_code: `9000` (string, nullable)
++ city: `Ghent` (string, nullable)
++ country: `BE` (string)
++ area_level_two (object, nullable)
+    + type: `area_level_two` (string)
+    + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+
+## AddressWithAddresseeRequest (object)
 + addressee: `Teamleader HQ` (string, optional)
-+ Include Address
++ Include AddressRequest
+
+## AddressWithAddresseeResponse (object)
++ addressee: `Teamleader HQ` (string, optional)
++ Include AddressResponse
 
 ## Money (object)
 + amount: `123.30` (number, required)
