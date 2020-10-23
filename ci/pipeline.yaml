@@ -9,6 +9,7 @@ resource_types:
     type: docker-image
     source:
       repository: teliaoss/github-pr-resource
+      tag: ((PULL_REQUEST_RESOURCE_TAG))
 
 resources:
 
@@ -46,7 +47,7 @@ resources:
     type: docker-image
     source:
       repository: teamleader/concourse-fly
-      tag: 6.2
+      tag: ((DOCKER_FLY_VALIDATE_TAG))
       username: ((DOCKER_HUB_USERNAME))
       password: ((DOCKER_HUB_PASSWORD))
   - name: docker-yamllint
