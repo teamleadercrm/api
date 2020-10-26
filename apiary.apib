@@ -374,8 +374,21 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
-- We added the `purchase_price` field to `quotations.list` and `quotations.info`.
-- We added `projects.close` endpoint.
+- We added `area_level_two` to the .list and .info responses for `company`, `contact` and `department` addresses.
+- We added `area_level_two_id` to the .add and .update calls for `companies` and `contacts`.
+- We added `starts_on` to `milestones.create`, `milestones.update`, `milestones.list`, `milestones.info`, and `projects.create` (in the milestone context)
+- We added `budget` on `projects.update`.
+- We added `customer` on `projects.update`.
+- We added `starts_on` and `desc` to the sort options on `milestones.list`.
+- We added `file` to `invoices.list` and `invoices.info`.
+
+### September 2020
+
+- We added the `milestones.close` and `milestones.open` endpoints.
+- We added the `created_at` and `updated_at` fields to `quotations.list` and `quotations.info`. Please note that these fields are nullable and will only be filled in for future quotations.
+- We added the `discounts` field to `quotations.info`.
+- We added the `purchase_price` field to `quotations.list`, `quotations.info`, `quotations.create` and `quotations.update`.
+- We added `projects.close` and `projects.reopen` endpoints.
 
 ### August 2020
 
@@ -754,7 +767,7 @@ Get details for a single department.
             + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
             + name: `Human Resources` (string)
             + vat_number: `BE0899623035` (string)
-            + address (Address)
+            + address (AddressResponse)
             + emails (array)
                 + (object)
                     + type: `primary` (enum)
@@ -1127,7 +1140,7 @@ Get a list of contacts.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
-                + primary_address (Address)
+                + primary_address (AddressResponse)
                 + gender: `male` (enum)
                     + Members
                         + male
@@ -1179,7 +1192,7 @@ Get details for a single contact.
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee) - Primary addresses can not contain an addressee
+                    + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
             + gender: `male` (enum)
                 + Members
                     + male
@@ -1233,7 +1246,7 @@ Add a new contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum, optional)
             + Members
@@ -1282,7 +1295,7 @@ Update a contact.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
         + gender: `male` (enum, optional, nullable)
             + Members
@@ -1421,7 +1434,7 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + primary_address (Address)
+                + primary_address (AddressResponse)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -1474,7 +1487,7 @@ Get details for a single company.
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee) - Primary addresses can not contain an addressee
+                    + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
@@ -1521,7 +1534,7 @@ Add a new company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
@@ -1567,7 +1580,7 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
         + language: `en` (string, optional, nullable)
@@ -2099,6 +2112,8 @@ Get a list of quotations.
                             + taxable (Money)
                             + tax (Money)
                     + purchase_price (Money, nullable)
+                + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+                + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
 
 ### quotations.info [GET /quotations.info]
 
@@ -2142,6 +2157,7 @@ Get a quotation
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
+                            + purchase_price (Money, nullable)
                             + total
                                 + tax_exclusive (Money)
                                 + tax_exclusive_before_discount (Money)
@@ -2160,6 +2176,15 @@ Get a quotation
                         + taxable (Money)
                         + tax (Money)
                 + purchase_price (Money, nullable)
+            + discounts (array, optional)
+                + (object)
+                    + value: 10 (number, required)
+                    + type (enum, required)
+                        + Members
+                            + percentage - Values between 0 and 100
+                    + description: `winter promotion` (string, required)
+            + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+            + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
 
 ### quotations.download [POST /quotations.download]
 
@@ -2209,6 +2234,7 @@ Create a quotation.
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
+                        + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array, optional)
             + (object)
                 + value: 10 (number, required)
@@ -2254,6 +2280,7 @@ Update a quotation.
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
+                        + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array, optional)
             + (object)
                 + value: 10 (number, required)
@@ -2570,8 +2597,8 @@ Get a list of invoices.
                         + type: `contact` (string)
                         + id: `4b0f959a-27e3-4080-b1b2-a05b374863cb` (string)
                     + for_attention_of (object, nullable)
-                        + name: `Radja Nainggolan` (string)
-                        + contact (object)
+                        + name: `Radja Nainggolan` (string, nullable)
+                        + contact (object, nullable)
                             + type: `contact` (string)
                             + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
                 + total (object)
@@ -2591,6 +2618,9 @@ Get a list of invoices.
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
                 + `web_url`: `https://app.teamleader.eu/invoice_detail.php?id=2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + file (object, nullable)
+                    + type: `file` (string)
+                    + id: `39a02b79-b9a9-46e3-a44d-6c473b2fe350` (string)
 
 ### invoices.info [GET /invoices.info]
 
@@ -2628,8 +2658,8 @@ Get details for a single invoice.
                     + type: `contact` (string)
                     + id: `c7db7f80-762a-4e65-8d0c-522700198284` (string)
                 + for_attention_of (object, nullable)
-                    + name: `Radja Nainggolan` (string)
-                    + contact (object)
+                    + name: `Radja Nainggolan` (string, nullable)
+                    + contact (object, nullable)
                         + type: `contact` (string)
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
                 + email: `duivels@test.com` (string, nullable)
@@ -2701,12 +2731,15 @@ Get details for a single invoice.
                     + payment (object)
                         + Include Money
             + payment_reference: `+++084/2613/66074+++` (string, nullable)
-            + note: `'Some extra remarks about the invoice'` (string)
+            + note: `'Some extra remarks about the invoice'` (string, nullable) - plaintext
             + currency_exchange_rate (object)
                 + from: `USD` (string)
                 + to: `EUR` (string)
                 + rate: 1.1234 (number)
             + expected_payment_method (ExpectedPaymentMethod, nullable)
+            + file (object, nullable)
+                + type: `file` (string)
+                + id: `39a02b79-b9a9-46e3-a44d-6c473b2fe350` (string)
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -3440,6 +3473,7 @@ Create a new project.
         + starts_on: `2016-02-04` (string, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
+                + starts_on: `2017-01-01` (string, optional, nullable)
                 + due_on: `2018-01-01` (string, required)
                 + name: `Initial setup` (string, required)
                 + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
@@ -3487,10 +3521,17 @@ Update a project.
                 + done
                 + cancelled
         + starts_on: `2016-02-04` (string)
+        + customer (object, nullable) - Null will unlink the customer from the project
+            + type: `company` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+        + budget (Money)
         + purchase_order_number: `000023` (string, nullable)
         + custom_fields (array[CustomFieldValue])
 
-+ Response 204 (application/json)
++ Response 204
 
 
 ### projects.close [POST /projects.close]
@@ -3502,7 +3543,19 @@ Closes a project, all its phases, and all tasks within each phase (but not meeti
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json)
++ Response 204
+
+
+### projects.reopen [POST /projects.reopen]
+
+Reopens a project, changing its status to "active".
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
+
++ Response 204
 
 
 ### projects.delete [POST /projects.delete]
@@ -3514,7 +3567,7 @@ Delete a project.
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json)
++ Response 204
 
 
 ### projects.addParticipant [POST /projects.addParticipant]
@@ -3583,10 +3636,12 @@ Get a list of project milestones.
             + (object)
                 + field (enum, required)
                     + Members
-                        + due_on
+                        + `starts_on`
+                        + `due_on`
                 + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
                 + (object)
                     + field: `due_on`
@@ -3601,6 +3656,7 @@ Get a list of project milestones.
                 + project (object)
                     + type: `project` (string)
                     + id: `944534fb-15f1-4eea-aab1-82a427aa2d0d` (string)
+                + starts_on: `2017-01-01` (string, nullable)
                 + due_on: `2018-01-01` (string)
                 + name: `Initial setup` (string)
                 + responsible_user (object)
@@ -3650,6 +3706,7 @@ Get details for a single milestone.
             + project (object)
                 + type: `project` (string)
                 + id: `fffaf951-b65a-4cb1-bfb6-4b93e0e60c10` (string)
+            + starts_on: `2017-01-01` (string, nullable)
             + due_on: `2018-01-01` (string)
             + name: `Initial setup` (string)
             + description (string)
@@ -3692,6 +3749,7 @@ Create a new milestone.
 
     + Attributes (object)
         + project_id: `1c159f98-4b07-438a-9f42-fb4206b9530d` (string, required)
+        + starts_on: `2017-01-01` (string, optional, nullable)
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
         + description (string, optional)
@@ -3726,6 +3784,7 @@ Update a milestone.
 
     + Attributes (object)
         + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+        + starts_on: `2017-01-01` (string, optional, nullable)
         + due_on: `2018-01-01` (string, optional)
         + name: `Initial setup` (string, optional)
         + description (string, optional)
@@ -3734,11 +3793,33 @@ Update a milestone.
         + propagate_date_changes: false (boolean, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 204 (application/json)
++ Response 204
 
 ### milestones.delete [POST /milestones.delete]
 
 Delete a milestone.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+
++ Response 204
+
+### milestones.close [POST /milestones.close]
+
+Close a milestone. All open tasks will be closed, open meetings will remain open. Closing the last open milestone will also close the project.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `67e80ad8-d14f-4510-a2bd-a4c6aa578c37` (string, required)
+
++ Response 204
+
+### milestones.open [POST /milestones.open]
+
+(Re)open a milestone. If the milestone's project is closed, the project will be reopened.
 
 + Request (application/json)
 
@@ -4462,15 +4543,29 @@ Unregister a webhook.
         + fax
 + number: `092980615` (string, required)
 
-## Address (object)
+## AddressRequest (object)
 + line_1: `Dok Noord 3A 101` (string, required, nullable)
 + postal_code: `9000` (string, required, nullable)
 + city: `Ghent` (string, required, nullable)
 + country: `BE` (string, required)
++ area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
 
-## Addressee (object)
+## AddressResponse (object)
++ line_1: `Dok Noord 3A 101` (string, nullable)
++ postal_code: `9000` (string, nullable)
++ city: `Ghent` (string, nullable)
++ country: `BE` (string)
++ area_level_two (object, nullable)
+    + type: `area_level_two` (string)
+    + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+
+## AddressWithAddresseeRequest (object)
 + addressee: `Teamleader HQ` (string, optional)
-+ Include Address
++ Include AddressRequest
+
+## AddressWithAddresseeResponse (object)
++ addressee: `Teamleader HQ` (string, optional)
++ Include AddressResponse
 
 ## Money (object)
 + amount: `123.30` (number, required)

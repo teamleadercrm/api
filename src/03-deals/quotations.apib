@@ -37,6 +37,8 @@ Get a list of quotations.
                             + taxable (Money)
                             + tax (Money)
                     + purchase_price (Money, nullable)
+                + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+                + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
 
 ### quotations.info [GET /quotations.info]
 
@@ -80,6 +82,7 @@ Get a quotation
                                     + Members
                                         + percentage
                                 + value: 15.00 (number)
+                            + purchase_price (Money, nullable)
                             + total
                                 + tax_exclusive (Money)
                                 + tax_exclusive_before_discount (Money)
@@ -98,6 +101,15 @@ Get a quotation
                         + taxable (Money)
                         + tax (Money)
                 + purchase_price (Money, nullable)
+            + discounts (array, optional)
+                + (object)
+                    + value: 10 (number, required)
+                    + type (enum, required)
+                        + Members
+                            + percentage - Values between 0 and 100
+                    + description: `winter promotion` (string, required)
+            + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+            + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
 
 ### quotations.download [POST /quotations.download]
 
@@ -147,6 +159,7 @@ Create a quotation.
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
+                        + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array, optional)
             + (object)
                 + value: 10 (number, required)
@@ -192,6 +205,7 @@ Update a quotation.
                                 + Members
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
+                        + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array, optional)
             + (object)
                 + value: 10 (number, required)

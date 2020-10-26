@@ -6,8 +6,21 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
-- We added the `purchase_price` field to `quotations.list` and `quotations.info`.
-- We added `projects.close` endpoint.
+- We added `area_level_two` to the .list and .info responses for `company`, `contact` and `department` addresses.
+- We added `area_level_two_id` to the .add and .update calls for `companies` and `contacts`.
+- We added `starts_on` to `milestones.create`, `milestones.update`, `milestones.list`, `milestones.info`, and `projects.create` (in the milestone context)
+- We added `budget` on `projects.update`.
+- We added `customer` on `projects.update`.
+- We added `starts_on` and `desc` to the sort options on `milestones.list`.
+- We added `file` to `invoices.list` and `invoices.info`.
+
+### September 2020
+
+- We added the `milestones.close` and `milestones.open` endpoints.
+- We added the `created_at` and `updated_at` fields to `quotations.list` and `quotations.info`. Please note that these fields are nullable and will only be filled in for future quotations.
+- We added the `discounts` field to `quotations.info`.
+- We added the `purchase_price` field to `quotations.list`, `quotations.info`, `quotations.create` and `quotations.update`.
+- We added `projects.close` and `projects.reopen` endpoints.
 
 ### August 2020
 

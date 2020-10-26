@@ -59,7 +59,7 @@ Get a list of companies.
                         + email: `info@piedpiper.eu` (string)
                 + telephones (array[CompanyTelephone])
                 + website: `https://piedpiper.com` (string)
-                + primary_address (Address)
+                + primary_address (AddressResponse)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
@@ -112,7 +112,7 @@ Get details for a single company.
                             + invoicing
                             + delivery
                             + visiting
-                    + address (Addressee) - Primary addresses can not contain an addressee
+                    + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
             + language: `nl` (string)
@@ -159,7 +159,7 @@ Add a new company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string, optional)
         + language: `en` (string, optional)
@@ -205,7 +205,7 @@ Update a company.
                         + invoicing
                         + delivery
                         + visiting
-                + address (Addressee, required) - Primary addresses can not contain an addressee
+                + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + iban: `BE12 1234 1234 1234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
         + language: `en` (string, optional, nullable)

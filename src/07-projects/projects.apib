@@ -158,6 +158,7 @@ Create a new project.
         + starts_on: `2016-02-04` (string, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
+                + starts_on: `2017-01-01` (string, optional, nullable)
                 + due_on: `2018-01-01` (string, required)
                 + name: `Initial setup` (string, required)
                 + responsible_user_id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string, required)
@@ -205,10 +206,17 @@ Update a project.
                 + done
                 + cancelled
         + starts_on: `2016-02-04` (string)
+        + customer (object, nullable) - Null will unlink the customer from the project
+            + type: `company` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+        + budget (Money)
         + purchase_order_number: `000023` (string, nullable)
         + custom_fields (array[CustomFieldValue])
 
-+ Response 204 (application/json)
++ Response 204
 
 
 ### projects.close [POST /projects.close]
@@ -220,7 +228,19 @@ Closes a project, all its phases, and all tasks within each phase (but not meeti
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json)
++ Response 204
+
+
+### projects.reopen [POST /projects.reopen]
+
+Reopens a project, changing its status to "active".
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
+
++ Response 204
 
 
 ### projects.delete [POST /projects.delete]
@@ -232,7 +252,7 @@ Delete a project.
     + Attributes (object)
         + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
-+ Response 204 (application/json)
++ Response 204
 
 
 ### projects.addParticipant [POST /projects.addParticipant]
