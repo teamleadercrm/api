@@ -202,3 +202,14 @@ Update a quotation.
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
 
 + Response 204
+
+### quotations.accept [POST /quotations.accept]
+
+Mark a quotation as accepted.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
+
++ Response 200
