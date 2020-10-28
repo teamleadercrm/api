@@ -381,6 +381,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `customer` on `projects.update`.
 - We added `starts_on` and `desc` to the sort options on `milestones.list`.
 - We added `file` to `invoices.list` and `invoices.info`.
+- We added `quotations.accept` endpoint.
 
 ### September 2020
 
@@ -2289,6 +2290,17 @@ Update a quotation.
                         + percentage - Values between 0 and 100
                 + description: `winter promotion` (string, required)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
+
++ Response 204
+
+### quotations.accept [POST /quotations.accept]
+
+Mark a quotation as accepted.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `e7a3fe2b-2c75-480f-87b9-121816b5257b` (string, required)
 
 + Response 204
 
