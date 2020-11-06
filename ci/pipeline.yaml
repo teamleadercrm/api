@@ -5,12 +5,16 @@ resource_types:
     source:
       repository: cfcommunity/slack-notification-resource
       tag: latest
+      username: ((DOCKER_HUB_USERNAME))
+      password: ((DOCKER_HUB_PASSWORD))
   - name: pull-request
     type: docker-image
     source:
       repository: teliaoss/github-pr-resource
       tag: ((PULL_REQUEST_RESOURCE_TAG))
 
+      username: ((DOCKER_HUB_USERNAME))
+      password: ((DOCKER_HUB_PASSWORD))
 resources:
 
   - name: git-pull-request
@@ -26,7 +30,7 @@ resources:
     source:
       access_token: ((GITHUB_ACCESS_TOKEN))
       repository: teamleadercrm/api
-      paths: ['ci/*']
+      paths: [ci/*]
     icon: github-circle
   - name: git-ci-api
     type: git
@@ -42,6 +46,8 @@ resources:
     source:
       repository: node
       tag: 9
+      username: ((DOCKER_HUB_USERNAME))
+      password: ((DOCKER_HUB_PASSWORD))
     icon: docker
   - name: docker-fly-validate
     type: docker-image
