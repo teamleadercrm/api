@@ -2,6 +2,7 @@
 resource_types:
   - name: slack-notification
     type: docker-image
+    check_every: 24h
     source:
       repository: cfcommunity/slack-notification-resource
       tag: latest
@@ -9,10 +10,10 @@ resource_types:
       password: ((DOCKER_HUB_PASSWORD))
   - name: pull-request
     type: docker-image
+    check_every: 24h
     source:
       repository: teliaoss/github-pr-resource
       tag: ((PULL_REQUEST_RESOURCE_TAG))
-
       username: ((DOCKER_HUB_USERNAME))
       password: ((DOCKER_HUB_PASSWORD))
 resources:
@@ -43,6 +44,7 @@ resources:
 
   - name: docker-node
     type: docker-image
+    check_every: 24h
     source:
       repository: node
       tag: 9
@@ -51,6 +53,7 @@ resources:
     icon: docker
   - name: docker-fly-validate
     type: docker-image
+    check_every: 24h
     source:
       repository: teamleader/concourse-fly
       tag: ((DOCKER_FLY_VALIDATE_TAG))
@@ -58,6 +61,7 @@ resources:
       password: ((DOCKER_HUB_PASSWORD))
   - name: docker-yamllint
     type: docker-image
+    check_every: 24h
     source:
       repository: teamleader/yamllint
       tag: latest
