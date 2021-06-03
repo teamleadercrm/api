@@ -370,6 +370,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### Latest
+
+- We added `started_on` to `timeTracking.update` and `timeTracking.add`
+
 ### March 2021
 
 - Updated the 'migrate.id' endpoint for type 'quotation' to return the first or accepted quotation uuid for given deal id.
@@ -4252,6 +4256,9 @@ Add tracked time.
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
                 + ended_at: `2017-04-26T16:02:00+00:00` (string, required)
+            + Properties
+                + started_on: `2017-04-26` (string, required) - Only available if duration time tracking is enabled.
+                + duration: 3600 (number, required) - In seconds
         + description (string, optional)
         + subject (object, optional)
             + type: `milestone` (enum, required)
@@ -4284,6 +4291,9 @@ Update tracked time.
         + One Of
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+            + Properties
+                + started_on: `2017-04-26` (string, required) - Only available if duration time tracking is enabled.
                 + duration: 3600 (number, required) - In seconds
         + description (string, optional, nullable)
         + subject (object, optional, nullable)
