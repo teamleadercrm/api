@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://api.teamleader.eu
+HOST: https://api.focus.teamleader.eu
 
 # Teamleader API
 
@@ -11,13 +11,13 @@ Do you have any feedback, do you miss functionality to support your use case? Le
 
 An API is an Application Programming Interface. It is used to programmatically interact with Teamleader, integrate with other software tools or add custom functionalities to Teamleader.
 
-Before creating a new integration, make sure to check our existing integrations built by our community in our [Teamleader Marketplace](https://marketplace.teamleader.eu).
+Before creating a new integration, make sure to check our existing integrations built by our community in our [Teamleader Marketplace](https://marketplace.focus.teamleader.eu).
 
 ## General principles
 
 ### Endpoints
 
-Our API consists of HTTP RPC-style methods, in the form of `https://api.teamleader.eu/resource.action`.
+Our API consists of HTTP RPC-style methods, in the form of `https://api.focus.teamleader.eu/resource.action`.
 
 We chose this action based approach over the more popular REST, because it enables us to have domain related actions on resources such as `invoices.book`, `timetracking.start` and `timetracking.stop`.
 
@@ -28,7 +28,7 @@ All methods must be called using HTTPS. Data is passed as JSON data in a POST re
 For more complex actions we recommend using POST requests with JSON:
 
 ```
-POST https://api.teamleader.eu/invoices.list
+POST https://api.focus.teamleader.eu/invoices.list
 
 {
     "filter": {
@@ -44,7 +44,7 @@ POST https://api.teamleader.eu/invoices.list
 The GET equivalent:
 
 ```
-GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
+GET https://api.focus.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
 ```
 
 ### Responses
@@ -149,9 +149,9 @@ OAuth 2 is an authorization framework that allows a user to grant limited access
 
 To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
-Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client-side code.
+Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.focus.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client-side code.
 
-When you register an integration on our [Marketplace](https://marketplace.teamleader.eu), it is required to select all *scopes* your integration wants access to.
+When you register an integration on our [Marketplace](https://marketplace.focus.teamleader.eu), it is required to select all *scopes* your integration wants access to.
 
 For more detailed information about OAuth 2, we recommend reading [this article](https://auth0.com/docs/protocols/oauth2).
 
@@ -159,7 +159,7 @@ For more detailed information about OAuth 2, we recommend reading [this article]
 
 To get access to a user's Teamleader data using the *authorization code grant type*, redirect users to the Teamleader authorization page:
 
-`https://app.teamleader.eu/oauth2/authorize`
+`https://focus.teamleader.eu/oauth2/authorize`
 
 The required GET parameters are:
 
@@ -168,9 +168,9 @@ The required GET parameters are:
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.focus.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
 
-After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.teamleader.eu/build).
+After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.focus.teamleader.eu/build).
 
 If the user authorizes your integration, they will be redirected to the specified `redirect_uri` with a temporary authorization code and the original `state` parameter. If the `state` parameter does not match the original value, the response may have been created by a third party and should be ignored.
 
@@ -184,7 +184,7 @@ If the user denies your integration, he will be redirected to the `redirect_uri`
 
 After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send an HTTP POST request to the following endpoint:
 
-`https://app.teamleader.eu/oauth2/access_token`
+`https://focus.teamleader.eu/oauth2/access_token`
 
 The required POST parameters are:
 
@@ -213,7 +213,7 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 These access tokens are also known as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
 
 ```
-GET https://api.teamleader.eu/contacts.list HTTP/1.1
+GET https://api.focus.teamleader.eu/contacts.list HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
 Accept: application/json
 ```
@@ -224,7 +224,7 @@ Access tokens expire shortly (usually 1 hour) after they are issued for security
 
 If an access token is expired, a new access token and refresh token pair can be obtained by sending an HTTP POST request to the following endpoint:
 
-`https://app.teamleader.eu/oauth2/access_token`
+`https://focus.teamleader.eu/oauth2/access_token`
 
 The required POST parameters are:
 
@@ -242,7 +242,7 @@ The implicit grant is a simplified authorization code flow optimized for clients
 
 Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
 
-`https://app.teamleader.eu/oauth2/authorize`
+`https://focus.teamleader.eu/oauth2/authorize`
 
 The required GET parameters are:
 
@@ -251,7 +251,7 @@ The required GET parameters are:
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.focus.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
 
 After authorization, the user is redirected to the `redirect_uri` with the following parameters in the **fragment part of the url**:
 
@@ -270,7 +270,7 @@ Note that the implicit grant does not return refresh tokens and that our access 
 
 To retrieve information about the user who authorized your application (the resource owner), call the `users.me` API endpoint:
 
-`https://api.teamleader.eu/users.me`
+`https://api.focus.teamleader.eu/users.me`
 
 ### PHP code example
 
@@ -373,6 +373,7 @@ We list all backwards-compatible additions here. These are currently available i
 ### Latest
 
 - We added `term` to the filters on `workTypes.list`.
+- We added `started_on` to `timeTracking.update` and `timeTracking.add`
 
 ### March 2021
 
@@ -1170,7 +1171,7 @@ Get a list of contacts.
                 + tags: prospect, expo (array[string])
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
-                + `web_url`: `https://app.teamleader.eu/contact_detail.php?id=2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
+                + `web_url`: `https://focus.teamleader.eu/contact_detail.php?id=2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -1232,7 +1233,7 @@ Get details for a single contact.
             + marketing_mails_consent: false (boolean)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
-            + `web_url`: `https://app.teamleader.eu/contact_detail.php?id=cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
+            + `web_url`: `https://focus.teamleader.eu/contact_detail.php?id=cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
 
 ### contacts.add [POST /contacts.add]
 
@@ -1461,7 +1462,7 @@ Get a list of companies.
                     + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
-                + `web_url`: `https://app.teamleader.eu/company_detail.php?id=96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
+                + `web_url`: `https://focus.teamleader.eu/company_detail.php?id=96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
                 + tags: prospect, expo (array[string])
 
 ### companies.info [GET /companies.info]
@@ -1515,7 +1516,7 @@ Get details for a single company.
             + remarks: `First contact at expo` (string) - Uses Markdown formatting
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
-            + `web_url`: `https://app.teamleader.eu/company_detail.php?id=e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string)
+            + `web_url`: `https://focus.teamleader.eu/company_detail.php?id=e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string)
             + tags: prospect, expo (array[string])
             + custom_fields (array[CustomField])
             + marketing_mails_consent: false (boolean)
@@ -1818,7 +1819,7 @@ Get a list of deals.
                     + remark: `Too expensive` (string, nullable)
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
-                + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
 
 ### deals.info [GET /deals.info]
 
@@ -1890,7 +1891,7 @@ Get details for a single deal.
                 + remark: `Too expensive` (string, nullable)
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
-            + `web_url`: `https://app.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
+            + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + custom_fields (array[CustomField])
 
 ### deals.create [POST /deals.create]
@@ -2642,7 +2643,7 @@ Get a list of invoices.
                     + rate: 1.1234 (number)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
-                + `web_url`: `https://app.teamleader.eu/invoice_detail.php?id=2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + `web_url`: `https://focus.teamleader.eu/invoice_detail.php?id=2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
                 + file (object, nullable)
                     + type: `file` (string)
                     + id: `39a02b79-b9a9-46e3-a44d-6c473b2fe350` (string)
@@ -4257,6 +4258,9 @@ Add tracked time.
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
                 + ended_at: `2017-04-26T16:02:00+00:00` (string, required)
+            + Properties
+                + started_on: `2017-04-26` (string, required) - Only available if duration time tracking is enabled.
+                + duration: 3600 (number, required) - In seconds
         + description (string, optional)
         + subject (object, optional)
             + type: `milestone` (enum, required)
@@ -4289,6 +4293,9 @@ Update tracked time.
         + One Of
             + Properties
                 + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+                + duration: 3600 (number, required) - In seconds
+            + Properties
+                + started_on: `2017-04-26` (string, required) - Only available if duration time tracking is enabled.
                 + duration: 3600 (number, required) - In seconds
         + description (string, optional, nullable)
         + subject (object, optional, nullable)
