@@ -6,13 +6,13 @@ Do you have any feedback, do you miss functionality to support your use case? Le
 
 An API is an Application Programming Interface. It is used to programmatically interact with Teamleader, integrate with other software tools or add custom functionalities to Teamleader.
 
-Before creating a new integration, make sure to check our existing integrations built by our community in our [Teamleader Marketplace](https://marketplace.teamleader.eu).
+Before creating a new integration, make sure to check our existing integrations built by our community in our [Teamleader Marketplace](https://marketplace.focus.teamleader.eu).
 
 ## General principles
 
 ### Endpoints
 
-Our API consists of HTTP RPC-style methods, in the form of `https://api.teamleader.eu/resource.action`.
+Our API consists of HTTP RPC-style methods, in the form of `https://api.focus.teamleader.eu/resource.action`.
 
 We chose this action based approach over the more popular REST, because it enables us to have domain related actions on resources such as `invoices.book`, `timetracking.start` and `timetracking.stop`.
 
@@ -23,7 +23,7 @@ All methods must be called using HTTPS. Data is passed as JSON data in a POST re
 For more complex actions we recommend using POST requests with JSON:
 
 ```
-POST https://api.teamleader.eu/invoices.list
+POST https://api.focus.teamleader.eu/invoices.list
 
 {
     "filter": {
@@ -39,7 +39,7 @@ POST https://api.teamleader.eu/invoices.list
 The GET equivalent:
 
 ```
-GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
+GET https://api.focus.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
 ```
 
 ### Responses

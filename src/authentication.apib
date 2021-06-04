@@ -6,9 +6,9 @@ OAuth 2 is an authorization framework that allows a user to grant limited access
 
 To get access to the protected resources using our API, OAuth 2 uses access tokens. An access token is a string representing the granted permissions. Access tokens can be obtained after a user has completed the OAuth 2 authorization flow.
 
-Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client-side code.
+Before starting, you will need to register your integration (an OAuth 2 client) on our [Marketplace](https://marketplace.focus.teamleader.eu/build). Each registered integration is assigned a unique `client_id` and `client_secret`, which is used in the OAuth 2 authorization flow. Note that the `client_secret` key should not be shared or embedded in client-side code.
 
-When you register an integration on our [Marketplace](https://marketplace.teamleader.eu), it is required to select all *scopes* your integration wants access to.
+When you register an integration on our [Marketplace](https://marketplace.focus.teamleader.eu), it is required to select all *scopes* your integration wants access to.
 
 For more detailed information about OAuth 2, we recommend reading [this article](https://auth0.com/docs/protocols/oauth2).
 
@@ -16,7 +16,7 @@ For more detailed information about OAuth 2, we recommend reading [this article]
 
 To get access to a user's Teamleader data using the *authorization code grant type*, redirect users to the Teamleader authorization page:
 
-`https://app.teamleader.eu/oauth2/authorize`
+`https://focus.teamleader.eu/oauth2/authorize`
 
 The required GET parameters are:
 
@@ -25,9 +25,9 @@ The required GET parameters are:
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.focus.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
 
-After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.teamleader.eu/build).
+After logging in, the user will be asked to authorize your integration to access the data in their account. You will only be granted access to certain Teamleader data, based on the scopes you have selected on your integration's [settings page](https://marketplace.focus.teamleader.eu/build).
 
 If the user authorizes your integration, they will be redirected to the specified `redirect_uri` with a temporary authorization code and the original `state` parameter. If the `state` parameter does not match the original value, the response may have been created by a third party and should be ignored.
 
@@ -41,7 +41,7 @@ If the user denies your integration, he will be redirected to the `redirect_uri`
 
 After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send an HTTP POST request to the following endpoint:
 
-`https://app.teamleader.eu/oauth2/access_token`
+`https://focus.teamleader.eu/oauth2/access_token`
 
 The required POST parameters are:
 
@@ -70,7 +70,7 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 These access tokens are also known as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
 
 ```
-GET https://api.teamleader.eu/contacts.list HTTP/1.1
+GET https://api.focus.teamleader.eu/contacts.list HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
 Accept: application/json
 ```
@@ -81,7 +81,7 @@ Access tokens expire shortly (usually 1 hour) after they are issued for security
 
 If an access token is expired, a new access token and refresh token pair can be obtained by sending an HTTP POST request to the following endpoint:
 
-`https://app.teamleader.eu/oauth2/access_token`
+`https://focus.teamleader.eu/oauth2/access_token`
 
 The required POST parameters are:
 
@@ -99,7 +99,7 @@ The implicit grant is a simplified authorization code flow optimized for clients
 
 Similar to the regular flow, users are redirected to the Teamleader authorization page, but use `token` as the `response_type`:
 
-`https://app.teamleader.eu/oauth2/authorize`
+`https://focus.teamleader.eu/oauth2/authorize`
 
 The required GET parameters are:
 
@@ -108,7 +108,7 @@ The required GET parameters are:
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
-> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
+> A list of allowed redirect URIs needs to be configured on your integration's [settings page](https://marketplace.focus.teamleader.eu/build). Only redirect URIs matching one of these whitelisted URIs will be accepted. This is a security measure to prevent malicious users to impersonate your integration.
 
 After authorization, the user is redirected to the `redirect_uri` with the following parameters in the **fragment part of the url**:
 
@@ -127,7 +127,7 @@ Note that the implicit grant does not return refresh tokens and that our access 
 
 To retrieve information about the user who authorized your application (the resource owner), call the `users.me` API endpoint:
 
-`https://api.teamleader.eu/users.me`
+`https://api.focus.teamleader.eu/users.me`
 
 ### PHP code example
 

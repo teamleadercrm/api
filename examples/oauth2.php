@@ -2,7 +2,7 @@
 
 /**
  * Replace the values below with your integration's information found on the marketplace build page.
- * https://marketplace.teamleader.eu/eu/en/build/integrations
+ * https://marketplace.focus.teamleader.eu/eu/en/build/integrations
  */
 $clientId = 'YOUR-CLIENT-ID';
 $clientSecret = 'YOUR-CLIENT-SECRET';
@@ -28,7 +28,7 @@ if (!empty($_GET['code'])) {
      * Request an access token based on the received authorization code.
      */
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://app.teamleader.eu/oauth2/access_token');
+    curl_setopt($ch, CURLOPT_URL, 'https://focus.teamleader.eu/oauth2/access_token');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, [
@@ -47,7 +47,7 @@ if (!empty($_GET['code'])) {
      * Get the user identity information using the access token.
      */
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://api.teamleader.eu/users.me');
+    curl_setopt($ch, CURLOPT_URL, 'https://api.focus.teamleader.eu/users.me');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $accessToken]);
 
@@ -64,6 +64,6 @@ if (!empty($_GET['code'])) {
         'redirect_uri' => $redirectUri,
     ];
 
-    header('Location: https://app.teamleader.eu/oauth2/authorize?' . http_build_query($query));
+    header('Location: https://focus.teamleader.eu/oauth2/authorize?' . http_build_query($query));
 
 }
