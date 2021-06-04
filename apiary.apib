@@ -372,7 +372,8 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
-- We added `started_on` to `timeTracking.update` and `timeTracking.add`
+- We added `term` to the filters on `workTypes.list`.
+- We added `started_on` to `timeTracking.update` and `timeTracking.add`.
 
 ### March 2021
 
@@ -380,7 +381,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### January 2021
 
-- We added `deal` on `invoices.list` and `invoices.info`
+- We added `deal` on `invoices.list` and `invoices.info`.
 
 ### October 2020
 
@@ -1078,6 +1079,7 @@ Get a list of all work types, sorted alphabetically (on their name).
     + Attributes (object)
         + filter (object, optional)
             + ids: `6e342192-76d4-4b26-b1d7-e24df46bf603`,`1652ab6f-ad24-4f5c-a2fc-c6a30693a930` (array[string], optional)
+            + term: `design` (string, optional) - Searches in the work type name only
         + page (Page, optional)
         + sort (array, optional)
             + Default
