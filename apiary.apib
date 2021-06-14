@@ -375,7 +375,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `term` to the filters on `workTypes.list`.
 - We added `started_on` to `timeTracking.update` and `timeTracking.add`.
 - We added the `quotations.delete` endpoint.
-- timeTracking.list filters started_before, started_after, ended_before and ended_after will now include the datetime passed in the results.
+- We changed the behaviour of the started_before, started_after, ended_before, and ended_after filters on timeTracking.list to be inclusive. So "started after midnight" will include time tracking that started exactly on midnight.
 
 ### March 2021
 
@@ -4143,10 +4143,10 @@ Get a list of tracked time.
     + Attributes (object)
         + filter (object, optional)
             + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional)
-            + started_after: `2017-04-26T10:01:49+00:00` (string, optional) - Start of the period for which to return time tracking. This includes time tracking that started on the date passed.
-            + started_before: `2017-04-26T10:01:49+00:00` (string, optional) - End of the period for which to return time tracking. This includes time tracking that started on the date passed.
-            + ended_after: `2017-04-26T10:01:49+00:00` (string, optional) - Start of the period for which to return time tracking. This includes time tracking that ended at the date passed.
-            + ended_before: `2017-05-26T10:01:49+00:00` (string, optional) - End of the period for which to return time tracking. This includes time tracking that ended at the date passed.
+            + started_after: `2017-04-26T10:01:49+00:00` (string, optional) - Start of the period for which to return time tracking. This includes time tracking that started on the date provided.
+            + started_before: `2017-04-26T10:01:49+00:00` (string, optional) - End of the period for which to return time tracking. This includes time tracking that started on the date provided.
+            + ended_after: `2017-04-26T10:01:49+00:00` (string, optional) - Start of the period for which to return time tracking. This includes time tracking that ended at the date provided.
+            + ended_before: `2017-05-26T10:01:49+00:00` (string, optional) - End of the period for which to return time tracking. This includes time tracking that ended at the date provided.
             + subject (object, optional)
                 + type (enum, required)
                     + Members
