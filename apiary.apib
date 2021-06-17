@@ -110,11 +110,29 @@ Errors are always returned as an array of error objects, keyed by `errors` in th
 
 ### Rate limiting
 
-To ensure a fast and predictable experience for everyone, all our API endpoints have a rate limit of **100 calls per minute** for each integration (or client id) to a Teamleader account.
+To ensure a fast and predictable experience for everyone, we limit the number of calls your integration (or client id) can make to a specific Teamleader account.
+To calculate this, we use the sliding window principle: before allowing requests, we check how many requests your integration made in the *last minute*. If you would cross your limit, we deny the request by replying with a specific HTTP error.
 
-When you go over this limit, our API will respond with a `HTTP 429 Too Many Requests error`.
+`HTTP 429 Too Many Requests`
 
-If your integrations need a higher limit, send us an email at [api@teamleader.eu](mailto:api@teamleader.eu) with a detailed explanation of why you need an increased rate limit.
+You will be able to make a request again, if the oldest request we took into account falls outside the last minute window. To help you predict this, you can find rate limiting specific headers on each response:
+
+```
+X-RateLimit-Limit: 100                          # the number of requests we allow per sliding minute
+X-RateLimit-Reset: 2021-06-15T10:51:23.035+0100 # the exact time your oldest significant request will expire; when over limit, this is the earliest time you'll be able to successfully make requests again
+X-RateLimit-Remaining: 78                       # the number of requests you have left before you will be denied access; note that this number can go up if earlier requests expire (after one minute)
+```
+
+You can use these headers to
+- programmatically check the `X-RateLimit-Remaining` _number_ to avoid making calls that will be denied anyways, if the number is 0
+- postpone execution until `X-RateLimit-Reset` _time_ to avoid waiting not long enough or too long before trying a next request
+
+If you consistently bump into rate limits
+- check if you can use `.list` endpoints instead of `.info` endpoints (did you know you can filter `.list` endpoints with a list of entity `ids`?)
+- check if you can limit the items you fetch by making use of specific filters, eg. `updated_since`
+- check if you can replace periodical checks with [webhooks](#webhooks)
+- check if you can [side-load](#sideloading) related entities instead of fetching them yourself
+- ask us for help through [api@teamleader.eu](mailto:api@teamleader.eu)
 
 ### Status codes
 
