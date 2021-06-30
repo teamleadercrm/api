@@ -39,6 +39,10 @@ Get a list of quotations.
                     + purchase_price (Money, nullable)
                 + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
+                + status: `open` (enum)
+                    + Members
+                        + open
+                        + accepted
 
 ### quotations.info [GET /quotations.info]
 
@@ -110,6 +114,10 @@ Get a quotation
                     + description: `winter promotion` (string, required)
             + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
             + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
+            + status: `open` (enum)
+                + Members
+                    + open
+                    + accepted
 
 ### quotations.download [POST /quotations.download]
 
