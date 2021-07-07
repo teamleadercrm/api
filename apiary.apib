@@ -403,6 +403,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `started_on` to `timeTracking.update` and `timeTracking.add`.
 - We added the `quotations.delete` endpoint.
 - We changed the behaviour of the started_before, started_after, ended_before, and ended_after filters on timeTracking.list to be inclusive. So "started after midnight" will include time tracking that started exactly on midnight.
+- We added `status` to `quotations.info` and `quotations.list`
 
 ### March 2021
 
@@ -2158,6 +2159,12 @@ Get a list of quotations.
                     + purchase_price (Money, nullable)
                 + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
+                + status: `open` (enum)
+                    + Members
+                        + open
+                        + accepted
+                        + rejected
+                        + closed
 
 ### quotations.info [GET /quotations.info]
 
@@ -2229,6 +2236,12 @@ Get a quotation
                     + description: `winter promotion` (string, required)
             + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
             + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
+            + status: `open` (enum)
+                + Members
+                    + open
+                    + accepted
+                    + rejected
+                    + closed
 
 ### quotations.download [POST /quotations.download]
 
