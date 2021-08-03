@@ -399,6 +399,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### Latest
 
+- We added `is_duration_time_tracking` on `timeTracking.list`
 - We added `term` to the filters on `workTypes.list`.
 - We added `started_on` to `timeTracking.update` and `timeTracking.add`.
 - We added the `quotations.delete` endpoint.
@@ -4238,6 +4239,7 @@ Get a list of tracked time.
                     + type: `workType` (string)
                     + id: `8a146eda-c9af-4b11-b63a-ddac47bb254d` (string)
                 + started_on: `2017-04-26` (string)
+                + is_duration_time_tracking: true (boolean)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
                 + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
                 + duration: 3600 (number) - In seconds
