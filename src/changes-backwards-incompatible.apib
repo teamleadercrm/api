@@ -3,6 +3,32 @@
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2021-09-01
+
+- The property `description` is now returned in Markdown instead of HTML on the following endpoints:
+  - `products.info`
+  - `products.list`
+
+#### 2020-05-01
+
+- The property `title` is added on the following endpoints:
+  - `tasks.create`
+  - `tasks.update`
+
+- The property `description` is no longer required on the following endpoints:
+  - `tasks.create`
+  - `tasks.update`
+
+#### 2020-01-01
+
+- The property `assignee` is now returned as null instead of `assignee.id` being returned as null for the following endpoints:
+  - `tasks.list`
+  - `tasks.info`
+
+- The property `assignee` is now accepting null instead of `assignee.id` for the following endpoints:
+  - `tasks.create`
+  - `tasks.update`
+
 #### 2019-10-09
 
 - We added `billing_method` and `budget`, and `billing_method` and `price` to `milestones.create`.
