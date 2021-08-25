@@ -21,7 +21,7 @@ Get a list of products.
             + (object)
                 + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
                 + name: `cookies` (string, nullable)
-                + description: `dark chocolate` (string, nullable)
+                + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
                 + code: `COOK-DARKCHOC-42` (string, nullable)
 
 ### products.info [GET /products.info]
@@ -39,7 +39,7 @@ Get details for a single product.
         + data (object)
             + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
             + name: `cookies` (string, nullable)
-            + description: `dark chocolate` (string, nullable)
+            + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
             + code: `COOK-DARKCHOC-42` (string, nullable)
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
             + selling_price (Money, nullable)
@@ -57,6 +57,7 @@ Add a new product.
             + Properties
                 + name: `cookies` (string, optional)
                 + code: `COOK-DARKCHOC-42` (string, required)
+        + description (string, optional) - The description of the product in Markdown
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
 
