@@ -4083,7 +4083,8 @@ Create a new task.
 + Request (application/json)
 
     + Attributes (object)
-        + description (string, required)
+        + title (string, required)
+        + description (string)
         + due_on: `2016-02-04` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
@@ -4122,6 +4123,7 @@ Update a task.
 
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + title (string, optional)
         + description (string, optional)
         + due_on: `2016-02-04` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
