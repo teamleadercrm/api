@@ -399,11 +399,16 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### June 2021
 
+- We added `description` on `products.add`.
+- We added `title` on `tasks.info` and `tasks.list`.
+
+### June 2021
+
 - We added `term` to the filters on `workTypes.list`.
 - We added `started_on` to `timeTracking.update` and `timeTracking.add`.
 - We added the `quotations.delete` endpoint.
 - We changed the behaviour of the started_before, started_after, ended_before, and ended_after filters on timeTracking.list to be inclusive. So "started after midnight" will include time tracking that started exactly on midnight.
-- We added `status` to `quotations.info` and `quotations.list`
+- We added `status` to `quotations.info` and `quotations.list`.
 
 ### March 2021
 
@@ -657,7 +662,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2019-10-09**.
+The current latest version is **2021-09-01**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -669,6 +674,36 @@ _This will only affect the version for those API calls and won't affect any othe
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
+
+#### 2021-09-01
+
+- The property `description` is now returned in Markdown instead of HTML on:
+  - `products.info`
+  - `products.list`
+
+#### 2020-05-01
+
+- The property `title` is added to the response of:
+  - `tasks.list`
+  - `tasks.info`
+
+- The property `title` is added and required on:
+  - `tasks.create`
+  - `tasks.update`
+
+- The property `description` is no longer required on:
+  - `tasks.create`
+  - `tasks.update`
+
+#### 2020-01-01
+
+- The property `assignee` is now returned as null instead of `assignee.id` being returned as null on:
+  - `tasks.list`
+  - `tasks.info`
+
+- The property `assignee` is now accepting null instead of `assignee.id` on:
+  - `tasks.create`
+  - `tasks.update`
 
 #### 2019-10-09
 
@@ -3963,6 +3998,7 @@ Get a list of tasks.
         + data (array)
             + (object)
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + title: `Review code changes` (string)
                 + description (string)
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -3975,7 +4011,7 @@ Get a list of tasks.
                 + work_type (object, nullable)
                     + type: `workType` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-                + assignee (object)
+                + assignee (object, nullable) - Null if the task is unassigned
                     + type: `user` (enum)
                         + Members
                             + user
@@ -4011,6 +4047,7 @@ Get information about a task.
     + Attributes (object)
         + data (object)
             + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string)
+            + title: `Review code changes` (string)
             + description (string)
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -4023,7 +4060,7 @@ Get information about a task.
             + work_type (object, nullable)
                 + type: `workType` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-            + assignee (object)
+            + assignee (object) - Null if the task is unassigned
                 + type: `user` (enum)
                     + Members
                         + user
@@ -4053,7 +4090,8 @@ Create a new task.
 + Request (application/json)
 
     + Attributes (object)
-        + description (string, required)
+        + title (string, required)
+        + description (string)
         + due_on: `2016-02-04` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
@@ -4063,7 +4101,7 @@ Create a new task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee (object, optional)
+        + assignee (object, optional, nullable) - Use null if the task is unassigned
             + type: `user` (enum)
                 + Members
                     + user
@@ -4092,6 +4130,7 @@ Update a task.
 
     + Attributes (object)
         + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + title (string, optional)
         + description (string, optional)
         + due_on: `2016-02-04` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
@@ -4102,7 +4141,7 @@ Update a task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee (object, optional)
+        + assignee (object, optional, nullable) - Use null if the task is unassigned
             + type: `user` (enum)
                 + Members
                     + user
