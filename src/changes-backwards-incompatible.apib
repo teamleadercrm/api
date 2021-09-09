@@ -5,27 +5,27 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### 2021-09-01
 
-- The property `description` is now returned in Markdown instead of HTML on the following endpoints:
+- The property `description` is now returned in Markdown instead of HTML on:
   - `products.info`
   - `products.list`
 
 #### 2020-05-01
 
-- The property `title` is added & required on the following endpoints:
+- The property `title` is added and required on:
   - `tasks.create`
   - `tasks.update`
 
-- The property `description` is no longer required on the following endpoints:
+- The property `description` is no longer required on:
   - `tasks.create`
   - `tasks.update`
 
 #### 2020-01-01
 
-- The property `assignee` is now returned as null instead of `assignee.id` being returned as null for the following endpoints:
+- The property `assignee` is now returned as null instead of `assignee.id` being returned as null on:
   - `tasks.list`
   - `tasks.info`
 
-- The property `assignee` is now accepting null instead of `assignee.id` for the following endpoints:
+- The property `assignee` is now accepting null instead of `assignee.id` on:
   - `tasks.create`
   - `tasks.update`
 
