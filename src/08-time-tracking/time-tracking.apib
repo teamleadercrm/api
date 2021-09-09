@@ -4,7 +4,7 @@ Time tracking allows users to record time spent on tasks or projects and the typ
 
 ### timeTracking.list [GET /timeTracking.list]
 
-Get a list of tracked time.
+Get a list of tracked time. Per day, time tracking entries with an automatically generated start time are displayed first (duration time tracking), followed by entries with a user generated start and stop time (start-stop time tracking), sorted ascending by start time.
 
 + Request (application/json)
 
@@ -40,18 +40,6 @@ Get a list of tracked time.
                         + project
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
-        + sort (array, optional)
-            + (object)
-                + field (enum, required)
-                    + Members
-                        + started_on
-                + order (enum, optional)
-                    + Members
-                        + desc
-            + Default
-                + (object)
-                    + field: `started_on`
-                    + order: `desc`
 
 + Response 200 (application/json)
 
