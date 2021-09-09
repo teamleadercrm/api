@@ -683,6 +683,10 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 #### 2020-05-01
 
+- The property `title` is added to the response of:
+  - `tasks.list`
+  - `tasks.info`
+
 - The property `title` is added and required on:
   - `tasks.create`
   - `tasks.update`
@@ -3993,6 +3997,7 @@ Get a list of tasks.
         + data (array)
             + (object)
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + title: `Review code changes` (string)
                 + description (string)
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
@@ -4041,6 +4046,7 @@ Get information about a task.
     + Attributes (object)
         + data (object)
             + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string)
+            + title: `Review code changes` (string)
             + description (string)
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
