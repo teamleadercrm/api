@@ -1,0 +1,16 @@
+## Teams [/teams]
+
+*Required scopes: `users`*
+
+### teams.list [GET /teams.list]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `4b5291aa-2d78-09d2-882c-6c1483f00d88` (string)
+                + name: `Designers` (string)
+                + `team_lead` (User, nullable) - If the team lead is deactivated or deleted, null is returned
+                + members (array[User])

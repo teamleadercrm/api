@@ -400,14 +400,12 @@ We list all backwards-compatible additions here. These are currently available i
 ### Latest
 
 - We added `sort` to `timeTracking.list`.
+- We added `teams.list`.
 
 ### June 2021
 
 - We added `description` on `products.add`.
 - We added `title` on `tasks.info` and `tasks.list`.
-
-### June 2021
-
 - We added `term` to the filters on `workTypes.list`.
 - We added `started_on` to `timeTracking.update` and `timeTracking.add`.
 - We added the `quotations.delete` endpoint.
@@ -1013,6 +1011,23 @@ Get details for a single user.
                 + Members
                     + active
                     + deactivated
+
+## Teams [/teams]
+
+*Required scopes: `users`*
+
+### teams.list [GET /teams.list]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `4b5291aa-2d78-09d2-882c-6c1483f00d88` (string)
+                + name: `Designers` (string)
+                + `team_lead` (User, nullable) - If the team lead is deactivated or deleted, null is returned
+                + members (array[User])
 
 ## Custom Fields [/customFieldDefinitions]
 
@@ -4847,3 +4862,7 @@ Unregister a webhook.
     + Members
         + `s` - Seconds
 + value: `10800` (number, required)
+
+## User (object)
++ type: `user` (string)
++ id: `bef8c53b-b6bc-0fde-944e-5c4b16e5155a` (string)
