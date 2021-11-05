@@ -401,6 +401,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `status` on `companies.list`
 - We added `status` on `companies.info`
+
+### September 2021
+
 - We added `sort` to `timeTracking.list`.
 - We added `teams.list`.
 
@@ -1521,7 +1524,10 @@ Get a list of companies.
             + (object)
                 + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
                 + name: `Pied Piper` (string)
-                + status: `active` (string)
+                + status: `active` (enum[string])
+                    + Members
+                        + `active`
+                        + `deactivated`
                 + business_type (object)
                     + type: `businessType` (string)
                     + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
@@ -1567,7 +1573,10 @@ Get details for a single company.
         + data (object)
             + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string)
             + name: `Pied Piper` (string)
-            + status: `active` (string)
+            + status: `active` (enum[string])
+                    + Members
+                        + `active`
+                        + `deactivated`
             + business_type (object)
                 + type: `businessType` (string)
                 + id: `fd48d4a3-b9dc-4eac-8071-5889c9f21e5d` (string)
