@@ -104,13 +104,7 @@ Get details for a single credit note
                         + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
                     + email: `duivels@test.com` (string, nullable)
                     + national_identification_number: `123` (string, nullable)
-                + discounts (array, optional)
-                    + (object)
-                        + value: 10 (number, required)
-                        + type (enum, required)
-                            + Members
-                                + percentage - Values between 0 and 100
-                        + description: `winter promotion` (string, required)
+                + discounts (array[CommercialDiscount], optional)
                 + total (object)
                     + tax_exclusive (Money)
                     + tax_inclusive (Money)

@@ -107,13 +107,7 @@ Get a quotation
                         + taxable (Money)
                         + tax (Money)
                 + purchase_price (Money, nullable)
-            + discounts (array, optional)
-                + (object)
-                    + value: 10 (number, required)
-                    + type (enum, required)
-                        + Members
-                            + percentage - Values between 0 and 100
-                    + description: `winter promotion` (string, required)
+            + discounts (array[CommercialDiscount], optional)
             + created_at: `2017-05-09T11:25:11+00:00` (string, nullable)
             + updated_at: `2017-05-09T11:30:58+00:00` (string, nullable)
             + status: `open` (enum)
@@ -172,13 +166,7 @@ Create a quotation.
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
-        + discounts (array, optional)
-            + (object)
-                + value: 10 (number, required)
-                + type (enum, required)
-                    + Members
-                        + percentage - Values between 0 and 100
-                + description: `winter promotion` (string, required)
+        + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
 
 + Response 201 (application/json)
@@ -218,13 +206,7 @@ Update a quotation.
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
-        + discounts (array, optional)
-            + (object)
-                + value: 10 (number, required)
-                + type (enum, required)
-                    + Members
-                        + percentage - Values between 0 and 100
-                + description: `winter promotion` (string, required)
+        + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
 
 + Response 204
