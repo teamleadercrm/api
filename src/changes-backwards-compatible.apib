@@ -4,14 +4,15 @@
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
-### Latest
+### November 2021
 
-- We added `status` on `companies.list`
-- We added `status` on `companies.info`
-- We added `status` on `contacts.list`
-- We added `status` on `contacts.info`
-- We added `ids` to the filters on `creditNotes.list`
-- We added `invoice_id` and `project_id` to the filters on `creditNotes.list`
+- We added `status` on `companies.list`.
+- We added `status` on `companies.info`.
+- We added `status` on `contacts.list`.
+- We added `status` on `contacts.info`.
+- We added `ids` to the filters on `creditNotes.list`.
+- We added `invoice_id` and `project_id` to the filters on `creditNotes.list`.
+- We added `discounts` to `creditNotes.info`.
 
 ### September 2021
 
@@ -38,10 +39,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### October 2020
 
-- We added `title` as a sort field on `projects.list`
+- We added `title` as a sort field on `projects.list`.
 - We added `area_level_two` to the .list and .info responses for `company`, `contact` and `department` addresses.
 - We added `area_level_two_id` to the .add and .update calls for `companies` and `contacts`.
-- We added `starts_on` to `milestones.create`, `milestones.update`, `milestones.list`, `milestones.info`, and `projects.create` (in the milestone context)
+- We added `starts_on` to `milestones.create`, `milestones.update`, `milestones.list`, `milestones.info`, and `projects.create` (in the milestone context).
 - We added `budget` on `projects.update`.
 - We added `customer` on `projects.update`.
 - We added `starts_on` and `desc` to the sort options on `milestones.list`.
@@ -78,10 +79,7 @@ We list all backwards-compatible additions here. These are currently available i
 #### May 2020
 
 - We no longer require all fields in `projects.update`, only the id remains required.
-
-#### May 2020
-
-- We added the `purchase_order_number` field to `projects.info`, `projects.create`, and `projects.update`
+- We added the `purchase_order_number` field to `projects.info`, `projects.create`, and `projects.update`.
 
 #### April 2020
 
@@ -95,7 +93,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### March 2020
 
-- We added actuals and budget to `projects.list`, `projects.info`, `milestones.list`, and `milestones.info`
+- We added actuals and budget to `projects.list`, `projects.info`, `milestones.list`, and `milestones.info`.
 
 - We added `depends_on` to the `milestones.info` and `milestones.list` endpoints.
 
@@ -154,7 +152,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### July 2019
 
-- We added an `updated_since` filter to `products.list`
+- We added an `updated_since` filter to `products.list`.
 
 - We added `project` to `tasks.info` and `tasks.list`.
 
