@@ -137,13 +137,7 @@ Get details for a single invoice.
                         + id: `f88ab83c-b8ca-497b-a2c6-1ad631fe1cea` (string)
                 + email: `duivels@test.com` (string, nullable)
                 + national_identification_number: `123` (string, nullable)
-            + discounts (array)
-                + (object)
-                    + type: `percentage` (enum)
-                        + Members
-                            + percentage
-                    + value: 15.00 (number)
-                    + description: `winter promotion` (string)
+            + discounts (array[CommercialDiscount])
             + grouped_lines (array)
                 + (object)
                     + section (object)
@@ -285,13 +279,7 @@ Draft a new invoice.
                         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
-        + discounts (array, optional)
-            + (object)
-                + value: 10 (number, required)
-                + type (enum, required)
-                    + Members
-                        + percentage - Values between 0 and 100
-                + description: `winter promotion` (string, required)
+        + discounts (array[CommercialDiscount], optional)
         + note: `Invoice comments` (string, optional)
         + expected_payment_method (ExpectedPaymentMethod, optional)
         + custom_fields (array[CustomFieldValue], optional)
@@ -349,13 +337,7 @@ Update a draft invoice. Booked invoices cannot be updated.
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
-        + discounts (array, optional)
-            + (object)
-                + value: 10 (number, required)
-                + type (enum, required)
-                    + Members
-                        + percentage - Values between 0 and 100
-                + description: `winter promotion` (string, required)
+        + discounts (array[CommercialDiscount], optional)
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
 
