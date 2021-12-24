@@ -402,7 +402,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `on_hold_since` to `invoices.info`.
 - We added `deal_id` to the filters on `invoices.list`.
 - We added `project_id` to the filters on `invoices.list`.
-- We added `date_before` and `date_after` to the filters on `invoices.list`.
+- We added `invoice_date_before` and `invoice_date_after` to the filters on `invoices.list`.
 
 ### November 2021
 
@@ -2700,8 +2700,8 @@ Get a list of invoices.
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + purchase_order_number: `000023` (string, optional)
             + payment_reference: `+++084/2613/66074+++` (string, optional)
-            + date_after: `2020-01-01` (string, optional)  - This date is inclusive
-            + date_before: `2021-12-31` (string, optional)
+            + invoice_date_after: `2020-01-01` (string, optional)  - This date is inclusive
+            + invoice_date_before: `2021-12-31` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
