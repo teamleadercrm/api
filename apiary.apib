@@ -399,6 +399,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### February 2022
 
+- We added `customer` to the filters on `invoices.list`.
 - We added a `subscription` filter to `invoices.list`.
 
 ### December 2021
@@ -2708,6 +2709,12 @@ Get a list of invoices.
             + payment_reference: `+++084/2613/66074+++` (string, optional)
             + invoice_date_after: `2020-01-01` (string, optional) - This date is inclusive
             + invoice_date_before: `2021-12-31` (string, optional) - This date is inclusive
+            + customer (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
