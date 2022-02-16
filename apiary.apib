@@ -401,6 +401,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `customer` to the filters on `invoices.list`.
 - We added a `subscription` filter to `invoices.list`.
+- We added `project` to `invoices.list` and `invoices.info`.
 
 ### December 2021
 
@@ -2786,6 +2787,9 @@ Get a list of invoices.
                 + deal (object, nullable)
                     + type: `deal` (string)
                     + id: `a8ef428a-0e70-48a5-8696-58be0c45a772` (string)
+                + project (object, nullable)
+                    + type: `project` (string)
+                    + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
 
 ### invoices.info [GET /invoices.info]
 
@@ -2902,6 +2906,9 @@ Get details for a single invoice.
             + deal (object, nullable)
                 + type: `deal` (string)
                 + id: `a8ef428a-0e70-48a5-8696-58be0c45a772` (string)
+            + project (object, nullable)
+                + type: `project` (string)
+                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
             + on_hold_since: `2016-02-01` (string, nullable)
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
