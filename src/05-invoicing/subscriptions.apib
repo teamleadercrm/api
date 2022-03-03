@@ -1,0 +1,74 @@
+## Subscriptions [/subscriptions]
+
+### subscriptions.list [GET /subscriptions.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string], optional)
+            + invoice_id: `60f03745-4289-4ae7-8c74-d797860bc887` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum, required)
+                    + Members
+                        + title
+                        + created_at
+                + order (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+                + title: `Subscription for cookies` (string)
+                + active: true (boolean)
+                + next_renewal_date: `2020-06-21` (string)
+                + invoicee (object)
+                    + customer (object)
+                        + type: `contact` (string) - `contact` or `company`
+                        + id: `4b0f959a-27e3-4080-b1b2-a05b374863cb` (string)
+                    + for_attention_of (object, nullable)
+                        + contact (object, nullable)
+                            + type: `contact` (string)
+                            + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
+                        + name: `Radja Nainggolan` (string, nullable)
+                + periodicity: `monthly` (enum)
+                    + Members
+                        + weekly
+                        + two_weekly
+                        + four_weekly
+                        + monthly
+                        + two_monthly
+                        + quarterly
+                        + four_monthly
+                        + six_monthly
+                        + yearly
+                        + two_yearly
+                        + three_yearly
+                        + four_yearly
+                        + five_yearly
+                        + six_yearly
+                        + seven_yearly
+                        + eight_yearly
+                        + nine_yearly
+                        + ten_yearly
+                + project (object, nullable)
+                    + type: `project` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: 0.21 (number)
+                            + taxable (Money)
+                            + tax (Money)
+                + `web_url`: `https://app.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+                + `note`: `'Some extra remarks about the subscription'` (string, nullable) - plaintext
