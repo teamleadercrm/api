@@ -3289,6 +3289,144 @@ Download a credit note in a specific format.
             + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
             + expires: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download link
 
+## Subscriptions [/subscriptions]
+
+### subscriptions.list [GET /subscriptions.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string], optional)
+            + invoice_id: `60f03745-4289-4ae7-8c74-d797860bc887` (string, optional) - Filter on subscriptions created from an invoice
+            + deal_id: `fddf42f9-bda1-0c49-a22b-0bf147cd1e3f` (string, optional) - Filter on subscriptions created from a deal
+            + customer (Customer)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum, required)
+                    + Members
+                        + title
+                        + created_at
+                + order (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+                + title: `Subscription for cookies` (string)
+                + note: `'Some extra remarks about the subscription'` (string, nullable) - plaintext
+                + state: `active` (enum[string])
+                    + Members
+                        + active
+                        + deactivated
+                + department (object)
+                    + type: `department` (string)
+                    + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+                + invoicee (object)
+                    + customer (Customer)
+                    + for_attention_of (object, nullable)
+                        + contact (object, nullable)
+                            + type: `contact` (string)
+                            + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
+                        + name: `Radja Nainggolan` (string, nullable)
+                + project (object, nullable)
+                    + type: `project` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + next_renewal_date: `2022-06-21` (string)
+                + periodicity: `monthly` (enum)
+                    + Members
+                        + weekly
+                        + two_weekly
+                        + four_weekly
+                        + monthly
+                        + two_monthly
+                        + quarterly
+                        + four_monthly
+                        + six_monthly
+                        + yearly
+                        + two_yearly
+                        + three_yearly
+                        + four_yearly
+                        + five_yearly
+                        + six_yearly
+                        + seven_yearly
+                        + eight_yearly
+                        + nine_yearly
+                        + ten_yearly
+                + total (object)
+                    + tax_exclusive (Money)
+                    + tax_inclusive (Money)
+                    + taxes (array)
+                        + (object)
+                            + rate: 0.21 (number)
+                            + taxable (Money)
+                            + tax (Money)
+                + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+
+### subscriptions.info [GET /subscriptions.info]
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `e2314517-3cab-4aa9-8471-450e73449041` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+            + title: `Subscription for cookies` (string)
+            + note: `'Some extra remarks about the subscription'` (string, nullable) - plaintext
+            + state: `active` (enum[string])
+                + Members
+                    + active
+                    + deactivated
+            + department (object)
+                + type: `department` (string)
+                + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+            + invoicee (object)
+                + customer (Customer)
+                + for_attention_of (object, nullable)
+                    + contact (object, nullable)
+                        + type: `contact` (string)
+                        + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
+                    + name: `Radja Nainggolan` (string, nullable)
+            + project (object, nullable)
+                + type: `project` (string)
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + next_renewal_date: `2022-06-21` (string)
+            + periodicity: `monthly` (enum)
+                + Members
+                    + weekly
+                    + two_weekly
+                    + four_weekly
+                    + monthly
+                    + two_monthly
+                    + quarterly
+                    + four_monthly
+                    + six_monthly
+                    + yearly
+                    + two_yearly
+                    + three_yearly
+                    + four_yearly
+                    + five_yearly
+                    + six_yearly
+                    + seven_yearly
+                    + eight_yearly
+                    + nine_yearly
+                    + ten_yearly
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: 0.21 (number)
+                        + taxable (Money)
+                        + tax (Money)
+            + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+
 ## Tax Rates [/taxRates]
 
 Tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The end user also has the option to add additional tax rates.
@@ -4893,6 +5031,13 @@ Unregister a webhook.
 ## User (object)
 + type: `user` (string)
 + id: `bef8c53b-b6bc-0fde-944e-5c4b16e5155a` (string)
+
+## Customer (object)
++ type: `contact` (enum)
+    + Members
+        + contact
+        + company
++ id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
 
 ## CommercialDiscount (object)
 + type: `percentage` (enum)
