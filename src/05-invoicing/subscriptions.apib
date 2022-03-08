@@ -75,3 +75,63 @@
                             + taxable (Money)
                             + tax (Money)
                 + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+
+### subscriptions.info [GET /subscriptions.info]
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `e2314517-3cab-4aa9-8471-450e73449041` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+            + title: `Subscription for cookies` (string)
+            + note: `'Some extra remarks about the subscription'` (string, nullable) - plaintext
+            + state: `active` (enum[string])
+                + Members
+                    + active
+                    + deactivated
+            + department (object)
+                + type: `department` (string)
+                + id: `5e90eb0a-b502-4344-aa0f-3b8525af6186` (string)
+            + invoicee (object)
+                + customer (Customer)
+                + for_attention_of (object, nullable)
+                    + contact (object, nullable)
+                        + type: `contact` (string)
+                        + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
+                    + name: `Radja Nainggolan` (string, nullable)
+            + project (object, nullable)
+                + type: `project` (string)
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + next_renewal_date: `2022-06-21` (string)
+            + periodicity: `monthly` (enum)
+                + Members
+                    + weekly
+                    + two_weekly
+                    + four_weekly
+                    + monthly
+                    + two_monthly
+                    + quarterly
+                    + four_monthly
+                    + six_monthly
+                    + yearly
+                    + two_yearly
+                    + three_yearly
+                    + four_yearly
+                    + five_yearly
+                    + six_yearly
+                    + seven_yearly
+                    + eight_yearly
+                    + nine_yearly
+                    + ten_yearly
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: 0.21 (number)
+                        + taxable (Money)
+                        + tax (Money)
+            + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
