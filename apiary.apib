@@ -397,6 +397,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### March 2022
+
+- We added the `subscriptions.info` and `subscriptions.list` endpoints.
+
 ### February 2022
 
 - We added `customer` to the filters on `invoices.list`.
@@ -3297,7 +3301,7 @@ Download a credit note in a specific format.
     + Attributes (object)
         + filter (object, optional)
             + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string], optional)
-            + invoice_id: `60f03745-4289-4ae7-8c74-d797860bc887` (string, optional) - Filter on subscriptions created from an invoice
+            + invoice_id: `60f03745-4289-4ae7-8c74-d797860bc887` (string, optional) - Find subscriptions that generated the given invoice
             + deal_id: `fddf42f9-bda1-0c49-a22b-0bf147cd1e3f` (string, optional) - Filter on subscriptions created from a deal
             + customer (Customer)
         + page (Page, optional)
@@ -3318,7 +3322,7 @@ Download a credit note in a specific format.
             + (object)
                 + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
                 + title: `Subscription for cookies` (string)
-                + note: `'Some extra remarks about the subscription'` (string, nullable) - plaintext
+                + remarks: `Some more **information** about this subscription` (string, nullable) - Uses Markdown formatting
                 + state: `active` (enum[string])
                     + Members
                         + active
@@ -3378,7 +3382,7 @@ Download a credit note in a specific format.
         + data (object)
             + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
             + title: `Subscription for cookies` (string)
-            + note: `'Some extra remarks about the subscription'` (string, nullable) - plaintext
+            + remarks: `Some more **information** about this subscription` (string, nullable) - Uses Markdown formatting
             + state: `active` (enum[string])
                 + Members
                     + active
