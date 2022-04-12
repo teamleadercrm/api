@@ -3431,6 +3431,41 @@ Download a credit note in a specific format.
                         + tax (Money)
             + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
 
+### subscriptions.update [POST /subscriptions.update]
+
+Update a subscription.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `e2314517-3cab-4aa9-8471-450e73449041` (string, required)
+        + title: `Subscription for cookies` (string, optional)
+        + project_id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, optional, nullable)
+        + payment_term (PaymentTerm, optional)
+        + periodicity: `monthly` (enum, optional)
+            + Members
+                + weekly
+                + two_weekly
+                + four_weekly
+                + monthly
+                + two_monthly
+                + quarterly
+                + four_monthly
+                + six_monthly
+                + yearly
+                + two_yearly
+                + three_yearly
+                + four_yearly
+                + five_yearly
+                + six_yearly
+                + seven_yearly
+                + eight_yearly
+                + nine_yearly
+                + ten_yearly
+        + start_date: `2022-06-21` (string, optional)
+
++ Response 204
+
 ## Tax Rates [/taxRates]
 
 Tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The end user also has the option to add additional tax rates.
