@@ -3304,6 +3304,10 @@ Download a credit note in a specific format.
             + invoice_id: `60f03745-4289-4ae7-8c74-d797860bc887` (string, optional) - Find subscriptions that generated the given invoice
             + deal_id: `fddf42f9-bda1-0c49-a22b-0bf147cd1e3f` (string, optional) - Filter on subscriptions created from a deal
             + customer (Customer)
+            + status (array[enum], optional) - Filters on status
+                + Members
+                    + active - Filters on active subscriptions
+                    + deactivated - Filters on deactivated subscriptions
         + page (Page, optional)
         + sort (array, optional)
             + (object)
