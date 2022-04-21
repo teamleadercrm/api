@@ -1505,6 +1505,20 @@ Unlink a contact from a company.
 
 + Response 204
 
+### contacts.updateCompanyLink [POST /contacts.updateCompanyLink]
+
+Update contact to company link.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `75596038-b9c8-4a37-969d-61059e300a28` (string, required)
+        + company_id: `4da20f00-0628-4336-b885-aa90e580dd85` (string, required)
+        + position: `CEO` (string, optional)
+        + decision_maker: true (boolean, optional)
+
++ Response 204
+
 ## Companies [/companies]
 
 Companies are legal entities, usually linked to a VAT and/or local business number.

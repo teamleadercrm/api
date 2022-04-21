@@ -296,3 +296,17 @@ Unlink a contact from a company.
         + company_id: `3f1c8650-4292-4187-bb02-4aa00bbe9632` (string, required)
 
 + Response 204
+
+### contacts.updateCompanyLink [POST /contacts.updateCompanyLink]
+
+Update contact to company link.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `75596038-b9c8-4a37-969d-61059e300a28` (string, required)
+        + company_id: `4da20f00-0628-4336-b885-aa90e580dd85` (string, required)
+        + position: `CEO` (string, optional)
+        + decision_maker: true (boolean, optional)
+
++ Response 204
