@@ -199,3 +199,56 @@
         + percentage - Values between 0 and 100
 + value: 15.5 (number)
 + description: `winter promotion` (string)
+
+## Periodicity (object)
++ One Of
+    + Properties
+        + unit: `week` (string, required)
+        + period: `2` (enum, required)
+            + Members
+                + 1
+                + 2
+                + 4
+   + Properties
+       + unit: `month` (string, required)
+       + period: `4` (enum, required)
+           + Members
+               + 1
+               + 2
+               + 3
+               + 4
+               + 6
+   + Properties
+       + unit: `year` (string, required)
+       + period: `7` (enum, required)
+           + Members
+               + 1
+               + 2
+               + 3
+               + 4
+               + 5
+               + 6
+               + 7
+               + 8
+               + 9
+               + 10
+
+## LineItem (object)
++ quantity: `3` (number, required)
++ description: `An awesome product` (string, required)
++ extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
++ unit_price (object, required)
+    + Include Money
+    + tax: `excluding` (enum, required)
+        + Members
+            + excluding
++ tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
++ withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
++ discount (object, optional)
+    + value: 10 (number, required)
+    + type (enum, required)
+        + Members
+            + percentage - Values between 0 and 100
++ product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
++ product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
++ ledger_account_number: `70100` (string)
