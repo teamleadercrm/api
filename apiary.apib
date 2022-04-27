@@ -3453,6 +3453,36 @@ Download a credit note in a specific format.
                         + tax (Money)
             + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
 
+### subscriptions.create [POST /subscriptions.create]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + customer_id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, required)
+        + starts_on: `2022-04-26` (string, required)
+        + periodicity (Periodicity, required)
+        + title: `Subscription for cookies` (string, required)
+        + line_items (array[LineItem], required)
+        + ends_on: `2022-05-26` (string, optional)
+        + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, optional)
+        + permanent_invoicing: true (boolean, optional) - Default is false.
+        + autosend (array[enum], optional)
+            + Members
+                + invoice
+                + bpost
+        + note: `Subscription comments` (string, optional)
+        + days_in_advance: `7` (number, optional)
+        + payment_term (PaymentTerm, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `subscription` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+
 ## Tax Rates [/taxRates]
 
 Tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The end user also has the option to add additional tax rates.
@@ -5071,3 +5101,56 @@ Unregister a webhook.
         + percentage - Values between 0 and 100
 + value: 15.5 (number)
 + description: `winter promotion` (string)
+
+## Periodicity (object)
++ One Of
+    + Properties
+        + unit: `week` (string, required)
+        + period: `2` (enum, required)
+            + Members
+                + 1
+                + 2
+                + 4
+   + Properties
+       + unit: `month` (string, required)
+       + period: `4` (enum, required)
+           + Members
+               + 1
+               + 2
+               + 3
+               + 4
+               + 6
+   + Properties
+       + unit: `year` (string, required)
+       + period: `7` (enum, required)
+           + Members
+               + 1
+               + 2
+               + 3
+               + 4
+               + 5
+               + 6
+               + 7
+               + 8
+               + 9
+               + 10
+
+## LineItem (object)
++ quantity: `3` (number, required)
++ description: `An awesome product` (string, required)
++ extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
++ unit_price (object, required)
+    + Include Money
+    + tax: `excluding` (enum, required)
+        + Members
+            + excluding
++ tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
++ withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
++ discount (object, optional)
+    + value: 10 (number, required)
+    + type (enum, required)
+        + Members
+            + percentage - Values between 0 and 100
++ product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
++ product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
++ ledger_account_number: `70100` (string)
