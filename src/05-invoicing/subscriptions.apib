@@ -139,3 +139,33 @@
                         + taxable (Money)
                         + tax (Money)
             + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+
+### subscriptions.create [POST /subscriptions.create]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + customer_id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, required)
+        + starts_on: `2022-04-26` (string, required)
+        + periodicity (Periodicity, required)
+        + title: `Subscription for cookies` (string, required)
+        + line_items (array[LineItem], required)
+        + ends_on: `2022-05-26` (string, optional)
+        + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, optional)
+        + permanent_invoicing: true (boolean, optional) - Default is false.
+        + autosend (array[enum], optional)
+            + Members
+                + invoice
+                + bpost
+        + note: `Subscription comments` (string, optional)
+        + days_in_advance: `7` (number, optional)
+        + payment_term (PaymentTerm, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `subscription` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
