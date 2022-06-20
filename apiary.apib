@@ -4761,6 +4761,157 @@ Update the current timer. Only possible if there is a timer running.
 
 + Response 204
 
+# Group Files
+
+## Files [/files]
+
+### files.list [GET /files.list]
+
+Get a list of files.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+            + subject (object, required)
+                + type (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                        + deal
+                        + invoice
+                        + creditNote
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + page (array, optional)
+            + (object)
+                + size: `20` (number, optional)
+                    + Default: `20`
+                + number: `1` (number, optional)
+                    + Default: `1`
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + updated_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `updated_at`
+                    + order: `desc`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
+                + subject (object, nullable)
+                    + type: `company` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + deal
+                            + invoice
+                            + creditNote
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + name: `meeting-report.pdf` (string)
+                + mime_type (MimeType)
+                + size (FileSize)
+                + updated_at: `2019-10-15T17:30:58+00:00` (string)
+                + uploaded_by (User, nullable)
+                + folder : `Documents` (string)
+
+### files.info [GET /files.info]
+
+Get details for a single file.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
+            + subject (object, nullable)
+                + type: `company` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + deal
+                        + invoice
+                        + creditNote
+                        + meeting
+                        + order
+                        + product
+                        + project
+                        + ticket
+                        + workOrder
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + name: `meeting-report.pdf` (string)
+            + mime_type (MimeType)
+            + size (FileSize)
+            + updated_at: `2019-10-15T17:30:58+00:00` (string)
+            + uploaded_by (User, nullable)
+            + folder : `Documents` (string)
+
+### files.download [POST /files.download]
+
+Request the download link for a file.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
+            + expires_at: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download url
+
+### files.upload [POST /files.upload]
+
+Request the upload link for a file.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `meatdealer.png` (string, required)
+        + subject (object, required)
+            + type: `company` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + deal
+                    + invoice
+                    + creditNote
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + folder: `Mobile uploads` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://files.teamleader.eu/upload/66726166a` (string) - The temporary url where the proposed file can be uploaded
+            + expires_at: `2019-10-30T11:44:33+00:00` (string) - Expiration time of the temporary upload url
+
+### files.delete [POST /files.delete]
+
+Delete a file.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
+
++ Response 204
+
 # Group Other
 
 ## Migrating [/migrate]
@@ -5091,3 +5242,35 @@ Unregister a webhook.
         + percentage - Values between 0 and 100
 + value: 15.5 (number)
 + description: `winter promotion` (string)
+
+## MimeType (enum[string])
++ `application/msword`
++ `application/octet-stream`
++ `application/pdf`
++ `application/vnd.ms-excel`
++ `application/vnd.ms-powerpoint`
++ `application/vnd.openxmlformats-officedocument.presentationml.presentation`
++ `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
++ `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
++ `application/xml`
++ `application/zip`
++ `audio/mpeg`
++ `audio/wav`
++ `image/gif`
++ `image/jpeg`
++ `image/png`
++ `text/css`
++ `text/csv`
++ `text/html`
++ `text/javascript`
++ `text/plain`
++ `video/3gpp`
++ `video/mpeg`
++ `video/quicktime`
++ `video/x-msvideo`
+
+## FileSize
++ unit: `B` (enum[string], required)
+    + Members
+        + B - Byte
++ value: `1024` (number, required)
