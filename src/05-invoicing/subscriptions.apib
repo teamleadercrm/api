@@ -139,6 +139,37 @@
                         + rate: 0.21 (number)
                         + taxable (Money)
                         + tax (Money)
+            + grouped_lines (array)
+                + (object)
+                    + section (object)
+                        + title (string)
+                    + line_items (array)
+                        + (object)
+                            + product (object, nullable)
+                                + type: `product` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                            + quantity: 3 (number)
+                            + description: `An awesome product` (string)
+                            + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                            + unit_price (object)
+                                + Include Money
+                                + tax: `excluding` (enum)
+                                    + Members
+                                        + excluding
+                            + tax (object)
+                                + type: `taxRate` (string)
+                                + id: `e2314517-3cab-4aa9-8471-450e73449042`
+                            + discount (object, nullable)
+                                + type: `percentage` (enum)
+                                    + Members
+                                        + percentage
+                                + value: 15.00 (number)
+                            + purchase_price (Money, nullable)
+                            + total
+                                + tax_exclusive (Money)
+                                + tax_exclusive_before_discount (Money)
+                                + tax_inclusive (Money)
+                                + tax_inclusive_before_discount (Money)
             + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
 
 ### subscriptions.deactivate [POST /subscriptions.deactivate]
