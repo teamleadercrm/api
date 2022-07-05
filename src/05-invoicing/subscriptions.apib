@@ -2,6 +2,8 @@
 
 ### subscriptions.list [GET /subscriptions.list]
 
+Get a list of subscriptions
+
 + Request (application/json)
     + Attributes (object)
         + filter (object, optional)
@@ -50,7 +52,7 @@
                 + project (object, nullable)
                     + type: `project` (string)
                     + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
-                + next_renewal_date: `2022-06-21` (string)
+                + next_renewal_date: `2022-06-21` (string, nullable)
                 + periodicity: `monthly` (enum)
                     + Members
                         + weekly
@@ -83,6 +85,8 @@
 
 ### subscriptions.info [GET /subscriptions.info]
 
+Get details for a single subscription
+
 + Request (application/json)
     + Attributes (object)
         + id: `e2314517-3cab-4aa9-8471-450e73449041` (string, required)
@@ -110,7 +114,7 @@
             + project (object, nullable)
                 + type: `project` (string)
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
-            + next_renewal_date: `2022-06-21` (string)
+            + next_renewal_date: `2022-06-21` (string, nullable)
             + periodicity: `monthly` (enum)
                 + Members
                     + weekly
