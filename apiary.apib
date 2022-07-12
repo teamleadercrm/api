@@ -5280,3 +5280,39 @@ Unregister a webhook.
     + Members
         + B - Byte
 + value: `1024` (number, required)
+
+## GroupedLineItem (object)
++ section (object)
+    + title (string, nullable)
++ line_items (array)
+    + (object)
+        + product (object, nullable)
+            + type: `product` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+        + product_category (object, nullable)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+            + type: `productCategory` (string)
+        + quantity: 3 (number)
+        + description: `An awesome product` (string)
+        + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
+        + unit_price (object)
+            + Include Money
+            + tax: `excluding` (enum)
+                + Members
+                    + excluding
+        + tax (object)
+            + type: `taxRate` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449042` (string)
+        + discount (object, nullable)
+            + type: `percentage` (enum)
+                + Members
+                    + percentage
+            + value: 15.00 (number)
+        + total
+            + tax_exclusive (Money)
+            + tax_exclusive_before_discount (Money)
+            + tax_inclusive (Money)
+            + tax_inclusive_before_discount (Money)
+        + withheld_tax (object, nullable)
+            + type: `withholding_tax` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
