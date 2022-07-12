@@ -3375,6 +3375,8 @@ Get a list of subscriptions
                             + type: `contact` (string)
                             + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
                         + name: `Radja Nainggolan` (string, nullable)
+                + starts_on: `2022-05-21` (string)
+                + ends_on: `2023-07-21` (string, nullable)
                 + project (object, nullable)
                     + type: `project` (string)
                     + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
@@ -3437,6 +3439,11 @@ Get details for a single subscription
                         + type: `contact` (string)
                         + id: `d4391f46-a32c-458c-b2ee-833fd27a348d` (string)
                     + name: `Radja Nainggolan` (string, nullable)
+            + starts_on: `2022-05-21` (string)
+            + ends_on: `2023-07-21` (string, nullable)
+            + payment_term (PaymentTerm)
+            + grouped_lines (array)
+                + (GroupedLineItem)
             + project (object, nullable)
                 + type: `project` (string)
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
@@ -3461,6 +3468,7 @@ Get details for a single subscription
                     + eight_yearly
                     + nine_yearly
                     + ten_yearly
+            + custom_fields (array[CustomField])
             + total (object)
                 + tax_exclusive (Money)
                 + tax_inclusive (Money)
