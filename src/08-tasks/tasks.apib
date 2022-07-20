@@ -78,12 +78,7 @@ Get a list of tasks.
                 + project (object, nullable)
                     + type: `project` (string)
                     + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
-                + priority: `B` (enum[string])
-                    + Members
-                        + `A`
-                        + `B`
-                        + `C`
-                        + `D`
+                + priority (Priority)
 
 ### tasks.info [GET /tasks.info]
 
@@ -134,12 +129,7 @@ Get information about a task.
                 + type: `project` (string)
                 + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
             + custom_fields (array[CustomField])
-            + priority: `B` (enum[string])
-                + Members
-                    + `A`
-                    + `B`
-                    + `C`
-                    + `D`
+            + priority (Priority)
 
 ### tasks.create [POST /tasks.create]
 
