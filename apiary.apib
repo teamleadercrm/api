@@ -398,6 +398,7 @@ We list all backwards-compatible additions here. These are currently available i
 ### July 2022
 
 - We added `product` and `project` as subject type for `files.list`.
+- We added `priority` to `tasks.list` and `tasks.info`.
 - We added `vat_number` to the filters on `companies.list`.
 
 ### June 2022
@@ -4274,6 +4275,7 @@ Get a list of tasks.
                 + project (object, nullable)
                     + type: `project` (string)
                     + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+                + priority (Priority)
 
 ### tasks.info [GET /tasks.info]
 
@@ -4324,6 +4326,7 @@ Get information about a task.
                 + type: `project` (string)
                 + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
             + custom_fields (array[CustomField])
+            + priority (Priority)
 
 ### tasks.create [POST /tasks.create]
 
@@ -5257,7 +5260,7 @@ Unregister a webhook.
 + value: 15.5 (number)
 + description: `winter promotion` (string)
 
-## MimeType (enum[string])
+## MimeType (enum)
 + `application/msword`
 + `application/octet-stream`
 + `application/pdf`
@@ -5288,3 +5291,9 @@ Unregister a webhook.
     + Members
         + B - Byte
 + value: `1024` (number, required)
+
+## Priority (enum)
++ `A`
++ `B`
++ `C`
++ `D`
