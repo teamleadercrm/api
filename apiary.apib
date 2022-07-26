@@ -399,6 +399,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `product` and `project` as subject type for `files.list`.
 - We added `priority` to `tasks.list` and `tasks.info`.
+- We added `vat_number` to the filters on `companies.list`.
 
 ### June 2022
 
@@ -1558,6 +1559,7 @@ Get a list of companies.
             + term: `Acme` (string, optional) - Filters on name, vat number, emails and telephones
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
+            + vat_number: `BE 0899.623.035` (string, optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
