@@ -414,6 +414,27 @@ Register a payment for an invoice.
 
 + Response 204
 
+### invoices.removePayment [POST /invoices.removePayment]
+
+Remove a payment for a given invoice. This will also trigger a re-rendering of the invoice PDF.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, required)
+        + payment_id: `bb9589ec-6e08-0d5f-9b23-7be9b9c3ea2d` (string, required)
+
++ Response 204
+
+### invoices.removePayments [POST /invoices.removePayments]
+
+Marks an invoice as unpaid and removes all linked payments. This will also trigger a re-rendering of the invoice PDF.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+
++ Response 204
+
 ### invoices.credit [POST /invoices.credit]
 
 Credit an invoice completely.
