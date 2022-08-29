@@ -399,6 +399,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `invoices.removePayment` and `invoices.removePayments`.
 - We added `department_id` to the filters on `subscriptions.list`.
+- We added `book_invoices` and `autosend` to `subscriptions.info`.
 
 ### July 2022
 
@@ -3504,6 +3505,10 @@ Get details for a single subscription
                         + taxable (Money)
                         + tax (Money)
             + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+            + `book_invoices`: true (boolean)
+            + autosend (object)
+                + enabled: true (boolean)
+                + via_postal_service: true (boolean)
 
 ### subscriptions.deactivate [POST /subscriptions.deactivate]
 
