@@ -145,6 +145,18 @@ Get details for a single subscription
                         + taxable (Money)
                         + tax (Money)
             + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+            + invoice_generation (object)
+                + action: `book` (enum)
+                    + Members
+                        + draft
+                        + book
+                        + book_and_send
+                + sending_methods (array)
+                    + (object)
+                        + method: `email` (enum)
+                            + Members
+                                + email
+                                + postal_service
 
 ### subscriptions.deactivate [POST /subscriptions.deactivate]
 
