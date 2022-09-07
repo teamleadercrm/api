@@ -112,6 +112,32 @@ Request the download link for a file.
             + location: `https://cdn.teamleader.eu/file` (string) - A temporary url where the requested file can be downloaded
             + expires_at: `2018-02-05T16:44:33+00:00` (string) - Expiration time of the temporary download url
 
+### files.upload [POST /files.upload]
+
+Request the upload link for a file.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `meatdealer.png` (string, required)
+        + subject (object, required)
+            + type: `company` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + deal
+                    + invoice
+                    + creditNote
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + folder: `My custom folder name` (string, optional) - defaults to `General` in account's language if not passed
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + location: `https://files.teamleader.eu/upload/66726166a` (string) - The temporary url where the proposed file can be uploaded
+            + expires_at: `2019-10-30T11:44:33+00:00` (string) - Expiration time of the temporary upload url
+
 ### files.delete [POST /files.delete]
 
 Delete a file.
