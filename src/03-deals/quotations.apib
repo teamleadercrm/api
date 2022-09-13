@@ -176,6 +176,57 @@ Create a quotation.
             + type: `quotation` (string)
             + id: `e4bf74ca-e900-471f-84b1-276e5d3afae4` (string)
 
+### quotations.send [POST /quotations.send]
+
+Send a quotation.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + quotations: `023a4609-eda4-006c-8d2c-314539ec5d85`, `b42635b7-ccd3-0bfc-9628-e90940694845` (array[string], required) - list of quotation ids you wish to send. These quotations need to come from the same deal.
+        + from (object, optional)
+            + sender (object, required)
+                + type (enum, required)
+                    + Members
+                        + user
+                        + department
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + email_address: `info@teamleader.eu` (string, required)
+        + recipients (object, required)
+            + to (array)
+                + (object)
+                    + customer (object, optional, nullable)
+                        + type (enum, required)
+                            + Members
+                                + company
+                                + contact
+                        + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+                    + email_address: `info@teamleader.eu` (string, required)
+            + cc (array, optional)
+                + (object)
+                    + customer (object, optional, nullable)
+                        + type (enum, required)
+                            + Members
+                                + company
+                                + contact
+                        + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+                    + email_address: `info@teamleader.eu` (string, required)
+           + bcc (array, optional)
+                + (object)
+                   + customer (object, optional, nullable)
+                       + type (enum, required)
+                           + Members
+                               + company
+                               + contact
+                       + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+                   + email_address: `info@teamleader.eu` (string, required)
+        + subject: `An offer you cannot refuse` (string, required)
+        + content: `Sign your offer here #LINK` (string, required) - the shortcode '#LINK' will be replaced with the cloudsign url
+        + attachments: `e76d381a-f7ea-04d1-9a32-14aab27bc1e2` (array[string], optional) - an array of file ids
+        + language: `en` (string, required)
+
++ Response 204
+
 ### quotations.update [POST /quotations.update]
 
 Update a quotation.
