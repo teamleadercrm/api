@@ -396,8 +396,8 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### September 2022
-- We added `payment_term`, `grouped_lines` and `invoice_generation` to `subscriptions.create` and `subscriptions.update`.
-- We added `starts_on` and `ends_on` to `subscriptions.create` and `subscriptions.update`.
+- We added `payment_term`, `grouped_lines` and `invoice_generation` to `subscriptions.info`.
+- We added `starts_on` and `ends_on` to `subscriptions.list` and `subscriptions.info`.
 - We added `subscriptions.create` and `subscriptions.update`.
 - We added the `quotations.send` endpoint.
 - We clarified how the optional `folder` argument for the `files.upload` endpoint works.
