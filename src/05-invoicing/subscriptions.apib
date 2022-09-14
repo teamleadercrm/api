@@ -35,7 +35,7 @@ Get a list of subscriptions
             + (object)
                 + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
                 + title: `Subscription for cookies` (string)
-                + remarks: `Some more **information** about this subscription` (string, nullable) - Uses Markdown formatting
+                + note: `Some more **information** about this subscription` (string, nullable) - Uses Markdown formatting
                 + status: `active` (enum[string])
                     + Members
                         + active
@@ -53,27 +53,18 @@ Get a list of subscriptions
                 + project (object, nullable)
                     + type: `project` (string)
                     + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + starts_on: `2022-05-21` (string)
+                + ends_on: `2023-07-21` (string, nullable)
                 + next_renewal_date: `2022-06-21` (string, nullable)
-                + periodicity: `monthly` (enum)
-                    + Members
-                        + weekly
-                        + two_weekly
-                        + four_weekly
-                        + monthly
-                        + two_monthly
-                        + quarterly
-                        + four_monthly
-                        + six_monthly
-                        + yearly
-                        + two_yearly
-                        + three_yearly
-                        + four_yearly
-                        + five_yearly
-                        + six_yearly
-                        + seven_yearly
-                        + eight_yearly
-                        + nine_yearly
-                        + ten_yearly
+                + billing_cycle (object)
+                    + periodicity (Periodicity)
+                    + days_in_advance: `7` (enum[number])
+                        + Members
+                            + 0
+                            + 7
+                            + 14
+                            + 21
+                            + 28
                 + total (object)
                     + tax_exclusive (Money)
                     + tax_inclusive (Money)
@@ -83,6 +74,8 @@ Get a list of subscriptions
                             + taxable (Money)
                             + tax (Money)
                 + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
+                + note: `Some more **information** about this subscription` (string, nullable) - Uses Markdown formatting
+
 
 ### subscriptions.info [GET /subscriptions.info]
 
