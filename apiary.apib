@@ -738,9 +738,18 @@ We list all backwards-incompatible changes here. As described above, new additio
   - `subscriptions.info`
   - `subscriptions.list`
 
-  - The property `periodicity` has been replaced by `billing_cycle` on:
-    - `subscriptions.info`
-    - `subscriptions.list`
+- The property `periodicity` has been replaced by `billing_cycle` on:
+  - `subscriptions.info`
+  - `subscriptions.list`
+
+- The property `tags` will no longer be converted to lowercase on:
+  - `companies.list`
+  - `companies.info`
+  - `contacts.list`
+  - `contacts.info`
+
+- The property `tag` will no longer be converted to lowercase on:
+  - `tags.list`
 
 #### 2021-09-01
 
