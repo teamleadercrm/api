@@ -732,6 +732,16 @@ _This will only affect the version for those API calls and won't affect any othe
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2022-09-15
+
+- The property `remark` has been renamed to `note` on:
+  - `subscriptions.info`
+  - `subscriptions.list`
+
+  - The property `periodicity` has been replaced by `billing_cycle` on:
+    - `subscriptions.info`
+    - `subscriptions.list`
+
 #### 2021-09-01
 
 - The property `description` is now returned in Markdown instead of HTML on:
