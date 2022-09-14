@@ -3562,6 +3562,94 @@ Get details for a single subscription
                         + tax (Money)
             + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
 
+### subscriptions.create [POST /subscriptions.create]
+
+Create a new subscription.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoicee (object, required)
+            + customer (Customer, required)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name: `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, required)
+        + starts_on: `2022-04-26` (string, required)
+        + billing_cycle (object, required)
+            + periodicity (Periodicity, required)
+            + days_in_advance: `7` (enum[number], required)
+                + Members
+                    + 0
+                    + 7
+                    + 14
+                    + 21
+                    + 28
+        + title: `Subscription for cookies` (string, required)
+        + grouped_lines (array, required)
+            + (object)
+                + section (object)
+                    + title (string)
+                + line_items (array, required)
+                    + (LineItem)
+        + ends_on: `2022-05-26` (string, nullable, optional)
+        + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, optional)
+        + project_id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, optional)
+        + note: `Subscription comments` (string, optional)
+        + payment_term (PaymentTerm, required)
+        + invoice_generation (InvoiceGeneration, required)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `subscription` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
+
+### subscriptions.update [POST /subscriptions.update]
+
+Update a subscription.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string, required)
+        + starts_on: `2022-04-26` (string, optional) - can only be provided if no invoices have been created yet.
+        + billing_cycle (object, optional) - can only be provided if no invoices have been created yet.
+            + periodicity (Periodicity, required)
+            + days_in_advance: `7` (enum[number], required)
+                + Members
+                    + 0
+                    + 7
+                    + 14
+                    + 21
+                    + 28
+        + ends_on: `2022-05-26` (string, nullable, optional)
+        + title: `Subscription for cookies` (string, optional)
+        + invoicee (object, optional)
+            + customer (Customer, required)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name: `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
+        + payment_term (PaymentTerm, optional)
+        + project_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, optional)
+        + deal_id: `f6871b06-6513-4750-b5e6-ff3503b5a029` (string, optional)
+        + note: `Subscription comments` (string, nullable, optional)
+        + grouped_lines (array, optional)
+            + (object)
+                + section (object)
+                    + title (string)
+                + line_items (array, required)
+                    + (LineItem)
+        + invoice_generation (InvoiceGeneration, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
 ### subscriptions.deactivate [POST /subscriptions.deactivate]
 
 + Request (application/json)
@@ -5419,3 +5507,70 @@ Unregister a webhook.
 + no
 + fi
 + sv
+
+## InvoiceGeneration (object)
++ One Of
+    + Properties
+        + action: `draft` (string, required)
+    + Properties
+        + action: `book` (string, required)
+    + Properties
+        + action: `book_and_send` (string, required)
+        + sending_methods (array, required) - the `email` method is required.
+            + (object)
+                + method: `email` (enum, required)
+                    + Members
+                        + email
+                        + postal_service
+
+## LineItem (object)
++ quantity: `3` (number, required)
++ description: `An awesome product` (string, required)
++ extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
++ unit_price (object, required)
+    + Include Money
+    + tax: `excluding` (enum, required)
+        + Members
+            + excluding
++ tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
++ withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
++ discount (object, optional)
+    + value: 10 (number, required)
+    + type (enum, required)
+        + Members
+            + percentage - Values between 0 and 100
++ product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
++ product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+
+## Periodicity (object)
++ One Of
+    + Properties
+        + unit: `week` (string, required)
+        + period: `2` (enum, required)
+            + Members
+                + 1
+                + 2
+                + 4
+   + Properties
+       + unit: `month` (string, required)
+       + period: `4` (enum, required)
+           + Members
+               + 1
+               + 2
+               + 3
+               + 4
+               + 6
+   + Properties
+       + unit: `year` (string, required)
+       + period: `7` (enum, required)
+           + Members
+               + 1
+               + 2
+               + 3
+               + 4
+               + 5
+               + 6
+               + 7
+               + 8
+               + 9
+               + 10
