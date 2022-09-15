@@ -166,6 +166,47 @@ Common used status codes:
  - `429` - Too Many Requests, your client has reached the API rate limit
  - `500` - Internal Server Error, something went wrong on our end
 
+### Collections
+
+Collections are groups of items, represented as JSON arrays `[]`, such as:
+* Line items for quotations, invoices
+* Addresses for contacts, companies
+* Customer tags
+* Custom fields
+
+#### Updating collections
+
+Collections are replaced entirely during updates, so all the wanted values should be provided when updating entities.
+Other existing values which are not provided will be removed.
+
+```json
+POST https://api.focus.teamleader.eu/contacts.update
+
+{
+  "id": "f79a44dc-ec94-0d3c-b63e-8dcf41bba54e",
+  "tags": [
+    "existing tag",
+    "a new tag"
+  ],
+  "custom_fields": [
+    {
+      "definition": {
+        "type": "customFieldDefinition",
+        "id": "0da89a10-794d-021d-9b2c-1f71dcd22489"
+      },
+      "value": "existing value"
+    },
+    {
+      "definition": {
+        "type": "customFieldDefinition",
+        "id": "fe50d0c5-49ba-0c12-8a34-d63becc7049e"
+      },
+      "value": "a new value"
+    }
+  ]
+}
+```
+
 ## Authentication
 
 ### OAuth 2
