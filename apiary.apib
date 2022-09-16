@@ -5134,7 +5134,7 @@ Request the upload link for a file.
 + Request (application/json)
 
     + Attributes (object)
-        + name: `Important meeting note from August 2022.docx` (string, required) - name under which the file user wants to upload will be stored. This name should contain the same extension as the file user wants to upload.
+        + name: `Important meeting note from August 2022.docx` (string, required) - Name under which the file will be stored. This name should contain the same extension as the file that the user wants to upload.
         + subject (object, required)
             + type: `company` (enum[string], required)
                 + Members
@@ -5144,13 +5144,13 @@ Request the upload link for a file.
                     + invoice
                     + creditNote
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
-        + folder: `My monthly notes` (string, optional) - name of a folder under which the file will be stored. Defaults to `General` in account's language if not passed.
+        + folder: `My monthly notes` (string, optional) - Name of a folder under which the file will be stored. Defaults to `General` in account's language if not passed.
 
 + Response 200 (application/json)
 
     + Attributes (object)
         + data (object)
-            + location: `https://files.teamleader.eu/upload/66726166a` (string) - The temporary API endpoint (URL) where user should send a POST request with locally selected file for the upload.
+            + location: `https://files.teamleader.eu/upload/66726166a` (string) - The temporary API endpoint (URL) where user should send a POST request with file contents for the upload.
             + expires_at: `2019-10-30T11:44:33+00:00` (string) - Expiration time of the temporary API endpoint.
 
 ### files.delete [POST /files.delete]
