@@ -437,6 +437,8 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### September 2022
+
+- We added `default` and `created_at` to the sorting options on `departments.list`.
 - We added `payment_term`, `grouped_lines` and `invoice_generation` to `subscriptions.info`.
 - We added `starts_on` and `ends_on` to `subscriptions.list` and `subscriptions.info`.
 - We added `subscriptions.create` and `subscriptions.update`.
@@ -916,14 +918,21 @@ Get a list of departments.
             + (object)
                 + field (enum, required)
                     + Members
-                        + name
+                        + `default` - When sorting ascending, default departments are listed first
+                        + `name`
+                        + `created_at`
                 + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
-                + (object)
-                    + field: `name`
-                    + order: `asc`
+                + (array)
+                    + (object)
+                        + field: `default`
+                        + order: `asc`
+                    + (object)
+                        + field: `created_at`
+                        + order: `asc`
 
 + Response 200 (application/json)
 
