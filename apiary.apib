@@ -436,7 +436,12 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### October 2022
+
+- We added `default_department` and `created_at` to the sorting options on `departments.list`.
+
 ### September 2022
+
 - We added `project_id` to `invoices.draft` and `invoices.update`.
 - We added `payment_term`, `grouped_lines` and `invoice_generation` to `subscriptions.info`.
 - We added `starts_on` and `ends_on` to `subscriptions.list` and `subscriptions.info`.
@@ -917,14 +922,21 @@ Get a list of departments.
             + (object)
                 + field (enum, required)
                     + Members
-                        + name
+                        + `default_department` - When sorting ascending, default departments are listed first
+                        + `name`
+                        + `created_at`
                 + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
-                + (object)
-                    + field: `name`
-                    + order: `asc`
+                + (array)
+                    + (object)
+                        + field: `default_department`
+                        + order: `asc`
+                    + (object)
+                        + field: `created_at`
+                        + order: `asc`
 
 + Response 200 (application/json)
 

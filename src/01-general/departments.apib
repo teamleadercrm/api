@@ -21,14 +21,21 @@ Get a list of departments.
             + (object)
                 + field (enum, required)
                     + Members
-                        + name
+                        + `default_department` - When sorting ascending, default departments are listed first
+                        + `name`
+                        + `created_at`
                 + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
-                + (object)
-                    + field: `name`
-                    + order: `asc`
+                + (array)
+                    + (object)
+                        + field: `default_department`
+                        + order: `asc`
+                    + (object)
+                        + field: `created_at`
+                        + order: `asc`
 
 + Response 200 (application/json)
 
