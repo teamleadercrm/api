@@ -453,7 +453,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### August 2022
 
-- We added `invoices.removePayment` and `invoices.removePayments`.
+- We added `invoices.removePayments`.
 - We added `department_id` to the filters on `subscriptions.list`.
 - We added `tags` to `companies.update`.
 
@@ -3274,17 +3274,6 @@ Register a payment for an invoice.
         + payment (object, required)
             + Include Money
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
-
-+ Response 204
-
-### invoices.removePayment [POST /invoices.removePayment]
-
-Remove a payment for a given invoice. This will also trigger a re-rendering of the invoice PDF.
-
-+ Request (application/json)
-    + Attributes (object)
-        + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, required)
-        + payment_id: `bb9589ec-6e08-0d5f-9b23-7be9b9c3ea2d` (string, required)
 
 + Response 204
 
