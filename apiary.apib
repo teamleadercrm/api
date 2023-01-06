@@ -430,6 +430,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### January 2023
+
+- We added `user_id` to `timeTracking.add`.
+
 ### December 2022
 
 - We added `secondary_position` and `division` to the related company data on `contacts.info`.
@@ -4856,6 +4860,7 @@ Add tracked time.
                     + ticket
             + id: `b40ea20d-4ae5-4a56-be12-03766ecaefae` (string, required)
         + invoiceable: true (boolean, optional)
+        + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional) - To add tracked time for a different user.
 
 + Response 201
 
