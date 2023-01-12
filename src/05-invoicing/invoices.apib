@@ -14,9 +14,15 @@ Get a list of invoices.
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + term: `Interesting invoice` (string, optional) - Filters on invoice number, purchase order number, payment reference and invoicee
-            + department_id: `080aac72-ff1a-4627-bfe3-146b6eee979c` (string, optional) - The ID of the department you wish to filter by.
-            + deal_id: `fddf42f9-bda1-0c49-a22b-0bf147cd1e3f` (string, optional) - The ID of the related deal you wish to filter by.
-            + project_id: `1af901bc-b4b7-09e5-ae15-440ecdf91e41` (string, optional) - The ID of the related project you wish to filter by.
+            + department (object)
+                + type: `deal` (string)
+                + id: `7cd1119c-e118-4b25-ac2c-aa92bacf5fd5` (string)
+            + deal (object, nullable)
+                + type: `deal` (string)
+                + id: `a8ef428a-0e70-48a5-8696-58be0c45a772` (string)
+            + project (object, nullable)
+                + type: `project` (string)
+                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
             + subscription_id: `8631bbbf-bead-4f6e-a2ab-58ec9bbd997a` (string, optional) - The ID of the related subscription you wish to filter by.
             + status (array[enum], optional) - The statuses you want to filter by.
                 + Members
