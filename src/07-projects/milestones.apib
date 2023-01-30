@@ -4,7 +4,7 @@ Every projects consists of one or more milestones which are limited in time and 
 
 *Required scopes: `projects`*
 
-### milestones.list [GET /milestones.list]
+### milestones.list [POST /milestones.list]
 
 Get a list of project milestones.
 
@@ -79,7 +79,7 @@ Get a list of project milestones.
                     + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
                     + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion. This is null if there is not enough data to calculate
 
-### milestones.info [GET /milestones.info]
+### milestones.info [POST /milestones.info]
 
 Get details for a single milestone.
 
