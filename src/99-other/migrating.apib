@@ -3,7 +3,7 @@
 WARNING! These endpoints are not guaranteed to stay backwards compatible.
 Their only use is to allow older integrations to migrate their data to the new API.
 
-### migrate.id [GET /migrate.id]
+### migrate.id [POST /migrate.id]
 
 Translates an ID from the deprecated API into a new UUID.
 
@@ -55,7 +55,7 @@ Translates an ID from the deprecated API into a new UUID.
                     + quotation
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
-### migrate.taxRate [GET /migrate.taxRate]
+### migrate.taxRate [POST /migrate.taxRate]
 
 Translates tax rates from the deprecated API into a new UUID tax rate.
 
@@ -72,7 +72,7 @@ Translates tax rates from the deprecated API into a new UUID tax rate.
             + type: `taxRate` (string)
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
-### migrate.activityType [GET /migrate.activityType]
+### migrate.activityType [POST /migrate.activityType]
 
 Translates "meeting", "call" and "task" into their respective activity type UUID.
 

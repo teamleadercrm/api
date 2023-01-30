@@ -21,9 +21,7 @@ We chose this action based approach over the more popular REST, because it enabl
 
 ### Requests
 
-All methods must be called using HTTPS. Data is passed as JSON data in a POST request or as GET query parameters.
-
-For more complex actions we recommend using POST requests with JSON:
+All methods must be called using HTTPS. Data is passed as JSON data in a POST request.
 
 ```
 POST https://api.focus.teamleader.eu/invoices.list
@@ -37,12 +35,6 @@ POST https://api.focus.teamleader.eu/invoices.list
         "number": 3
     }
 }
-```
-
-The GET equivalent:
-
-```
-GET https://api.focus.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
 ```
 
 ### Responses
@@ -273,7 +265,7 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 These access tokens are also known as bearer tokens. You can use this token to call API endpoints on behalf of the user, by adding it to the API request as an `Authorization` header.
 
 ```
-GET https://api.focus.teamleader.eu/contacts.list HTTP/1.1
+POST https://api.focus.teamleader.eu/contacts.list HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
 Accept: application/json
 ```
@@ -433,6 +425,7 @@ We list all backwards-compatible additions here. These are currently available i
 ### January 2023
 - Correctly document `invoices.list` department, deal and project properties
 - We added `user_id` to `timeTracking.add`.
+- We updated the HTTP verb for all endpoints to `POST`. Using `GET ` for `.list`, `.info` and `migrate` endpoints is still possible, but deprecated.
 
 ### December 2022
 
@@ -911,7 +904,7 @@ Departments are used to split quotations and invoices for different legal entiti
 
 *Required scopes: `departments`*
 
-### departments.list [GET /departments.list]
+### departments.list [POST /departments.list]
 
 Get a list of departments.
 
@@ -965,7 +958,7 @@ Get a list of departments.
                         + active
                         + archived
 
-### departments.info [GET /departments.info]
+### departments.info [POST /departments.info]
 
 Get details for a single department.
 
@@ -1011,7 +1004,7 @@ Users are co-workers in a Teamleader account.
 
 *Required scopes: `users`*
 
-### users.me [GET /users.me]
+### users.me [POST /users.me]
 
 Get the current authenticated user.
 
@@ -1054,7 +1047,7 @@ Get the current authenticated user.
                     + value: 24 (number)
                 + whitelabeling: true (boolean)
 
-### users.list [GET /users.list]
+### users.list [POST /users.list]
 
 Get a list of all users.
 
@@ -1102,7 +1095,7 @@ Get a list of all users.
                         + active
                         + deactivated
 
-### users.info [GET /users.info]
+### users.info [POST /users.info]
 
 Get details for a single user.
 
@@ -1150,7 +1143,7 @@ Get details for a single user.
 
 *Required scopes: `users`*
 
-### teams.list [GET /teams.list]
+### teams.list [POST /teams.list]
 
 + Request (application/json)
 
@@ -1167,7 +1160,7 @@ Get details for a single user.
 
 Custom fields are used to add additional data/properties to entities within Teamleader.
 
-### customFieldDefinitions.list [GET /customFieldDefinitions.list]
+### customFieldDefinitions.list [POST /customFieldDefinitions.list]
 
 Get a list of all the definitions of custom fields.
 
@@ -1233,7 +1226,7 @@ Get a list of all the definitions of custom fields.
                     + options: foo, bar (array[string])
                     + extra_option_allowed: true (boolean)
 
-### customFieldDefinitions.info [GET /customFieldDefinitions.info]
+### customFieldDefinitions.info [POST /customFieldDefinitions.info]
 
 Get info about a specific custom field definition.
 
@@ -1321,7 +1314,7 @@ Contacts are physical entities who are added to your CRM database. Contacts migh
 
 *Required scopes: `contacts`*
 
-### contacts.list [GET /contacts.list]
+### contacts.list [POST /contacts.list]
 
 Get a list of contacts.
 
@@ -1395,7 +1388,7 @@ Get a list of contacts.
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/contact_detail.php?id=2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
 
-### contacts.info [GET /contacts.info]
+### contacts.info [POST /contacts.info]
 
 Get details for a single contact.
 
@@ -1636,7 +1629,7 @@ Companies are legal entities, usually linked to a VAT and/or local business numb
 
 *Required scopes: `companies`*
 
-### companies.list [GET /companies.list]
+### companies.list [POST /companies.list]
 
 Get a list of companies.
 
@@ -1712,7 +1705,7 @@ Get a list of companies.
                 + `web_url`: `https://focus.teamleader.eu/company_detail.php?id=96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
                 + tags: prospect, expo (array[string])
 
-### companies.info [GET /companies.info]
+### companies.info [POST /companies.info]
 
 Get details for a single company.
 
@@ -1897,7 +1890,7 @@ Remove a tag from a company.
 
 Each country has a specific set of business types or range of legal entities. You can specify the business type when adding or updating a company.
 
-### businessTypes.list [GET /businessTypes.list]
+### businessTypes.list [POST /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country, sorted alphabetically.
 
@@ -1919,7 +1912,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 Tags are used to label contacts or companies, so that they can easily be filtered or grouped into segments.
 
-### tags.list [GET /tags.list]
+### tags.list [POST /tags.list]
 
 Get a list of tags.
 
@@ -1951,7 +1944,7 @@ Get a list of tags.
 
 We provide a set of data which can be used to build addresses.
 
-### levelTwoAreas.list [GET /levelTwoAreas.list]
+### levelTwoAreas.list [POST /levelTwoAreas.list]
 
 Get a list of level two areas (which correspond to provinces, departments or states in most countries).
 
@@ -1978,7 +1971,7 @@ Deals are sale opportunities, which need to be followed up by their responsible 
 
 *Required scopes: `deals`*
 
-### deals.list [GET /deals.list]
+### deals.list [POST /deals.list]
 
 Get a list of deals.
 
@@ -2073,7 +2066,7 @@ Get a list of deals.
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
 
-### deals.info [GET /deals.info]
+### deals.info [POST /deals.info]
 
 Get details for a single deal.
 
@@ -2254,7 +2247,7 @@ Delete a deal.
 
 + Response 204
 
-### lostReasons.list [GET /lostReasons.list]
+### lostReasons.list [POST /lostReasons.list]
 
 Get a list of lost reasons for deals.
 
@@ -2291,7 +2284,7 @@ Deal phases are the different phases a deal typically goes through. A deal can b
 
 *Required scopes: `deals`*
 
-### dealPhases.list [GET /dealPhases.list]
+### dealPhases.list [POST /dealPhases.list]
 
 Get a list of all phases a deal can go through, sorted by their order in the flow.
 
@@ -2316,7 +2309,7 @@ Deal sources are used to track the origin of a deal.
 
 *Required scopes: `deals`*
 
-### dealSources.list [GET /dealSources.list]
+### dealSources.list [POST /dealSources.list]
 
 Get a list of all deal sources, sorted alphabetically (on name)
 
@@ -2346,7 +2339,7 @@ A quotation is a sales offer for a specific customer. It is always attached to a
 
 *Required scopes: `quotations`*
 
-### quotations.list [GET /quotations.list]
+### quotations.list [POST /quotations.list]
 
 Get a list of quotations.
 
@@ -2388,7 +2381,7 @@ Get a list of quotations.
                         + rejected
                         + closed
 
-### quotations.info [GET /quotations.info]
+### quotations.info [POST /quotations.info]
 
 Get a quotation
 
@@ -2634,7 +2627,7 @@ Calendar events are scheduled events in your calendar. A calendar event involves
 
 *Required scopes: `events`*
 
-### events.list [GET /events.list]
+### events.list [POST /events.list]
 
 Get a list of calendar events.
 
@@ -2714,7 +2707,7 @@ Get a list of calendar events.
                         + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
 
 
-### events.info [GET /events.info]
+### events.info [POST /events.info]
 
 Get details for a single calendar event.
 
@@ -2841,7 +2834,7 @@ Cancel a calendar event (for all attendees).
 
 Activity types identify the different types of events that take place within your organisation. Currently only three activity types are available: tasks, meetings and calls.
 
-### activityTypes.list [GET /activityTypes.list]
+### activityTypes.list [POST /activityTypes.list]
 
 Get a list of all activity types.
 
@@ -2868,7 +2861,7 @@ Teamleader provides a whole set of endpoints to make it easy to develop integrat
 
 *Required scopes: `invoices`*
 
-### invoices.list [GET /invoices.list]
+### invoices.list [POST /invoices.list]
 
 Get a list of invoices.
 
@@ -2979,7 +2972,7 @@ Get a list of invoices.
                     + type: `project` (string)
                     + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
 
-### invoices.info [GET /invoices.info]
+### invoices.info [POST /invoices.info]
 
 Get details for a single invoice.
 
@@ -3319,7 +3312,7 @@ Credit notes are created when certain products or services are not delivered acc
 
 *Required scopes: `invoices`*
 
-### creditNotes.list [GET /creditNotes.list]
+### creditNotes.list [POST /creditNotes.list]
 
 List credit notes
 
@@ -3389,7 +3382,7 @@ List credit notes
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
-### creditNotes.info [GET /creditNotes.info]
+### creditNotes.info [POST /creditNotes.info]
 
 Get details for a single credit note
 
@@ -3497,7 +3490,7 @@ Download a credit note in a specific format.
 
 ## Subscriptions [/subscriptions]
 
-### subscriptions.list [GET /subscriptions.list]
+### subscriptions.list [POST /subscriptions.list]
 
 Get a list of subscriptions
 
@@ -3573,7 +3566,7 @@ Get a list of subscriptions
                 + `web_url`: `https://focus.teamleader.eu/subscription_detail.php?id=e2314517-3cab-4aa9-8471-450e73449041` (string)
 
 
-### subscriptions.info [GET /subscriptions.info]
+### subscriptions.info [POST /subscriptions.info]
 
 Get details for a single subscription
 
@@ -3742,7 +3735,7 @@ Update a subscription.
 
 Tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The end user also has the option to add additional tax rates.
 
-### taxRates.list [GET /taxRates.list]
+### taxRates.list [POST /taxRates.list]
 
 Get a list of available tax rates.
 
@@ -3781,7 +3774,7 @@ Get a list of available tax rates.
 
 Payment terms are the conditions under which an invoice need to be paid.
 
-### paymentTerms.list [GET /paymentTerms.list]
+### paymentTerms.list [POST /paymentTerms.list]
 
 Get a list of available payment terms.
 
@@ -3799,7 +3792,7 @@ Get a list of available payment terms.
 
 Withholding tax rates provide an overview of different taxation rates used to bill customers. Teamleader provides a default list of tax rates based on the country of residence of the company that’s using Teamleader. The countries that use withholding tax rates are Italy and Spain.
 
-### withholdingTaxRates.list [GET /withholdingTaxRates.list]
+### withholdingTaxRates.list [POST /withholdingTaxRates.list]
 
 Get a list of available withholding tax rates.
 
@@ -3829,7 +3822,7 @@ Product categories are used to group specific products. They can be linked to a 
 
 *Required scopes: `products`*
 
-### productCategories.list [GET /productCategories.list]
+### productCategories.list [POST /productCategories.list]
 
 Get a list of product categories.
 
@@ -3857,7 +3850,7 @@ Get a list of product categories.
 
 *Required scopes: `products`*
 
-### products.list [GET /products.list]
+### products.list [POST /products.list]
 
 Get a list of products.
 
@@ -3880,7 +3873,7 @@ Get a list of products.
                 + code: `COOK-DARKCHOC-42` (string, nullable)
                 + added_at: `2016-02-01T11:25:41+00:00` (string)
 
-### products.info [GET /products.info]
+### products.info [POST /products.info]
 
 Get details for a single product.
 
@@ -3932,7 +3925,7 @@ Projects allow users to work together as a team on a single project. They consis
 
 *Required scopes: `projects`*
 
-### projects.list [GET /projects.list]
+### projects.list [POST /projects.list]
 
 Get a list of projects.
 
@@ -4012,7 +4005,7 @@ Get a list of projects.
                     + forecasted (Money, nullable) - A prediction of the spent budget upon project completion. This is null if there is not enough data to calculate
 
 
-### projects.info [GET /projects.info]
+### projects.info [POST /projects.info]
 
 Get details for a single project.
 
@@ -4232,7 +4225,7 @@ Every projects consists of one or more milestones which are limited in time and 
 
 *Required scopes: `projects`*
 
-### milestones.list [GET /milestones.list]
+### milestones.list [POST /milestones.list]
 
 Get a list of project milestones.
 
@@ -4307,7 +4300,7 @@ Get a list of project milestones.
                     + allocated (Money, nullable) - The amount of money still expected to be spent. This is null if there is not enough data to calculate
                     + forecasted (Money, nullable) - A prediction of the spent budget upon milestone completion. This is null if there is not enough data to calculate
 
-### milestones.info [GET /milestones.info]
+### milestones.info [POST /milestones.info]
 
 Get details for a single milestone.
 
@@ -4450,7 +4443,7 @@ Close a milestone. All open tasks will be closed, open meetings will remain open
 
 ## Tasks [/tasks]
 
-### tasks.list [GET /tasks.list]
+### tasks.list [POST /tasks.list]
 
 Get a list of tasks.
 
@@ -4530,7 +4523,7 @@ Get a list of tasks.
                     + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
                 + priority (Priority)
 
-### tasks.info [GET /tasks.info]
+### tasks.info [POST /tasks.info]
 
 Get information about a task.
 
@@ -4712,7 +4705,7 @@ Schedule a task in your calendar.
 
 Time tracking allows users to record time spent on tasks or projects and the type of work. You are able to follow-up on the budgets of your projects and eventually you are able to invoice the billable time.
 
-### timeTracking.list [GET /timeTracking.list]
+### timeTracking.list [POST /timeTracking.list]
 
 Get a list of tracked time.
 
@@ -4793,7 +4786,7 @@ Get a list of tracked time.
                     + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
                 + invoiceable: true (boolean)
 
-### timeTracking.info [GET /timeTracking.info]
+### timeTracking.info [POST /timeTracking.info]
 
 Get information about tracked time.
 
@@ -4937,7 +4930,7 @@ Delete a tracked time.
 
 Timers are an easy way to track time. You can start, stop or resume a timer any time. However, only one timer can run simultaneously per user. Every action will result in the creation or update of a time tracking.
 
-### timers.current [GET /timers.current]
+### timers.current [POST /timers.current]
 
 Get the current running timer.
 
@@ -5034,7 +5027,7 @@ Update the current timer. Only possible if there is a timer running.
 
 ## Files [/files]
 
-### files.list [GET /files.list]
+### files.list [POST /files.list]
 
 Get a list of files.
 
@@ -5094,7 +5087,7 @@ Get a list of files.
                 + uploaded_by (User, nullable)
                 + folder : `Documents` (string)
 
-### files.info [GET /files.info]
+### files.info [POST /files.info]
 
 Get details for a single file.
 
@@ -5190,7 +5183,7 @@ Delete a file.
 WARNING! These endpoints are not guaranteed to stay backwards compatible.
 Their only use is to allow older integrations to migrate their data to the new API.
 
-### migrate.id [GET /migrate.id]
+### migrate.id [POST /migrate.id]
 
 Translates an ID from the deprecated API into a new UUID.
 
@@ -5242,7 +5235,7 @@ Translates an ID from the deprecated API into a new UUID.
                     + quotation
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
-### migrate.taxRate [GET /migrate.taxRate]
+### migrate.taxRate [POST /migrate.taxRate]
 
 Translates tax rates from the deprecated API into a new UUID tax rate.
 
@@ -5259,7 +5252,7 @@ Translates tax rates from the deprecated API into a new UUID tax rate.
             + type: `taxRate` (string)
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
-### migrate.activityType [GET /migrate.activityType]
+### migrate.activityType [POST /migrate.activityType]
 
 Translates "meeting", "call" and "task" into their respective activity type UUID.
 
@@ -5291,7 +5284,7 @@ Register a new webhook.
 
 + Response 204
 
-### webhooks.list [GET /webhooks.list]
+### webhooks.list [POST /webhooks.list]
 
 List registered webhooks ordered by URL.
 
