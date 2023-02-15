@@ -1385,10 +1385,13 @@ Get a list of contacts.
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + primary_address (AddressResponse)
-                + gender: `male` (enum)
+                + gender: `unknown` (enum)
                     + Members
-                        + male
                         + female
+                        + male
+                        + non_binary
+                        + prefers_not_to_say
+                        + unknown
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
@@ -1441,10 +1444,13 @@ Get details for a single contact.
                             + delivery
                             + visiting
                     + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
-            + gender: `male` (enum)
+            + gender: `unknown` (enum)
                 + Members
-                    + male
                     + female
+                    + male
+                    + non_binary
+                    + prefers_not_to_say
+                    + unknown
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
@@ -1498,10 +1504,13 @@ Add a new contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum, optional)
+        + gender: `unknown` (enum)
             + Members
-                + male
                 + female
+                + male
+                + non_binary
+                + prefers_not_to_say
+                + unknown
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
@@ -1547,10 +1556,13 @@ Update a contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum, optional, nullable)
+        + gender: `unknown` (enum)
             + Members
-                + male
                 + female
+                + male
+                + non_binary
+                + prefers_not_to_say
+                + unknown
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
