@@ -12,28 +12,22 @@ Get a list of invoices.
 
     + Attributes (object)
         + filter (object, optional)
-            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
-            + term: `Interesting invoice` (string, optional) - Filters on invoice number, purchase order number, payment reference and invoicee
-            + department (object)
-                + type: `department` (string)
-                + id: `7cd1119c-e118-4b25-ac2c-aa92bacf5fd5` (string)
-            + deal (object, nullable)
-                + type: `deal` (string)
-                + id: `a8ef428a-0e70-48a5-8696-58be0c45a772` (string)
-            + project (object, nullable)
-                + type: `project` (string)
-                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
-            + status (array[enum], optional) - The statuses you want to filter by.
+            + `ids`: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
+            + `term`: `Interesting invoice` (string, optional) - Filters on invoice number, purchase order number, payment reference and invoicee
+            + `department_id`: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional) - Filters on a department (company entity)
+            + `deal_id`: `4a219dae-7b80-4c79-97d2-bdadbab299ba` (string, optional) - Filters on a deal
+            + `project_id`: `ba7d9731-c7d0-43d3-af95-fd7b3e818dbc` (string, optional) - Filters on a project
+            + `status` (array[enum], optional) - The statuses you want to filter by.
                 + Members
                     + draft
                     + outstanding
                     + matched
-            + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
-            + purchase_order_number: `000023` (string, optional)
-            + payment_reference: `+++084/2613/66074+++` (string, optional)
-            + invoice_date_after: `2020-01-01` (string, optional) - This date is inclusive
-            + invoice_date_before: `2021-12-31` (string, optional) - This date is inclusive
-            + customer (object, optional)
+            + `updated_since`: `2016-02-04T16:44:33+00:00` (string, optional)
+            + `purchase_order_number`: `000023` (string, optional)
+            + `payment_reference`: `+++084/2613/66074+++` (string, optional)
+            + `invoice_date_after`: `2020-01-01` (string, optional) - This date is inclusive
+            + `invoice_date_before`: `2021-12-31` (string, optional) - This date is inclusive
+            + `customer` (object, optional)
                 + type (enum, required)
                     + Members
                         + company
