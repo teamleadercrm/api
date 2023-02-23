@@ -422,6 +422,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### February 2023
+- Product custom fields are now included as `custom_fields` on `products.info`.
+
 ### January 2023
 
 - We added `user_id` to `timeTracking.add`.
@@ -3886,6 +3889,7 @@ Get details for a single product.
             + code: `COOK-DARKCHOC-42` (string, nullable)
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
             + selling_price (Money, nullable)
+            + custom_fields (array[CustomField])
 
 ### products.add [POST /products.add]
 
