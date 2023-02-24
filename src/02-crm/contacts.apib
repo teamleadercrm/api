@@ -61,7 +61,7 @@ Get a list of contacts.
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + primary_address (AddressResponse)
-                + gender: `unknown` (enum)
+                + gender: `unknown` (enum, nullable)
                     + Members
                         + female
                         + male
@@ -120,7 +120,7 @@ Get details for a single contact.
                             + delivery
                             + visiting
                     + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
-            + gender: `unknown` (enum)
+            + gender: `unknown` (enum, nullable)
                 + Members
                     + female
                     + male
@@ -180,7 +180,7 @@ Add a new contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `unknown` (enum)
+        + gender: `unknown` (enum, optional)
             + Members
                 + female
                 + male
@@ -232,7 +232,7 @@ Update a contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `unknown` (enum)
+        + gender: `unknown` (enum, optional)
             + Members
                 + female
                 + male
