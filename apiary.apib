@@ -422,7 +422,12 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### March 2023
+
+- We added `credit_note_date_before` and `credit_note_date_after` to the filters on `creditNotes.list`.
+
 ### February 2023
+
 - Product custom fields are now included as `custom_fields` on `products.info`.
 
 ### January 2023
@@ -3328,6 +3333,8 @@ List credit notes
                         + company
                         + contact
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + `credit_note_date_after`: `2022-01-01` (string, optional) - This date is inclusive
+            + `credit_note_date_before`: `2023-01-01` (string, optional) - This date is exclusive
         + page (Page, optional)
         + sort (array, optional)
             + (object)
