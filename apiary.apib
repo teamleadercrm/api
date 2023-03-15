@@ -427,6 +427,11 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `credit_note_date_before` and `credit_note_date_after` to the filters on `creditNotes.list`.
 - We added `ids` to the filters on `timeTrackings.list`.
 - We added `term` to the filters on `teams.list`.
+- The property `gender` has been expanded with additional values on:
+  - `contacts.create`
+  - `contacts.info`
+  - `contacts.list`
+  - `contacts.update`
 
 ### February 2023
 
@@ -1385,10 +1390,13 @@ Get a list of contacts.
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + primary_address (AddressResponse)
-                + gender: `male` (enum)
+                + gender: `unknown` (enum, nullable)
                     + Members
-                        + male
                         + female
+                        + male
+                        + non_binary
+                        + prefers_not_to_say
+                        + unknown
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
@@ -1441,10 +1449,13 @@ Get details for a single contact.
                             + delivery
                             + visiting
                     + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
-            + gender: `male` (enum)
+            + gender: `unknown` (enum, nullable)
                 + Members
-                    + male
                     + female
+                    + male
+                    + non_binary
+                    + prefers_not_to_say
+                    + unknown
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
@@ -1498,10 +1509,13 @@ Add a new contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum, optional)
+        + gender: `unknown` (enum, optional, nullable)
             + Members
-                + male
                 + female
+                + male
+                + non_binary
+                + prefers_not_to_say
+                + unknown
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
@@ -1547,10 +1561,13 @@ Update a contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum, optional, nullable)
+        + gender: `unknown` (enum, optional, nullable)
             + Members
-                + male
                 + female
+                + male
+                + non_binary
+                + prefers_not_to_say
+                + unknown
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
