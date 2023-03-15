@@ -427,6 +427,11 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `credit_note_date_before` and `credit_note_date_after` to the filters on `creditNotes.list`.
 - We added `ids` to the filters on `timeTrackings.list`.
 - We added `term` to the filters on `teams.list`.
+- The property `gender` has been expanded with additional values on:
+  - `contacts.create`
+  - `contacts.info`
+  - `contacts.list`
+  - `contacts.update`
 
 ### February 2023
 
@@ -1385,7 +1390,7 @@ Get a list of contacts.
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + primary_address (AddressResponse)
-                + gender: `unknown` (enum)
+                + gender: `unknown` (enum, nullable)
                     + Members
                         + female
                         + male
@@ -1444,7 +1449,7 @@ Get details for a single contact.
                             + delivery
                             + visiting
                     + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
-            + gender: `unknown` (enum)
+            + gender: `unknown` (enum, nullable)
                 + Members
                     + female
                     + male
@@ -1504,7 +1509,7 @@ Add a new contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `unknown` (enum)
+        + gender: `unknown` (enum, optional)
             + Members
                 + female
                 + male
@@ -1556,7 +1561,7 @@ Update a contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `unknown` (enum)
+        + gender: `unknown` (enum, optional)
             + Members
                 + female
                 + male
