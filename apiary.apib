@@ -426,6 +426,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `credit_note_date_before` and `credit_note_date_after` to the filters on `creditNotes.list`.
 - We added `ids` to the filters on `timeTrackings.list`.
+- We added `term` to the filters on `teams.list`.
 
 ### February 2023
 
@@ -1155,6 +1156,10 @@ Get details for a single user.
 ### teams.list [POST /teams.list]
 
 + Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + term: `Designers` (string, optional) - Filters on name
 
 + Response 200 (application/json)
     + Attributes (object)
