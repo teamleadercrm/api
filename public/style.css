@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "proximanova";
+    src: url("https://focus.teamleader.eu/images/fonts/proximanova-reg-webfont.woff") format("woff")
+}
+@font-face {
+    font-family: "proximanova";
+    src: url("https://focus.teamleader.eu/images/fonts/proximanova-sbold-webfont.woff") format("woff");
+    font-weight: 700
+}
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+body {
+    font: 100%/1.5 "proximanova", trebuchet ms, Verdana, Arial, Helvetica, sans-serif;
+}
+header {
+    position: relative;
+    padding: 10px 20px;
+    background: #00aca9;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .2);
+    font-weight: 300;
+}
+header:after {
+    content: '';
+    background: url("https://marketplace.teamleader.eu/61a23995e69719a69e444c2266197830.png");
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: 0;
+}
+header .pipe {
+    display: inline-block;
+    padding: 0 .5em;
+    color: rgba(255, 255, 255, 0.3);
+}
+header span {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+}
