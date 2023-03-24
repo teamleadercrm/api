@@ -5,9 +5,19 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### March 2023
+
 - We added `customField`,`timeTracking` and `department` as allowed types on `migrate.id`.
+- We added `credit_note_date_before` and `credit_note_date_after` to the filters on `creditNotes.list`.
+- We added `ids` to the filters on `timeTrackings.list`.
+- We added `term` to the filters on `teams.list`.
+- The property `gender` has been expanded with additional values on:
+  - `contacts.create`
+  - `contacts.info`
+  - `contacts.list`
+  - `contacts.update`
 
 ### February 2023
+
 - Product custom fields are now included as `custom_fields` on `products.info`.
 
 ### January 2023

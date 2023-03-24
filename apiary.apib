@@ -423,9 +423,19 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### March 2023
+
 - We added `customField`,`timeTracking` and `department` as allowed types on `migrate.id`.
+- We added `credit_note_date_before` and `credit_note_date_after` to the filters on `creditNotes.list`.
+- We added `ids` to the filters on `timeTrackings.list`.
+- We added `term` to the filters on `teams.list`.
+- The property `gender` has been expanded with additional values on:
+  - `contacts.create`
+  - `contacts.info`
+  - `contacts.list`
+  - `contacts.update`
 
 ### February 2023
+
 - Product custom fields are now included as `custom_fields` on `products.info`.
 
 ### January 2023
@@ -1153,6 +1163,10 @@ Get details for a single user.
 
 + Request (application/json)
 
+    + Attributes (object)
+        + filter (object, optional)
+            + term: `Designers` (string, optional) - Filters on name
+
 + Response 200 (application/json)
     + Attributes (object)
         + data (array)
@@ -1377,10 +1391,13 @@ Get a list of contacts.
                 + telephones (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + primary_address (AddressResponse)
-                + gender: `male` (enum)
+                + gender: `unknown` (enum, nullable)
                     + Members
-                        + male
                         + female
+                        + male
+                        + non_binary
+                        + prefers_not_to_say
+                        + unknown
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
@@ -1433,10 +1450,13 @@ Get details for a single contact.
                             + delivery
                             + visiting
                     + address (AddressWithAddresseeResponse) - Primary addresses can not contain an addressee
-            + gender: `male` (enum)
+            + gender: `unknown` (enum, nullable)
                 + Members
-                    + male
                     + female
+                    + male
+                    + non_binary
+                    + prefers_not_to_say
+                    + unknown
             + birthdate: `1987-04-25` (string)
             + iban: `BE12123412341234` (string)
             + bic: `BICBANK` (string)
@@ -1490,10 +1510,13 @@ Add a new contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum, optional)
+        + gender: `unknown` (enum, optional, nullable)
             + Members
-                + male
                 + female
+                + male
+                + non_binary
+                + prefers_not_to_say
+                + unknown
         + birthdate: `1989-08-19` (string, optional)
         + iban: `BE12123412341234` (string, optional)
         + bic: `BICBANK` (string, optional)
@@ -1539,10 +1562,13 @@ Update a contact.
                         + visiting
                 + address (AddressWithAddresseeRequest, required) - Primary addresses can not contain an addressee
         + language: `en` (string, optional)
-        + gender: `male` (enum, optional, nullable)
+        + gender: `unknown` (enum, optional, nullable)
             + Members
-                + male
                 + female
+                + male
+                + non_binary
+                + prefers_not_to_say
+                + unknown
         + birthdate: `1989-08-19` (string, optional, nullable)
         + iban: `BE12123412341234` (string, optional, nullable)
         + bic: `BICBANK` (string, optional, nullable)
@@ -2889,7 +2915,7 @@ Get a list of invoices.
             + `purchase_order_number`: `000023` (string, optional)
             + `payment_reference`: `+++084/2613/66074+++` (string, optional)
             + `invoice_date_after`: `2020-01-01` (string, optional) - This date is inclusive
-            + `invoice_date_before`: `2021-12-31` (string, optional) - This date is inclusive
+            + `invoice_date_before`: `2022-01-01` (string, optional) - This date is exclusive
             + `customer` (object, optional)
                 + type (enum, required)
                     + Members
@@ -3331,6 +3357,8 @@ List credit notes
                         + company
                         + contact
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + `credit_note_date_after`: `2022-01-01` (string, optional) - This date is inclusive
+            + `credit_note_date_before`: `2023-01-01` (string, optional) - This date is exclusive
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -4714,6 +4742,7 @@ Get a list of tracked time.
 
     + Attributes (object)
         + filter (object, optional)
+            + ids: `4f4288b2-c21b-4dac-87f6-a97511309079`,`d8b178d2-aaa5-014e-bc24-57371c90044e`, (array[string], optional)
             + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional)
             + started_after: `2017-04-26T10:01:49+00:00` (string, optional) - Start of the period for which to return time tracking. This includes time tracking that started on the date provided.
             + started_before: `2017-04-26T10:01:49+00:00` (string, optional) - End of the period for which to return time tracking. This includes time tracking that started on the date provided.
