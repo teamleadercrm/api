@@ -422,6 +422,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### March 2023
+- We added `customField`,`timeTracking` and `department` as allowed types on `migrate.id`.
+
 ### February 2023
 - Product custom fields are now included as `custom_fields` on `products.info`.
 
@@ -5209,7 +5212,6 @@ Translates an ID from the deprecated API into a new UUID.
                 + subscription
                 + quotation
                 + timeTracking
-                + deliveryNote
                 + customField
         + id: `1` (number)
 
@@ -5237,7 +5239,6 @@ Translates an ID from the deprecated API into a new UUID.
                     + subscription
                     + quotation
                     + timeTracking
-                    + deliveryNote
                     + customField
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
