@@ -14,6 +14,7 @@ Translates an ID from the deprecated API into a new UUID.
             + Members
                 + account
                 + user
+                + department
                 + product
                 + contact
                 + company
@@ -29,6 +30,8 @@ Translates an ID from the deprecated API into a new UUID.
                 + creditNote
                 + subscription
                 + quotation
+                + timeTracking
+                + customFieldDefinition
         + id: `1` (number)
 
 + Response 200 (application/json)
@@ -39,6 +42,7 @@ Translates an ID from the deprecated API into a new UUID.
                 + Members
                     + account
                     + user
+                    + department
                     + product
                     + contact
                     + company
@@ -53,6 +57,8 @@ Translates an ID from the deprecated API into a new UUID.
                     + creditNote
                     + subscription
                     + quotation
+                    + timeTracking
+                    + customField
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
 ### migrate.taxRate [POST /migrate.taxRate]

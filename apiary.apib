@@ -424,6 +424,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### March 2023
 
+- We added `customField`,`timeTracking` and `department` as allowed types on `migrate.id`.
 - We added `credit_note_date_before` and `credit_note_date_after` to the filters on `creditNotes.list`.
 - We added `ids` to the filters on `timeTrackings.list`.
 - We added `term` to the filters on `teams.list`.
@@ -5223,6 +5224,7 @@ Translates an ID from the deprecated API into a new UUID.
             + Members
                 + account
                 + user
+                + department
                 + product
                 + contact
                 + company
@@ -5238,6 +5240,8 @@ Translates an ID from the deprecated API into a new UUID.
                 + creditNote
                 + subscription
                 + quotation
+                + timeTracking
+                + customFieldDefinition
         + id: `1` (number)
 
 + Response 200 (application/json)
@@ -5248,6 +5252,7 @@ Translates an ID from the deprecated API into a new UUID.
                 + Members
                     + account
                     + user
+                    + department
                     + product
                     + contact
                     + company
@@ -5262,6 +5267,8 @@ Translates an ID from the deprecated API into a new UUID.
                     + creditNote
                     + subscription
                     + quotation
+                    + timeTracking
+                    + customField
             + id: `6ad54ec6-ee2d-4500-afe6-0917c1aa7a38` (string)
 
 ### migrate.taxRate [POST /migrate.taxRate]
