@@ -422,7 +422,7 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
-### May 2023
+#### May 2023
 - We added `team_lead_id` to the filters on `teams.list`.
 
 #### April 2023
@@ -441,28 +441,28 @@ We list all backwards-compatible additions here. These are currently available i
   - `contacts.list`
   - `contacts.update`
 
-### February 2023
+#### February 2023
 
 - Product custom fields are now included as `custom_fields` on `products.info`.
 
-### January 2023
+#### January 2023
 
 - We added `user_id` to `timeTracking.add`.
 - We updated the HTTP verb for all endpoints to `POST`. Using `GET ` for `.list`, `.info` and `migrate` endpoints is still possible, but deprecated.
 
-### December 2022
+#### December 2022
 
 - We added `secondary_position` and `division` to the related company data on `contacts.info`.
 
-### November 2022
+#### November 2022
 
 - We added `invoice_date` as a sort field on `invoices.list`.
 
-### October 2022
+#### October 2022
 
 - We added `default_department` and `created_at` to the sorting options on `departments.list`.
 
-### September 2022
+#### September 2022
 
 - We added `project_id` to `invoices.draft` and `invoices.update`.
 - We added `payment_term`, `grouped_lines` and `invoice_generation` to `subscriptions.info`.
@@ -471,42 +471,42 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `quotations.send` endpoint.
 - We clarified how the optional `folder` argument for the `files.upload` endpoint works.
 
-### August 2022
+#### August 2022
 
 - We added `invoices.removePayments`.
 - We added `department_id` to the filters on `subscriptions.list`.
 - We added `tags` to `companies.update`.
 
-### July 2022
+#### July 2022
 
 - We added `product` and `project` as subject type for `files.list`.
 - We added `priority` to `tasks.list` and `tasks.info`.
 - We added `vat_number` to the filters on `companies.list`.
 
-### June 2022
+#### June 2022
 
 - We added `files.list`, `files.info`, `files.download`, `files.upload` and `files.delete`.
 
-### May 2022
+#### May 2022
 
 - We added `status` as a sort field on `subscriptions.list`.
 
-### April 2022
+#### April 2022
 
 - We added the `contacts.updateCompanyLink` endpoint.
 - We added the `subscriptions.deactivate` endpoint.
 
-### March 2022
+#### March 2022
 
 - We added the `subscriptions.info` and `subscriptions.list` endpoints.
 
-### February 2022
+#### February 2022
 
 - We added `customer` to the filters on `invoices.list`.
 - We added a `subscription` filter to `invoices.list`.
 - We added `project` to `invoices.list` and `invoices.info`.
 
-### December 2021
+#### December 2021
 
 - We added `on_hold_since` to `invoices.info`.
 - We added `deal_id` to the filters on `invoices.list`.
@@ -514,7 +514,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `invoice_date_before` and `invoice_date_after` to the filters on `invoices.list`.
 - We added an `updated_since` filter to `projects.list`.
 
-### November 2021
+#### November 2021
 
 - We added `status` on `companies.list` and `companies.info`.
 - We added `status` on `contacts.list` and `contacts.info`.
@@ -524,12 +524,12 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `added_at` on `products.list`, and `tasks.list`.
 - We added `created_at` on `projects.list`.
 
-### September 2021
+#### September 2021
 
 - We added `sort` to `timeTracking.list`.
 - We added `teams.list`.
 
-### June 2021
+#### June 2021
 
 - We added `description` on `products.add`.
 - We added `title` on `tasks.info` and `tasks.list`.
@@ -539,15 +539,15 @@ We list all backwards-compatible additions here. These are currently available i
 - We changed the behaviour of the started_before, started_after, ended_before, and ended_after filters on timeTracking.list to be inclusive. So "started after midnight" will include time tracking that started exactly on midnight.
 - We added `status` to `quotations.info` and `quotations.list`.
 
-### March 2021
+#### March 2021
 
 - Updated the `migrate.id` endpoint for type `quotation` to return the first or accepted quotation uuid for given deal id.
 
-### January 2021
+#### January 2021
 
 - We added `deal` on `invoices.list` and `invoices.info`.
 
-### October 2020
+#### October 2020
 
 - We added `title` as a sort field on `projects.list`.
 - We added `area_level_two` to the .list and .info responses for `company`, `contact` and `department` addresses.
@@ -559,7 +559,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `file` to `invoices.list` and `invoices.info`.
 - We added `quotations.accept` endpoint.
 
-### September 2020
+#### September 2020
 
 - We added the `milestones.close` and `milestones.open` endpoints.
 - We added the `created_at` and `updated_at` fields to `quotations.list` and `quotations.info`. Please note that these fields are nullable and will only be filled in for future quotations.
@@ -567,17 +567,17 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `purchase_price` field to `quotations.list`, `quotations.info`, `quotations.create` and `quotations.update`.
 - We added `projects.close` and `projects.reopen` endpoints.
 
-### August 2020
+#### August 2020
 
 - We added a filter `done` to `events.list`.
 - We added the `currency_exchange_rate` to `invoices.list`.
 - We added the `product_id` property to `quotations.create`, `quotations.update`, `invoices.draft` and `invoices.update`.
 
-### July 2020
+#### July 2020
 
 - We added `quotations.list`, `quotations.create` and `quotations.update`.
 
-### June 2020
+#### June 2020
 
 - We added the `emails` property to `departments.list`.
 - We added the `status` property to `departments.info` and `departments.list`, this property is also available as a filter on `departments.list`.
