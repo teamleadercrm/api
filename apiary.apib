@@ -422,9 +422,12 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### May 2023
+- We added `team_lead_id` to the filters on `teams.list`.
+
 #### April 2023
 
-- We added `ids` to the filters on `teams.list`
+- We added `ids` to the filters on `teams.list`.
 
 ### March 2023
 
@@ -1171,6 +1174,7 @@ Get details for a single user.
         + filter (object, optional)
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
             + term: `Designers` (string, optional) - Filters on name
+            + team_lead_id: `6a9106c3-ed2a-46a2-a919-eb3d41165dd2` (string) - Filters on teams for which a user is team lead for
 
 + Response 200 (application/json)
     + Attributes (object)
