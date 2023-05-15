@@ -65,14 +65,20 @@ Get a list of all users.
             + (object)
                 + field (enum, required)
                     + Members
-                        + name
+                        + first_name
+                        + last_name
                 + order (enum, optional)
                     + Members
                         + asc
+                        + desc
             + Default
-                + (object)
-                    + field: `name`
-                    + order: `asc`
+                + (array)
+                    + (object)
+                        + field: `first_name`
+                        + order: `asc`
+                    + (object)
+                        + field: `last_name`
+                        + order: `asc`
         + page (Page, optional)
 
 + Response 200 (application/json)
