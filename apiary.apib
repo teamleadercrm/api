@@ -426,6 +426,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 - We added `team_lead_id` to the filters on `teams.list`.
 - We added sorting on `first_name`, `last_name`, `email` and `function` to `users.list`.
+- We added `creditNote.updated`, `creditNote.deleted`, `creditNote.sent` types to supported Webhook types.
 
 #### April 2023
 
@@ -5496,6 +5497,9 @@ Unregister a webhook.
         + contact.unlinkedFromCompany
         + contact.updated
         + creditNote.booked
+        + creditNote.updated
+        + creditNote.deleted
+        + creditNote.sent
         + deal.created
         + deal.deleted
         + deal.lost
