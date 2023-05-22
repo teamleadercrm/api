@@ -62,6 +62,8 @@ Add a new product.
         + description (string, optional) - The description of the product in Markdown
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
+        + tax_rate_id: `23097774-e51e-0371-9b42-98ef8ca8bbb6` (string, optional) - Tax Rate UUID to be assigned to the product
+        + department_id: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional) - Department UUID to be used when fetching Tax Rate (if not present, account's default department will be used)
 
 + Response 201 (application/json)
 
