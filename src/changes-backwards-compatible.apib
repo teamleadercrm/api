@@ -4,6 +4,11 @@
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### June 2023
+
+- We enhanced the existing filter on `term` in `users.list`.
+  In addition to returning the users who have the term in their first name, last name or email address, we now also return those users who have the term in their function.
+
 #### May 2023
 
 - We added `team_lead_id` to the filters on `teams.list`.
