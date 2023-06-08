@@ -2558,6 +2558,9 @@ Get a quotation
                     + accepted
                     + rejected
                     + closed
+            + document_template (object)
+                + type: `documentTemplate` (string)
+                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
 
 ### quotations.download [POST /quotations.download]
 
@@ -2610,6 +2613,7 @@ Create a quotation.
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 201 (application/json)
 
@@ -2701,6 +2705,7 @@ Update a quotation.
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 204
 
