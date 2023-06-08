@@ -1,0 +1,21 @@
+## Commercial Discounts [/commercialDiscounts]
+
+### commercialDiscounts.list [POST /commercialDiscounts.list]
+
+Get a list of commercial discounts.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + name: `My holiday discount` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string)
