@@ -1,6 +1,6 @@
 ## Document Templates [/documentTemplates]
 
-### documentTemplates.list [GET /documentTemplates.list]
+### documentTemplates.list [POST /documentTemplates.list]
 
 Get a list of all document templates.
 
@@ -42,7 +42,7 @@ Get a list of all document templates.
                         + timetracking_report
                         + workorder
                 + is_default: true (boolean)
-                + name: `new logo` (string, nullable)
+                + name: `new logo` (string)
                 + status: `active` (enum[string])
                     + Members
                         + active
