@@ -427,6 +427,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We enhanced the existing filter on `term` in `users.list`.
   In addition to returning the users who have the term in their first name, last name or email address, we now also return those users who have the term in their function.
 - We added the `commercialDiscounts.list` endpoint.
+- We added the `documentTemplates.list` endpoint.
 
 #### May 2023
 
@@ -1351,6 +1352,56 @@ Get a list of all work types, sorted alphabetically (on their name).
             + (object)
                 + id: `811a5825-96f4-4318-83c3-2840935c6003` (string)
                 + name: `Planning` (string)
+
+## Document Templates [/documentTemplates]
+
+### documentTemplates.list [POST /documentTemplates.list]
+
+Get a list of all document templates.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + department_id: `a344c251-2494-0013-b433-ccee8e8435e5` (string, required)
+            + document_type: `invoice` (enum[string], required)
+                + Members
+                    + delivery_note
+                    + invoice
+                    + order
+                    + order_confirmation
+                    + quotation
+                    + timetracking_report
+                    + workorder
+            + status (array[enum], optional) - Filters on status
+                + Members
+                    + active - Filters on active
+                    + archived - Filters on archived
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + department (object)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + document_type: `invoice` (enum[string])
+                    + Members
+                        + delivery_note
+                        + invoice
+                        + order
+                        + order_confirmation
+                        + quotation
+                        + timetracking_report
+                        + workorder
+                + is_default: true (boolean)
+                + name: `new logo` (string)
+                + status: `active` (enum[string])
+                    + Members
+                        + active
+                        + archived
 
 # Group CRM
 
@@ -2509,6 +2560,9 @@ Get a quotation
                     + accepted
                     + rejected
                     + closed
+            + document_template (object)
+                + type: `documentTemplate` (string)
+                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
 
 ### quotations.download [POST /quotations.download]
 
@@ -2561,6 +2615,7 @@ Create a quotation.
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 201 (application/json)
 
@@ -2652,6 +2707,7 @@ Update a quotation.
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 204
 
@@ -3146,6 +3202,9 @@ Get details for a single invoice.
             + custom_fields (array[CustomField])
             + created_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
+            + document_template (object)
+                + type: `documentTemplate` (string)
+                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
 
 ### invoices.download [POST /invoices.download]
 
@@ -3215,8 +3274,9 @@ Draft a new invoice.
         + invoice_date: `2016-02-04` (string, optional)
         + discounts (array[CommercialDiscount], optional)
         + note: `Invoice comments` (string, optional)
-        + expected_payment_method (ExpectedPaymentMethod, optional)
+        + expected_payment_method (ExpectedPaymentMethod, optional).
         + custom_fields (array[CustomFieldValue], optional)
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 201 (application/json)
 
@@ -3275,6 +3335,7 @@ Update a draft invoice. Booked invoices cannot be updated.
         + discounts (array[CommercialDiscount], optional)
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 204
 
@@ -3521,6 +3582,9 @@ Get details for a single credit note
                     + rate: 1.1234 (number)
                 + created_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + document_template (object)
+                    + type: `documentTemplate` (string)
+                    + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
 
 ### creditNotes.download [POST /creditNotes.download]
 
