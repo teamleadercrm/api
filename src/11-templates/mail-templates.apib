@@ -1,0 +1,44 @@
+## Mail Templates [/mailTemplates]
+
+### mailTemplates.list [GET /mailTemplates.list]
+
+Get a list of all mail templates.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + department_id: `a344c251-2494-0013-b433-ccee8e8435e5` (string, optional)
+            + type: `invoice` (enum[string], required)
+                + Members
+                    + invoice
+                    + quotation
+                    + work_order
+                    + invoice_thank_you_message
+                    + credit_note
+                    + meeting_invitation
+                    + general
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + department (object, nullable)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + name: `Send link in english` (string)
+                + content(object)
+                    + subject: `Link for document` (string)
+                    + body: `#LINK \n<link> Thank you for using our services` (string)
+                + language: `en` (string)
+                + type: `invoice` (enum[string])
+                    + Members
+                        + invoice
+                        + quotation
+                        + work_order
+                        + invoice_thank_you_message
+                        + credit_note
+                        + meeting_invitation
+                        + general
