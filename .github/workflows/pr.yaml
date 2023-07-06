@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 9
-          cache: "npm"
+          cache: npm
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "2.7"
       - name: lint
         run: npm install && npm run build && npm run lint
