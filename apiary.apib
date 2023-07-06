@@ -425,6 +425,7 @@ We list all backwards-compatible additions here. These are currently available i
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
 - We added `status` to the filters on `companies.list`.
+- We added a `mailTemplates.list` endpoint.
 
 #### June 2023
 
@@ -5329,6 +5330,47 @@ Delete a file.
         + id: `4afb0a9c-91c6-49ed-a2e5-ce7c1e3a87fb` (string, required)
 
 + Response 204
+
+# Group Templates
+
+## Mail Templates [/mailTemplates]
+
+### mailTemplates.list [GET /mailTemplates.list]
+
+Get a list of all mail templates.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + department_id: `a344c251-2494-0013-b433-ccee8e8435e5` (string, optional)
+            + type: `invoice` (enum[string], required)
+                + Members
+                    + invoice
+                    + quotation
+                    + work_order
+                    + credit_note
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + department (object, nullable)
+                    + type: `department` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + name: `Send link in english` (string)
+                + content(object)
+                    + subject: `Link for document` (string)
+                    + body: `#LINK \n<link> Thank you for using our services` (string)
+                + language: `en` (string)
+                + type: `invoice` (enum[string])
+                    + Members
+                        + invoice
+                        + quotation
+                        + work_order
+                        + credit_note
 
 # Group Other
 
