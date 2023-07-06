@@ -423,6 +423,8 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### July 2023
+- We added `status` to the filters on `contacts.list`.
+- We added `status` to the filters on `companies.list`.
 - We added a `mailTemplates.list` endpoint.
 
 #### June 2023
@@ -1432,6 +1434,10 @@ Get a list of contacts.
             + term: `James` (string, optional) - Filters on first_name, last_name, email and telephone
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`prospect` (array[string], optional) - Filters on contacts coupled to all given tags
+            + status: `active` (enum, optional)
+                + Members
+                    + active
+                    + deactivated
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1759,6 +1765,10 @@ Get a list of companies.
             + updated_since: `2016-02-04T16:44:33+00:00` (string, optional)
             + tags: `expo`,`lead` (array[string], optional) - Filters on tag names
             + vat_number: `BE 0899.623.035` (string, optional)
+            + status: `active` (enum, optional)
+                + Members
+                    + active
+                    + deactivated
         + page (Page, optional)
         + sort (array, optional)
             + (object)
