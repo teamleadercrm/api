@@ -426,6 +426,9 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `status` to the filters on `contacts.list`.
 - We added `status` to the filters on `companies.list`.
 - We added a `mailTemplates.list` endpoint.
+- We added a `unitsOfMeasure.list` endpoint.
+- We added `unit` on `grouped_lines` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`
+- We added `unit_of_measure_id` on `grouped_lines` to `invoices.draft`, `invoices.update`, `subscriptions.create`, `subscriptions.update`, `quotations.create` and `quotations.update`.
 
 #### June 2023
 
@@ -2532,6 +2535,9 @@ Get a quotation
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
                             + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                            + unit (object, nullable)
+                                + type: `unitOfMeasure` (string)
+                                + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum)
@@ -2613,6 +2619,7 @@ Create a quotation.
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
+                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
                             + Include Money
                             + tax: `excluding` (enum, required)
@@ -2705,6 +2712,7 @@ Update a quotation.
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
+                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
                             + Include Money
                             + tax: `excluding` (enum, required)
@@ -3151,6 +3159,9 @@ Get details for a single invoice.
                             + quantity: 3 (number)
                             + description: `An awesome product` (string)
                             + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
+                            + unit (object, nullable)
+                                + type: `unitOfMeasure` (string)
+                                + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                             + unit_price (object)
                                 + Include Money
                                 + tax: `excluding` (enum)
@@ -3270,6 +3281,7 @@ Draft a new invoice.
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
+                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
                             + Include Money
                             + tax: `excluding` (enum, required)
@@ -3329,6 +3341,7 @@ Update a draft invoice. Booked invoices cannot be updated.
                         + quantity: `3` (number, required)
                         + description: `An awesome product` (string, required)
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
+                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object)
                             + Include Money
                             + tax: `excluding` (enum)
@@ -3571,6 +3584,9 @@ Get details for a single credit note
                                 + quantity: `3` (number)
                                 + description: `An awesome product` (string)
                                 + extended_description: `Some more information about this awesome product` (string) - Uses Markdown formatting
+                                + unit (object, nullable)
+                                    + type: `unitOfMeasure` (string)
+                                    + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                                 + unit_price (object)
                                     + Include Money
                                     + tax: `excluding` (enum)
@@ -4070,6 +4086,21 @@ Add a new product.
         + data (object)
             + type: `product` (string)
             + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
+
+# Units of Measure [/unitsOfMeasure]
+
+### unitsOfMeasure.list [GET /unitsOfMeasure.list]
+
+Get a list of units of measure.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + `data` (array)
+            + (object)
+                + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string)
+                + name: `kg` (string)
 
 # Group Projects
 
@@ -5800,6 +5831,7 @@ Unregister a webhook.
 + quantity: `3` (number, required)
 + description: `An awesome product` (string, required)
 + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
++ unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
 + unit_price (object, required)
     + Include Money
     + tax: `excluding` (enum, required)
@@ -5862,6 +5894,9 @@ Unregister a webhook.
         + quantity: 3 (number)
         + description: `An awesome product` (string)
         + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
+        + unit (object, nullable)
+            + type: `unitOfMeasure` (string)
+            + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
         + unit_price (object)
             + Include Money
             + tax: `excluding` (enum)
