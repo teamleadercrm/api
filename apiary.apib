@@ -441,6 +441,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `added_at` to `products.info`.
 - We added `updated_at` to `products.info` and `products.list`.
 - We added `custom_fields` to `products.add` and `products.update`.
+- We added `selling_price` to `products.update`.
 
 #### June 2023
 
@@ -4175,6 +4176,7 @@ Update a product.
         + code: `c0d32` (string, nullable, optional)
         + purchase_price (Money, nullable, optional) - The currency must match the account currency
         + description: `Product used for hosting web solutions` (string, nullable, optional)
+        + selling_price (Money, optional)
         + price_list_prices (PriceListPricesWrite, optional)
         + stock (object, optional) - Only available when stock management feature is enabled
             + amount: 123 (number, nullable)
