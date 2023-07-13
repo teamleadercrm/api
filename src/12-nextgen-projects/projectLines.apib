@@ -1,0 +1,63 @@
+## Project lines [/nextgen/projectLines]
+
+> A project line can be a group, a task, or a material.
+> The `projectLines.list` endpoint only returns `{id, type}` pairs of those lines. If you want more information, you should "side-load" those entities with `?include=line`.
+
+*Required scopes: `projects`*
+
+### projectLines.list [POST /nextgen/projectLines.list]
+
+All line types (tasks, materials, groups) can be side-loaded.
+
++ Request (application/json)
+    + Attributes (object)
+        + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
+        + `filter` (object, optional)
+            + `types` (array)
+                + Members
+                    + `nextgenTask`
+                    + `nextgenMaterial`
+                    + `nextgenProjectGroup`
+            + `assignees` (array, optional) - To fetch unassigned lines, provide `null` instead of the type/id object
+                + (object)
+                    + `type`: `user` (enum[string], required)
+                        + Members
+                            + user
+                            + team
+                    + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `line` (object)
+                    + `type`: `nextgenMaterial` (enum[string])
+                        + Members
+                            + `nextgenTask`
+                            + `nextgenMaterial`
+                            + `nextgenProjectGroup`
+                    + `id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string)
+                + `group` (object, nullable) - If null, this line is not a part of a group.
+                    + `type`: `nextgenProjectGroup` (string)
+                    + `id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string)
+
+### projectLines.addToGroup [POST /nextgen/projectLines.addToGroup]
+
+Add an existing task or material to a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `line_id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string, required) - The ID of the task or material. May not be a group.
+        + `group_id`: `0daf76e6-5141-4fb0-866f-01916a873a38` (string, required)
+
++ Response 204
+
+### projectLines.removeFromGroup [POST /nextgen/projectLines.removeFromGroup]
+
+Remove a task or material from the group it is currently in.
+
++ Request (application/json)
+    + Attributes (object)
+        + `line_id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string, required) - The ID of the task or material. May not be a group.
+
++ Response 204
