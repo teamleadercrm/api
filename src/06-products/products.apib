@@ -45,6 +45,7 @@ Get details for a single product.
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
             + selling_price (Money, nullable)
             + custom_fields (array[CustomField])
+            + price_list_prices (PriceListPricesRead)
 
 ### products.add [POST /products.add]
 
@@ -62,6 +63,7 @@ Add a new product.
         + description (string, optional) - The description of the product in Markdown
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
+        + price_list_prices (PriceListPricesWrite, optional)
 
 + Response 201 (application/json)
 
