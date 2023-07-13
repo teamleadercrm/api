@@ -24,6 +24,7 @@ Get a list of products.
                 + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
                 + code: `COOK-DARKCHOC-42` (string, nullable)
                 + added_at: `2016-02-01T11:25:41+00:00` (string)
+                + updated_at: `2016-02-01T11:25:41+00:00` (string)
                 + stock (object, optional) - Only available when stock management feature is enabled
                     + amount: 123 (number, nullable)
                 + configuration (ProductConfigurationRead, nullable)
@@ -53,6 +54,7 @@ Get details for a single product.
                 + amount: 123 (number, nullable)
             + configuration (ProductConfigurationRead, optional)
             + added_at: `2016-02-01T11:25:41+00:00` (string)
+            + updated_at: `2016-02-01T11:25:41+00:00` (string)
 
 ### products.add [POST /products.add]
 
