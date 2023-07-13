@@ -452,3 +452,48 @@ Credit an invoice completely.
         + data (object)
             + type: `creditNote` (string)
             + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
+
+
+### invoices.send [POST /invoices.send]
+
+Send an invoice via e-mail.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + content (object, required)
+             + subject: `Invoice` (string, required)
+             + body: `Please find your invoice attached to this mail` (string, required)
+             + mail_template_id: `045cd6a9-7527-09c9-aa16-fd5ac7953e71` (string, optional, nullable)
+        + recipients (object, optional)
+            + to (array)
+                + (object)
+                    + customer (object, optional, nullable)
+                        + type (enum, required)
+                            + Members
+                                + company
+                                + contact
+                        + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+                    + email: `info@teamleader.eu` (string, required)
+            + cc (array, optional)
+                + (object)
+                    + customer (object, optional, nullable)
+                        + type (enum, required)
+                            + Members
+                                + company
+                                + contact
+                        + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+                    + email: `info@teamleader.eu` (string, required)
+           + bcc (array, optional)
+                + (object)
+                   + customer (object, optional, nullable)
+                       + type (enum, required)
+                           + Members
+                               + company
+                               + contact
+                       + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+                   + email: `info@teamleader.eu` (string, required)
+       + attachments: `e76d381a-f7ea-04d1-9a32-14aab27bc1e2` (array[string], optional) - an array of file ids
+
++ Response 204
