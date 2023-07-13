@@ -4750,7 +4750,7 @@ Lists all projects that match the optional filters provided.
                         + `time_and_materials`
                         + `fixed_price`
                         + `non_billable`
-                + `time_estimated` (object, nullable) - Value in seconds, rounded to the nearest minute.
+                + `time_budget` (object, nullable) - Value in seconds, rounded to the nearest minute
                     + value: 43200 (number)
                     + unit: `seconds` (enum[string])
                         + Members
@@ -4856,11 +4856,11 @@ Returns all the information of a single project.
                     + `time_and_materials`
                     + `fixed_price`
                     + `non_billable`
-            + `time_estimated` (object, nullable) - Value in seconds, rounded to the nearest minute.
-                + `value`: 43200 (number)
-                + `unit`: `seconds` (enum[string])
+            + `time_budget` (object, nullable) - Value in seconds, rounded to the nearest minute
+                + value: 43200 (number)
+                + unit: `seconds` (enum[string])
                     + Members
-                        + `seconds`
+                        + seconds
             + `time_tracked` (object, nullable)
                 + `value`: 43200 (number)
                 + `unit`: `seconds` (enum[string])
