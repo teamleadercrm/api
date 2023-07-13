@@ -1,1 +1,269 @@
 ## Materials [/nextgen/materials]
+
+### materials.list [GET /nextgen/materials.list]
+
+Lists all the materials that match the optional filters provided.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object)
+            + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
+                + `project` (object)
+                    + `type`: `nextgenProject` (string)
+                    + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+                + `group` (object, nullable) - If `null`, the material is not in any group.
+                    + `type`: `nextgenProjectGroup` (string)
+                    + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
+                + `title`: `Metal studs` (string)
+                + `status`: `in_progress` (enum[string])
+                    + Members
+                        + `to_do`
+                        + `in_progress`
+                        + `on_hold`
+                        + `done`
+                + `billing_method`: `unit_price` (enum[string])
+                    + Members
+                        + `fixed_price`
+                        + `unit_price`
+                        + `non_billable`
+                + `billing_status`: `not_billable` (enum[string])
+                    + Members
+                        + `not_billable`
+                        + `not_billed`
+                        + `partially_billed`
+                        + `fully_billed`
+                + `quantity` (number, nullable)
+                + `unit_price` (Money, nullable)
+                + `unit_cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `unit` (object, nullable) - `null` if the default unit is used
+                    + `type`: `priceunit` (string)
+                    + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
+                + `amount_billed` (Money, nullable)
+                + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+                + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+                + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+                + `price` (Money, nullable)
+                + `fixed_price` (Money, nullable)
+                + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+                + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `assignees` (array)
+                    + (object)
+                        + `assignee` (object)
+                            + `type`: `user` (enum[string])
+                                + Members
+                                    + `team`
+                                    + `user`
+                            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                        + `assign_type`: `manual` (enum)
+                            + Members
+                                + `manual`
+                + `start_date`: `2023-01-18` (string, nullable)
+                + `end_date`: `2023-03-22` (string, nullable)
+                + `product` (object, nullable) - `null` if no product is coupled to the material
+                    + `type`: `product` (string)
+                    + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
+
+### materials.info [GET /nextgen/materials.info]
+
+Returns all the information for one material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string)
+            + `project` (object)
+                + `type`: `nextgenProject` (string)
+                + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+            + `group` (object, nullable) - If `null`, the material is not in any group.
+                + `type`: `nextgenProjectGroup` (string)
+                + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
+            + `title`: `WD-40® Multi-Use Product Industrial Size` (string)
+            + `description`: `Protects metal from rust and corrosion, penetrates stuck parts, displaces moisture and lubricates almost anything.` (string, nullable) - Can be `null`.
+            + `status`: `in_progress` (enum[string])
+                + Members
+                    + `to_do`
+                    + `in_progress`
+                    + `on_hold`
+                    + `done`
+            + `billing_method`: `unit_price` (enum[string])
+                + Members
+                    + `fixed_price`
+                    + `unit_price`
+                    + `non_billable`
+            + `billing_status`: `not_billable` (enum[string])
+                + Members
+                    + `not_billable`
+                    + `not_billed`
+                    + `partially_billed`
+                    + `fully_billed`
+            + `quantity` (number, nullable)
+            + `unit_price` (Money, nullable)
+            + `unit_cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `unit` (object, nullable) - `null` if the default unit is used
+                + `type`: `priceunit` (string)
+                + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
+            + `amount_billed` (Money, nullable)
+            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+            + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+            + `price` (Money, nullable)
+            + `fixed_price` (Money, nullable)
+            + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+            + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `assignees` (array)
+                + (object)
+                    + `assignee` (object)
+                        + `type`: `user` (enum[string])
+                            + Members
+                                + `team`
+                                + `user`
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                    + `assign_type`: `manual` (enum)
+                        + Members
+                            + `manual`
+            + `start_date`: `2023-01-18` (string, nullable)
+            + `end_date`: `2023-03-22` (string, nullable)
+            + `product` (object, nullable) - `null` if no product is coupled to the material
+                + `type`: `product` (string)
+                + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
+
+### materials.create [POST /nextgen/materials.create]
+
+Create a material. All properties except for `title` and `project_id` are optional.
+
++ Request (application/json)
+    + Attributes (object)
+        + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
+        + `title`: `Some material` (string, required)
+        + `group_id`: `0185968b-2c9e-73fd-9ce1-a12c0979783b` (string) - If omitted the material is not added to a group.
+        + `after_id`: `8ba797aa-107d-4934-9511-2a043bf3f766` (string, nullable) - If `after_id` is null, material is placed on top of the project/group. If `after_id` is not provided, material is placed at the bottom of the project/group.
+        + `description`: `Protects metal from rust and corrosion, penetrates stuck parts, displaces moisture and lubricates almost anything.` (string, optional)
+        + `billing_method`: `unit_price` (enum[string], optional)
+           + Members
+               + `fixed_price`
+               + `unit_price`
+               + `non_billable`
+        + `quantity` (number, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_price` (Money, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_cost` (Money, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
+        + `unit_id`: `69cbfbf2-fefe-4f03-9269-3ddc79117f4d` (string, optional)
+        + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`
+        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost
+        + `start_date`: `2023-01-18` (string, optional)
+        + `end_date`: `2023-03-22` (string, optional)
+        + `product_id`: `1c5cf7a1-7248-469c-9dcd-9f0581321ec2` (string, optional)
+        + `assignees` (array, optional)
+            + (object)
+                + `type`: `user` (enum[string], required)
+                    + Members
+                        + `user`
+                        + `team`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenMaterial` (string)
+           + id: `b275487e-47d9-40b4-9cfe-5dfef77f4954` (string)
+
+### materials.update [POST /nextgen/materials.update]
+
+Update a material. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
+        + `title`: `WD-40® Multi-Use Product Industrial Size` (string, optional)
+        + `description`: `Protects metal from rust and corrosion, penetrates stuck parts, displaces moisture and lubricates almost anything.` (string, nullable, optional)
+        + `status`: `on_hold` (enum[string], optional)
+            + Members
+                + `to_do`
+                + `in_progress`
+                + `on_hold`
+                + `done`
+        + `billing_method`: `unit_price` (enum[string], optional)
+           + Members
+               + `fixed_price`
+               + `unit_price`
+               + `non_billable`
+        + `quantity` (number, nullable, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_cost` (Money, nullable, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
+        + `unit_id` (string, nullable, optional)
+        + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`
+        + `external_budget` (Money, nullable, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost
+        + `start_date`: `2023-01-18` (string, nullable, optional)
+        + `end_date`: `2023-03-22` (string, nullable, optional)
+        + `product_id`: `1c5cf7a1-7248-469c-9dcd-9f0581321ec2` (string, nullable, optional)
+
++ Response 204
+
+### materials.duplicate [POST /nextgen/materials.duplicate]
+
+Duplicate a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `origin_id`: `0186a74b-b640-7458-9717-7c84356b26fd` (string, required) - The id of the material that is being duplicated
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenMaterial` (string)
+           + id: `0186a2f3-32a5-7c81-b3a9-55809146ad0c` (string)
+
+### materials.delete [POST /nextgen/materials.delete]
+
+Delete a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+
++ Response 204
+
+### materials.assign [POST /nextgen/materials.assign]
+
+Assign a user or a team to a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### materials.unassign [POST /nextgen/materials.unassign]
+
+Unassign a user or a team from a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
