@@ -406,3 +406,17 @@
 ## PriceListPricesWrite (array)
 + (array)
     + (PriceListPriceWrite, required)
+
+## ProductConfigurationWrite (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number, required) - Cannot be negative
+    + `action`: `notify` (enum, required)
+        + Members
+            + `notify`
+
+## ProductConfigurationRead (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number)
+    + `action`: `notify` (enum)
+        + Members
+            + `notify`

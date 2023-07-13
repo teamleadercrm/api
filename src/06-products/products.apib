@@ -24,6 +24,9 @@ Get a list of products.
                 + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
                 + code: `COOK-DARKCHOC-42` (string, nullable)
                 + added_at: `2016-02-01T11:25:41+00:00` (string)
+                + stock (object, optional) - Only available when stock management feature is enabled
+                    + amount: 123 (number, nullable)
+                + configuration (ProductConfigurationRead, nullable)
 
 ### products.info [POST /products.info]
 
@@ -46,6 +49,9 @@ Get details for a single product.
             + selling_price (Money, nullable)
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
+            + stock (object, optional) - Only available when stock management feature is enabled
+                + amount: 123 (number, nullable)
+            + configuration (ProductConfigurationRead, optional)
 
 ### products.add [POST /products.add]
 
@@ -64,6 +70,9 @@ Add a new product.
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
         + price_list_prices (PriceListPricesWrite, optional)
+        + stock (object, optional) - Only available when stock management feature is enabled
+            + amount: 123 (number, nullable)
+        + configuration (ProductConfigurationWrite, nullable)
 
 + Response 201 (application/json)
 
