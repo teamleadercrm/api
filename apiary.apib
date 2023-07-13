@@ -430,6 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `unit` on `grouped_lines` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`
 - We added `unit_of_measure_id` on `grouped_lines` to `invoices.draft`, `invoices.update`, `subscriptions.create`, `subscriptions.update`, `quotations.create` and `quotations.update`.
 - We added the `invoices.send` endpoint.
+- We added `billing_info` on `timetrackings.info`.
 
 #### June 2023
 
@@ -5055,6 +5056,14 @@ Get information about tracked time.
                 + id: `5883723a-b5aa-4c9d-a02b-ec0dd25f6ca2` (string)
             + invoiceable: true (boolean)
             + locked: true (boolean) - If true, the freeze time window has passed since creating it
+            + billing_info (object, nullable)
+                + type: `invoice` (enum)
+                    + Members
+                        + invoice
+                        + prepaid
+                + invoice (object, nullable)
+                    + type: `invoice` (string)
+                    + id: `b2b4b2b4-4b2b-4b2b-4b2b-4b2b4b2b4b2b` (string)
         + meta (object)
             + updatable: true (boolean) - If true, the current user can update the entry even if it is locked
 
