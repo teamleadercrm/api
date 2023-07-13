@@ -328,7 +328,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
 
 ### projects.update [POST /nextgen/projects.update]
 
-All attributes except for `id` are optional. Providing `null` will clear that value from the project (except for `title`, which is not nullable).
+Update a project. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
 + Request (application/json)
     + Attributes (object)

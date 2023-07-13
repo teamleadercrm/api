@@ -5004,7 +5004,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
 
 ### projects.update [POST /nextgen/projects.update]
 
-All attributes except for `id` are optional. Providing `null` will clear that value from the project (except for `title`, which is not nullable).
+Update a project. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
 + Request (application/json)
     + Attributes (object)
@@ -5236,6 +5236,319 @@ Remove a quotation from the project. Doesn't fail if the quotation was already r
 + Response 204
 
 ## Groups [/nextgen/projectGroups]
+
+### projectGroups.list [POST /nextgen/projectGroups.list]
+
+Lists all the groups.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object)
+            + `ids`: `0185a0af-97a6-7f44-8aec-254d8daf72f3`, `0185a0c3-b791-7629-8361-d60f3c0d7ce2` (array[string])
+            + `project_id`: `01859b27-1525-7372-bd40-26a6363c8bfe` (string)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `id`: `0185a0af-97a6-7f44-8aec-254d8daf72f3` (string)
+                + `project` (object)
+                    + `type`: `nextgenProject` (string)
+                    + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+                + `title`: `Website frontpage` (string)
+                + `color`: `#00B2B2` (enum[string])
+                    + Members
+                        + `#00B2B2` - Mint
+                        + `#008A8C` - Darker mint
+                        + `#992600` - Ruby
+                        + `#ED9E00` - Gold
+                        + `#D157D3` - Purple
+                        + `#A400B2` - Darker purple
+                        + `#0071F2` - Aqua
+                        + `#004DA6` - Darker aqua
+                        + `#64788F` - Blue grey
+                        + `#C0C0C4` - Light grey
+                        + `#82828C` - Grey
+                        + `#1A1C20` - Dark grey
+                + `billing_method`: `time_and_materials` (enum[string])
+                    + Members
+                        + `time_and_materials`
+                        + `fixed_price`
+                        + `parent_fixed_price`
+                        + `non_billable`
+                + `billing_status`: `not_billable` (enum[string])
+                    + Members
+                        + `not_billable`
+                        + `not_billed`
+                        + `partially_billed`
+                        + `fully_billed`
+                + `amount_billed` (Money, nullable)
+                + `fixed_amount_billed` (Money, nullable)
+                + `external_budget` (Money, nullable) - Value set by user to compare with price
+                + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+                + `internal_budget` (Money, nullable) - Value set by user to compare with cost
+                + `price` (Money, nullable)
+                + `fixed_price` (Money, nullable)
+                + `calculated_price` (Money, nullable) - Sum of underlying tasks/materials prices
+                + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+                + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `assignees` (array)
+                    + (object)
+                        + `assignee` (object)
+                            + `type`: `user` (enum[string])
+                                + Members
+                                    + `team`
+                                    + `user`
+                            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                        + `assign_type`: `auto_assigned` (enum)
+                            + Members
+                                + `manual`
+                                + `auto_assigned` - This user/team is included because they are assigned to underlying tasks or materials.
+                                + `manual_and_auto_assigned` - This user/team is both manually assigned and included because they are assigned to underlying tasks or materials.
+                + `start_date`: `2023-01-18` (string, nullable)
+                + `end_date`: `2023-03-22` (string, nullable)
+                + `time_estimated` (object, nullable) - The total of all time estimated for every item in this group. Value in seconds, rounded to the nearest minute.
+                    + `value`: 28800 (number)
+                    + `unit`: `seconds` (enum[string])
+                        + Members
+                            + `seconds`
+                + `time_tracked` (object, nullable) - The total of all time tracked for every item in this group.
+                    + `value`: 21100 (number)
+                    + `unit`: `seconds` (enum[string])
+                        + Members
+                            + `seconds`
+
+### projectGroups.info [POST /nextgen/projectGroups.info]
+
+Returns all the information for one group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `cfe2666c-b0f4-4e85-8d6f-9e1284706d0a` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + `id`: `cfe2666c-b0f4-4e85-8d6f-9e1284706d0a` (string)
+            + `project` (object)
+                + `type`: `nextgenProject` (string)
+                + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+            + `title`: `Website frontpage` (string)
+            + `description`: `My elaborate description` (string, nullable)
+            + `color`: `#00B2B2` (enum[string])
+                + Members
+                    + `#00B2B2` - Mint
+                    + `#008A8C` - Darker mint
+                    + `#992600` - Ruby
+                    + `#ED9E00` - Gold
+                    + `#D157D3` - Purple
+                    + `#A400B2` - Darker purple
+                    + `#0071F2` - Aqua
+                    + `#004DA6` - Darker aqua
+                    + `#64788F` - Blue grey
+                    + `#C0C0C4` - Light grey
+                    + `#82828C` - Grey
+                    + `#1A1C20` - Dark grey
+            + `billing_method`: `time_and_materials` (enum[string])
+                + Members
+                    + `time_and_materials`
+                    + `fixed_price`
+                    + `parent_fixed_price`
+                    + `non_billable`
+            + `billing_status`: `not_billable` (enum[string])
+                + Members
+                    + `not_billable`
+                    + `not_billed`
+                    + `partially_billed`
+                    + `fully_billed`
+            + `amount_billed` (Money, nullable)
+            + `fixed_amount_billed` (Money, nullable)
+            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+            + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+            + `price` (Money, nullable)
+            + `fixed_price` (Money, nullable)
+            + `calculated_price` (Money, nullable) - Sum of underlying tasks/materials prices
+            + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+            + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `assignees` (array)
+                + (object)
+                    + `assignee` (object)
+                        + `type`: `user` (enum[string])
+                            + Members
+                                + `team`
+                                + `user`
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                    + `assign_type`: `auto_assigned` (enum)
+                        + Members
+                            + `manual`
+                            + `auto_assigned` - This user/team is included because they are assigned to underlying tasks or materials.
+                            + `manual_and_auto_assigned` - This user/team is both manually assigned and included because they are assigned to underlying tasks or materials.
+            + `start_date`: `2023-01-18` (string, nullable)
+            + `end_date`: `2023-03-22` (string, nullable)
+            + `time_estimated` (object, nullable) - The total of all time estimated for every item in this group. Value in seconds, rounded to the nearest minute.
+                + `value`: 28800 (number)
+                + `unit`: `seconds` (enum[string])
+                    + Members
+                        + `seconds`
+            + `time_tracked` (object, nullable) - The total of all time tracked for every item in this group.
+                + `value`: 21100 (number)
+                + `unit`: `seconds` (enum[string])
+                    + Members
+                        + `seconds`
+
+### projectGroups.create [POST /nextgen/projectGroups.create]
+
+Create a group. All properties except for `title` and `project_id` are optional.
+
++ Request (application/json)
+    + Attributes (object)
+        + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
+        + `title`: `My project group` (string, required)
+        + `description`: `Some long-winded description` (string, optional)
+        + `color`: `#00B2B2` (enum[string], optional)
+            + Members
+                + `#00B2B2` - Mint
+                + `#008A8C` - Darker mint
+                + `#992600` - Ruby
+                + `#ED9E00` - Gold
+                + `#D157D3` - Purple
+                + `#A400B2` - Darker purple
+                + `#0071F2` - Aqua
+                + `#004DA6` - Darker aqua
+                + `#64788F` - Blue grey
+                + `#C0C0C4` - Light grey
+                + `#82828C` - Grey
+                + `#1A1C20` - Dark grey
+        + `billing_method` (enum[string], optional)
+            + Members
+                + `time_and_materials`
+                + `fixed_price`
+                + `parent_fixed_price` - The parent project must be `fixed_price`.
+                + `non_billable`
+        + `fixed_price` (Money, optional) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
+        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
+        + `start_date`: `2023-01-18` (string, optional)
+        + `end_date`: `2023-03-22` (string, optional)
+        + `assignees` (array, optional)
+            + (object)
+                + `type`: `user` (enum[string], required)
+                    + Members
+                        + `user`
+                        + `team`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenProjectGroup` (string)
+           + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
+
+### projectGroups.update [POST /nextgen/projectGroups.update]
+
+Update a group. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
+
++ Request (application/json)
+    + Attributes
+        + `id`: `e8478f2c-05a1-4e69-b3c4-e08507640f01` (string, required)
+        + `title`: `My updated group` (string)
+        + `description`: `I updated this group because I felt like it` (string, nullable) - If `null`, the description is cleared.
+        + `color`: `#00B2B2` (enum[string])
+            + Members
+                + `#00B2B2` - Mint
+                + `#008A8C` - Darker mint
+                + `#992600` - Ruby
+                + `#ED9E00` - Gold
+                + `#D157D3` - Purple
+                + `#A400B2` - Darker purple
+                + `#0071F2` - Aqua
+                + `#004DA6` - Darker aqua
+                + `#64788F` - Blue grey
+                + `#C0C0C4` - Light grey
+                + `#82828C` - Grey
+                + `#1A1C20` - Dark grey
+        + `billing_method` (object)
+            + `value`: `time_and_materials` (enum[string], required)
+                + Members
+                    + `time_and_materials` - Can only be set using update_strategy "none"
+                    + `fixed_price`
+                    + `parent_fixed_price` - The parent project must be `fixed_price`.
+                    + `non_billable` - Can only be set using update_strategy "cascade"
+            + `update_strategy`: `none` (enum[string], required)
+                + Members
+                    + `none` - Don't change the values of the group items.
+                    + `cascade` - Change the billing method of the group items depending on the group billing method.
+        + `fixed_price` (Money, nullable) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
+        + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost.
+        + `start_date`: `2023-01-18` (string, nullable)
+        + `end_date`: `2023-03-22` (string, nullable)
+
++ Response 204
+
+### projectGroups.duplicate [POST /nextgen/projectGroups.duplicate]
+
+Duplicate a group and its entities, without any time trackings.
+
++ Request (application/json)
+    + Attributes (object)
+        + `origin_id`: `0186a6b5-2fdc-749a-983a-c4a1303546d7` (string, required) - The id of the group that is being duplicated
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenProjectGroup` (string)
+           + id: `0186a6b5-682c-7b0e-95c9-090627a73d3b` (string)
+
+### projectGroups.delete [POST /nextgen/projectGroups.delete]
+
+Delete a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `01866e6f-f264-7fe5-8b7c-a3f739fa292c` (string, required)
+        + `delete_strategy`: `ungroup_tasks_and_materials` (enum[string], required)
+            + Members
+                + `ungroup_tasks_and_materials`
+                + `delete_tasks_and_materials`
+                + `delete_tasks_materials_and_unbilled_timetrackings`
+
++ Response 204
+
+### projectGroups.assign [POST /nextgen/projectGroups.assign]
+
+Assign a user or a team to a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### projectGroups.unassign [POST /nextgen/projectGroups.unassign]
+
+Unassign a user or a team from a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
 
 ## Tasks [/nextgen/tasks]
 
