@@ -442,6 +442,8 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `updated_at` to `products.info` and `products.list`.
 - We added `custom_fields` to `products.add` and `products.update`.
 - We added `selling_price` to `products.update`.
+- We added `unit_of_measure_id` to `products.add` and `products.update`.
+- We added `unit` to `products.info` and `products.list`.
 
 #### June 2023
 
@@ -4099,6 +4101,9 @@ Get a list of products.
                 + name: `cookies` (string, nullable)
                 + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
                 + code: `COOK-DARKCHOC-42` (string, nullable)
+                + unit (object, nullable)
+                    + type: `unitOfMeasure` (string)
+                    + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                 + added_at: `2016-02-01T11:25:41+00:00` (string)
                 + updated_at: `2016-02-01T11:25:41+00:00` (string)
                 + stock (object, optional) - Only available when stock management feature is enabled
@@ -4124,6 +4129,9 @@ Get details for a single product.
             + code: `COOK-DARKCHOC-42` (string, nullable)
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
             + selling_price (Money, nullable)
+            + unit (object, nullable)
+                + type: `unitOfMeasure` (string)
+                + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
             + stock (object, optional) - Only available when stock management feature is enabled
@@ -4148,6 +4156,7 @@ Add a new product.
         + description (string, optional) - The description of the product in Markdown
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
+        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
         + price_list_prices (PriceListPricesWrite, optional)
         + stock (object, optional) - Only available when stock management feature is enabled
             + amount: 123 (number, nullable)
@@ -4177,6 +4186,7 @@ Update a product.
         + purchase_price (Money, nullable, optional) - The currency must match the account currency
         + description: `Product used for hosting web solutions` (string, nullable, optional)
         + selling_price (Money, optional)
+        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
         + price_list_prices (PriceListPricesWrite, optional)
         + stock (object, optional) - Only available when stock management feature is enabled
             + amount: 123 (number, nullable)
