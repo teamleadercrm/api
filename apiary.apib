@@ -444,6 +444,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `selling_price` to `products.update`.
 - We added `unit_of_measure_id` to `products.add` and `products.update`.
 - We added `unit` to `products.info` and `products.list`.
+- We added `deal` as a link type to `events.create` and `events.update`.
 
 #### June 2023
 
@@ -2929,6 +2930,7 @@ Create a new calendar event.
                     + Members
                         + company
                         + contact
+                        + deal - Only available for events of type meeting or call
                 + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 201 (application/json)
@@ -2965,6 +2967,7 @@ Update a calendar event.
                     + Members
                         + company
                         + contact
+                        + deal - Only available for events of type meeting or call
                 + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 204
