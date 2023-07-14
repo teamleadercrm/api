@@ -24,6 +24,10 @@ Get a list of products.
                 + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
                 + code: `COOK-DARKCHOC-42` (string, nullable)
                 + added_at: `2016-02-01T11:25:41+00:00` (string)
+                + updated_at: `2016-02-01T11:25:41+00:00` (string)
+                + stock (object, optional) - Only available when stock management feature is enabled
+                    + amount: 123 (number, nullable)
+                + configuration (ProductConfigurationRead, nullable)
 
 ### products.info [POST /products.info]
 
@@ -45,6 +49,12 @@ Get details for a single product.
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
             + selling_price (Money, nullable)
             + custom_fields (array[CustomField])
+            + price_list_prices (PriceListPricesRead)
+            + stock (object, optional) - Only available when stock management feature is enabled
+                + amount: 123 (number, nullable)
+            + configuration (ProductConfigurationRead, optional)
+            + added_at: `2016-02-01T11:25:41+00:00` (string)
+            + updated_at: `2016-02-01T11:25:41+00:00` (string)
 
 ### products.add [POST /products.add]
 
@@ -62,6 +72,14 @@ Add a new product.
         + description (string, optional) - The description of the product in Markdown
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
+        + price_list_prices (PriceListPricesWrite, optional)
+        + stock (object, optional) - Only available when stock management feature is enabled
+            + amount: 123 (number, nullable)
+        + configuration (ProductConfigurationWrite, nullable)
+        + department_id: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional)
+        + product_category_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + tax_rate_id: `23097774-e51e-0371-9b42-98ef8ca8bbb6` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -69,3 +87,38 @@ Add a new product.
         + data (object)
             + type: `product` (string)
             + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
+
+### products.update [POST /products.update]
+
+Update a product.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `71e91f91-b222-033f-8c7e-59bcc1521e3d` (string, required)
+        + name: `Hosting` (string, nullable, optional)
+        + code: `c0d32` (string, nullable, optional)
+        + purchase_price (Money, nullable, optional) - The currency must match the account currency
+        + description: `Product used for hosting web solutions` (string, nullable, optional)
+        + selling_price (Money, optional)
+        + price_list_prices (PriceListPricesWrite, optional)
+        + stock (object, optional) - Only available when stock management feature is enabled
+            + amount: 123 (number, nullable)
+        + configuration (ProductConfigurationWrite, nullable)
+        + department_id: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional)
+        + product_category_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + tax_rate_id: `23097774-e51e-0371-9b42-98ef8ca8bbb6` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
+### products.delete [POST /products.delete]
+
+Delete a product.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `71e91f91-b222-033f-8c7e-59bcc1521e3d` (string, required)
+
++ Response 204

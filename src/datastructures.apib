@@ -378,3 +378,45 @@
         + withheld_tax (object, nullable)
             + type: `withholding_tax` (string)
             + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+
+## PriceListRead (object)
++ `id`: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string)
++ `type`: `priceList` (string)
+
+## ProductPriceRead (object)
++ `amount`: 100 (number)
++ `currency`: `EUR` (string)
+
+## PriceListPriceRead (object)
++ `price_list` (PriceListRead)
++ `price` (ProductPriceRead)
+
+## PriceListPricesRead (array)
++ (array)
+    + (PriceListPriceRead)
+
+## ProductPriceWrite (object)
++ `amount`: 100 (number, required)
++ `currency`: `EUR` (string, required)
+
+## PriceListPriceWrite (object)
++ `price_list_id`: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, required)
++ `price` (ProductPriceWrite, required)
+
+## PriceListPricesWrite (array)
++ (array)
+    + (PriceListPriceWrite, required)
+
+## ProductConfigurationWrite (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number, required) - Cannot be negative
+    + `action`: `notify` (enum, required)
+        + Members
+            + `notify`
+
+## ProductConfigurationRead (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number)
+    + `action`: `notify` (enum)
+        + Members
+            + `notify`

@@ -432,6 +432,16 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `invoices.send` endpoint.
 - We added `billing_info` on `timetrackings.info`.
 - We added `invoice_number` to the filters on `invoices.list`.
+- We added the `priceLists.list` endpoint.
+- We added `price_list_prices` to `products.info` and `products.add`.
+- We added `stock` and `configuration` to `products.list`, `products.info` and `products.add`.
+- We added `department_id`, `product_category_id` and `tax_rate_id` to `products.add`.
+- We added the `products.update` endpoint.
+- We added the `products.delete` endpoint.
+- We added `added_at` to `products.info`.
+- We added `updated_at` to `products.info` and `products.list`.
+- We added `custom_fields` to `products.add` and `products.update`.
+- We added `selling_price` to `products.update`.
 
 #### June 2023
 
@@ -4090,6 +4100,10 @@ Get a list of products.
                 + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
                 + code: `COOK-DARKCHOC-42` (string, nullable)
                 + added_at: `2016-02-01T11:25:41+00:00` (string)
+                + updated_at: `2016-02-01T11:25:41+00:00` (string)
+                + stock (object, optional) - Only available when stock management feature is enabled
+                    + amount: 123 (number, nullable)
+                + configuration (ProductConfigurationRead, nullable)
 
 ### products.info [POST /products.info]
 
@@ -4111,6 +4125,12 @@ Get details for a single product.
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
             + selling_price (Money, nullable)
             + custom_fields (array[CustomField])
+            + price_list_prices (PriceListPricesRead)
+            + stock (object, optional) - Only available when stock management feature is enabled
+                + amount: 123 (number, nullable)
+            + configuration (ProductConfigurationRead, optional)
+            + added_at: `2016-02-01T11:25:41+00:00` (string)
+            + updated_at: `2016-02-01T11:25:41+00:00` (string)
 
 ### products.add [POST /products.add]
 
@@ -4128,6 +4148,14 @@ Add a new product.
         + description (string, optional) - The description of the product in Markdown
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
+        + price_list_prices (PriceListPricesWrite, optional)
+        + stock (object, optional) - Only available when stock management feature is enabled
+            + amount: 123 (number, nullable)
+        + configuration (ProductConfigurationWrite, nullable)
+        + department_id: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional)
+        + product_category_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + tax_rate_id: `23097774-e51e-0371-9b42-98ef8ca8bbb6` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -4135,6 +4163,41 @@ Add a new product.
         + data (object)
             + type: `product` (string)
             + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
+
+### products.update [POST /products.update]
+
+Update a product.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `71e91f91-b222-033f-8c7e-59bcc1521e3d` (string, required)
+        + name: `Hosting` (string, nullable, optional)
+        + code: `c0d32` (string, nullable, optional)
+        + purchase_price (Money, nullable, optional) - The currency must match the account currency
+        + description: `Product used for hosting web solutions` (string, nullable, optional)
+        + selling_price (Money, optional)
+        + price_list_prices (PriceListPricesWrite, optional)
+        + stock (object, optional) - Only available when stock management feature is enabled
+            + amount: 123 (number, nullable)
+        + configuration (ProductConfigurationWrite, nullable)
+        + department_id: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional)
+        + product_category_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + tax_rate_id: `23097774-e51e-0371-9b42-98ef8ca8bbb6` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
+### products.delete [POST /products.delete]
+
+Delete a product.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `71e91f91-b222-033f-8c7e-59bcc1521e3d` (string, required)
+
++ Response 204
 
 # Units of Measure [/unitsOfMeasure]
 
@@ -4150,6 +4213,31 @@ Get a list of units of measure.
             + (object)
                 + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string)
                 + name: `kg` (string)
+
+## Price Lists [/priceLists]
+
+### priceLists.list [GET /priceLists.list]
+
+Get a list of priceLists.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `5a37d173-78d3-05f3-b018-d51fadc1c5d2`,`97233974-7c29-05f5-a51d-fbe3238e6157` (array[string], optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + name: `price` (string)
+                + calculation_method: `manual` (enum[string])
+                    + Members
+                        + manual
+                        + based_on_price_list
+                        + based_on_purchase_price
 
 # Group Projects
 
@@ -5975,3 +6063,45 @@ Unregister a webhook.
         + withheld_tax (object, nullable)
             + type: `withholding_tax` (string)
             + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+
+## PriceListRead (object)
++ `id`: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string)
++ `type`: `priceList` (string)
+
+## ProductPriceRead (object)
++ `amount`: 100 (number)
++ `currency`: `EUR` (string)
+
+## PriceListPriceRead (object)
++ `price_list` (PriceListRead)
++ `price` (ProductPriceRead)
+
+## PriceListPricesRead (array)
++ (array)
+    + (PriceListPriceRead)
+
+## ProductPriceWrite (object)
++ `amount`: 100 (number, required)
++ `currency`: `EUR` (string, required)
+
+## PriceListPriceWrite (object)
++ `price_list_id`: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, required)
++ `price` (ProductPriceWrite, required)
+
+## PriceListPricesWrite (array)
++ (array)
+    + (PriceListPriceWrite, required)
+
+## ProductConfigurationWrite (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number, required) - Cannot be negative
+    + `action`: `notify` (enum, required)
+        + Members
+            + `notify`
+
+## ProductConfigurationRead (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number)
+    + `action`: `notify` (enum)
+        + Members
+            + `notify`
