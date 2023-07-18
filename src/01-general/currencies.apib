@@ -1,0 +1,20 @@
+## Currencies [/currencies]
+
+### currencies.exchangeRates [POST /currencies.exchangeRates]
+
+Get a list of exchange rates for a provided currency.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + base: `EUR` (Currency, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + code: `USD` (Currency)
+                + symbol: `$` (string)
+                + name: `US Dollar` (string)
+                + exchange_rate: `1.1238` (number) - The exchange rate from the provided base currency to the listed currency
