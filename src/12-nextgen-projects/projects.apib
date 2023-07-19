@@ -48,7 +48,7 @@ Lists all projects that match the optional filters provided.
                         + `project_key`
                         + `start_date`
                         + `status`
-                        + `time_estimated`
+                        + `time_budget`
                         + `time_tracked`
                         + `title`
                 + order (enum[string], optional)
@@ -274,7 +274,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
         + `title`: `My cool new project` (string, required)
         + `description`: `My project description` (string, optional)
         + `owner_ids`: `47e7e4a2-607d-465b-a121-7bdc9c64ade7`, `d8ebc8a5-800f-4714-97bb-3947a7ec274d` (array[string], optional) - The creator is automatically added as an owner, these are additional owners to be added
-        + `time_estimated` (object, optional)
+        + `time_budget` (object, optional)
             + value: 43200 (number, required)
             + unit: `minutes` (enum[string], required)
                 + Members
@@ -338,7 +338,7 @@ Update a project. All attributes except for `id` are optional. Providing `null` 
         + id: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
         + title: `A different project title` (string)
         + description: `Another description` (string, nullable)
-        + `time_estimated` (object, nullable)
+        + `time_budget` (object, nullable)
             + value: 60 (number, required)
             + unit: `minutes` (enum[string], required)
                 + Members
