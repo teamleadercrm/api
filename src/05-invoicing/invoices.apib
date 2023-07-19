@@ -312,8 +312,8 @@ Draft a new invoice.
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
         + invoice_currency (object, optional)
-            + currency (Currency, required)
-            + exchange_rate (number, required) - The exchange rate from the department currency to the provided currency
+            + currency: `USD` (Currency, required)
+            + exchange_rate: `1.1234` (number, required) - The exchange rate from the department currency to the provided currency
 
 + Response 201 (application/json)
 
@@ -375,8 +375,8 @@ Update a draft invoice. Booked invoices cannot be updated.
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
         + invoice_currency (object, optional)
-            + currency (Currency, required)
-            + exchange_rate (number, required) - The exchange rate from the department currency to the provided currency
+            + currency: `USD` (Currency, required)
+            + exchange_rate: `1.1234` (number, required) - The exchange rate from the department currency to the provided currency
 
 + Response 204
 
