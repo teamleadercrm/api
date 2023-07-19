@@ -1,8 +1,8 @@
-## Materials [/nextgen/materials]
+## Materials [/projects-v2/materials]
 
 *Required scopes: `projects`*
 
-### materials.list [GET /nextgen/materials.list]
+### materials.list [GET /projects-v2/materials.list]
 
 Lists all the materials that match the optional filters provided.
 
@@ -72,7 +72,7 @@ Lists all the materials that match the optional filters provided.
                     + `type`: `product` (string)
                     + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
 
-### materials.info [GET /nextgen/materials.info]
+### materials.info [GET /projects-v2/materials.info]
 
 Returns all the information for one material.
 
@@ -141,7 +141,7 @@ Returns all the information for one material.
                 + `type`: `product` (string)
                 + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
 
-### materials.create [POST /nextgen/materials.create]
+### materials.create [POST /projects-v2/materials.create]
 
 Create a material. All properties except for `title` and `project_id` are optional.
 
@@ -181,7 +181,7 @@ Create a material. All properties except for `title` and `project_id` are option
            + type: `nextgenMaterial` (string)
            + id: `b275487e-47d9-40b4-9cfe-5dfef77f4954` (string)
 
-### materials.update [POST /nextgen/materials.update]
+### materials.update [POST /projects-v2/materials.update]
 
 Update a material. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -214,7 +214,7 @@ Update a material. All attributes except for `id` are optional. Providing `null`
 
 + Response 204
 
-### materials.duplicate [POST /nextgen/materials.duplicate]
+### materials.duplicate [POST /projects-v2/materials.duplicate]
 
 Duplicate a material.
 
@@ -228,7 +228,7 @@ Duplicate a material.
            + type: `nextgenMaterial` (string)
            + id: `0186a2f3-32a5-7c81-b3a9-55809146ad0c` (string)
 
-### materials.delete [POST /nextgen/materials.delete]
+### materials.delete [POST /projects-v2/materials.delete]
 
 Delete a material.
 
@@ -238,7 +238,7 @@ Delete a material.
 
 + Response 204
 
-### materials.assign [POST /nextgen/materials.assign]
+### materials.assign [POST /projects-v2/materials.assign]
 
 Assign a user or a team to a material.
 
@@ -254,7 +254,7 @@ Assign a user or a team to a material.
 
 + Response 204
 
-### materials.unassign [POST /nextgen/materials.unassign]
+### materials.unassign [POST /projects-v2/materials.unassign]
 
 Unassign a user or a team from a material.
 

@@ -1,11 +1,11 @@
-## Project lines [/nextgen/projectLines]
+## Project lines [/projects-v2/projectLines]
 
 > A project line can be a group, a task, or a material.
 > The `projectLines.list` endpoint only returns `{id, type}` pairs of those lines. If you want more information, you should "side-load" those entities with `?include=line`.
 
 *Required scopes: `projects`*
 
-### projectLines.list [POST /nextgen/projectLines.list]
+### projectLines.list [POST /projects-v2/projectLines.list]
 
 All line types (tasks, materials, groups) can be side-loaded.
 
@@ -41,7 +41,7 @@ All line types (tasks, materials, groups) can be side-loaded.
                     + `type`: `nextgenProjectGroup` (string)
                     + `id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string)
 
-### projectLines.addToGroup [POST /nextgen/projectLines.addToGroup]
+### projectLines.addToGroup [POST /projects-v2/projectLines.addToGroup]
 
 Add an existing task or material to a group.
 
@@ -52,7 +52,7 @@ Add an existing task or material to a group.
 
 + Response 204
 
-### projectLines.removeFromGroup [POST /nextgen/projectLines.removeFromGroup]
+### projectLines.removeFromGroup [POST /projects-v2/projectLines.removeFromGroup]
 
 Remove a task or material from the group it is currently in.
 

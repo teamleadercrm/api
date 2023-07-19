@@ -1,8 +1,8 @@
-## Groups [/nextgen/projectGroups]
+## Groups [/projects-v2/projectGroups]
 
 *Required scopes: `projects`*
 
-### projectGroups.list [POST /nextgen/projectGroups.list]
+### projectGroups.list [POST /projects-v2/projectGroups.list]
 
 Lists all the groups that match the optional filters provided.
 
@@ -84,7 +84,7 @@ Lists all the groups that match the optional filters provided.
                         + Members
                             + `seconds`
 
-### projectGroups.info [POST /nextgen/projectGroups.info]
+### projectGroups.info [POST /projects-v2/projectGroups.info]
 
 Returns all the information for one group.
 
@@ -164,7 +164,7 @@ Returns all the information for one group.
                     + Members
                         + `seconds`
 
-### projectGroups.create [POST /nextgen/projectGroups.create]
+### projectGroups.create [POST /projects-v2/projectGroups.create]
 
 Create a group. All properties except for `title` and `project_id` are optional.
 
@@ -212,7 +212,7 @@ Create a group. All properties except for `title` and `project_id` are optional.
            + type: `nextgenProjectGroup` (string)
            + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
 
-### projectGroups.update [POST /nextgen/projectGroups.update]
+### projectGroups.update [POST /projects-v2/projectGroups.update]
 
 Update a group. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -254,7 +254,7 @@ Update a group. All attributes except for `id` are optional. Providing `null` wi
 
 + Response 204
 
-### projectGroups.duplicate [POST /nextgen/projectGroups.duplicate]
+### projectGroups.duplicate [POST /projects-v2/projectGroups.duplicate]
 
 Duplicate a group and its entities, without any time trackings.
 
@@ -268,7 +268,7 @@ Duplicate a group and its entities, without any time trackings.
            + type: `nextgenProjectGroup` (string)
            + id: `0186a6b5-682c-7b0e-95c9-090627a73d3b` (string)
 
-### projectGroups.delete [POST /nextgen/projectGroups.delete]
+### projectGroups.delete [POST /projects-v2/projectGroups.delete]
 
 Delete a group.
 
@@ -283,7 +283,7 @@ Delete a group.
 
 + Response 204
 
-### projectGroups.assign [POST /nextgen/projectGroups.assign]
+### projectGroups.assign [POST /projects-v2/projectGroups.assign]
 
 Assign a user or a team to a group.
 
@@ -299,7 +299,7 @@ Assign a user or a team to a group.
 
 + Response 204
 
-### projectGroups.unassign [POST /nextgen/projectGroups.unassign]
+### projectGroups.unassign [POST /projects-v2/projectGroups.unassign]
 
 Unassign a user or a team from a group.
 

@@ -1,10 +1,10 @@
-## Tasks [/nextgen/tasks]
+## Tasks [/projects-v2/tasks]
 
 > _These endpoints are for (new) project tasks. For documentation on endpoints for tasks not linked to a project, see **Tasks** below._
 
 *Required scopes: `projects`*
 
-### tasks.list [GET /nextgen/tasks.list]
+### tasks.list [GET /projects-v2/tasks.list]
 
 Lists all the tasks that match the optional filters provided.
 
@@ -84,7 +84,7 @@ Lists all the tasks that match the optional filters provided.
                         + Members
                             + `seconds`
 
-### tasks.info [GET /nextgen/tasks.info]
+### tasks.info [GET /projects-v2/tasks.info]
 
 Returns all the information for one task.
 
@@ -163,7 +163,7 @@ Returns all the information for one task.
                     + Members
                         + `seconds`
 
-### tasks.create [POST /nextgen/tasks.create]
+### tasks.create [POST /projects-v2/tasks.create]
 
 Create a task. All properties except for `title` and `project_id` are optional.
 
@@ -209,7 +209,7 @@ Create a task. All properties except for `title` and `project_id` are optional.
            + type: `nextgenTask` (string)
            + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
 
-### tasks.update [POST /nextgen/tasks.update]
+### tasks.update [POST /projects-v2/tasks.update]
 
 Update a task. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -249,7 +249,7 @@ Update a task. All attributes except for `id` are optional. Providing `null` wil
 
 + Response 204
 
-### tasks.duplicate [POST /nextgen/tasks.duplicate]
+### tasks.duplicate [POST /projects-v2/tasks.duplicate]
 
 Duplicate a task, without its time trackings.
 
@@ -263,7 +263,7 @@ Duplicate a task, without its time trackings.
            + type: `nextgenTask` (string)
            + id: `0186a721-3879-729a-bf52-91576e0522f3` (string)
 
-### tasks.delete [POST /nextgen/tasks.delete]
+### tasks.delete [POST /projects-v2/tasks.delete]
 
 Delete a task.
 
@@ -277,7 +277,7 @@ Delete a task.
 
 + Response 204
 
-### tasks.assign [POST /nextgen/tasks.assign]
+### tasks.assign [POST /projects-v2/tasks.assign]
 
 Assign a user or a team to a task.
 
@@ -293,7 +293,7 @@ Assign a user or a team to a task.
 
 + Response 204
 
-### tasks.unassign [POST /nextgen/tasks.unassign]
+### tasks.unassign [POST /projects-v2/tasks.unassign]
 
 Unassign a user or a team from a task.
 

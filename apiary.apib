@@ -430,7 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `unit` on `grouped_lines` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`
 - We added `unit_of_measure_id` on `grouped_lines` to `invoices.draft`, `invoices.update`, `subscriptions.create`, `subscriptions.update`, `quotations.create` and `quotations.update`.
 - We added the `invoices.send` endpoint.
-- 🎉 We added all endpoints for the _New Projects_ module: `nextgen/projects`, `nextgen/projectLines`, `nextgen/projectGroups`, `nextgen/tasks`, and `nextgen/materials`. 🎉
+- 🎉 We added all endpoints for the _New Projects_ module: `projects-v2/projects`, `projects-v2/projectLines`, `projects-v2/projectGroups`, `projects-v2/tasks`, and `projects-v2/materials`. 🎉
 - We added `billing_info` on `timetrackings.info`.
 
 #### June 2023
@@ -4676,19 +4676,19 @@ Close a milestone. All open tasks will be closed, open meetings will remain open
 
 # Group New Projects
 
-## Projects [/nextgen/projects]
+## Projects [/projects-v2/projects]
 
 > _This is the documentation of the new projects module. See the **Legacy Projects** documentation for the endpoints concerning our legacy projects module._
 
 > ⚠️ (July 2023) The projects module has been completely overhauled and is currently only available for new project users. Existing project users only have access to the old projects module.
 > Over the course of the next few months, next generation projects will also be made available to existing project users, including the migration of existing project data.
 
-> To avoid naming collisions, all endpoints of the new projects module can be found under `/nextgen`, for example `/nextgen/projects.list`.
-> To avoid confusing "new projects" with "creating a new project", we opted for "nextgen" over "new" as the prefix.
+> To avoid naming collisions, all endpoints of the new projects module can be found under `/projects-v2`, for example `/projects-v2/projects.list`.
+> To avoid confusing "new projects" with "creating a new project", we opted for "projects-v2" over "new" as the prefix.
 
 *Required scopes: `projects`*
 
-### projects.list [POST /nextgen/projects.list]
+### projects.list [POST /projects-v2/projects.list]
 
 Lists all projects that match the optional filters provided.
 
@@ -4832,7 +4832,7 @@ Lists all projects that match the optional filters provided.
             + `page` (Pagination)
             + `matches`: `10` (number)
 
-### projects.info [POST /nextgen/projects.info]
+### projects.info [POST /projects-v2/projects.info]
 
 Returns all the information of a single project.
 
@@ -4943,7 +4943,7 @@ Returns all the information of a single project.
                         + `id`: `55d3707c-14dc-4b62-a072-e3f4c1413462` (string)
                     + `custom_rate` (Money)
 
-### projects.create [POST /nextgen/projects.create]
+### projects.create [POST /projects-v2/projects.create]
 
 Create a new project. Only `title` is required. All the other fields are optional.
 
@@ -5007,7 +5007,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
            + type: `nextgenProject` (string)
            + id: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
 
-### projects.update [POST /nextgen/projects.update]
+### projects.update [POST /projects-v2/projects.update]
 
 Update a project. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -5056,7 +5056,7 @@ Update a project. All attributes except for `id` are optional. Providing `null` 
 
 + Response 204
 
-### projects.close [POST /nextgen/projects.close]
+### projects.close [POST /projects-v2/projects.close]
 
 Mark a project as closed.
 
@@ -5070,7 +5070,7 @@ Mark a project as closed.
 
 + Response 204
 
-### projects.reopen [POST /nextgen/projects.reopen]
+### projects.reopen [POST /projects-v2/projects.reopen]
 
 Reopen a closed project.
 
@@ -5080,7 +5080,7 @@ Reopen a closed project.
 
 + Response 204
 
-### projects.duplicate [POST /nextgen/projects.duplicate]
+### projects.duplicate [POST /projects-v2/projects.duplicate]
 
 Duplicate a project.
 
@@ -5095,7 +5095,7 @@ Duplicate a project.
            + `type`: `nextgenProject` (string)
            + `id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
 
-### projects.delete [POST /nextgen/projects.delete]
+### projects.delete [POST /projects-v2/projects.delete]
 
 Delete a project.
 
@@ -5110,7 +5110,7 @@ Delete a project.
 
 + Response 204
 
-### projects.addOwner [POST /nextgen/projects.addOwner]
+### projects.addOwner [POST /projects-v2/projects.addOwner]
 
 Add a user as owner. Doesn't fail if the user was already added.
 
@@ -5121,7 +5121,7 @@ Add a user as owner. Doesn't fail if the user was already added.
 
 + Response 204
 
-### projects.removeOwner [POST /nextgen/projects.removeOwner]
+### projects.removeOwner [POST /projects-v2/projects.removeOwner]
 
 Remove a user as owner. Doesn't fail if the user wasn't linked.
 
@@ -5132,7 +5132,7 @@ Remove a user as owner. Doesn't fail if the user wasn't linked.
 
 + Response 204
 
-### projects.assign [POST /nextgen/projects.assign]
+### projects.assign [POST /projects-v2/projects.assign]
 
 Assign a user or a team to a project.
 
@@ -5148,7 +5148,7 @@ Assign a user or a team to a project.
 
 + Response 204
 
-### projects.unassign [POST /nextgen/projects.unassign]
+### projects.unassign [POST /projects-v2/projects.unassign]
 
 Unassign a user or a team from a project.
 
@@ -5164,7 +5164,7 @@ Unassign a user or a team from a project.
 
 + Response 204
 
-### projects.addCustomer [POST /nextgen/projects.addCustomer]
+### projects.addCustomer [POST /projects-v2/projects.addCustomer]
 
 Add a customer to the project. Doesn't fail if the customer was already added.
 
@@ -5180,7 +5180,7 @@ Add a customer to the project. Doesn't fail if the customer was already added.
 
 + Response 204
 
-### projects.removeCustomer [POST /nextgen/projects.removeCustomer]
+### projects.removeCustomer [POST /projects-v2/projects.removeCustomer]
 
 Remove a customer from the project. Doesn't fail if the customer was not added.
 
@@ -5196,7 +5196,7 @@ Remove a customer from the project. Doesn't fail if the customer was not added.
 
 + Response 204
 
-### projects.addDeal [POST /nextgen/projects.addDeal]
+### projects.addDeal [POST /projects-v2/projects.addDeal]
 
 Add a deal to the project. Doesn't fail if the deal was already added.
 
@@ -5207,7 +5207,7 @@ Add a deal to the project. Doesn't fail if the deal was already added.
 
 + Response 204
 
-### projects.removeDeal [POST /nextgen/projects.removeDeal]
+### projects.removeDeal [POST /projects-v2/projects.removeDeal]
 
 Remove a deal from the project. Doesn't fail if the deal was already removed.
 
@@ -5218,7 +5218,7 @@ Remove a deal from the project. Doesn't fail if the deal was already removed.
 
 + Response 204
 
-### projects.addQuotation [POST /nextgen/projects.addQuotation]
+### projects.addQuotation [POST /projects-v2/projects.addQuotation]
 
 Add a quotation to the project. Doesn't fail if the quotation was already added.
 
@@ -5229,7 +5229,7 @@ Add a quotation to the project. Doesn't fail if the quotation was already added.
 
 + Response 204
 
-### projects.removeQuotation [POST /nextgen/projects.removeQuotation]
+### projects.removeQuotation [POST /projects-v2/projects.removeQuotation]
 
 Remove a quotation from the project. Doesn't fail if the quotation was already removed.
 
@@ -5240,14 +5240,14 @@ Remove a quotation from the project. Doesn't fail if the quotation was already r
 
 + Response 204
 
-## Project lines [/nextgen/projectLines]
+## Project lines [/projects-v2/projectLines]
 
 > A project line can be a group, a task, or a material.
 > The `projectLines.list` endpoint only returns `{id, type}` pairs of those lines. If you want more information, you should "side-load" those entities with `?include=line`.
 
 *Required scopes: `projects`*
 
-### projectLines.list [POST /nextgen/projectLines.list]
+### projectLines.list [POST /projects-v2/projectLines.list]
 
 All line types (tasks, materials, groups) can be side-loaded.
 
@@ -5283,7 +5283,7 @@ All line types (tasks, materials, groups) can be side-loaded.
                     + `type`: `nextgenProjectGroup` (string)
                     + `id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string)
 
-### projectLines.addToGroup [POST /nextgen/projectLines.addToGroup]
+### projectLines.addToGroup [POST /projects-v2/projectLines.addToGroup]
 
 Add an existing task or material to a group.
 
@@ -5294,7 +5294,7 @@ Add an existing task or material to a group.
 
 + Response 204
 
-### projectLines.removeFromGroup [POST /nextgen/projectLines.removeFromGroup]
+### projectLines.removeFromGroup [POST /projects-v2/projectLines.removeFromGroup]
 
 Remove a task or material from the group it is currently in.
 
@@ -5304,11 +5304,11 @@ Remove a task or material from the group it is currently in.
 
 + Response 204
 
-## Groups [/nextgen/projectGroups]
+## Groups [/projects-v2/projectGroups]
 
 *Required scopes: `projects`*
 
-### projectGroups.list [POST /nextgen/projectGroups.list]
+### projectGroups.list [POST /projects-v2/projectGroups.list]
 
 Lists all the groups that match the optional filters provided.
 
@@ -5390,7 +5390,7 @@ Lists all the groups that match the optional filters provided.
                         + Members
                             + `seconds`
 
-### projectGroups.info [POST /nextgen/projectGroups.info]
+### projectGroups.info [POST /projects-v2/projectGroups.info]
 
 Returns all the information for one group.
 
@@ -5470,7 +5470,7 @@ Returns all the information for one group.
                     + Members
                         + `seconds`
 
-### projectGroups.create [POST /nextgen/projectGroups.create]
+### projectGroups.create [POST /projects-v2/projectGroups.create]
 
 Create a group. All properties except for `title` and `project_id` are optional.
 
@@ -5518,7 +5518,7 @@ Create a group. All properties except for `title` and `project_id` are optional.
            + type: `nextgenProjectGroup` (string)
            + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
 
-### projectGroups.update [POST /nextgen/projectGroups.update]
+### projectGroups.update [POST /projects-v2/projectGroups.update]
 
 Update a group. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -5560,7 +5560,7 @@ Update a group. All attributes except for `id` are optional. Providing `null` wi
 
 + Response 204
 
-### projectGroups.duplicate [POST /nextgen/projectGroups.duplicate]
+### projectGroups.duplicate [POST /projects-v2/projectGroups.duplicate]
 
 Duplicate a group and its entities, without any time trackings.
 
@@ -5574,7 +5574,7 @@ Duplicate a group and its entities, without any time trackings.
            + type: `nextgenProjectGroup` (string)
            + id: `0186a6b5-682c-7b0e-95c9-090627a73d3b` (string)
 
-### projectGroups.delete [POST /nextgen/projectGroups.delete]
+### projectGroups.delete [POST /projects-v2/projectGroups.delete]
 
 Delete a group.
 
@@ -5589,7 +5589,7 @@ Delete a group.
 
 + Response 204
 
-### projectGroups.assign [POST /nextgen/projectGroups.assign]
+### projectGroups.assign [POST /projects-v2/projectGroups.assign]
 
 Assign a user or a team to a group.
 
@@ -5605,7 +5605,7 @@ Assign a user or a team to a group.
 
 + Response 204
 
-### projectGroups.unassign [POST /nextgen/projectGroups.unassign]
+### projectGroups.unassign [POST /projects-v2/projectGroups.unassign]
 
 Unassign a user or a team from a group.
 
@@ -5621,13 +5621,13 @@ Unassign a user or a team from a group.
 
 + Response 204
 
-## Tasks [/nextgen/tasks]
+## Tasks [/projects-v2/tasks]
 
 > _These endpoints are for (new) project tasks. For documentation on endpoints for tasks not linked to a project, see **Tasks** below._
 
 *Required scopes: `projects`*
 
-### tasks.list [GET /nextgen/tasks.list]
+### tasks.list [GET /projects-v2/tasks.list]
 
 Lists all the tasks that match the optional filters provided.
 
@@ -5707,7 +5707,7 @@ Lists all the tasks that match the optional filters provided.
                         + Members
                             + `seconds`
 
-### tasks.info [GET /nextgen/tasks.info]
+### tasks.info [GET /projects-v2/tasks.info]
 
 Returns all the information for one task.
 
@@ -5786,7 +5786,7 @@ Returns all the information for one task.
                     + Members
                         + `seconds`
 
-### tasks.create [POST /nextgen/tasks.create]
+### tasks.create [POST /projects-v2/tasks.create]
 
 Create a task. All properties except for `title` and `project_id` are optional.
 
@@ -5832,7 +5832,7 @@ Create a task. All properties except for `title` and `project_id` are optional.
            + type: `nextgenTask` (string)
            + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
 
-### tasks.update [POST /nextgen/tasks.update]
+### tasks.update [POST /projects-v2/tasks.update]
 
 Update a task. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -5872,7 +5872,7 @@ Update a task. All attributes except for `id` are optional. Providing `null` wil
 
 + Response 204
 
-### tasks.duplicate [POST /nextgen/tasks.duplicate]
+### tasks.duplicate [POST /projects-v2/tasks.duplicate]
 
 Duplicate a task, without its time trackings.
 
@@ -5886,7 +5886,7 @@ Duplicate a task, without its time trackings.
            + type: `nextgenTask` (string)
            + id: `0186a721-3879-729a-bf52-91576e0522f3` (string)
 
-### tasks.delete [POST /nextgen/tasks.delete]
+### tasks.delete [POST /projects-v2/tasks.delete]
 
 Delete a task.
 
@@ -5900,7 +5900,7 @@ Delete a task.
 
 + Response 204
 
-### tasks.assign [POST /nextgen/tasks.assign]
+### tasks.assign [POST /projects-v2/tasks.assign]
 
 Assign a user or a team to a task.
 
@@ -5916,7 +5916,7 @@ Assign a user or a team to a task.
 
 + Response 204
 
-### tasks.unassign [POST /nextgen/tasks.unassign]
+### tasks.unassign [POST /projects-v2/tasks.unassign]
 
 Unassign a user or a team from a task.
 
@@ -5932,11 +5932,11 @@ Unassign a user or a team from a task.
 
 + Response 204
 
-## Materials [/nextgen/materials]
+## Materials [/projects-v2/materials]
 
 *Required scopes: `projects`*
 
-### materials.list [GET /nextgen/materials.list]
+### materials.list [GET /projects-v2/materials.list]
 
 Lists all the materials that match the optional filters provided.
 
@@ -6006,7 +6006,7 @@ Lists all the materials that match the optional filters provided.
                     + `type`: `product` (string)
                     + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
 
-### materials.info [GET /nextgen/materials.info]
+### materials.info [GET /projects-v2/materials.info]
 
 Returns all the information for one material.
 
@@ -6075,7 +6075,7 @@ Returns all the information for one material.
                 + `type`: `product` (string)
                 + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
 
-### materials.create [POST /nextgen/materials.create]
+### materials.create [POST /projects-v2/materials.create]
 
 Create a material. All properties except for `title` and `project_id` are optional.
 
@@ -6115,7 +6115,7 @@ Create a material. All properties except for `title` and `project_id` are option
            + type: `nextgenMaterial` (string)
            + id: `b275487e-47d9-40b4-9cfe-5dfef77f4954` (string)
 
-### materials.update [POST /nextgen/materials.update]
+### materials.update [POST /projects-v2/materials.update]
 
 Update a material. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -6148,7 +6148,7 @@ Update a material. All attributes except for `id` are optional. Providing `null`
 
 + Response 204
 
-### materials.duplicate [POST /nextgen/materials.duplicate]
+### materials.duplicate [POST /projects-v2/materials.duplicate]
 
 Duplicate a material.
 
@@ -6162,7 +6162,7 @@ Duplicate a material.
            + type: `nextgenMaterial` (string)
            + id: `0186a2f3-32a5-7c81-b3a9-55809146ad0c` (string)
 
-### materials.delete [POST /nextgen/materials.delete]
+### materials.delete [POST /projects-v2/materials.delete]
 
 Delete a material.
 
@@ -6172,7 +6172,7 @@ Delete a material.
 
 + Response 204
 
-### materials.assign [POST /nextgen/materials.assign]
+### materials.assign [POST /projects-v2/materials.assign]
 
 Assign a user or a team to a material.
 
@@ -6188,7 +6188,7 @@ Assign a user or a team to a material.
 
 + Response 204
 
-### materials.unassign [POST /nextgen/materials.unassign]
+### materials.unassign [POST /projects-v2/materials.unassign]
 
 Unassign a user or a team from a material.
 

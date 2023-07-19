@@ -1,16 +1,16 @@
-## Projects [/nextgen/projects]
+## Projects [/projects-v2/projects]
 
 > _This is the documentation of the new projects module. See the **Legacy Projects** documentation for the endpoints concerning our legacy projects module._
 
 > ⚠️ (July 2023) The projects module has been completely overhauled and is currently only available for new project users. Existing project users only have access to the old projects module.
 > Over the course of the next few months, next generation projects will also be made available to existing project users, including the migration of existing project data.
 
-> To avoid naming collisions, all endpoints of the new projects module can be found under `/nextgen`, for example `/nextgen/projects.list`.
-> To avoid confusing "new projects" with "creating a new project", we opted for "nextgen" over "new" as the prefix.
+> To avoid naming collisions, all endpoints of the new projects module can be found under `/projects-v2`, for example `/projects-v2/projects.list`.
+> To avoid confusing "new projects" with "creating a new project", we opted for "projects-v2" over "new" as the prefix.
 
 *Required scopes: `projects`*
 
-### projects.list [POST /nextgen/projects.list]
+### projects.list [POST /projects-v2/projects.list]
 
 Lists all projects that match the optional filters provided.
 
@@ -154,7 +154,7 @@ Lists all projects that match the optional filters provided.
             + `page` (Pagination)
             + `matches`: `10` (number)
 
-### projects.info [POST /nextgen/projects.info]
+### projects.info [POST /projects-v2/projects.info]
 
 Returns all the information of a single project.
 
@@ -265,7 +265,7 @@ Returns all the information of a single project.
                         + `id`: `55d3707c-14dc-4b62-a072-e3f4c1413462` (string)
                     + `custom_rate` (Money)
 
-### projects.create [POST /nextgen/projects.create]
+### projects.create [POST /projects-v2/projects.create]
 
 Create a new project. Only `title` is required. All the other fields are optional.
 
@@ -329,7 +329,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
            + type: `nextgenProject` (string)
            + id: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
 
-### projects.update [POST /nextgen/projects.update]
+### projects.update [POST /projects-v2/projects.update]
 
 Update a project. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
 
@@ -378,7 +378,7 @@ Update a project. All attributes except for `id` are optional. Providing `null` 
 
 + Response 204
 
-### projects.close [POST /nextgen/projects.close]
+### projects.close [POST /projects-v2/projects.close]
 
 Mark a project as closed.
 
@@ -392,7 +392,7 @@ Mark a project as closed.
 
 + Response 204
 
-### projects.reopen [POST /nextgen/projects.reopen]
+### projects.reopen [POST /projects-v2/projects.reopen]
 
 Reopen a closed project.
 
@@ -402,7 +402,7 @@ Reopen a closed project.
 
 + Response 204
 
-### projects.duplicate [POST /nextgen/projects.duplicate]
+### projects.duplicate [POST /projects-v2/projects.duplicate]
 
 Duplicate a project.
 
@@ -417,7 +417,7 @@ Duplicate a project.
            + `type`: `nextgenProject` (string)
            + `id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
 
-### projects.delete [POST /nextgen/projects.delete]
+### projects.delete [POST /projects-v2/projects.delete]
 
 Delete a project.
 
@@ -432,7 +432,7 @@ Delete a project.
 
 + Response 204
 
-### projects.addOwner [POST /nextgen/projects.addOwner]
+### projects.addOwner [POST /projects-v2/projects.addOwner]
 
 Add a user as owner. Doesn't fail if the user was already added.
 
@@ -443,7 +443,7 @@ Add a user as owner. Doesn't fail if the user was already added.
 
 + Response 204
 
-### projects.removeOwner [POST /nextgen/projects.removeOwner]
+### projects.removeOwner [POST /projects-v2/projects.removeOwner]
 
 Remove a user as owner. Doesn't fail if the user wasn't linked.
 
@@ -454,7 +454,7 @@ Remove a user as owner. Doesn't fail if the user wasn't linked.
 
 + Response 204
 
-### projects.assign [POST /nextgen/projects.assign]
+### projects.assign [POST /projects-v2/projects.assign]
 
 Assign a user or a team to a project.
 
@@ -470,7 +470,7 @@ Assign a user or a team to a project.
 
 + Response 204
 
-### projects.unassign [POST /nextgen/projects.unassign]
+### projects.unassign [POST /projects-v2/projects.unassign]
 
 Unassign a user or a team from a project.
 
@@ -486,7 +486,7 @@ Unassign a user or a team from a project.
 
 + Response 204
 
-### projects.addCustomer [POST /nextgen/projects.addCustomer]
+### projects.addCustomer [POST /projects-v2/projects.addCustomer]
 
 Add a customer to the project. Doesn't fail if the customer was already added.
 
@@ -502,7 +502,7 @@ Add a customer to the project. Doesn't fail if the customer was already added.
 
 + Response 204
 
-### projects.removeCustomer [POST /nextgen/projects.removeCustomer]
+### projects.removeCustomer [POST /projects-v2/projects.removeCustomer]
 
 Remove a customer from the project. Doesn't fail if the customer was not added.
 
@@ -518,7 +518,7 @@ Remove a customer from the project. Doesn't fail if the customer was not added.
 
 + Response 204
 
-### projects.addDeal [POST /nextgen/projects.addDeal]
+### projects.addDeal [POST /projects-v2/projects.addDeal]
 
 Add a deal to the project. Doesn't fail if the deal was already added.
 
@@ -529,7 +529,7 @@ Add a deal to the project. Doesn't fail if the deal was already added.
 
 + Response 204
 
-### projects.removeDeal [POST /nextgen/projects.removeDeal]
+### projects.removeDeal [POST /projects-v2/projects.removeDeal]
 
 Remove a deal from the project. Doesn't fail if the deal was already removed.
 
@@ -540,7 +540,7 @@ Remove a deal from the project. Doesn't fail if the deal was already removed.
 
 + Response 204
 
-### projects.addQuotation [POST /nextgen/projects.addQuotation]
+### projects.addQuotation [POST /projects-v2/projects.addQuotation]
 
 Add a quotation to the project. Doesn't fail if the quotation was already added.
 
@@ -551,7 +551,7 @@ Add a quotation to the project. Doesn't fail if the quotation was already added.
 
 + Response 204
 
-### projects.removeQuotation [POST /nextgen/projects.removeQuotation]
+### projects.removeQuotation [POST /projects-v2/projects.removeQuotation]
 
 Remove a quotation from the project. Doesn't fail if the quotation was already removed.
 
