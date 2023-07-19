@@ -445,6 +445,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `unit_of_measure_id` to `products.add` and `products.update`.
 - We added `unit` to `products.info` and `products.list`.
 - We added the `currencies.exchangeRates` endpoint.
+- We added `invoice_currency` to `invoices.draft` and `invoices.update`.
 
 #### June 2023
 
@@ -3340,6 +3341,9 @@ Draft a new invoice.
         + expected_payment_method (ExpectedPaymentMethod, optional).
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + invoice_currency (object, optional)
+            + currency (Currency, required)
+            + exchange_rate (number, required) - The exchange rate from the department currency to the provided currency
 
 + Response 201 (application/json)
 
@@ -3400,6 +3404,9 @@ Update a draft invoice. Booked invoices cannot be updated.
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + invoice_currency (object, optional)
+            + currency (Currency, required)
+            + exchange_rate (number, required) - The exchange rate from the department currency to the provided currency
 
 + Response 204
 
