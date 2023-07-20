@@ -1,0 +1,24 @@
+## Price Lists [/priceLists]
+
+### priceLists.list [GET /priceLists.list]
+
+Get a list of priceLists.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `5a37d173-78d3-05f3-b018-d51fadc1c5d2`,`97233974-7c29-05f5-a51d-fbe3238e6157` (array[string], optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + name: `price` (string)
+                + calculation_method: `manual` (enum[string])
+                    + Members
+                        + manual
+                        + based_on_price_list
+                        + based_on_purchase_price

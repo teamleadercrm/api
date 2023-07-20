@@ -432,6 +432,20 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `invoices.send` endpoint.
 - 🎉 We added all endpoints for the _New Projects_ module: `projects-v2/projects`, `projects-v2/projectLines`, `projects-v2/projectGroups`, `projects-v2/tasks`, and `projects-v2/materials`. 🎉
 - We added `billing_info` on `timetrackings.info`.
+- We added `invoice_number` to the filters on `invoices.list`.
+- We added the `priceLists.list` endpoint.
+- We added `price_list_prices` to `products.info` and `products.add`.
+- We added `stock` and `configuration` to `products.list`, `products.info` and `products.add`.
+- We added `department_id`, `product_category_id` and `tax_rate_id` to `products.add`.
+- We added the `products.update` endpoint.
+- We added the `products.delete` endpoint.
+- We added `added_at` to `products.info`.
+- We added `updated_at` to `products.info` and `products.list`.
+- We added `custom_fields` to `products.add` and `products.update`.
+- We added `selling_price` to `products.update`.
+- We added `unit_of_measure_id` to `products.add` and `products.update`.
+- We added `unit` to `products.info` and `products.list`.
+- We added the `currencies.exchangeRates` endpoint.
 
 #### June 2023
 
@@ -1204,6 +1218,19 @@ Get details for a single user.
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
             + term: `Designers` (string, optional) - Filters on name
             + team_lead_id: `6a9106c3-ed2a-46a2-a919-eb3d41165dd2` (string) - Filters on teams for which a user is team lead for
+        + sort (array, optional)
+            + (object)
+                + field (enum, required)
+                    + Members
+                        + name
+                + order (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -1413,6 +1440,27 @@ Get a list of all document templates.
                     + Members
                         + active
                         + archived
+
+## Currencies [/currencies]
+
+### currencies.exchangeRates [POST /currencies.exchangeRates]
+
+Get a list of exchange rates for a provided currency.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + base: `EUR` (Currency, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + code: `USD` (Currency)
+                + symbol: `$` (string)
+                + name: `US Dollar` (string)
+                + exchange_rate: `1.1238` (number) - The exchange rate from the provided base currency to the listed currency
 
 # Group CRM
 
@@ -3009,6 +3057,7 @@ Get a list of invoices.
         + filter (object, optional)
             + `ids`: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
             + `term`: `Interesting invoice` (string, optional) - Filters on invoice number, purchase order number, payment reference and invoicee
+            + `invoice_number`: `2017 / 5` (string, optional) - Filters on a full invoice number (fiscal year / number)
             + `department_id`: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional) - Filters on a department (company entity)
             + `deal_id`: `4a219dae-7b80-4c79-97d2-bdadbab299ba` (string, optional) - Filters on a deal
             + `project_id`: `ba7d9731-c7d0-43d3-af95-fd7b3e818dbc` (string, optional) - Filters on a project
@@ -4088,7 +4137,14 @@ Get a list of products.
                 + name: `cookies` (string, nullable)
                 + description: `dark chocolate` (string, nullable) - The description of the product in Markdown
                 + code: `COOK-DARKCHOC-42` (string, nullable)
+                + unit (object, nullable)
+                    + type: `unitOfMeasure` (string)
+                    + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                 + added_at: `2016-02-01T11:25:41+00:00` (string)
+                + updated_at: `2016-02-01T11:25:41+00:00` (string)
+                + stock (object, optional) - Only available when stock management feature is enabled
+                    + amount: 123 (number, nullable)
+                + configuration (ProductConfigurationRead, nullable)
 
 ### products.info [POST /products.info]
 
@@ -4109,7 +4165,16 @@ Get details for a single product.
             + code: `COOK-DARKCHOC-42` (string, nullable)
             + purchase_price (Money, nullable, optional) - The purchase price will only be returned if you have access to it
             + selling_price (Money, nullable)
+            + unit (object, nullable)
+                + type: `unitOfMeasure` (string)
+                + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
             + custom_fields (array[CustomField])
+            + price_list_prices (PriceListPricesRead)
+            + stock (object, optional) - Only available when stock management feature is enabled
+                + amount: 123 (number, nullable)
+            + configuration (ProductConfigurationRead, optional)
+            + added_at: `2016-02-01T11:25:41+00:00` (string)
+            + updated_at: `2016-02-01T11:25:41+00:00` (string)
 
 ### products.add [POST /products.add]
 
@@ -4127,6 +4192,15 @@ Add a new product.
         + description (string, optional) - The description of the product in Markdown
         + purchase_price (Money, optional)
         + selling_price (Money, optional)
+        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
+        + price_list_prices (PriceListPricesWrite, optional)
+        + stock (object, optional) - Only available when stock management feature is enabled
+            + amount: 123 (number, nullable)
+        + configuration (ProductConfigurationWrite, nullable)
+        + department_id: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional)
+        + product_category_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + tax_rate_id: `23097774-e51e-0371-9b42-98ef8ca8bbb6` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
 
@@ -4135,7 +4209,43 @@ Add a new product.
             + type: `product` (string)
             + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
 
-# Units of Measure [/unitsOfMeasure]
+### products.update [POST /products.update]
+
+Update a product.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `71e91f91-b222-033f-8c7e-59bcc1521e3d` (string, required)
+        + name: `Hosting` (string, nullable, optional)
+        + code: `c0d32` (string, nullable, optional)
+        + purchase_price (Money, nullable, optional) - The currency must match the account currency
+        + description: `Product used for hosting web solutions` (string, nullable, optional)
+        + selling_price (Money, optional)
+        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
+        + price_list_prices (PriceListPricesWrite, optional)
+        + stock (object, optional) - Only available when stock management feature is enabled
+            + amount: 123 (number, nullable)
+        + configuration (ProductConfigurationWrite, nullable)
+        + department_id: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional)
+        + product_category_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + tax_rate_id: `23097774-e51e-0371-9b42-98ef8ca8bbb6` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
+### products.delete [POST /products.delete]
+
+Delete a product.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `71e91f91-b222-033f-8c7e-59bcc1521e3d` (string, required)
+
++ Response 204
+
+## Units of Measure [/unitsOfMeasure]
 
 ### unitsOfMeasure.list [GET /unitsOfMeasure.list]
 
@@ -4149,8 +4259,33 @@ Get a list of units of measure.
             + (object)
                 + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string)
                 + name: `kg` (string)
+                
+## Price Lists [/priceLists]
 
-# Group Legacy Projects
+### priceLists.list [GET /priceLists.list]
+
+Get a list of priceLists.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `5a37d173-78d3-05f3-b018-d51fadc1c5d2`,`97233974-7c29-05f5-a51d-fbe3238e6157` (array[string], optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2aa4a6a9-9ce8-4851-a9b3-26aea2ea14c4` (string)
+                + name: `price` (string)
+                + calculation_method: `manual` (enum[string])
+                    + Members
+                        + manual
+                        + based_on_price_list
+                        + based_on_purchase_price
+
+# Legacy Projects
 
 > _This is the documentation of the legacy projects module. See the **New Projects** documentation for the endpoints concerning our new projects module._
 
@@ -7167,33 +7302,34 @@ Unregister a webhook.
 + addressee: `Teamleader HQ` (string, optional)
 + Include AddressResponse
 
+## Currency (enum)
++ BAM
++ CAD
++ CHF
++ CLP
++ CNY
++ COP
++ CZK
++ DKK
++ EUR
++ GBP
++ INR
++ ISK
++ JPY
++ MAD
++ MXN
++ NOK
++ PEN
++ PLN
++ RON
++ SEK
++ TRY
++ USD
++ ZAR
+
 ## Money (object)
 + amount: `123.30` (number, required)
-+ currency: `EUR` (enum, required)
-    + Members
-        + BAM
-        + CAD
-        + CHF
-        + CLP
-        + CNY
-        + COP
-        + CZK
-        + DKK
-        + EUR
-        + GBP
-        + INR
-        + ISK
-        + JPY
-        + MAD
-        + MXN
-        + NOK
-        + PEN
-        + PLN
-        + RON
-        + SEK
-        + TRY
-        + USD
-        + ZAR
++ currency: `EUR` (Currency, required)
 
 ## Page
 + size: `20` (number, optional)
@@ -7506,3 +7642,45 @@ Unregister a webhook.
         + withheld_tax (object, nullable)
             + type: `withholding_tax` (string)
             + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+
+## PriceListRead (object)
++ `id`: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string)
++ `type`: `priceList` (string)
+
+## ProductPriceRead (object)
++ `amount`: 100 (number)
++ `currency`: `EUR` (string)
+
+## PriceListPriceRead (object)
++ `price_list` (PriceListRead)
++ `price` (ProductPriceRead)
+
+## PriceListPricesRead (array)
++ (array)
+    + (PriceListPriceRead)
+
+## ProductPriceWrite (object)
++ `amount`: 100 (number, required)
++ `currency`: `EUR` (string, required)
+
+## PriceListPriceWrite (object)
++ `price_list_id`: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, required)
++ `price` (ProductPriceWrite, required)
+
+## PriceListPricesWrite (array)
++ (array)
+    + (PriceListPriceWrite, required)
+
+## ProductConfigurationWrite (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number, required) - Cannot be negative
+    + `action`: `notify` (enum, required)
+        + Members
+            + `notify`
+
+## ProductConfigurationRead (object)
++ `stock_threshold` (object, nullable) - Only available when stock management feature is enabled
+    + `minimum`: 4 (number)
+    + `action`: `notify` (enum)
+        + Members
+            + `notify`
