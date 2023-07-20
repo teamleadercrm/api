@@ -4245,7 +4245,7 @@ Delete a product.
 
 + Response 204
 
-## Units of Measure [/unitsOfMeasure]
+# Units of Measure [/unitsOfMeasure]
 
 ### unitsOfMeasure.list [GET /unitsOfMeasure.list]
 
@@ -4259,7 +4259,7 @@ Get a list of units of measure.
             + (object)
                 + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string)
                 + name: `kg` (string)
-                
+
 ## Price Lists [/priceLists]
 
 ### priceLists.list [GET /priceLists.list]
@@ -4285,7 +4285,7 @@ Get a list of priceLists.
                         + based_on_price_list
                         + based_on_purchase_price
 
-# Legacy Projects
+# Group Legacy Projects
 
 > _This is the documentation of the legacy projects module. See the **New Projects** documentation for the endpoints concerning our new projects module._
 
@@ -5378,7 +5378,7 @@ Remove a quotation from the project. Doesn't fail if the quotation was already r
 ## Project lines [/projects-v2/projectLines]
 
 > A project line can be a group, a task, or a material.
-> The `projectLines.list` endpoint only returns `{id, type}` pairs of those lines. If you want more information, you should "side-load" those entities with `?include=line`.
+> The `projectLines.list` endpoint only returns `{id, type}` pairs of those lines.
 
 *Required scopes: `projects`*
 
