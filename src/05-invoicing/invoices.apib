@@ -292,7 +292,8 @@ Draft a new invoice.
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number, required)
+                            + currency: `EUR` (Currency, optional)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -352,7 +353,8 @@ Update a draft invoice. Booked invoices cannot be updated.
                         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object)
-                            + Include Money
+                            + amount: `123.30` (number, required)
+                            + currency: `EUR` (Currency, optional)
                             + tax: `excluding` (enum)
                                 + Members
                                     + excluding
