@@ -311,7 +311,7 @@ Draft a new invoice.
         + expected_payment_method (ExpectedPaymentMethod, optional).
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
-        + invoice_currency (object, optional)
+        + invoice_currency (object, optional) - Defaults to the department currency if not provided
             + currency: `USD` (Currency, required)
             + exchange_rate: `1.1234` (number, required) - The exchange rate from the department currency to the provided currency
 
@@ -374,7 +374,7 @@ Update a draft invoice. Booked invoices cannot be updated.
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
-        + invoice_currency (object, optional)
+        + invoice_currency (object, optional) - Defaults to the department currency if not provided
             + currency: `USD` (Currency, required)
             + exchange_rate: `1.1234` (number, required) - The exchange rate from the department currency to the provided currency
 
