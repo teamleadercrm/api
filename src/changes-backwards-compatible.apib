@@ -28,6 +28,9 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `unit_of_measure_id` to `products.add` and `products.update`.
 - We added `unit` to `products.info` and `products.list`.
 - We added the `currencies.exchangeRates` endpoint.
+- The property `currency` on the `unit_price` on `line_items` is now optional for:
+  - `invoices.draft`
+  - `invoices.update`
 
 #### June 2023
 
