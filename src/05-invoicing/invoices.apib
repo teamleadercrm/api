@@ -446,6 +446,14 @@ Credit an invoice completely.
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
         + credit_note_date: `2016-02-04` (string, optional)
+        + partial (object, optional)
+            + grouped_lines (array, required)
+                + (object)
+                    + section (object)
+                        + title (string)
+                    + line_items (array, required)
+                        + (LineItem)
+            + discounts (array[CommercialDiscount], optional)
 
 + Response 201 (application/json)
 
