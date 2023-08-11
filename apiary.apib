@@ -422,6 +422,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### August 2023
+- We added `product_category` to `products.info`.
+
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
 - We added `status` to the filters on `companies.list`.
@@ -4177,6 +4180,9 @@ Get details for a single product.
                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
+            + product_category (object, nullable)
+                + type: `productCategory` (string)
+                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
             + stock (object, optional) - Only available when stock management feature is enabled
                 + amount: 123 (number, nullable)
             + configuration (ProductConfigurationRead, optional)
@@ -7620,8 +7626,8 @@ Unregister a webhook.
             + type: `product` (string)
             + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
         + product_category (object, nullable)
-            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
             + type: `productCategory` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
         + quantity: 3 (number)
         + description: `An awesome product` (string)
         + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
