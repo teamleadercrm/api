@@ -281,30 +281,7 @@ Draft a new invoice.
         + payment_term (PaymentTerm, required)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
-        + grouped_lines (array, required)
-            + (object)
-                + section (object, optional)
-                    + title (string, required)
-                + line_items (array, required)
-                    + (object)
-                        + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
-                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
-                        + unit_price (object, required)
-                            + Include Money
-                            + tax: `excluding` (enum, required)
-                                + Members
-                                    + excluding
-                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
-                        + discount (object, optional)
-                            + value: 10 (number, required)
-                            + type (enum, required)
-                                + Members
-                                    + percentage - Values between 0 and 100
-                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
-                        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], required)
         + invoice_date: `2016-02-04` (string, optional)
         + discounts (array[CommercialDiscount], optional)
         + note: `Invoice comments` (string, optional)
@@ -341,30 +318,7 @@ Update a draft invoice. Booked invoices cannot be updated.
         + payment_term (PaymentTerm, optional)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
-        + grouped_lines (array, optional)
-            + (object)
-                + section (object, optional)
-                    + title (string, required)
-                + line_items (array, required)
-                    + (object)
-                        + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
-                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
-                        + unit_price (object)
-                            + Include Money
-                            + tax: `excluding` (enum)
-                                + Members
-                                    + excluding
-                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
-                        + discount (object, optional)
-                            + value: 10 (number, required)
-                            + type (enum, required)
-                                + Members
-                                    + percentage - Values between 0 and 100
-                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
-                        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
         + discounts (array[CommercialDiscount], optional)
