@@ -424,6 +424,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### August 2023
 - We added `product_category` to `products.info`.
+- We added the `cloudPlatforms.url` endpoint.
 
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
@@ -7273,6 +7274,27 @@ Unregister a webhook.
     + Attributes (WebHook)
 
 + Response 204
+
+## Cloud Platforms [/cloudPlatforms]
+
+
+### cloudPlatforms.url [POST /cloudPlatforms.url]
+
+Fetch cloudPlatform url for type and id
+
++ Request (application/json)
+
+    + Attributes (object)
+        + type (enum, required)
+            + Members
+                + invoice
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + url: `https://teamleader.cloud/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50X2lkIjoiMGJjYWM5ZTYtYzhlMy0wMjJlLWJkMTQtMWFmZTYzMTA3MmM1IiwiaW52b2ljZV9pZCI6IjcyNmZlMjBmLWVlNGQtMGIxZC1iNDM0LWUyMTY2MjRhMjI2OSIsInNzIjoiMWVjYTY4MDhkYmRlNTUwMzVjYzE2Yjk0ZTk5MWY5YjI1ZmM4ODk0NWJiYzI0MTBmNzBmMDA1ZDJiYjY3IiwidHlwZSI6Imludm9pY2UiLCJjb21wYW55X2VudGl0eV9pZCI6ImI5OGI2MzcwLWI4MjUtMDg5Ni1hMjE5LTY1M2E4ZmU1ZmY0NyIsImN1c3RvbWVyIjp7InR5cGUiOiJjb21wYW55IiwiaWQiOiIwNzA5ZmMzZS1lOTE4LTAwZDUtYTExMy1iYTAwYTMzMTAyY2EifSwiZXhwaXJlc19hdCI6IjIwMjMtMTEtMzBUMDA6MDA6MDArMDA6MDAifQ.yUmR5yNZ45P_jHDbjAzuk4kRA8YNoM9ckSZOZpMIJmU/"/` (string)
 
 # Data Structures
 
