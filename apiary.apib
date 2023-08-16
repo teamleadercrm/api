@@ -424,6 +424,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### August 2023
 - We added `product_category` to `products.info`.
+- We added `expiry` to `quotations.create`, `quotations.update`, `quotations.info` and `quotations.list`.
+- We added `expired` as possible value for a quotation status.
+- We added a `quotations.requestExtension` endpoint.
 
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
@@ -2559,8 +2562,12 @@ Get a list of quotations.
                     + Members
                         + open
                         + accepted
+                        + expired
                         + rejected
                         + closed
+                + expiry (object) - returned if user has access to quotation expiry and when `includes=expiry` is requested
+                        + expires_after: `2023-04-05` (string, nullable)
+                        + lock_after_expiry (boolean)
 
 ### quotations.info [POST /quotations.info]
 
@@ -2633,11 +2640,15 @@ Get a quotation
                 + Members
                     + open
                     + accepted
+                    + expired
                     + rejected
                     + closed
             + document_template (object)
                 + type: `documentTemplate` (string)
                 + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+             + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
+                + expires_after: `2023-04-05` (string, nullable)
+                + lock_after_expiry (boolean)
 
 ### quotations.download [POST /quotations.download]
 
@@ -2692,6 +2703,9 @@ Create a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + lock_after_expiry (boolean)
 
 + Response 201 (application/json)
 
@@ -2785,6 +2799,9 @@ Update a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + lock_after_expiry (boolean)
 
 + Response 204
 
@@ -2807,6 +2824,21 @@ Delete a quotation.
 
     + Attributes (object)
         + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
+
++ Response 204
+
+### quotations.requestExtension [POST /quotations.requestExtension]
+
+Request an extension for a quotation. Only possible for expired quotations.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + send_to: `info@teamleader.eu` (string, required)
+        + send_copy_to: maria@teamleader.eu` (string, optional, nullable)
+        + subject: `I missed the deadline' quotation` (string, required)
+        + content: `Can you reopen this quotation, please?` (string, required)
 
 + Response 204
 
