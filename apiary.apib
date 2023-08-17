@@ -424,6 +424,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### August 2023
 - We added `product_category` to `products.info`.
+- We added the `invoices.creditPartially` endpoint.
+- We added a `paymentMethods.list` endpoint.
+- We added `payment_method_id` to `invoices.registerPayment`.
 
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
@@ -3426,6 +3429,7 @@ Register a payment for an invoice.
         + payment (object, required)
             + Include Money
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
+        + payment_method_id: `bb9589ec-6e08-0d5f-9b23-7be9b9c3ea2d` (string, optional)
 
 + Response 204
 
@@ -3475,7 +3479,6 @@ Credit an invoice partially.
         + data (object)
             + type: `creditNote` (string)
             + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
-
 
 
 ### invoices.send [POST /invoices.send]
@@ -4064,6 +4067,31 @@ Get a list of commercial discounts.
                 + department (object)
                     + type: `department` (string)
                     + id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string)
+
+## Payment Methods [/paymentMethods]
+
+### paymentMethods.list [POST /paymentMethods.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `852bb293-9a61-05cb-ba3e-560212661144`, `1e8e3758-2c67-074a-911b-a93dd2a6af19` (array[string], optional)
+            + status (array[enum], optional) - Filters on status
+                + Members
+                    + active
+                    + archived
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
+                + name: `Coupons` (string)
+                + status (enum, required)
+                    + Members
+                        + active
+                        + archived
 
 # Group Products
 
