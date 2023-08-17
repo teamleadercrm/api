@@ -1,0 +1,20 @@
+## Cloud Platforms [/cloudPlatforms]
+
+
+### cloudPlatforms.url [POST /cloudPlatforms.url]
+
+Fetch cloudPlatform url for type and id
+
++ Request (application/json)
+
+    + Attributes (object)
+        + type (enum, required)
+            + Members
+                + invoice
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + url: `https://teamleader.cloud/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.yUmR5yNZ45P_jHDbjAzuk4kRA8YNoM9ckSZOZpMIJmU/` (string)
