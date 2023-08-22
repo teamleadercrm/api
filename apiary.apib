@@ -423,6 +423,7 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### August 2023
+- We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
 - We added `product_category` to `products.info`.
 - We added the `invoices.creditPartially` endpoint.
 - We added a `paymentMethods.list` endpoint.
@@ -2617,6 +2618,7 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+            + currency: `USD` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
                 + to: `EUR` (string)
@@ -3269,6 +3271,7 @@ Get details for a single invoice.
                         + Include Money
             + payment_reference: `+++084/2613/66074+++` (string, nullable)
             + note: `'Some extra remarks about the invoice'` (string, nullable) - plaintext
+            + currency: `USD` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
                 + to: `EUR` (string)
@@ -3686,6 +3689,7 @@ Get details for a single credit note
                                     + tax_exclusive_before_discount (Money)
                                     + tax_inclusive (Money)
                                     + tax_inclusive_before_discount (Money)
+                + currency: `USD` (string)
                 + currency_exchange_rate (object)
                     + from: `USD` (string)
                     + to: `EUR` (string)
@@ -3865,6 +3869,7 @@ Get details for a single subscription
             + document_template (object)
                 + type: `documentTemplate` (string)
                 + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+            + currency: `USD` (string)
 
 ### subscriptions.create [POST /subscriptions.create]
 
