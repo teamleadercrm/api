@@ -191,6 +191,12 @@ Create a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 201 (application/json)
 
@@ -284,6 +290,12 @@ Update a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 204
 
