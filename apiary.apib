@@ -423,6 +423,7 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### August 2023
+- We added the `invoices.updateBooked` endpoint.
 - We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
 - We added `product_category` to `products.info`.
 - We added the `invoices.creditPartially` endpoint.
@@ -3380,6 +3381,34 @@ Update a draft invoice. Booked invoices cannot be updated.
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+
++ Response 204
+
+### invoices.updateBooked [POST /invoices.update]
+
+Update a booked invoice. Only available if "Booked invoices can't be edited" is disabled in the settings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + note: `Some comments about the invoice` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
