@@ -14,6 +14,10 @@ Our API consists of HTTP RPC-style methods, in the form of `https://api.focus.te
 
 We chose this action based approach over the more popular REST, because it enables us to have domain related actions on resources such as `invoices.book`, `timetracking.start` and `timetracking.stop`.
 
+### Transport Security
+
+We expect all network clients to make use of TLS 1.2 when connecting to our infrastructure.
+
 ### Requests
 
 All methods must be called using HTTPS. Data is passed as JSON data in a POST request.
