@@ -430,6 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added a `paymentMethods.list` endpoint.
 - We added `payment_method_id` to `invoices.registerPayment`.
 - We added the `cloudPlatforms.url` endpoint.
+- We added `subscription.add`, `subscription.updated`, `subscription.deleted`, `subscription.deactivated` types to supported Webhook types
 
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
@@ -7443,9 +7444,9 @@ Fetch cloudPlatform url for type and id
         + contact.unlinkedFromCompany
         + contact.updated
         + creditNote.booked
-        + creditNote.updated
         + creditNote.deleted
         + creditNote.sent
+        + creditNote.updated
         + deal.created
         + deal.deleted
         + deal.lost
@@ -7465,6 +7466,10 @@ Fetch cloudPlatform url for type and id
         + project.created
         + project.deleted
         + project.updated
+        + subscription.added
+        + subscription.deactivated
+        + subscription.deleted
+        + subscription.updated
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
