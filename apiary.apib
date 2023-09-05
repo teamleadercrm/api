@@ -422,14 +422,18 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
-### August 2023
+#### September 2023
 - We added the `invoices.updateBooked` endpoint.
+
+#### August 2023
+- We added `quotation` as a type for `cloudPlatforms.url`.
 - We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
 - We added `product_category` to `products.info`.
 - We added the `invoices.creditPartially` endpoint.
 - We added a `paymentMethods.list` endpoint.
 - We added `payment_method_id` to `invoices.registerPayment`.
 - We added the `cloudPlatforms.url` endpoint.
+- We added `subscription.add`, `subscription.updated`, `subscription.deleted`, `subscription.deactivated` types to supported Webhook types
 
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
@@ -7325,6 +7329,7 @@ Fetch cloudPlatform url for type and id
         + type (enum, required)
             + Members
                 + invoice
+                + quotation
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
 
 + Response 200 (application/json)
@@ -7470,9 +7475,9 @@ Fetch cloudPlatform url for type and id
         + contact.unlinkedFromCompany
         + contact.updated
         + creditNote.booked
-        + creditNote.updated
         + creditNote.deleted
         + creditNote.sent
+        + creditNote.updated
         + deal.created
         + deal.deleted
         + deal.lost
@@ -7492,6 +7497,10 @@ Fetch cloudPlatform url for type and id
         + project.created
         + project.deleted
         + project.updated
+        + subscription.added
+        + subscription.deactivated
+        + subscription.deleted
+        + subscription.updated
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
