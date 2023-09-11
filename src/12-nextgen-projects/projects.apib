@@ -82,12 +82,18 @@ Lists all projects that match the optional filters provided.
                     + unit: `seconds` (enum[string])
                         + Members
                             + seconds
+                + `time_estimated` (object, nullable) - Combined value of all time estimated by lines linked to project, value in seconds, rounded to the nearest minute.
+                    + value: 43200 (number)
+                    + unit: `seconds` (enum[string])
+                        + Members
+                            + seconds
                 + `time_tracked` (object, nullable)
                     + `value`: 43200 (number)
                     + `unit`: `seconds` (enum[string])
                         + Members
                             + `seconds`
                 + `amount_billed` (Money, nullable)
+                + `amount_unbilled` (Money, nullable) - Price of the project minus the amount billed
                 + `fixed_amount_billed` (Money, nullable)
                 + `amount_paid` (Money, nullable)
                 + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price

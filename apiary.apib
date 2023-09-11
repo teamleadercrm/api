@@ -422,6 +422,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### September 2023
+- We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
+
 ### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
 - We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
@@ -4947,12 +4950,18 @@ Lists all projects that match the optional filters provided.
                     + unit: `seconds` (enum[string])
                         + Members
                             + seconds
+                + `time_estimated` (object, nullable) - Combined value of all time estimated by lines linked to project, value in seconds, rounded to the nearest minute.
+                    + value: 43200 (number)
+                    + unit: `seconds` (enum[string])
+                        + Members
+                            + seconds
                 + `time_tracked` (object, nullable)
                     + `value`: 43200 (number)
                     + `unit`: `seconds` (enum[string])
                         + Members
                             + `seconds`
                 + `amount_billed` (Money, nullable)
+                + `amount_unbilled` (Money, nullable) - Price of the project minus the amount billed
                 + `fixed_amount_billed` (Money, nullable)
                 + `amount_paid` (Money, nullable)
                 + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
