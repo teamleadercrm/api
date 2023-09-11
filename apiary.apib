@@ -424,6 +424,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 ### September 2023
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`. 
 
 ### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
@@ -4909,14 +4910,21 @@ Lists all projects that match the optional filters provided.
             + (object)
                 + field (enum[string], required)
                     + Members
+                        + `amount_billed`
+                        + `amount_paid`
+                        + `amount_unbilled`
                         + `cost`
                         + `end_date`
+                        + `external_budget_spent`
+                        + `external_budget`
+                        + `internal_budget`
                         + `margin`
                         + `price`
                         + `project_key`
                         + `start_date`
                         + `status`
                         + `time_budget`
+                        + `time_estimated`
                         + `time_tracked`
                         + `title`
                 + order (enum[string], optional)
