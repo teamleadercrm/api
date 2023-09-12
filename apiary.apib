@@ -422,6 +422,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### September 2023
+- We added the `customFieldDefinitions.addOption` endpoint.
+
 ### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
 - We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
@@ -1375,6 +1378,22 @@ Get info about a specific custom field definition.
             + configuration (object, optional)
                 + options: foo, bar (array[string])
                 + extra_option_allowed: true (boolean)
+
+### customFieldDefinitions.addOption [POST /customFieldDefinitions.addOption]
+
+Add an option to a single or multi select custom field.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `9c64570b-4ec1-4e03-9662-af904f78f7fa` (string, required) - The id of the custom field definition
+        + name: `select option 2` (string, required)
+        + after: `8dbfa9db-c53f-410c-97d3-755b19685809` (string, optional, nullable) - The id of the option after which the new option should be inserted. If not provided, the option will be inserted at the end of the list.
+
++ Response 201
+    + Attributes (object)
+        + data (object)
+            + id: `c47e8e40-9a16-468f-9b29-38aea8ae4210` (string)
 
 ## Work Types [/workTypes]
 

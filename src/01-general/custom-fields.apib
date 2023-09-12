@@ -118,3 +118,19 @@ Get info about a specific custom field definition.
             + configuration (object, optional)
                 + options: foo, bar (array[string])
                 + extra_option_allowed: true (boolean)
+
+### customFieldDefinitions.addOption [POST /customFieldDefinitions.addOption]
+
+Add an option to a single or multi select custom field.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `9c64570b-4ec1-4e03-9662-af904f78f7fa` (string, required) - The id of the custom field definition
+        + name: `select option 2` (string, required)
+        + after: `8dbfa9db-c53f-410c-97d3-755b19685809` (string, optional, nullable) - The id of the option after which the new option should be inserted. If not provided, the option will be inserted at the end of the list.
+
++ Response 201
+    + Attributes (object)
+        + data (object)
+            + id: `c47e8e40-9a16-468f-9b29-38aea8ae4210` (string)
