@@ -5,12 +5,16 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### August 2023
+- We added `quotation` as a type for `cloudPlatforms.url`.
 - We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
 - We added `product_category` to `products.info`.
 - We added the `invoices.creditPartially` endpoint.
 - We added a `paymentMethods.list` endpoint.
 - We added `payment_method_id` to `invoices.registerPayment`.
 - We added the `cloudPlatforms.url` endpoint.
+- We added `expiry` to `quotations.create`, `quotations.update`, `quotations.info` and `quotations.list`.
+- We added `expired` as possible value for a quotation status.
+- We added `subscription.add`, `subscription.updated`, `subscription.deleted`, `subscription.deactivated` types to supported Webhook types
 
 #### July 2023
 - We added `status` to the filters on `contacts.list`.

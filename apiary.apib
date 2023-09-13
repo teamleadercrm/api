@@ -427,12 +427,16 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### August 2023
+- We added `quotation` as a type for `cloudPlatforms.url`.
 - We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
 - We added `product_category` to `products.info`.
 - We added the `invoices.creditPartially` endpoint.
 - We added a `paymentMethods.list` endpoint.
 - We added `payment_method_id` to `invoices.registerPayment`.
 - We added the `cloudPlatforms.url` endpoint.
+- We added `expiry` to `quotations.create`, `quotations.update`, `quotations.info` and `quotations.list`.
+- We added `expired` as possible value for a quotation status.
+- We added `subscription.add`, `subscription.updated`, `subscription.deleted`, `subscription.deactivated` types to supported Webhook types
 
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
@@ -2572,8 +2576,15 @@ Get a list of quotations.
                     + Members
                         + open
                         + accepted
+                        + expired
                         + rejected
                         + closed
+                + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
+                    + expires_after: `2023-04-05` (string)
+                    + action_after_expiry (enum[string])
+                        + Members
+                            + lock
+                            + none
 
 ### quotations.info [POST /quotations.info]
 
@@ -2647,11 +2658,18 @@ Get a quotation
                 + Members
                     + open
                     + accepted
+                    + expired
                     + rejected
                     + closed
             + document_template (object)
                 + type: `documentTemplate` (string)
                 + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+            + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
+                + expires_after: `2023-04-05` (string)
+                + action_after_expiry (enum[string])
+                    + Members
+                        + lock
+                        + none
 
 ### quotations.download [POST /quotations.download]
 
@@ -2706,6 +2724,12 @@ Create a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 201 (application/json)
 
@@ -2799,6 +2823,12 @@ Update a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 204
 
@@ -7304,6 +7334,7 @@ Fetch cloudPlatform url for type and id
         + type (enum, required)
             + Members
                 + invoice
+                + quotation
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
 
 + Response 200 (application/json)
@@ -7449,9 +7480,9 @@ Fetch cloudPlatform url for type and id
         + contact.unlinkedFromCompany
         + contact.updated
         + creditNote.booked
-        + creditNote.updated
         + creditNote.deleted
         + creditNote.sent
+        + creditNote.updated
         + deal.created
         + deal.deleted
         + deal.lost
@@ -7471,6 +7502,10 @@ Fetch cloudPlatform url for type and id
         + project.created
         + project.deleted
         + project.updated
+        + subscription.added
+        + subscription.deactivated
+        + subscription.deleted
+        + subscription.updated
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
