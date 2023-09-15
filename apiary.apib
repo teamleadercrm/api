@@ -423,6 +423,7 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 ### September 2023
+- We added the `meetings.list` and `meetings.info` endpoints.
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
 - We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`. 
 
@@ -3083,6 +3084,166 @@ Get a list of all activity types.
             + (object)
                 + id: `9feb5f61-c6dd-4f9d-9b37-2813ada4e343` (string)
                 + name (string)
+
+## Meetings [/meetings]
+
+### meetings.list [POST /meetings.list]
+
+Get a list of meetings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + `ids`: `e4eb5f08-fb6a-42c1-8a41-6f619cb6de80`, `f4e6bd3c-cff7-4da8-9217-0b84b9437231` (array[string], optional)
+            + `employee_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+            + `start_date`: `2019-02-04` (string, optional)
+            + `end_date`: `2019-02-04` (string, optional)
+            + `milestone_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+            + `term`: `funny joke HR meeting` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum, required)
+                    + Members
+                        + scheduled_at
+                + order (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `scheduled_at`
+                    + order: `asc`
+        + includes: `tracked_time` (string, optional) - when used, the response will include `tracked_time`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + name (string)
+                + description (string)
+                + created_at: `2020-02-01T10:33:45+00:00` (string)
+                + scheduled_at: `2020-02-04T16:44:33+00:00` (string)
+                + duration (object)
+                    + unit (enum)
+                        + Members
+                            + min - Minutes
+                    + value: `60` (number)
+                + `tracked_time` (object, optional) - Only included with request parameter `includes=tracked_time`
+                    + total (object)
+                        + unit (enum)
+                            + Members
+                                + min - Minutes
+                        + value: `60` (number)
+                + `estimated_time` (object, optional) - Only included with request parameter `includes=estimated_time`
+                    + total (object)
+                        + unit (enum)
+                            + Members
+                                + min - Minutes
+                        + value: `60` (number)
+                + customer (object, nullable)
+                    + type: `contact` (enum)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + project (object, nullable)
+                    + type: `project` (string)
+                    + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `bb8337d9-e669-0319-aa57-355ef6ff4f2d` (string)
+                + attendees (array)
+                    + (object)
+                        + type (enum)
+                            + Members
+                                + user
+                                + contact
+                        + id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+                + status (enum)
+                    + Members
+                        + open
+                        + done
+
+
+### meetings.info [POST /meetings.info]
+
+Get information about a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string, required)
+        + includes: `tracked_time` (string, optional) - when used, the response will include `tracked_time`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string)
+            + name (string)
+            + description (string)
+            + scheduled_at: `2020-02-04T16:44:33+00:00` (string)
+            + duration (object)
+                + unit (enum)
+                    + Members
+                        + min - Minutes
+                + value: `60` (number)
+            + `tracked_time` (object, optional) - Only included with request parameter `includes=tracked_time`
+                + total (object)
+                    + unit (enum)
+                        + Members
+                            + min - Minutes
+                    + value: `60` (number)
+            + `estimated_time` (object, optional) - Only included with request parameter `includes=estimated_time`
+                + total (object)
+                    + unit (enum)
+                        + Members
+                            + min - Minutes
+                    + value: `60` (number)
+            + customer (object, nullable)
+                + type: `contact` (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + project (object, nullable)
+                + type: `project` (string)
+                + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+            + milestone (object, nullable)
+                + type: `milestone` (string)
+                + id: `bb8337d9-e669-0319-aa57-355ef6ff4f2d` (string)
+            + deal (object, nullable)
+                + type: `deal` (string)
+                + id: `08b979e5-90d6-01e0-ac28-d58db81c3b12` (string)
+            + location (object, nullable)
+                + number (string)
+                + street (string)
+                + zipcode (string)
+                + city (string)
+                + region (string)
+                + country_code (string)
+                + description (string)
+                + first_line (string)
+                + second_line (string)
+            + online_meeting_room (object, nullable)
+                + type: `onlineMeetingRoom` (string)
+                + id: `89b76a74dcf842b298b90ea79a5d1f7a` (string)
+            + attendees (array)
+                + (object)
+                    + type (enum)
+                        + Members
+                            + user
+                            + contact
+                    + id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+            + custom_fields (array[CustomField])
+            + status (enum)
+                + Members
+                    + open
+                    + done
 
 # Group Invoicing
 
