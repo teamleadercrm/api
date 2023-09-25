@@ -863,6 +863,18 @@ We list all backwards-incompatible changes here. As described above, new additio
 
 As of October 1st 2023, we expect all network clients to make use of TLS 1.2 or higher when connecting to our infrastructure.
 
+#### 2023-09-25
+
+ - When updating events through `events.update`, links to deals must also be provided otherwise existing deal link(s) will be removed.
+
+ - `Currency` is no longer supported or validated on line items for invoices, quotations, subscriptions & credit notes endpoints. Instead, it will be supported on the document level for
+  - `invoices.draft`
+  - `invoices.update`
+  - `quotations.create`
+  - `quotations.update`
+
+ - `customFieldDefinitions.list` and `customFieldDefinitions.info` will new return configuration options (for single and multiple select custom fields) as an array of objects.
+
 #### 2022-09-15
 
 - The property `remark` has been renamed to `note` on:
@@ -1357,7 +1369,10 @@ Get a list of all the definitions of custom fields.
                 + group (string)
                 + required: false (boolean)
                 + configuration (object, optional)
-                    + options: foo, bar (array[string])
+                    + options (array, optional) - Only returned for `single_select` and `multi_select` types
+                        + (object)
+                            + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+                            + value: `foo` (string)
                     + extra_option_allowed: true (boolean)
 
 ### customFieldDefinitions.info [POST /customFieldDefinitions.info]
@@ -1408,7 +1423,10 @@ Get info about a specific custom field definition.
             + group (string)
             + required: false (boolean)
             + configuration (object, optional)
-                + options: foo, bar (array[string])
+                + options (array, optional) - Only returned for `single_select` and `multi_select` types
+                    + (object)
+                        + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+                        + value: `foo` (string)
                 + extra_option_allowed: true (boolean)
 
 ## Work Types [/workTypes]
@@ -2725,6 +2743,9 @@ Create a quotation.
 
     + Attributes (object)
         + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -2736,7 +2757,7 @@ Create a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -2824,6 +2845,9 @@ Update a quotation.
 
     + Attributes (object)
         + id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -2835,7 +2859,7 @@ Update a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -3451,7 +3475,7 @@ Get details for a single invoice.
                                 + type: `unitOfMeasure` (string)
                                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                             + unit_price (object)
-                                + Include Money
+                                + amount: `123.30` (number)
                                 + tax: `excluding` (enum)
                                     + Members
                                         + excluding
@@ -3559,6 +3583,9 @@ Draft a new invoice.
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
         + payment_term (PaymentTerm, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array[InvoiceGroupedLinesWrite], required)
@@ -3596,6 +3623,9 @@ Update a draft invoice. Booked invoices cannot be updated.
                     + name `Finance Dept.` (string, required)
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + payment_term (PaymentTerm, optional)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
@@ -7843,7 +7873,7 @@ Fetch cloudPlatform url for type and id
 + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
 + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
 + unit_price (object, required)
-    + Include Money
+    + amount: `123.30` (number, required)
     + tax: `excluding` (enum, required)
         + Members
             + excluding
@@ -7908,7 +7938,7 @@ Fetch cloudPlatform url for type and id
             + type: `unitOfMeasure` (string)
             + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
         + unit_price (object)
-            + Include Money
+            + amount: `123.30` (number)
             + tax: `excluding` (enum)
                 + Members
                     + excluding
@@ -7981,7 +8011,7 @@ Fetch cloudPlatform url for type and id
         + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
         + unit_price (object)
-            + Include Money
+            + amount: `123.30` (number, required)
             + tax: `excluding` (enum)
                 + Members
                     + excluding
