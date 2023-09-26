@@ -5,6 +5,9 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### September 2023
+- We added the `meetings.list` and `meetings.info` endpoints.
+- We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`. 
 - We added the `invoices.updateBooked` endpoint.
 
 #### August 2023
@@ -15,6 +18,8 @@ We list all backwards-compatible additions here. These are currently available i
 - We added a `paymentMethods.list` endpoint.
 - We added `payment_method_id` to `invoices.registerPayment`.
 - We added the `cloudPlatforms.url` endpoint.
+- We added `expiry` to `quotations.create`, `quotations.update`, `quotations.info` and `quotations.list`.
+- We added `expired` as possible value for a quotation status.
 - We added `subscription.add`, `subscription.updated`, `subscription.deleted`, `subscription.deactivated` types to supported Webhook types
 
 #### July 2023
