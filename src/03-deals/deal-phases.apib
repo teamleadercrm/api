@@ -22,3 +22,21 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
             + (object)
                 + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
                 + name: `New` (string)
+                + probability: 0.75 (number)
+                + actions: [`create_event`, `create_task`] (array[enum]) - Only returned when user has access to planning and deal automation
+                    + Members
+                        + create_call
+                        + create_event
+                        + create_task
+                + status (enum[string])
+                    + Members
+                        + new
+                        + quotation_send
+                        + won
+                        + lost
+                        + custom
+                + section (enum[string]) - clarifies under which section a phase belongs (i.e. for custom phases)
+                    + Members
+                        + open
+                        + won
+                        + lost
