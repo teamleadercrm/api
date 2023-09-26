@@ -429,7 +429,8 @@ We list all backwards-compatible additions here. These are currently available i
 ### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
-- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`. 
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
+- We added `probability`, `status`, `actions` and `section` to `dealPhases.list`
 
 ### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
@@ -2526,7 +2527,25 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
         + data (array)
             + (object)
                 + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
-                + name: `New` (string)
+                + name: `First phase` (string)
+                + probability: 0.75 (number)
+                + actions: [`create_event`, `create_task`] (array[enum]) - Only returned when user has access to planning and deal automation
+                    + Members
+                        + create_call
+                        + create_event
+                        + create_task
+                + status (enum[string])
+                    + Members
+                        + new
+                        + quotation_send
+                        + won
+                        + lost
+                        + custom
+                + section (enum[string]) - clarifies under which section a phase belongs (i.e. for custom phases)
+                    + Members
+                        + open
+                        + won
+                        + lost
 
 ## Deal Sources [/dealSources]
 
