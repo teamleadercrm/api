@@ -429,7 +429,8 @@ We list all backwards-compatible additions here. These are currently available i
 ### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
-- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`. 
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
+- We added the `calls.add` endpoint.
 
 ### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
@@ -3274,6 +3275,33 @@ Get information about a meeting.
                 + Members
                     + open
                     + done
+
+## Calls [/calls]
+
+### calls.add [POST /calls.add]
+
+Add a new call.
+
++ Request (application/json)
+
+    + Attributes
+        + description: `Description of the call` (string, optional)
+        + customer (object, optional)
+            + type (enum, required)
+                + Members
+                    + company
+                    + contact
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + due_date: `2016-02-04T16:00:00+00:00` (string, required)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `call` (string)
+            + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
 
 # Group Invoicing
 
