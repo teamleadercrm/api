@@ -17,7 +17,10 @@ As of October 1st 2023, we expect all network clients to make use of TLS 1.2 or 
   - `quotations.create`
   - `quotations.update`
 
- - `customFieldDefinitions.list` and `customFieldDefinitions.info` will new return configuration options (for single and multiple select custom fields) as an array of objects.
+ - `customFieldDefinitions.list` and `customFieldDefinitions.info` will now return configuration options (for single and multiple select custom fields) as an array of objects.
+
+ - We updated the `location` format of returned by `/meetings.info` endpoint
+ - Both `/meetings.list`  and `/meetings.info` will now return a meeting `title` instead of `name`
 
 #### 2022-09-15
 

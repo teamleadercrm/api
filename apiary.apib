@@ -873,7 +873,10 @@ As of October 1st 2023, we expect all network clients to make use of TLS 1.2 or 
   - `quotations.create`
   - `quotations.update`
 
- - `customFieldDefinitions.list` and `customFieldDefinitions.info` will new return configuration options (for single and multiple select custom fields) as an array of objects.
+ - `customFieldDefinitions.list` and `customFieldDefinitions.info` will now return configuration options (for single and multiple select custom fields) as an array of objects.
+
+ - We updated the `location` format of returned by `/meetings.info` endpoint
+ - Both `/meetings.list`  and `/meetings.info` will now return a meeting `title` instead of `name`
 
 #### 2022-09-15
 
@@ -3177,7 +3180,7 @@ Get a list of meetings.
         + data (array)
             + (object)
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
-                + name (string)
+                + title (string)
                 + description (string)
                 + created_at: `2020-02-01T10:33:45+00:00` (string)
                 + scheduled_at: `2020-02-04T16:44:33+00:00` (string)
@@ -3238,7 +3241,7 @@ Get information about a meeting.
     + Attributes (object)
         + data (object)
             + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string)
-            + name (string)
+            + title (string)
             + description (string)
             + scheduled_at: `2020-02-04T16:44:33+00:00` (string)
             + duration (object)
@@ -3274,15 +3277,24 @@ Get information about a meeting.
                 + type: `deal` (string)
                 + id: `08b979e5-90d6-01e0-ac28-d58db81c3b12` (string)
             + location (object, nullable)
-                + number (string)
-                + street (string)
-                + zipcode (string)
-                + city (string)
-                + region (string)
-                + country_code (string)
-                + description (string)
-                + first_line (string)
-                + second_line (string)
+                + One Of
+                    + Properties
+                        + type: `virtual` (string)
+                    + Properties
+                        + type: `contact` (enum)
+                            + Members
+                                + contact
+                                + company
+                        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                        + address (AddressResponse)
+                   + Properties
+                        + type: `address` (string)
+                        + address (AddressResponse)
+                  + Properties
+                        + type: `customLocation` (string)
+                        + address (AddressResponse)
+                  + Properties
+                        + type: `calendarResource` (string)
             + online_meeting_room (object, nullable)
                 + type: `onlineMeetingRoom` (string)
                 + id: `89b76a74dcf842b298b90ea79a5d1f7a` (string)
