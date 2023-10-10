@@ -49,7 +49,7 @@ Get a list of invoices.
                 + (object)
                     + field: `invoice_number`
                     + order: `asc`
-        + includes: `late_fees` (string, optional) - when used, the response will include `due_incasso_inclusive`, `fixed_late_fee` and `interest`
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
 
 + Response 200 (application/json)
 
@@ -116,13 +116,13 @@ Get a list of invoices.
 
 ### invoices.info [POST /invoices.info]
 
-Get details for a single invoice.
+Get details for a single invoice.xcvxcvxcvxcvxcvxcv iensrionerst
 
 + Request (application/json)
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
-        + includes: `late_fees` (string, optional) - when used, the response will include `due_incasso_inclusive`, `fixed_late_fee` and `interest`
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
 
 
 + Response 200 (application/json)
