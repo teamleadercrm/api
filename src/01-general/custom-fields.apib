@@ -65,7 +65,10 @@ Get a list of all the definitions of custom fields.
                 + group (string)
                 + required: false (boolean)
                 + configuration (object, optional)
-                    + options: foo, bar (array[string])
+                    + options (array, optional) - Only returned for `single_select` and `multi_select` types
+                        + (object)
+                            + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+                            + value: `foo` (string)
                     + extra_option_allowed: true (boolean)
 
 ### customFieldDefinitions.info [POST /customFieldDefinitions.info]
@@ -116,5 +119,8 @@ Get info about a specific custom field definition.
             + group (string)
             + required: false (boolean)
             + configuration (object, optional)
-                + options: foo, bar (array[string])
+                + options (array, optional) - Only returned for `single_select` and `multi_select` types
+                    + (object)
+                        + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+                        + value: `foo` (string)
                 + extra_option_allowed: true (boolean)
