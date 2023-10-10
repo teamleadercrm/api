@@ -178,7 +178,7 @@ Get details for a single invoice.
                                 + type: `unitOfMeasure` (string)
                                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                             + unit_price (object)
-                                + Include Money
+                                + amount: `123.30` (number)
                                 + tax: `excluding` (enum)
                                     + Members
                                         + excluding
@@ -289,6 +289,9 @@ Draft a new invoice.
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
         + payment_term (PaymentTerm, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array[InvoiceGroupedLinesWrite], required)
@@ -326,6 +329,9 @@ Update a draft invoice. Booked invoices cannot be updated.
                     + name `Finance Dept.` (string, required)
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + payment_term (PaymentTerm, optional)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
