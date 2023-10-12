@@ -49,6 +49,7 @@ Get a list of invoices.
                 + (object)
                     + field: `invoice_number`
                     + order: `asc`
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
 
 + Response 200 (application/json)
 
@@ -93,6 +94,9 @@ Get a list of invoices.
                             + taxable (Money)
                             + tax (Money)
                     + due (Money)
+                    + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                    + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                    + interest (Money) - Only included with request parameter `includes=late_fees`
                 + currency_exchange_rate (object)
                     + from: `USD` (string)
                     + to: `EUR` (string)
@@ -118,6 +122,8 @@ Get details for a single invoice.
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
+
 
 + Response 200 (application/json)
 
@@ -209,6 +215,9 @@ Get details for a single invoice.
                         + withheld (Money)
                 + payable (Money)
                 + due (Money)
+                + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                + interest (Money) - Only included with request parameter `includes=late_fees`
             + payment_term (PaymentTerm)
             + payments (array)
                 + (object)

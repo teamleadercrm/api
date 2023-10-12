@@ -426,10 +426,13 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### October 2023
+- We added `late_fees` to `invoices.info` and `invoices.list`.
+
 ### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
-- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`. 
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
 
 ### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
@@ -3364,6 +3367,7 @@ Get a list of invoices.
                 + (object)
                     + field: `invoice_number`
                     + order: `asc`
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
 
 + Response 200 (application/json)
 
@@ -3408,6 +3412,9 @@ Get a list of invoices.
                             + taxable (Money)
                             + tax (Money)
                     + due (Money)
+                    + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                    + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                    + interest (Money) - Only included with request parameter `includes=late_fees`
                 + currency_exchange_rate (object)
                     + from: `USD` (string)
                     + to: `EUR` (string)
@@ -3433,6 +3440,8 @@ Get details for a single invoice.
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
+
 
 + Response 200 (application/json)
 
@@ -3524,6 +3533,9 @@ Get details for a single invoice.
                         + withheld (Money)
                 + payable (Money)
                 + due (Money)
+                + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                + interest (Money) - Only included with request parameter `includes=late_fees`
             + payment_term (PaymentTerm)
             + payments (array)
                 + (object)
