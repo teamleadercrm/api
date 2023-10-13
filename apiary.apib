@@ -426,12 +426,15 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+### October 2023
+- We added the `calls.list` and `calls.info` endpoint.
+- We added the `callOutcome.list` endpoint.
+
 ### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
 - We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
 - We added the `calls.add` endpoint.
-- We added the `calls.list` and `calls.info` endpoint.
 
 ### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
@@ -3384,6 +3387,25 @@ Get information about a call.
                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
             + added_at: `2016-02-01T16:44:33+00:00` (string, nullable)
 
+
+## Call Outcomes [/callOutcomes]
+
+### callOutcomes.list [GET /callOutcomes.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + page (object, optional)
+            + size: `20` (number, optional)
+                + Default: `20`
+            + number: `1` (number, optional)
+                + Default: `1`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
+                + name: `Foo Bar` (string)
 
 # Group Invoicing
 
