@@ -59,7 +59,10 @@ Get a list of calls.
                     + type: `callOutcome` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
                 + outcome_summary: `Called, but was not available` (string, nullable)
-                + status: `open` (string)
+                + status: `open` (enum[string])
+                    + Members
+                        + `open`
+                        + `done`
                 + added_at: `2021-11-21T18:14:15+00:00` (string, nullable)
                 + customer (object, nullable)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
@@ -85,7 +88,10 @@ Get information about a call.
     + Attributes (object)
         + data (object)
             + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-            + status: `done` (string)
+            + status: `done` (enum[string])
+                + Members
+                    + `open`
+                    + `done`
             + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
             + outcome (object, nullable)
                 + type: `callOutcome` (string)
