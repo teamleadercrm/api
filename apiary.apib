@@ -3332,26 +3332,26 @@ Get a list of calls.
         + data (array)
             + (object)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-                + description: `Call with customer` (string, nullable)
-                + scheduled_at: `2021-11-21T19:14:15+00:00` (string)
-                + responsible_user (object, nullable)
-                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
-                    + type: `user` (string)
-                 + outcome (object, nullable)
-                    + type: `callOutcome` (string)
-                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-                + outcome_summary: `Called, but was not available` (string, nullable)
-                + status: `open` (enum[string])
-                    + Members
-                        + `open`
-                        + `done`
                 + added_at: `2021-11-21T18:14:15+00:00` (string, nullable)
                 + customer (object, nullable)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
                     + type: `company` (string)
+                + description: `Call with customer` (string, nullable)
                 + optional_contact (object, nullable)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
                     + type: `contact` (string)
+                + outcome (object, nullable)
+                    + type: `callOutcome` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + outcome_summary: `Called, but was not available` (string, nullable)
+                + responsible_user (object, nullable)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                    + type: `user` (string)
+                + scheduled_at: `2021-11-21T19:14:15+00:00` (string)
+                + status: `open` (enum[string])
+                    + Members
+                        + `open`
+                        + `done`
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
@@ -3370,28 +3370,27 @@ Get information about a call.
     + Attributes (object)
         + data (object)
             + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-            + status: `done` (enum[string])
-                + Members
-                    + `open`
-                    + `done`
+            + added_at: `2016-02-01T16:44:33+00:00` (string, nullable)
             + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + customer (object, nullable)
+                + type: `company` (string)
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + description: `Description of the call` (string, nullable)
+            + optional_contact (object, nullable)
+               + type: `contact` (string)
+               + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
             + outcome (object, nullable)
                 + type: `callOutcome` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
             + outcome_summary: `Called, but was not available` (string, nullable)
-            + description: `Description of the call` (string, nullable)
-            + scheduled_at: `2016-02-04T16:00:00+00:00` (string)
             + responsible_user (object, nullable)
                 + type: `user` (string)
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
-            + customer (object, nullable)
-                + type: `company` (string)
-                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
-            + optional_contact (object, nullable)
-               + type: `contact` (string)
-               + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
-            + added_at: `2016-02-01T16:44:33+00:00` (string, nullable)
-
+            + scheduled_at: `2016-02-04T16:00:00+00:00` (string)
+            + status: `done` (enum[string])
+                + Members
+                    + `open`
+                    + `done`
 
 ## Call Outcomes [/callOutcomes]
 
