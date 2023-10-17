@@ -4,11 +4,14 @@
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
-#### September 2023
+### October 2023
+- We added `late_fees` to `invoices.info` and `invoices.list`.
+- We added the `invoices.updateBooked` endpoint.
+
+### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
-- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`. 
-- We added the `invoices.updateBooked` endpoint.
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
 
 #### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
