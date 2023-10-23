@@ -426,15 +426,16 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
-### October 2023
+#### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
+- We added the `invoices.updateBooked` endpoint.
 
-### September 2023
+#### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
 - We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
 - We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
 
-### August 2023
+#### August 2023
 - We added `quotation` as a type for `cloudPlatforms.url`.
 - We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
 - We added `product_category` to `products.info`.
@@ -3659,6 +3660,34 @@ Update a draft invoice. Booked invoices cannot be updated.
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+
++ Response 204
+
+### invoices.updateBooked [POST /invoices.updateBooked]
+
+Update a booked invoice. Only available when editing booked invoices is allowed through the settings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + note: `Some comments about the invoice` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
