@@ -3315,6 +3315,38 @@ Get information about a meeting.
                     + open
                     + done
 
+### meetings.update [POST /meetings.update]
+
+Update a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + title (string, optional)
+        + starts_at: `2023-10-01T09:00:00+01:00` (string, optional)
+        + ends_at: `2023-10-01T10:00:00+01:00` (string, optional)
+        + description (string, optional, nullable)
+        + `assignees` (array, optional) - when provided, at least one user assignee must be present
+                + (object)
+                    + `assignee` (object)
+                        + `type`: `user` (enum[string])
+                            + Members
+                                + `user`
+                                + `contact`
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+        + customer (object, optional, nullable)
+            + type: `contact` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
 ### meetings.complete [POST /meetings.complete]
 
 Mark a meeting as complete.
