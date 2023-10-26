@@ -3340,6 +3340,33 @@ Schedule a meeting.
                     + contact
                     + company
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + location (object, optional)
+            + One Of
+                + Properties
+                    + type: `virtual` (string, required)
+                + Properties
+                    + type: `contact` (enum[string], required)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `address` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `customLocation` (string, required)
+                    + id: `4191c526-5e26-0818-8e16-9523215b5081` (string, required)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
