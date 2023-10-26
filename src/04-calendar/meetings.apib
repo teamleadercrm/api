@@ -176,17 +176,16 @@ Schedule a meeting.
 
     + Attributes (object)
         + title (string, required)
-        + description (string, optional)
         + starts_at: `2023-10-01T09:00:00+01:00` (string, required)
         + ends_at: `2023-10-01T10:00:00+01:00` (string, required)
-        + `assignees` (array, required) - at least one user assignee must be present
+        + description (string, optional)
+        + attendees (array, required) - at least one user assignee must be present
             + (object)
-                + `assignee` (object)
-                    + `type`: `user` (enum[string])
-                        + Members
-                            + `user`
-                            + `contact`
-                    + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                + `type`: `user` (enum[string])
+                    + Members
+                        + `user`
+                        + `contact`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
         + customer (object, optional)
             + type: `contact` (enum)
                 + Members
