@@ -148,6 +148,7 @@ Get information about a meeting.
                         + address (AddressResponse)
                   + Properties
                         + type: `customLocation` (string)
+                        + id: `4191c526-5e26-0818-8e16-9523215b5081` (string)
                         + address (AddressResponse)
                   + Properties
                         + type: `calendarResource` (string)
@@ -166,6 +167,64 @@ Get information about a meeting.
                 + Members
                     + open
                     + done
+
+### meetings.update [POST /meetings.update]
+
+Update a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + title (string, optional)
+        + starts_at: `2023-10-01T09:00:00+01:00` (string, optional)
+        + ends_at: `2023-10-01T10:00:00+01:00` (string, optional)
+        + description (string, optional, nullable)
+        + attendees (array, optional) - when provided, at least one user assignee must be present
+            + (object)
+                + `type`: `user` (enum[string])
+                    + Members
+                        + `user`
+                        + `contact`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+        + customer (object, optional, nullable)
+            + type: `contact` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + location (object, optional)
+            + One Of
+                + Properties
+                    + type: `virtual` (string, required)
+                + Properties
+                    + type: `contact` (enum[string], required)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `address` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `customLocation` (string, required)
+                    + id: `4191c526-5e26-0818-8e16-9523215b5081` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
 
 ### meetings.complete [POST /meetings.complete]
 
