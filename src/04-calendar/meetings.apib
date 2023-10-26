@@ -179,7 +179,7 @@ Schedule a meeting.
         + starts_at: `2023-10-01T09:00:00+01:00` (string, required)
         + ends_at: `2023-10-01T10:00:00+01:00` (string, required)
         + description (string, optional)
-        + attendees (array, required) - at least one user assignee must be present
+        + attendees (array, required) - at least one user attendee must be present
             + (object)
                 + `type`: `user` (enum[string])
                     + Members
@@ -237,7 +237,7 @@ Update a meeting.
         + starts_at: `2023-10-01T09:00:00+01:00` (string, optional)
         + ends_at: `2023-10-01T10:00:00+01:00` (string, optional)
         + description (string, optional, nullable)
-        + attendees (array, optional) - when provided, at least one user assignee must be present
+        + attendees (array, optional) - when provided, at least one user attendee must be present
             + (object)
                 + `type`: `user` (enum[string])
                     + Members
