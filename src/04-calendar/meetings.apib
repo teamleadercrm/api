@@ -142,15 +142,36 @@ Get information about a meeting.
                                 + contact
                                 + company
                         + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
-                        + address (AddressResponse)
-                   + Properties
+                        + address (object)
+                            + line_1: `Dok Noord 3A 101` (string, nullable)
+                            + postal_code: `9000` (string, nullable)
+                            + city: `Ghent` (string, nullable)
+                            + country: `BE` (string)
+                            + area_level_two (object, nullable)
+                                + type: `area_level_two` (string)
+                                + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+                    + Properties
                         + type: `address` (string)
-                        + address (AddressResponse)
-                  + Properties
+                        + address (object)
+                            + line_1: `Dok Noord 3A 101` (string, nullable)
+                            + postal_code: `9000` (string, nullable)
+                            + city: `Ghent` (string, nullable)
+                            + country: `BE` (string)
+                            + area_level_two (object, nullable)
+                                + type: `area_level_two` (string)
+                                + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+                    + Properties
                         + type: `customLocation` (string)
                         + id: `4191c526-5e26-0818-8e16-9523215b5081` (string)
-                        + address (AddressResponse)
-                  + Properties
+                        + address (object)
+                            + line_1: `Dok Noord 3A 101` (string, nullable)
+                            + postal_code: `9000` (string, nullable)
+                            + city: `Ghent` (string, nullable)
+                            + country: `BE` (string)
+                            + area_level_two (object, nullable)
+                                + type: `area_level_two` (string)
+                                + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+                    + Properties
                         + type: `calendarResource` (string)
             + online_meeting_room (object, nullable)
                 + type: `onlineMeetingRoom` (string)
@@ -168,6 +189,63 @@ Get information about a meeting.
                     + open
                     + done
 
+### meetings.schedule [POST /meetings.schedule]
+
+Schedule a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + title (string, required)
+        + starts_at: `2023-10-01T09:00:00+01:00` (string, required)
+        + ends_at: `2023-10-01T10:00:00+01:00` (string, required)
+        + description (string, optional)
+        + attendees (array, required) - at least one user attendee must be present
+            + (object)
+                + `type`: `user` (enum[string])
+                    + Members
+                        + `user`
+                        + `contact`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+        + customer (object, optional)
+            + type: `contact` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + location (object, optional)
+            + One Of
+                + Properties
+                    + type: `virtual` (string, required)
+                + Properties
+                    + type: `contact` (enum[string], required)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `address` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `customLocation` (string, required)
+                    + id: `4191c526-5e26-0818-8e16-9523215b5081` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201
+
 ### meetings.update [POST /meetings.update]
 
 Update a meeting.
@@ -180,7 +258,7 @@ Update a meeting.
         + starts_at: `2023-10-01T09:00:00+01:00` (string, optional)
         + ends_at: `2023-10-01T10:00:00+01:00` (string, optional)
         + description (string, optional, nullable)
-        + attendees (array, optional) - when provided, at least one user assignee must be present
+        + attendees (array, optional) - when provided, at least one user attendee must be present
             + (object)
                 + `type`: `user` (enum[string])
                     + Members
