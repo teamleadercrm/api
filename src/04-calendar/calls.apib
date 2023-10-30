@@ -109,3 +109,16 @@ Get information about a call.
                 + Members
                     + `open`
                     + `done`
+
+### calls.complete [GET /calls.complete]
+
+Mark a call as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+        + call_outcome_id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string, optional)
+        + outcome_summary: `Called, but was not available` (string, optional)
+
++ Response 204 (application/json)
