@@ -344,6 +344,34 @@ Update a draft invoice. Booked invoices cannot be updated.
 
 + Response 204
 
+### invoices.updateBooked [POST /invoices.updateBooked]
+
+Update a booked invoice. Only available when editing booked invoices is allowed through the settings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + note: `Some comments about the invoice` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
 ### invoices.copy [POST /invoices.copy]
 
 Creates a new draft invoice based on another invoice
