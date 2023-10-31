@@ -3351,12 +3351,13 @@ Get a list of calls.
 + Request (application/json)
     + Attributes (object)
         + filter (object, optional)
-            + milestone_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Filter calls by milestone
             + start_date: `2021-11-21` (string) - Filter on dates that are on or after the given day
             + end_date: `2022-05-13` (string)  - Filter on dates that are on or before the given day
             + relates_to (object, optional) - Filter calls by related object (currently only companies allowed)
                 + id: `415fa7e0-e319-0952-b973-f067f2b49d56` (string)
                 + type: `company` (string)
+            + milestone_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Filter calls by milestone
+            + call_outcome_id: `6bd20dd8-dc3f-0e68-8919-dee0be6efe55` (string, optional) - Filter on done calls by outcome
         + page (object, optional)
             + size: `20` (number, optional) - The amount of entries returned per request, max 1 to 100
                 + Default: `20`
