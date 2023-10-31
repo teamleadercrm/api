@@ -165,6 +165,9 @@ Create a quotation.
 
     + Attributes (object)
         + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -176,7 +179,7 @@ Create a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -264,6 +267,9 @@ Update a quotation.
 
     + Attributes (object)
         + id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -275,7 +281,7 @@ Update a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding

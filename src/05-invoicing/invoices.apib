@@ -49,6 +49,7 @@ Get a list of invoices.
                 + (object)
                     + field: `invoice_number`
                     + order: `asc`
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
 
 + Response 200 (application/json)
 
@@ -93,6 +94,9 @@ Get a list of invoices.
                             + taxable (Money)
                             + tax (Money)
                     + due (Money)
+                    + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                    + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                    + interest (Money) - Only included with request parameter `includes=late_fees`
                 + currency_exchange_rate (object)
                     + from: `USD` (string)
                     + to: `EUR` (string)
@@ -118,6 +122,8 @@ Get details for a single invoice.
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
+
 
 + Response 200 (application/json)
 
@@ -172,7 +178,7 @@ Get details for a single invoice.
                                 + type: `unitOfMeasure` (string)
                                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                             + unit_price (object)
-                                + Include Money
+                                + amount: `123.30` (number)
                                 + tax: `excluding` (enum)
                                     + Members
                                         + excluding
@@ -209,6 +215,9 @@ Get details for a single invoice.
                         + withheld (Money)
                 + payable (Money)
                 + due (Money)
+                + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                + interest (Money) - Only included with request parameter `includes=late_fees`
             + payment_term (PaymentTerm)
             + payments (array)
                 + (object)
@@ -280,6 +289,9 @@ Draft a new invoice.
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
         + payment_term (PaymentTerm, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array[InvoiceGroupedLinesWrite], required)
@@ -317,6 +329,9 @@ Update a draft invoice. Booked invoices cannot be updated.
                     + name `Finance Dept.` (string, required)
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + payment_term (PaymentTerm, optional)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
         + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
@@ -326,6 +341,34 @@ Update a draft invoice. Booked invoices cannot be updated.
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+
++ Response 204
+
+### invoices.updateBooked [POST /invoices.updateBooked]
+
+Update a booked invoice. Only available when editing booked invoices is allowed through the settings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + note: `Some comments about the invoice` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
