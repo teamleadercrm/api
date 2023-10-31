@@ -25,7 +25,7 @@ Add a new call.
             + type: `call` (string)
             + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
 
-### calls.list [GET /calls.list]
+### calls.list [POST /calls.list]
 
 Get a list of calls.
 
@@ -75,7 +75,7 @@ Get a list of calls.
             + page (Pagination)
             + matches: `12` (number)
 
-### calls.info [GET /calls.info]
+### calls.info [POST /calls.info]
 
 Get information about a call.
 
@@ -111,7 +111,7 @@ Get information about a call.
                     + `open`
                     + `done`
 
-### calls.complete [GET /calls.complete]
+### calls.complete [POST /calls.complete]
 
 Mark a call as complete.
 
