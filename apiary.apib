@@ -427,7 +427,7 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### November 2023
-- We added `custom_fields` to `projects-v2/projects.info` and `projects-v2/projects.update`
+- We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
 
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
@@ -5482,6 +5482,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
                 + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
         + `deal_ids`: `3709b7e9-7722-4d2d-a663-b480789bafe4`, `39fb2767-90e0-4fe4-9bac-a244bee6552c` (array[string], optional)
         + `quotation_ids`: `e8e8e969-2054-49ee-81d1-47453de2aebb`, `fc41c04f-1841-4238-a31b-42c48c57713e` (array[string], optional)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
     + Attributes (object)
