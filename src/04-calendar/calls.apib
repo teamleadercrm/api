@@ -25,6 +25,27 @@ Add a new call.
             + type: `call` (string)
             + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
 
+### calls.update [POST /calls.update]
+
+Update a new call.
+
++ Request (application/json)
+
+    + Attributes
+        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + description: `Description of the call` (string, optional)
+        + customer (object, optional)
+            + type (enum, required)
+                + Members
+                    + company
+                    + contact
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + due_date: `2016-02-04T16:00:00+00:00` (string, optional)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204 (application/json)
+
 ### calls.list [POST /calls.list]
 
 Get a list of calls.
