@@ -244,7 +244,12 @@ Schedule a meeting.
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
-+ Response 201
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `meeting` (string)
+            + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string)
 
 ### meetings.update [POST /meetings.update]
 
