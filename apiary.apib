@@ -3344,6 +3344,27 @@ Add a new call.
             + type: `call` (string)
             + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
 
+### calls.update [POST /calls.update]
+
+Update a new call.
+
++ Request (application/json)
+
+    + Attributes
+        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + description: `Description of the call` (string, optional)
+        + customer (object, optional)
+            + type (enum, required)
+                + Members
+                    + company
+                    + contact
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + due_date: `2016-02-04T16:00:00+00:00` (string, optional)
+        + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204 (application/json)
+
 ### calls.list [POST /calls.list]
 
 Get a list of calls.
@@ -3356,7 +3377,6 @@ Get a list of calls.
             + relates_to (object, optional) - Filter calls by related object (currently only companies allowed)
                 + id: `415fa7e0-e319-0952-b973-f067f2b49d56` (string)
                 + type: `company` (string)
-            + milestone_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional) - Filter calls by milestone
             + call_outcome_id: `6bd20dd8-dc3f-0e68-8919-dee0be6efe55` (string, optional) - Filter on done calls by outcome
         + page (object, optional)
             + size: `20` (number, optional) - The amount of entries returned per request, max 1 to 100
@@ -3429,6 +3449,7 @@ Get information about a call.
                 + Members
                     + `open`
                     + `done`
+            + custom_fields (array[CustomField])
 
 ### calls.complete [POST /calls.complete]
 
