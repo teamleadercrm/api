@@ -95,10 +95,10 @@ Get a list of calls.
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
                     + type: `user` (string)
                 + scheduled_at: `2021-11-21T19:14:15+00:00` (string)
-                + status: `open` (enum[string])
+                + status: `completed` (enum[string])
                     + Members
                         + `open`
-                        + `done`
+                        + `completed`
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
@@ -134,10 +134,10 @@ Get information about a call.
                 + type: `user` (string)
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
             + scheduled_at: `2016-02-04T16:00:00+00:00` (string)
-            + status: `done` (enum[string])
+            + status: `completed` (enum[string])
                 + Members
                     + `open`
-                    + `done`
+                    + `completed`
             + custom_fields (array[CustomField])
 
 ### calls.complete [POST /calls.complete]
