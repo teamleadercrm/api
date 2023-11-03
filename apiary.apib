@@ -3356,7 +3356,7 @@ Get a list of calls.
                     + type: `callOutcome` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
                 + outcome_summary: `Called, but was not available` (string, nullable)
-                + responsible_user (object, nullable)
+                + assignee (object, nullable)
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
                     + type: `user` (string)
                 + scheduled_at: `2021-11-21T19:14:15+00:00` (string)
@@ -3395,7 +3395,7 @@ Get information about a call.
                 + type: `callOutcome` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
             + outcome_summary: `Called, but was not available` (string, nullable)
-            + responsible_user (object, nullable)
+            + assignee (object, nullable)
                 + type: `user` (string)
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
             + scheduled_at: `2016-02-04T16:00:00+00:00` (string)
@@ -3420,7 +3420,7 @@ Add a new call.
                     + contact
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + due_at: `2016-02-04T16:00:00+00:00` (string, required)
-        + responsible (object, required)
+        + assignee (object, required)
             + type (enum, required)
                 + Members
                     + user
@@ -3450,7 +3450,7 @@ Update a new call.
                     + contact
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + due_at: `2016-02-04T16:00:00+00:00` (string, optional)
-        + responsible (object, optional)
+        + assignee (object, optional)
             + type (enum, required)
                 + Members
                     + user
