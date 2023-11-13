@@ -431,6 +431,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `callOutcomes.list` endpoint.
 - We added `late_fees` to `invoices.info` and `invoices.list`.
 - We added the `invoices.updateBooked` endpoint.
+- We added `call.added`, `call.updated` and `call.deleted` types to supported Webhook types.
 
 #### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
@@ -7934,6 +7935,9 @@ Fetch cloudPlatform url for type and id
     + Members
         + account.deactivated
         + account.deleted
+        + call.added
+        + call.updated
+        + call.deleted
         + company.added
         + company.deleted
         + company.updated
