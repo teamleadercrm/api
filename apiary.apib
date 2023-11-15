@@ -2249,7 +2249,7 @@ Get a list of deals.
                 + responsible_user_id: `98b2863e-7b01-4232-82f5-ede1f0b9db22`, `98b2863e-7b01-4232-82f5-ede1f0b9db24` (array[string], optional)
             + updated_since: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
             + created_before: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
-            + status: `open`, `won`, `lost` (array[string], optional)
+            + status: `new`, `open`, `won`, `lost` (array[string], optional)
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -2338,6 +2338,7 @@ Get details for a single deal.
             + reference: `2017/2` (string)
             + status: `won` (enum)
                 + Members
+                    + new
                     + open
                     + won
                     + lost
