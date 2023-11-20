@@ -431,6 +431,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `invoices.updateBooked` endpoint.
 - We added the `meetings.schedule`, `meetings.update`, `meetings.complete` and `meetings.delete` endpoints.
 - We added `meeting.created`, `meeting.updated` and `meeting.deleted` types to supported Webhook types.
+- The `meetings.info` and `meetings.list` endpoints now return the meeting recurrence id for recurring meetings.
 
 #### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
@@ -3230,7 +3231,9 @@ Get a list of meetings.
                     + Members
                         + open
                         + done
-
+                + recurrence (object, nullable)
+                    + type: `recurrence` (string)
+                    + id: `1dfccc8e-68d0-0b83-8d1b-5cf1b0d99ab1` (string)
 
 ### meetings.info [POST /meetings.info]
 
@@ -3338,6 +3341,9 @@ Get information about a meeting.
                 + Members
                     + open
                     + done
+            + recurrence (object, nullable)
+                + type: `recurrence` (string)
+                + id: `1dfccc8e-68d0-0b83-8d1b-5cf1b0d99ab1` (string)
 
 ### meetings.schedule [POST /meetings.schedule]
 
