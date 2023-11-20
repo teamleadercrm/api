@@ -12,7 +12,7 @@ Get a list of calls.
             + relates_to (object, optional) - Filter calls by related object (currently only companies allowed)
                 + id: `415fa7e0-e319-0952-b973-f067f2b49d56` (string)
                 + type: `company` (string)
-            + call_outcome_id: `6bd20dd8-dc3f-0e68-8919-dee0be6efe55` (string, optional) - Filter on done calls by outcome
+            + call_outcome_id: `6bd20dd8-dc3f-0e68-8919-dee0be6efe55` (string, optional) - Filter on completed calls by outcome
         + page (object, optional)
             + size: `20` (number, optional) - The amount of entries returned per request, max 1 to 100
                 + Default: `20`
@@ -45,7 +45,7 @@ Get a list of calls.
                 + status: `open` (enum[string])
                     + Members
                         + `open`
-                        + `done`
+                        + `completed`
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
@@ -85,7 +85,7 @@ Get information about a call.
             + status: `open` (enum[string])
                 + Members
                     + `open`
-                    + `done`
+                    + `completed`
             + custom_fields (array[CustomField])
 
 ### calls.add [POST /calls.add]
