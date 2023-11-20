@@ -430,6 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `late_fees` to `invoices.info` and `invoices.list`.
 - We added the `invoices.updateBooked` endpoint.
 - We added the `meetings.schedule`, `meetings.update`, `meetings.complete` and `meetings.delete` endpoints.
+- We added `meeting.created`, `meeting.updated` and `meeting.deleted` types to supported Webhook types.
 
 #### September 2023
 - We added the `meetings.list` and `meetings.info` endpoints.
@@ -7944,6 +7945,9 @@ Fetch cloudPlatform url for type and id
         + invoice.paymentRemoved
         + invoice.sent
         + invoice.updated
+        + meeting.created
+        + meeting.updated
+        + meeting.deleted
         + milestone.created
         + milestone.updated
         + product.added
