@@ -1539,6 +1539,34 @@ Get a list of exchange rates for a provided currency.
                 + name: `US Dollar` (string)
                 + exchange_rate: `1.1238` (number) - The exchange rate from the provided base currency to the listed currency
 
+## Notes [/notes]
+
+### notes.list [POST /notes.list]
+
+Get a list of all notes.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + subject: (object, required)
+                + type: `contact` (NoteSubjectTypes, required)
+                + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + title: `new note` (string)
+                + content: `new note content` (string)
+                + subject (object)
+                    + type: `contact` (NoteSubjectTypes)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + added_at: `2016-01-01T00:00:00+00:00` (string)
+
 # Group CRM
 
 ## Contacts [/contacts]
@@ -8083,3 +8111,13 @@ Fetch cloudPlatform url for type and id
                     + percentage - Values between 0 and 100
         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+
+## NoteSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
