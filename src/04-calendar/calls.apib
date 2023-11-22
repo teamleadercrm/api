@@ -7,8 +7,8 @@ Get a list of calls.
 + Request (application/json)
     + Attributes (object)
         + filter (object, optional)
-            + start_date: `2021-11-21` (string) - Filter on dates that are on or after the given day
-            + end_date: `2022-05-13` (string)  - Filter on dates that are on or before the given day
+            + scheduled_after: `2021-11-21` (string) - Filter on calls occurring on or after a given date
+            + scheduled_before: `2022-05-13` (string) - Filter on calls occurring on or before a given date
             + relates_to (object, optional) - Filter calls by related object (currently only companies allowed)
                 + id: `415fa7e0-e319-0952-b973-f067f2b49d56` (string)
                 + type: `company` (string)
