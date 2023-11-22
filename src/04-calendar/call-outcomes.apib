@@ -1,0 +1,18 @@
+## Call Outcomes [/callOutcomes]
+
+### callOutcomes.list [GET /callOutcomes.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + page (object, optional)
+            + size: `20` (number, optional)
+                + Default: `20`
+            + number: `1` (number, optional)
+                + Default: `1`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
+                + name: `Foo Bar` (string)
