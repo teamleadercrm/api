@@ -430,6 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
 - We added the `callOutcomes.list` endpoint.
 - We added `call.added`, `call.updated` and `call.deleted` types to supported Webhook types.
+- We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
 
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
@@ -4760,7 +4761,7 @@ Delete a product.
 
 # Units of Measure [/unitsOfMeasure]
 
-### unitsOfMeasure.list [GET /unitsOfMeasure.list]
+### unitsOfMeasure.list [POST /unitsOfMeasure.list]
 
 Get a list of units of measure.
 
@@ -4775,7 +4776,7 @@ Get a list of units of measure.
 
 ## Price Lists [/priceLists]
 
-### priceLists.list [GET /priceLists.list]
+### priceLists.list [POST /priceLists.list]
 
 Get a list of priceLists.
 
@@ -5603,6 +5604,7 @@ Returns all the information of a single project.
                         + `type`: `user` (string)
                         + `id`: `55d3707c-14dc-4b62-a072-e3f4c1413462` (string)
                     + `custom_rate` (Money)
+            + custom_fields (array[CustomField]) - Auto-increment custom fields are not supported on projects.
 
 ### projects.create [POST /projects-v2/projects.create]
 
@@ -5661,6 +5663,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
                 + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
         + `deal_ids`: `3709b7e9-7722-4d2d-a663-b480789bafe4`, `39fb2767-90e0-4fe4-9bac-a244bee6552c` (array[string], optional)
         + `quotation_ids`: `e8e8e969-2054-49ee-81d1-47453de2aebb`, `fc41c04f-1841-4238-a31b-42c48c57713e` (array[string], optional)
+        + `custom_fields` (array[CustomFieldValue], optional) - Auto-increment custom fields are not supported on projects.
 
 + Response 201 (application/json)
     + Attributes (object)
@@ -5714,6 +5717,7 @@ Update a project. All attributes except for `id` are optional. Providing `null` 
                 + `#C0C0C4` - Light grey
                 + `#82828C` - Grey
                 + `#1A1C20` - Dark grey
+        + `custom_fields` (array[CustomFieldValue], optional) - Auto-increment custom fields are not supported on projects.
 
 + Response 204
 
@@ -6288,7 +6292,7 @@ Unassign a user or a team from a group.
 
 *Required scopes: `projects`*
 
-### tasks.list [GET /projects-v2/tasks.list]
+### tasks.list [POST /projects-v2/tasks.list]
 
 Lists all the tasks that match the optional filters provided.
 
@@ -6368,7 +6372,7 @@ Lists all the tasks that match the optional filters provided.
                         + Members
                             + `seconds`
 
-### tasks.info [GET /projects-v2/tasks.info]
+### tasks.info [POST /projects-v2/tasks.info]
 
 Returns all the information for one task.
 
@@ -6597,7 +6601,7 @@ Unassign a user or a team from a task.
 
 *Required scopes: `projects`*
 
-### materials.list [GET /projects-v2/materials.list]
+### materials.list [POST /projects-v2/materials.list]
 
 Lists all the materials that match the optional filters provided.
 
@@ -6667,7 +6671,7 @@ Lists all the materials that match the optional filters provided.
                     + `type`: `product` (string)
                     + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
 
-### materials.info [GET /projects-v2/materials.info]
+### materials.info [POST /projects-v2/materials.info]
 
 Returns all the information for one material.
 
@@ -7615,7 +7619,7 @@ Delete a file.
 
 ## Mail Templates [/mailTemplates]
 
-### mailTemplates.list [GET /mailTemplates.list]
+### mailTemplates.list [POST /mailTemplates.list]
 
 Get a list of all mail templates.
 
