@@ -426,6 +426,12 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### November 2023
+- We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
+- We added the `callOutcomes.list` endpoint.
+- We added `call.added`, `call.updated` and `call.deleted` types to supported Webhook types.
+- We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
+
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
 - We added the `invoices.updateBooked` endpoint.
@@ -3489,6 +3495,184 @@ Deletes a meeting.
 
 + Response 204
 
+## Calls [/calls]
+
+### calls.list [POST /calls.list]
+
+Get a list of calls.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + scheduled_after: `2021-11-21` (string) - Filter on calls occurring on or after a given date
+            + scheduled_before: `2022-05-13` (string) - Filter on calls occurring on or before a given date
+            + relates_to (object, optional) - Filter calls by related object (currently only companies allowed)
+                + id: `415fa7e0-e319-0952-b973-f067f2b49d56` (string)
+                + type: `company` (string)
+            + call_outcome_id: `6bd20dd8-dc3f-0e68-8919-dee0be6efe55` (string, optional) - Filter on completed calls by outcome
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of entries returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + added_at: `2021-11-21T18:14:15+00:00` (string, nullable)
+                + participant (object, nullable)
+                    + customer (object, nullable)
+                        + type: `company` (string)
+                        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                    + contact (object, nullable)
+                        + type: `contact` (string)
+                        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + description: `Call with customer` (string, nullable)
+                + outcome (object, nullable)
+                    + type: `callOutcome` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + outcome_summary: `Called, but was not available` (string, nullable)
+                + assignee (object, nullable)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                    + type: `user` (string)
+                + scheduled_at: `2021-11-21T19:14:15+00:00` (string)
+                + status: `open` (enum[string])
+                    + Members
+                        + `open`
+                        + `completed`
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
+
+### calls.info [POST /calls.info]
+
+Get information about a call.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + added_at: `2016-02-01T16:44:33+00:00` (string, nullable)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + participant (object, nullable)
+                + customer (object, nullable)
+                    + type: `company` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + contact (object, nullable)
+                    + type: `contact` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + description: `Description of the call` (string, nullable)
+            + outcome (object, nullable)
+                + type: `callOutcome` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + outcome_summary: `Called, but was not available` (string, nullable)
+            + assignee (object, nullable)
+                + type: `user` (string)
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + scheduled_at: `2016-02-04T16:00:00+00:00` (string)
+            + status: `open` (enum[string])
+                + Members
+                    + `open`
+                    + `completed`
+            + custom_fields (array[CustomField])
+
+### calls.add [POST /calls.add]
+
+Add a new call.
+
++ Request (application/json)
+
+    + Attributes
+        + description: `Description of the call` (string, optional)
+        + participant (object, required)
+            + customer (object, required)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + due_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + assignee (object, required)
+            + type (enum, required)
+                + Members
+                    + user
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `call` (string)
+            + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
+
+### calls.update [POST /calls.update]
+
+Update a new call.
+
++ Request (application/json)
+
+    + Attributes
+        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + description: `Description of the call` (string, optional)
+        + participant (object, optional)
+            + customer (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + due_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + assignee (object, optional)
+            + type (enum, required)
+                + Members
+                    + user
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204 (application/json)
+
+### calls.complete [POST /calls.complete]
+
+Mark a call as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+        + call_outcome_id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string, optional)
+        + outcome_summary: `Called, but was not available` (string, optional)
+
++ Response 204 (application/json)
+
+## Call Outcomes [/callOutcomes]
+
+### callOutcomes.list [GET /callOutcomes.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + page (object, optional)
+            + size: `20` (number, optional)
+                + Default: `20`
+            + number: `1` (number, optional)
+                + Default: `1`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
+                + name: `Foo Bar` (string)
+
 # Group Invoicing
 
 ## Invoices [/invoices]
@@ -4751,7 +4935,7 @@ Delete a product.
 
 # Units of Measure [/unitsOfMeasure]
 
-### unitsOfMeasure.list [GET /unitsOfMeasure.list]
+### unitsOfMeasure.list [POST /unitsOfMeasure.list]
 
 Get a list of units of measure.
 
@@ -4766,7 +4950,7 @@ Get a list of units of measure.
 
 ## Price Lists [/priceLists]
 
-### priceLists.list [GET /priceLists.list]
+### priceLists.list [POST /priceLists.list]
 
 Get a list of priceLists.
 
@@ -5594,6 +5778,7 @@ Returns all the information of a single project.
                         + `type`: `user` (string)
                         + `id`: `55d3707c-14dc-4b62-a072-e3f4c1413462` (string)
                     + `custom_rate` (Money)
+            + custom_fields (array[CustomField]) - Auto-increment custom fields are not supported on projects.
 
 ### projects.create [POST /projects-v2/projects.create]
 
@@ -5652,6 +5837,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
                 + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
         + `deal_ids`: `3709b7e9-7722-4d2d-a663-b480789bafe4`, `39fb2767-90e0-4fe4-9bac-a244bee6552c` (array[string], optional)
         + `quotation_ids`: `e8e8e969-2054-49ee-81d1-47453de2aebb`, `fc41c04f-1841-4238-a31b-42c48c57713e` (array[string], optional)
+        + `custom_fields` (array[CustomFieldValue], optional) - Auto-increment custom fields are not supported on projects.
 
 + Response 201 (application/json)
     + Attributes (object)
@@ -5705,6 +5891,7 @@ Update a project. All attributes except for `id` are optional. Providing `null` 
                 + `#C0C0C4` - Light grey
                 + `#82828C` - Grey
                 + `#1A1C20` - Dark grey
+        + `custom_fields` (array[CustomFieldValue], optional) - Auto-increment custom fields are not supported on projects.
 
 + Response 204
 
@@ -6279,7 +6466,7 @@ Unassign a user or a team from a group.
 
 *Required scopes: `projects`*
 
-### tasks.list [GET /projects-v2/tasks.list]
+### tasks.list [POST /projects-v2/tasks.list]
 
 Lists all the tasks that match the optional filters provided.
 
@@ -6359,7 +6546,7 @@ Lists all the tasks that match the optional filters provided.
                         + Members
                             + `seconds`
 
-### tasks.info [GET /projects-v2/tasks.info]
+### tasks.info [POST /projects-v2/tasks.info]
 
 Returns all the information for one task.
 
@@ -6588,7 +6775,7 @@ Unassign a user or a team from a task.
 
 *Required scopes: `projects`*
 
-### materials.list [GET /projects-v2/materials.list]
+### materials.list [POST /projects-v2/materials.list]
 
 Lists all the materials that match the optional filters provided.
 
@@ -6658,7 +6845,7 @@ Lists all the materials that match the optional filters provided.
                     + `type`: `product` (string)
                     + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
 
-### materials.info [GET /projects-v2/materials.info]
+### materials.info [POST /projects-v2/materials.info]
 
 Returns all the information for one material.
 
@@ -7606,7 +7793,7 @@ Delete a file.
 
 ## Mail Templates [/mailTemplates]
 
-### mailTemplates.list [GET /mailTemplates.list]
+### mailTemplates.list [POST /mailTemplates.list]
 
 Get a list of all mail templates.
 
@@ -7928,6 +8115,9 @@ Fetch cloudPlatform url for type and id
     + Members
         + account.deactivated
         + account.deleted
+        + call.added
+        + call.updated
+        + call.deleted
         + company.added
         + company.deleted
         + company.updated
