@@ -48,3 +48,14 @@ Add a new create.
         + data (object)
             + type: `note` (string)
             + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
+
+### notes.update [POST /notes.update]
+
+Update an existing note
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + content: `new note content` (string, optional)
+
++ Response 204
