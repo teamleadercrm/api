@@ -428,7 +428,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### November 2023
 - We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
-- We added the `notes.list` and `notes.add` endpoints.
+- We added the `notes.list` and `notes.create` endpoints.
 
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
@@ -1567,9 +1567,9 @@ Get a list of all notes.
                     + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + added_at: `2016-01-01T00:00:00+00:00` (string)
 
-### notes.add [POST /notes.add]
+### notes.create [POST /notes.create]
 
-Add a new note.
+Add a new create.
 
 + Request (application/json)
     + Attributes (object)
