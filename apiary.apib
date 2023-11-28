@@ -435,6 +435,7 @@ We list all backwards-compatible additions here. These are currently available i
 - The `meetings.info` and `meetings.list` endpoints now return the meeting recurrence id for recurring meetings.
 - The `meetings.list` endpoint can now filter meetings by recurrence id.
 - We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
+- We added `call.completed` and `meeting.completed` types to supported Webhook types.
 
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
@@ -8116,8 +8117,9 @@ Fetch cloudPlatform url for type and id
         + account.deactivated
         + account.deleted
         + call.added
-        + call.updated
+        + call.completed
         + call.deleted
+        + call.updated
         + company.added
         + company.deleted
         + company.updated
@@ -8144,8 +8146,9 @@ Fetch cloudPlatform url for type and id
         + invoice.sent
         + invoice.updated
         + meeting.created
-        + meeting.updated
+        + meeting.completed
         + meeting.deleted
+        + meeting.updated
         + milestone.created
         + milestone.updated
         + product.added
