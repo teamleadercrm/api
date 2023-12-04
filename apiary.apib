@@ -436,6 +436,7 @@ We list all backwards-compatible additions here. These are currently available i
 - The `meetings.list` endpoint can now filter meetings by recurrence id.
 - We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
 - We added `call.completed` and `meeting.completed` types to supported Webhook types.
+- We added the `notes.list`, `notes.create` and `notes.update` endpoints.
 
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
@@ -1015,13 +1016,6 @@ You can follow our API progress and ongoing proposals via our [API Blueprint Git
 
 | **Milestone**                                                                 | **ETA**           |
 | ----------------------------------------------------------------------------- | ----------------- |
-| Ability to change the currency for invoice                                    | October 1, 2023   |
-| Ability to change the currency for quotation                                  | October 1, 2023   |
-| Allow updating booked invoices                                                | October 1, 2023   |
-| Webhooks for meetings and calls                                               | November 15, 2023 |
-| Meeting endpoints                                                             | November 15, 2023 |
-| Call endpoints                                                                | November 15, 2023 |
-| Ability to manage custom fields on meetings and calls                         | November 15, 2023 |
 | Notes endpoints                                                               | December 15, 2023 |
 | Ability to get days off                                                       | January 15, 2024  |
 | Tickets endpoints                                                             | February 1, 2024  |
@@ -1546,6 +1540,68 @@ Get a list of exchange rates for a provided currency.
                 + symbol: `$` (string)
                 + name: `US Dollar` (string)
                 + exchange_rate: `1.1238` (number) - The exchange rate from the provided base currency to the listed currency
+
+## Notes [/notes]
+
+### notes.list [POST /notes.list]
+
+Get a list of all notes.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + subject (object, required)
+                + type: `contact` (NoteSubjectTypes, required)
+                + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + content: `new note content` (string)
+                + subject (object)
+                    + type: `contact` (NoteSubjectTypes)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + added_at: `2016-01-01T00:00:00+00:00` (string)
+
+### notes.create [POST /notes.create]
+
+Create a new note.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject (object, required)
+            + type: `contact` (NoteSubjectTypes, required)
+            + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + content: `new note content` (string, required)
+        + notify (array, optional)
+            + (object)
+                + type: `user` (enum, required)
+                    + Members
+                        + `user`
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `note` (string)
+            + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
+
+### notes.update [POST /notes.update]
+
+Update an existing note.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + content: `new note content` (string, optional)
+
++ Response 204
 
 # Group CRM
 
@@ -8447,3 +8503,13 @@ Fetch cloudPlatform url for type and id
                     + percentage - Values between 0 and 100
         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+
+## NoteSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
