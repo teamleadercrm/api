@@ -1602,6 +1602,27 @@ Update an existing note
 
 + Response 204
 
+## Email Tracking [/emailTracking]
+
+### emailTracking.create [POST /emailTracking.create]
+
+Add a new create.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject (object, required)
+            + type: `contact` (EmailTrackingSubjectTypes, required)
+            + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + title: `an email subject` (string, optional)
+        + content: `<p>the contents of the received email</p>` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `emailTracking` (string)
+            + id: `91e99ae3-16f9-01d7-9046-9a501cb2155f` (string)
+
 # Group CRM
 
 ## Contacts [/contacts]
@@ -8148,6 +8169,16 @@ Fetch cloudPlatform url for type and id
         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
 
 ## NoteSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
+
+## EmailTrackingSubjectTypes (enum)
 + `contact`
 + `company`
 + `deal`
