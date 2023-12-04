@@ -430,6 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
 - We added the `notes.list`, `notes.create` and `notes.update` endpoints.
 - We added the `emailTracking.create` endpoint.
+- We now return the `default` payment term id in `paymentTerms.list` meta information.
 
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
@@ -4421,6 +4422,8 @@ Get a list of available payment terms.
             + (object)
                 + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
                 + Include PaymentTerm
+        + meta (object)
+            + `default`: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
 
 ## Withholding Tax Rates [/withholdingTaxRates]
 
