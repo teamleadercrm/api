@@ -84,3 +84,19 @@ Update a deal phase.
                 + create_task
 
 + Response 204
+
+### dealPhases.duplicate [POST /dealPhases.duplicate]
+
+Create a new deal phase by duplicating an existing one.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `22364cbf-971e-022c-811b-a76c28000257` (string, required) - Id from source phase
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPhase` (string)
+            + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
