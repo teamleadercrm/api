@@ -60,3 +60,27 @@ Create a new deal phase.
         + data (object)
             + type: `dealPhase` (string)
             + id: `22364cbf-971e-022c-811b-a76c28000257` (string)
+
+### dealPhases.update [POST /dealPhases.update]
+
+Update a deal phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `22364cbf-971e-022c-811b-a76c28000257` (string, required)
+        + name: `Preparation` (string, optional)
+        + requires_attention_after (object, required) - Time period after which a deal requires attention
+            + amount: 7 (number, required)
+            + unit: `days` (enum[string], required)
+                + Members
+                    + days
+                    + weeks
+        + estimated_probability: `0.8` (number, optional)
+        + follow_up_actions: `create_event` (array[enum], optional)
+            + Members
+                + create_event
+                + create_call
+                + create_task
+
++ Response 204
