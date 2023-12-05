@@ -45,3 +45,15 @@ Create a new deal pipeline.
         + data (object)
             + type: `dealPipeline` (string)
             + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
+
+### dealPipelines.update [POST /dealPipelines.update]
+
+Update a single deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `254dc5ee-f8de-0791-9e31-a4f7817e64d2` (string, required)
+        + name: `Main Pipeline` (string, required)
+
++ Response 204
