@@ -112,3 +112,15 @@ Move a phase to a new position in the pipeline.
         + after_phase_id: `22364cbf-971e-022c-811b-a76c28000257` (string, required)
 
 + Response 204
+
+### dealPhases.delete [POST /dealPhases.delete]
+
+Delete a phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + new_phase_id: `29648aea-52f9-09f7-8e1e-cc5c08b4c742` (string, optional) - Phase to migrate deals to
+
++ Response 204 (application/json)
