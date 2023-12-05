@@ -426,6 +426,23 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### December 2023
+- The `dealPhases.list` endpoint can now filter phases by pipeline id.
+- We added `actions`, `requires_attention_after` and `probability` to `dealPhases.list`.
+- We added the `dealPhases.create` endpoint.
+- We added the `dealPhases.update` endpoint.
+- We added the `dealPhases.duplicate` endpoint.
+- We added the `dealPhases.move` endpoint.
+- We added the `dealPhases.delete` endpoint.
+- We added the `dealPipelines.list` endpoint.
+- We added the `dealPipelines.create` endpoint.
+- We added the `dealPipelines.update` endpoint.
+- We added the `dealPipelines.markAsDefault` endpoint.
+- We added the `dealPipelines.duplicate` endpoint.
+- We added the `dealPipelines.delete` endpoint.
+- The `deals.list` endpoint can now filter deals by pipeline ids.
+- We added `pipeline` to `deals.list`.
+
 #### November 2023
 - We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
 - We added the `callOutcomes.list` endpoint.
@@ -2336,6 +2353,7 @@ Get a list of deals.
             + updated_since: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
             + created_before: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
             + status: `open`, `won`, `lost` (array[string], optional)
+            + pipeline_ids: `41ec2e1b-46e4-053b-b310-39322c273811` (array[string], optional) - an array of pipeline ids
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -2404,6 +2422,7 @@ Get a list of deals.
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + `pipeline`: `41ec2e1b-46e4-053b-b310-39322c273811` (string)
 
 ### deals.info [POST /deals.info]
 
@@ -2617,6 +2636,108 @@ Get a list of lost reasons for deals.
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + name: `Deal declined` (string)
 
+## Deal Pipelines [/dealPipelines]
+
+Each deal belongs to a specific pipeline, in which it goes through the different deal phases.
+
+*Required scopes: `deals`*
+
+### dealPipelines.list [GET /dealPipelines.list]
+
+Get a list of all deal pipelines.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + `ids`: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+            + status (array, optional)
+                + (enum)
+                    + Members
+                        + open
+                        + pending_deletion
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
+                + name: `Main Pipeline` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + default: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
+            + page (Pagination)
+            + matches: `12` (number)
+
+### dealPipelines.create [POST /dealPipelines.create]
+
+Create a new deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Primary Pipeline` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPipeline` (string)
+            + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
+
+### dealPipelines.update [POST /dealPipelines.update]
+
+Update a single deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `254dc5ee-f8de-0791-9e31-a4f7817e64d2` (string, required)
+        + name: `Main Pipeline` (string, required)
+
++ Response 204
+
+### dealPipelines.markAsDefault [POST /dealPipelines.markAsDefault]
+
+Mark a pipeline as default.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+
++ Response 202 (application/json)
+
+### dealPipelines.duplicate [POST /dealPipelines.duplicate]
+
+Create a new deal pipeline by duplicating an existing one.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required) - Id from source pipeline
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPipeline` (string)
+            + id: `5876126e-11c2-4731-b9e3-6e2fecd01d80` (string, required)
+
+### dealPipelines.delete [POST /dealPipelines.delete]
+
+Delete a deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + migrate_phases (array, optional) - Array of phase ids to migrate deals to
+            + (object)
+                + `old_phase_id`: `57785244-0d45-0f01-9c18-5ce1cb68e4c1` (string, required)
+                + `new_phase_id`: `29648aea-52f9-09f7-8e1e-cc5c08b4c742` (string, required)
+
++ Response 204 (application/json)
+
 ## Deal Phases [/dealPhases]
 
 Deal phases are the different phases a deal typically goes through. A deal can be moved to either a next or previous phase. A deal can be marked as won or lost independently from the deal phase.
@@ -2632,6 +2753,7 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
     + Attributes (object)
         + filter (object, optional)
             + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+            + deal_pipeline_id: `53a7e592-a136-4bae-ae15-517befd3d75d` (string, optional)
         + page (Page, optional)
 
 + Response 200 (application/json)
@@ -2641,6 +2763,107 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
             + (object)
                 + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
                 + name: `New` (string)
+                + actions: `create_event`, `create_call`, `create_task` (array[enum]) - Only returned when user has access to planning and deal automation
+                + requires_attention_after (object) - Time period in this phase after which a deal requires attention
+                    + amount: 7 (number)
+                    + unit: `days` (enum[string])
+                        + Members
+                            + days
+                            + weeks
+                + probability: 0.75 (number)
+
+### dealPhases.create [POST /dealPhases.create]
+
+Create a new deal phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Investigation` (string, required)
+        + deal_pipeline_id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + requires_attention_after (object, required) - Time period after which a deal requires attention
+            + amount: 7 (number, required)
+            + unit: `days` (enum[string], required)
+                + Members
+                   + days
+                   + weeks
+        + estimated_probability: `0.5` (number, optional)
+        + follow_up_actions: `create_event` (array[enum], optional)
+            + Members
+                + create_event
+                + create_call
+                + create_task
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPhase` (string)
+            + id: `22364cbf-971e-022c-811b-a76c28000257` (string)
+
+### dealPhases.update [POST /dealPhases.update]
+
+Update a deal phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `22364cbf-971e-022c-811b-a76c28000257` (string, required)
+        + name: `Preparation` (string, optional)
+        + requires_attention_after (object, required) - Time period after which a deal requires attention
+            + amount: 7 (number, required)
+            + unit: `days` (enum[string], required)
+                + Members
+                    + days
+                    + weeks
+        + estimated_probability: `0.8` (number, optional)
+        + follow_up_actions: `create_event` (array[enum], optional)
+            + Members
+                + create_event
+                + create_call
+                + create_task
+
++ Response 204
+
+### dealPhases.duplicate [POST /dealPhases.duplicate]
+
+Create a new deal phase by duplicating an existing one.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `22364cbf-971e-022c-811b-a76c28000257` (string, required) - Id from source phase
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPhase` (string)
+            + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
+### dealPhases.move [POST /dealPhases.move]
+
+Move a phase to a new position in the pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + after_phase_id: `22364cbf-971e-022c-811b-a76c28000257` (string, required)
+
++ Response 204
+
+### dealPhases.delete [POST /dealPhases.delete]
+
+Delete a phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + new_phase_id: `29648aea-52f9-09f7-8e1e-cc5c08b4c742` (string, optional) - Phase to migrate deals to
+
++ Response 204 (application/json)
 
 ## Deal Sources [/dealSources]
 
