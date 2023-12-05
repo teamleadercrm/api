@@ -437,6 +437,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
 - We added `call.completed` and `meeting.completed` types to supported Webhook types.
 - We added the `notes.list`, `notes.create` and `notes.update` endpoints.
+- We added the `emailTracking.create` endpoint.
 
 #### October 2023
 - We added `late_fees` to `invoices.info` and `invoices.list`.
@@ -1602,6 +1603,27 @@ Update an existing note.
         + content: `new note content` (string, optional)
 
 + Response 204
+
+## Email Tracking [/emailTracking]
+
+### emailTracking.create [POST /emailTracking.create]
+
+Create a new email tracking.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject (object, required)
+            + type: `contact` (EmailTrackingSubjectTypes, required)
+            + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + title: `an email subject` (string, optional)
+        + content: `<p>the contents of the received email</p>` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `emailTracking` (string)
+            + id: `91e99ae3-16f9-01d7-9046-9a501cb2155f` (string)
 
 # Group CRM
 
@@ -8505,6 +8527,16 @@ Fetch cloudPlatform url for type and id
         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
 
 ## NoteSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
+
+## EmailTrackingSubjectTypes (enum)
 + `contact`
 + `company`
 + `deal`

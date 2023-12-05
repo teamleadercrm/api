@@ -1,0 +1,20 @@
+## Email Tracking [/emailTracking]
+
+### emailTracking.create [POST /emailTracking.create]
+
+Create a new email tracking.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject (object, required)
+            + type: `contact` (EmailTrackingSubjectTypes, required)
+            + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + title: `an email subject` (string, optional)
+        + content: `<p>the contents of the received email</p>` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `emailTracking` (string)
+            + id: `91e99ae3-16f9-01d7-9046-9a501cb2155f` (string)
