@@ -29,3 +29,19 @@ Get a list of all deal pipelines.
             + default: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
             + page (Pagination)
             + matches: `12` (number)
+
+### dealPipelines.create [POST /dealPipelines.create]
+
+Create a new deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Primary Pipeline` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPipeline` (string)
+            + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
