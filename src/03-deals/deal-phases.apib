@@ -100,3 +100,15 @@ Create a new deal phase by duplicating an existing one.
         + data (object)
             + type: `dealPhase` (string)
             + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
+### dealPhases.move [POST /dealPhases.move]
+
+Move a phase to a new position in the pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + after_phase_id: `22364cbf-971e-022c-811b-a76c28000257` (string, required)
+
++ Response 204
