@@ -68,3 +68,19 @@ Mark a pipeline as default.
         + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
 
 + Response 202 (application/json)
+
+### dealPipelines.duplicate [POST /dealPipelines.duplicate]
+
+Create a new deal pipeline by duplicating an existing one.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required) - Id from source pipeline
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPipeline` (string)
+            + id: `5876126e-11c2-4731-b9e3-6e2fecd01d80` (string, required)
