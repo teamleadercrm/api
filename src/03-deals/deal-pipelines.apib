@@ -84,3 +84,18 @@ Create a new deal pipeline by duplicating an existing one.
         + data (object)
             + type: `dealPipeline` (string)
             + id: `5876126e-11c2-4731-b9e3-6e2fecd01d80` (string, required)
+
+### dealPipelines.delete [POST /dealPipelines.delete]
+
+Delete a deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + migrate_phases (array, optional) - Array of phase ids to migrate deals to
+            + (object)
+                + `old_phase_id`: `57785244-0d45-0f01-9c18-5ce1cb68e4c1` (string, required)
+                + `new_phase_id`: `29648aea-52f9-09f7-8e1e-cc5c08b4c742` (string, required)
+
++ Response 204 (application/json)
