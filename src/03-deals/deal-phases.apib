@@ -31,3 +31,32 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
                             + days
                             + weeks
                 + probability: 0.75 (number)
+
+### dealPhases.create [POST /dealPhases.create]
+
+Create a new deal phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Investigation` (string, required)
+        + deal_pipeline_id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + requires_attention_after (object, required) - Time period after which a deal requires attention
+            + amount: 7 (number, required)
+            + unit: `days` (enum[string], required)
+                + Members
+                   + days
+                   + weeks
+        + estimated_probability: `0.5` (number, optional)
+        + follow_up_actions: `create_event` (array[enum], optional)
+            + Members
+                + create_event
+                + create_call
+                + create_task
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPhase` (string)
+            + id: `22364cbf-971e-022c-811b-a76c28000257` (string)
