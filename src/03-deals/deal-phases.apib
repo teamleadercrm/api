@@ -13,6 +13,7 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
     + Attributes (object)
         + filter (object, optional)
             + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+            + deal_pipeline_id: `53a7e592-a136-4bae-ae15-517befd3d75d` (string, optional)
         + page (Page, optional)
 
 + Response 200 (application/json)
@@ -22,3 +23,11 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
             + (object)
                 + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
                 + name: `New` (string)
+                + actions: `create_event`, `create_call`, `create_task` (array[enum]) - Only returned when user has access to planning and deal automation
+                + requires_attention_after (object) - Time period in this phase after which a deal requires attention
+                    + amount: 7 (number)
+                    + unit: `days` (enum[string])
+                        + Members
+                            + days
+                            + weeks
+                + probability: 0.75 (number)
