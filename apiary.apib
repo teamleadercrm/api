@@ -2763,7 +2763,12 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
             + (object)
                 + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
                 + name: `New` (string)
-                + actions: `create_event`, `create_call`, `create_task` (array[enum]) - Only returned when user has access to planning and deal automation
+                + actions (array) - Only returned when user has access to planning and deal automation
+                    + (enum)
+                        + Members
+                            + create_event
+                            + create_call
+                            + create_task
                 + requires_attention_after (object) - Time period in this phase after which a deal requires attention
                     + amount: 7 (number)
                     + unit: `days` (enum[string])
@@ -2788,11 +2793,12 @@ Create a new deal phase.
                    + days
                    + weeks
         + estimated_probability: `0.5` (number, optional)
-        + follow_up_actions: `create_event` (array[enum], optional)
-            + Members
-                + create_event
-                + create_call
-                + create_task
+        + follow_up_actions (array, optional)
+            + (enum)
+                + Members
+                    + create_event
+                    + create_call
+                    + create_task
 
 + Response 201 (application/json)
 
@@ -2817,11 +2823,12 @@ Update a deal phase.
                     + days
                     + weeks
         + estimated_probability: `0.8` (number, optional)
-        + follow_up_actions: `create_event` (array[enum], optional)
-            + Members
-                + create_event
-                + create_call
-                + create_task
+        + follow_up_actions (array, optional)
+            + (enum)
+                + Members
+                    + create_event
+                    + create_call
+                    + create_task
 
 + Response 204
 
