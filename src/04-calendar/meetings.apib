@@ -336,3 +336,28 @@ Deletes a meeting.
         + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
 
 + Response 204
+
+### meetings.createReport [POST /meetings.createReport]
+
+Creates a report for a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+        + attach_to (object, required)
+            + `type`: `contact` (enum[string])
+                + Members
+                    + `contact`
+                    + `company`
+                    + `deal`
+            + `id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + summary: `My meeting summary` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `meetingReport` (string)
+            + id: `f4baa515-c813-4ca2-bfc2-a646d985e58d` (string)
