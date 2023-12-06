@@ -4,6 +4,23 @@
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### December 2023
+- The `dealPhases.list` endpoint can now filter phases by pipeline id.
+- We added `actions`, `requires_attention_after` and `probability` to `dealPhases.list`.
+- We added the `dealPhases.create` endpoint.
+- We added the `dealPhases.update` endpoint.
+- We added the `dealPhases.duplicate` endpoint.
+- We added the `dealPhases.move` endpoint.
+- We added the `dealPhases.delete` endpoint.
+- We added the `dealPipelines.list` endpoint.
+- We added the `dealPipelines.create` endpoint.
+- We added the `dealPipelines.update` endpoint.
+- We added the `dealPipelines.markAsDefault` endpoint.
+- We added the `dealPipelines.duplicate` endpoint.
+- We added the `dealPipelines.delete` endpoint.
+- The `deals.list` endpoint can now filter deals by pipeline ids.
+- We added `pipeline` to `deals.list`.
+
 #### November 2023
 - We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
 - We added the `callOutcomes.list` endpoint.

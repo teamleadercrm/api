@@ -30,6 +30,7 @@ Get a list of deals.
             + updated_since: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
             + created_before: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
             + status: `open`, `won`, `lost` (array[string], optional)
+            + pipeline_ids: `41ec2e1b-46e4-053b-b310-39322c273811` (array[string], optional) - an array of pipeline ids
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -98,6 +99,7 @@ Get a list of deals.
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + `pipeline`: `41ec2e1b-46e4-053b-b310-39322c273811` (string)
 
 ### deals.info [POST /deals.info]
 
