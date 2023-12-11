@@ -443,6 +443,7 @@ We list all backwards-compatible additions here. These are currently available i
 - The `deals.list` endpoint can now filter deals by pipeline ids.
 - We added `pipeline` to `deals.list`.
 - We now return the `default` payment term id in `paymentTerms.list` meta information.
+- We added `nextgenProject` as a subject type to `files.upload`, `files.list` and `files.info`.
 
 #### November 2023
 - We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
@@ -7971,6 +7972,7 @@ Get a list of files.
                         + creditNote
                         + product
                         + project
+                        + nextgenProject
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (array, optional)
             + (object)
@@ -8005,6 +8007,7 @@ Get a list of files.
                             + deal
                             + invoice
                             + creditNote
+                            + nextgenProject
                     + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
                 + name: `meeting-report.pdf` (string)
                 + mime_type (MimeType)
@@ -8039,6 +8042,7 @@ Get details for a single file.
                         + order
                         + product
                         + project
+                        + nextgenProject
                         + ticket
                         + workOrder
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
@@ -8081,6 +8085,7 @@ Request the upload link for a file.
                     + deal
                     + invoice
                     + creditNote
+                    + nextgenProject 
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + folder: `My monthly notes` (string, optional) - Name of a folder under which the file will be stored. Defaults to `General` in account's language if not passed.
 
