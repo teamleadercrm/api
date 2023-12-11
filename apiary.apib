@@ -443,6 +443,7 @@ We list all backwards-compatible additions here. These are currently available i
 - The `deals.list` endpoint can now filter deals by pipeline ids.
 - We added `pipeline` to `deals.list`.
 - We now return the `default` payment term id in `paymentTerms.list` meta information.
+- We now return the user's team(s) in `users.info` and `users.list` endpoints.
 - We added `nextgenProject` as a subject type to `files.upload`, `files.list` and `files.info`.
 
 #### November 2023
@@ -1253,6 +1254,11 @@ Get a list of all users.
                     + Members
                         + active
                         + deactivated
+                + teams (array)
+                    + (object)
+                        + type: `team` (string)
+                        + id: `6dd0069e-45da-0ec4-911a-afb351d968cd`
+
 
 ### users.info [POST /users.info]
 
@@ -1297,6 +1303,10 @@ Get details for a single user.
                 + Members
                     + active
                     + deactivated
+            + teams (array)
+                + (object)
+                    + type: `team` (string)
+                    + id: `6dd0069e-45da-0ec4-911a-afb351d968cd`
 
 ## Teams [/teams]
 
