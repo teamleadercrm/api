@@ -445,6 +445,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We now return the `default` payment term id in `paymentTerms.list` meta information.
 - We now return the user's team(s) in `users.info` and `users.list` endpoints.
 - We added `nextgenProject` as a subject type to `files.upload`, `files.list` and `files.info`.
+- The `/customFieldDefinitions.list` endpoint can now filter custom field definitions by context and ids.
 
 #### November 2023
 - We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
@@ -1355,6 +1356,19 @@ Get a list of all the definitions of custom fields.
 + Request (application/json)
 
     + Attributes (object)
+        + filter (object, optional)
+            + ids: `9c64570b-4ec1-4e03-9662-af904f78f7fa`,`aa6d2560-63f9-4b2f-bf96-823dc7c34df7` (array[string], optional)
+            + context (enum, optional) - Filters on context
+                + Members
+                    + contact
+                    + company
+                    + deal
+                    + project
+                    + milestone
+                    + product
+                    + invoice
+                    + subscription
+                    + ticket
         + page (Page, optional)
         + sort (array, optional)
             + (object)
