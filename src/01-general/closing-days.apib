@@ -1,0 +1,23 @@
+## Closing Days [/closingDays]
+
+### closingDays.list [POST /closingDays.list]
+
+Returns information about closing days the account
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + date_before: `2023-12-31` (string, optional) - Start of the period for which to return closing days. This includes closing days starting on the date provided.
+            + date_after: `2023-12-01` (string, optional) - End of the period for which to return closing days. This includes closing days ending on the date provided.
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + `data` (array)
+            + (object)
+                + `id`: `05676ac4-c61d-42bf-a3ea-a420fc1ec017` (string)
+                + `date`: `2023-12-21` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
+
