@@ -449,6 +449,7 @@ We list all backwards-compatible additions here. These are currently available i
 - The `/customFieldDefinitions.list` endpoint can now filter custom field definitions by context and ids.
 - We added `nextgenProject` as a subject type to `emailTracking.create`.
 - We added `nextgenProject` as a subject type to `notes.create` and `notes.list`.
+- We added `nextgenProject` types to supported Webhook types.
 - We added the `closingDays.list` endpoint.
 
 #### November 2023
@@ -8545,6 +8546,10 @@ Fetch cloudPlatform url for type and id
         + meeting.updated
         + milestone.created
         + milestone.updated
+        + nextgenProject.created
+        + nextgenProject.updated
+        + nextgenProject.closed
+        + nextgenProject.deleted 
         + product.added
         + project.created
         + project.deleted
