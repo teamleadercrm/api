@@ -4,6 +4,10 @@
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### January 2024
+- We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `tasks.list`, `tasks.info`, `tasks.create` and `tasks.update`. The old names are still supported, but deprecated.
+- We replaced `task_type_rate` with `work_type_rate` in `tasks.list`, `tasks.info`, `tasks.create` and `tasks.update`. `task_type_rate` was never used.
+
 #### December 2023
 - The `dealPhases.list` endpoint can now filter phases by pipeline id.
 - We added `actions`, `requires_attention_after` and `probability` to `dealPhases.list`.
