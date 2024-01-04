@@ -427,6 +427,8 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### January 2024
+- We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
+- We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
 - We added `project_id` to the `tasks.create` endpoint.
 
 #### December 2023
@@ -6856,7 +6858,10 @@ Lists all the tasks that match the optional filters provided.
                 + `group` (object, nullable) - If `null`, the task is not in any group.
                     + `type`: `nextgenProjectGroup` (string)
                     + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
-                + `task_type` (object, nullable) - If null, the task does not have a specific work type.
+                + `work_type` (object, nullable) - If null, the task does not have a specific work type.
+                    + `type`: `workType` (string)
+                    + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
+                + `task_type` (object, nullable) - DEPRECATED - Use `work_type` instead.
                     + `type`: `workType` (string)
                     + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
                 + `status`: `in_progress` (enum[string])
@@ -6869,7 +6874,7 @@ Lists all the tasks that match the optional filters provided.
                 + `billing_method`: `user_rate` (enum[string])
                     + Members
                         + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
-                        + `task_type_rate` - Based on the rate of the task type and the amount of time tracked.
+                        + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
                         + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
                         + `fixed_price`
                         + `parent_fixed_price` - The parent project or group must be `fixed_price`.
@@ -6934,7 +6939,10 @@ Returns all the information for one task.
             + `group` (object, nullable) - If `null`, the task is not in any group.
                 + `type`: `nextgenProjectGroup` (string)
                 + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
-            + `task_type` (object, nullable) - If null, the task does not have a specific work type.
+            + `work_type` (object, nullable) - If null, the task does not have a specific work type.
+                + `type`: `workType` (string)
+                + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
+            + `task_type` (object, nullable) - DEPRECATED - Use `work_type` instead.
                 + `type`: `workType` (string)
                 + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
             + `status`: `in_progress` (enum[string])
@@ -6948,7 +6956,7 @@ Returns all the information for one task.
             + `billing_method`: `user_rate` (enum[string])
                 + Members
                     + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
-                    + `task_type_rate` - Based on the rate of the task type and the amount of time tracked.
+                    + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
                     + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
                     + `fixed_price`
                     + `parent_fixed_price` - The parent project or group must be `fixed_price`.
@@ -7004,18 +7012,19 @@ Create a task. All properties except for `title` and `project_id` are optional.
         + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
         + `title`: `My task` (string, required)
         + `group_id`: `0185968b-2c9e-73fd-9ce1-a12c0979783b` (string) - If omitted the task is not added to a group.
-        + `task_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, optional) - Cannot be null if `billing_method` is `task_type_rate`.
+        + `work_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, optional) - Cannot be null if `billing_method` is `task_type_rate`.
+        + `task_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, optional) - DEPRECATED - Use `work_type_id` instead.
         + `description`: `But nothing is any good without you cause baby you are my centerpiece` (string, optional)
         + `billing_method`: `fixed_price` (enum[string], optional)
             + Members
                 + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
-                + `task_type_rate` - Based on the rate of the task type and the amount of time tracked.
+                + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
                 + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
                 + `fixed_price`
                 + `parent_fixed_price` - The parent project or group must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`.
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `task_type_rate`, or `custom_rate`.
+        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `custom_rate` (Money, optional) - Can only be provided if `billing_method` is `custom_rate`.
         + `start_date`: `2023-01-18` (string, optional)
@@ -7048,7 +7057,8 @@ Update a task. All attributes except for `id` are optional. Providing `null` wil
 + Request (application/json)
     + Attributes (object)
         + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
-        + `task_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, nullable, optional) - Cannot be null if `billing_method` is `task_type_rate`.
+        + `work_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, nullable, optional) - Cannot be null if `billing_method` is `work_type_rate`.
+        + `task_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, nullable, optional) - DEPRECATED - Use `work_type_id` instead.
         + `status`: `on_hold` (enum[string], optional)
             + Members
                 + `to_do`
@@ -7060,13 +7070,13 @@ Update a task. All attributes except for `id` are optional. Providing `null` wil
         + `billing_method`: `fixed_price` (enum[string], optional)
             + Members
                 + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
-                + `task_type_rate` - Based on the rate of the task type and the amount of time tracked.
+                + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
                 + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
                 + `fixed_price`
                 + `parent_fixed_price` - The parent project or group must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`.
-        + `external_budget` (Money, nullable, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `task_type_rate`, or `custom_rate`.
+        + `external_budget` (Money, nullable, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
         + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `custom_rate` (Money, nullable, optional) - Can only be provided if `billing_method` is `custom_rate`.
         + `start_date`: `2023-01-18` (string, nullable, optional)
