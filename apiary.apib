@@ -455,6 +455,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `nextgenProject` as a subject type to `emailTracking.create`.
 - We added `nextgenProject` as a subject type to `notes.create` and `notes.list`.
 - We added `nextgenProject` types to supported Webhook types.
+- We added the `closingDays.list` endpoint.
 
 #### November 2023
 - We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
@@ -1676,6 +1677,30 @@ Create a new email tracking.
         + data (object)
             + type: `emailTracking` (string)
             + id: `91e99ae3-16f9-01d7-9046-9a501cb2155f` (string)
+
+## Closing Days [/closingDays]
+
+### closingDays.list [POST /closingDays.list]
+
+Returns information about closing days the account
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + date_before: `2023-12-31` (string, optional) - Start of the period for which to return closing days. This includes closing days starting on the date provided.
+            + date_after: `2023-12-01` (string, optional) - End of the period for which to return closing days. This includes closing days ending on the date provided.
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + `data` (array)
+            + (object)
+                + `id`: `05676ac4-c61d-42bf-a3ea-a420fc1ec017` (string)
+                + `date`: `2023-12-21` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
+
 
 # Group CRM
 
