@@ -8240,6 +8240,45 @@ Get a list of all mail templates.
                         + work_order
                         + credit_note
 
+# Group Tickets
+
+## Tickets [/tickets]
+
+### tickets.create [POST /tickets.create]
+
+Create a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject: `My ticket subject` (string, required)
+        + customer (object, required)
+            + type: `company` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+        + assignee (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + `user`
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+        + remarks: `My ticket details` (string, optional) - Uses Markdown formatting
+        + participant (object, optional)
+            + customer (object, required)
+                + type (enum, required)
+                    + Members
+                        + `company`
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `ticket` (string)
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
 # Group Other
 
 ## Migrating [/migrate]
