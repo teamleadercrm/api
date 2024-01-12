@@ -155,3 +155,42 @@ Get details for a single user.
                 + (object)
                     + type: `team` (string)
                     + id: `6dd0069e-45da-0ec4-911a-afb351d968cd`
+
+
+### users.listDaysOff [POST /users.listDaysOff]
+
+Returns information about days off of a given user.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, required)
+        + filter (object, optional)
+            + `starts_after`: `2023-10-01` (string, optional) - Start of the period for which to return days off.
+            + `ends_before`: `2023-10-30` (string, optional) - End of the period for which to return days off.
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `id`: `f611da79-90c2-02b1-b819-a810e0c77291` (string)
+                + `starts_at`: `2023-10-01T09:00:00+01:00` (string)
+                + `ends_at`: `2023-10-20T18:00:00+01:00` (string)
+                + user (object)
+                    + `type`: `user` (enum[string])
+                        + Members
+                            + `user`
+                    + `id`: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+                + leave_type (object)
+                    + `type`: `dayOffType` (enum[string])
+                        + Members
+                            + `dayOffType`
+                    + `id`: `f68b123c-4c36-0f5c-ac16-11f498e5dc01` (string)
+                + `status`: `approved` (enum)
+                    + Members
+                        + `approved`
+                        + `not_approved`
+                        + `pending`
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
