@@ -3294,215 +3294,6 @@ Delete a quotation.
 
 # Group Calendar
 
-## Calendar events [/events]
-
-Calendar events are scheduled events in your calendar. A calendar event involves a particular activity type: a task, meeting or call.
-
-*Required scopes: `events`*
-
-### events.list [POST /events.list]
-
-Get a list of calendar events.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + filter (object, optional)
-            + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
-            + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
-            + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
-            + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
-            + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
-            + term: `coffee` (string, optional) - Searches for a term in title or description
-            + attendee (object, optional)
-                + type (enum, required)
-                    + Members
-                        + contact
-                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
-            + link (object, optional)
-                + type (enum, required)
-                    + Members
-                        + contact
-                        + company
-                        + deal
-                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
-            + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
-            + done: false (boolean, optional)
-        + page (Page, optional)
-        + sort (array, optional)
-            + (object)
-                + field: `starts_at` (enum, required)
-                    + Members
-                        + starts_at
-                + order: `asc` (enum, optional)
-                    + Members
-                        + asc
-                        + desc
-            + Default
-                + (object)
-                    + field: starts_at
-                    + order: asc
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + id: `6d64488c-75d8-4de9-b140-2555566fa27d` (string)
-                + creator (object)
-                    + type: `user` (string)
-                    + id: `e51d1a0e-452e-4d5d-a2a1-2c8f75dde560` (string)
-                + task (object)
-                    + type: `task` (string)
-                    + id: `eb399573-e1ae-4377-bbaf-34358eb19831` (string)
-                + activity_type (object)
-                    + type: `activityType` (string)
-                    + id: `28158af3-2ef3-4178-ac8b-2542b1481af0` (string)
-                + title: `Erlich Bachman's birthday` (string)
-                + description (string)
-                + starts_at: `2016-02-04T16:00:00+00:00` (string)
-                + ends_at: `2016-02-04T18:00:00+00:00` (string)
-                + location (string)
-                + attendees (array)
-                    + (object)
-                        + type: `contact` (enum)
-                            + Members
-                                + user
-                                + contact
-                        + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
-                + links (array)
-                    + (object)
-                        + type (enum)
-                            + Members
-                                + company
-                                + contact
-                                + deal
-                        + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
-
-
-### events.info [POST /events.info]
-
-Get details for a single calendar event.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string, required)
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string)
-            + title: `Meeting with stakeholders` (string)
-            + description (string)
-            + creator (object)
-                + type: `user` (string)
-                + id: `6f45600a-4402-40e0-9dcc-7665384bcd48` (string)
-            + task (object)
-                + type: `task` (string)
-                + id: `be80d753-f2ee-426d-9596-2a2e1a23a82e` (string)
-            + activity_type (object)
-                + type: `activityType` (string)
-                + id: `4a1b1d8e-45da-4c5f-a986-3f93d174d352` (string)
-            + starts_at: `2016-02-04T16:00:00+00:00` (string)
-            + ends_at: `2016-02-04T18:00:00+00:00` (string)
-            + location (string)
-            + attendees (array)
-                + (object)
-                    + type: `contact` (enum)
-                        + Members
-                            + user
-                            + contact
-                    + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
-            + links (array)
-                + (object)
-                    + type (enum)
-                        + Members
-                            + company
-                            + contact
-                            + work_order
-                            + deal
-                    + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
-
-### events.create [POST /events.create]
-
-Create a new calendar event.
-
-+ Request (application/json)
-
-    + Attributes
-        + title: `Meeting with stakeholders` (string, required)
-        + description (string, optional)
-        + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
-        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
-        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
-        + location (string, optional)
-        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
-        + attendees (array, optional)
-            + (object)
-                + type: `user` (enum, required)
-                    + Members
-                        + user
-                        + contact
-                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
-        + links (array, optional)
-            + (object)
-                + type: `company` (enum, required)
-                    + Members
-                        + company
-                        + contact
-                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
-
-+ Response 201 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + type: `event` (string)
-            + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
-
-### events.update [POST /events.update]
-
-Update a calendar event.
-
-+ Request (application/json)
-
-    + Attributes
-        + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
-        + title: `Meeting with stakeholders` (string, optional)
-        + description (string, optional, nullable)
-        + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
-        + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
-        + location (string, optional)
-        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
-        + attendees (array, optional)
-            + (object)
-                + type: `user` (enum, required)
-                    + Members
-                        + user
-                        + contact
-                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
-        + links (array, optional)
-            + (object)
-                + type: `company` (enum, required)
-                    + Members
-                        + company
-                        + contact
-                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
-
-+ Response 204
-
-### events.cancel [POST /events.cancel]
-
-Cancel a calendar event (for all attendees).
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `b519491e-ca80-4efb-bb7b-3f08544936b0` (string, required)
-
-+ Response 204
-
 ## Activity Types [/activityTypes]
 
 Activity types identify the different types of events that take place within your organisation. Currently only three activity types are available: tasks, meetings and calls.
@@ -4067,6 +3858,215 @@ Mark a call as complete.
             + (object)
                 + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
                 + name: `Foo Bar` (string)
+
+## Calendar events [/events]
+
+Calendar events are scheduled events in your calendar. A calendar event involves a particular activity type: a task, meeting or call.
+
+*Required scopes: `events`*
+
+### events.list [POST /events.list]
+
+Get a list of calendar events.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `9c475de2-1e99-0328-bc19-271b27e921d8`,`6325b4e5-c6a6-060b-b010-b81892e82fa7` (array[string], optional)
+            + user_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
+            + activity_type_id: `edd94120-63e2-4b10-80ed-fdfcfaa0a515` (string, optional)
+            + ends_after: `2017-01-01T00:00:00+00:00` (string, optional) - Start of the period for which to return events
+            + starts_before: `2018-01-01T00:00:00+00:00` (string, optional) - End of the period for which to return events
+            + term: `coffee` (string, optional) - Searches for a term in title or description
+            + attendee (object, optional)
+                + type (enum, required)
+                    + Members
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + link (object, optional)
+                + type (enum, required)
+                    + Members
+                        + contact
+                        + company
+                        + deal
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + task_id: `5309c8c9-e313-47b0-90ba-6850c3dc3e33` (string, optional)
+            + done: false (boolean, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field: `starts_at` (enum, required)
+                    + Members
+                        + starts_at
+                + order: `asc` (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: starts_at
+                    + order: asc
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `6d64488c-75d8-4de9-b140-2555566fa27d` (string)
+                + creator (object)
+                    + type: `user` (string)
+                    + id: `e51d1a0e-452e-4d5d-a2a1-2c8f75dde560` (string)
+                + task (object)
+                    + type: `task` (string)
+                    + id: `eb399573-e1ae-4377-bbaf-34358eb19831` (string)
+                + activity_type (object)
+                    + type: `activityType` (string)
+                    + id: `28158af3-2ef3-4178-ac8b-2542b1481af0` (string)
+                + title: `Erlich Bachman's birthday` (string)
+                + description (string)
+                + starts_at: `2016-02-04T16:00:00+00:00` (string)
+                + ends_at: `2016-02-04T18:00:00+00:00` (string)
+                + location (string)
+                + attendees (array)
+                    + (object)
+                        + type: `contact` (enum)
+                            + Members
+                                + user
+                                + contact
+                        + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+                + links (array)
+                    + (object)
+                        + type (enum)
+                            + Members
+                                + company
+                                + contact
+                                + deal
+                        + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
+
+
+### events.info [POST /events.info]
+
+Get details for a single calendar event.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `9a5a3984-abfc-40cd-a880-f97683c6a99c` (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + creator (object)
+                + type: `user` (string)
+                + id: `6f45600a-4402-40e0-9dcc-7665384bcd48` (string)
+            + task (object)
+                + type: `task` (string)
+                + id: `be80d753-f2ee-426d-9596-2a2e1a23a82e` (string)
+            + activity_type (object)
+                + type: `activityType` (string)
+                + id: `4a1b1d8e-45da-4c5f-a986-3f93d174d352` (string)
+            + starts_at: `2016-02-04T16:00:00+00:00` (string)
+            + ends_at: `2016-02-04T18:00:00+00:00` (string)
+            + location (string)
+            + attendees (array)
+                + (object)
+                    + type: `contact` (enum)
+                        + Members
+                            + user
+                            + contact
+                    + id: `8b3afad7-648d-4b4c-b38b-5726d3222282` (string)
+            + links (array)
+                + (object)
+                    + type (enum)
+                        + Members
+                            + company
+                            + contact
+                            + work_order
+                            + deal
+                    + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string)
+
+### events.create [POST /events.create]
+
+Create a new calendar event.
+
++ Request (application/json)
+
+    + Attributes
+        + title: `Meeting with stakeholders` (string, required)
+        + description (string, optional)
+        + activity_type_id: `b0a9ace5-fe82-4827-9d90-fc52f2c93050` (string, required)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (string, optional)
+        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum, required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `event` (string)
+            + id: `9fc14045-5c6c-4ba8-8672-42ea3f26aa63` (string)
+
+### events.update [POST /events.update]
+
+Update a calendar event.
+
++ Request (application/json)
+
+    + Attributes
+        + id: `f22fc69d-5d07-40cf-af46-015698a74b63` (string, required)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional, nullable)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+        + location (string, optional)
+        + work_type_id: `b37e2bc7-dea0-4fda-88e9-c092fb65667d` (string, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `user` (enum, required)
+                    + Members
+                        + user
+                        + contact
+                + id: `6ddd2666-65a0-497f-9f01-54c4343ec1a6` (string, required)
+        + links (array, optional)
+            + (object)
+                + type: `company` (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
+
++ Response 204
+
+### events.cancel [POST /events.cancel]
+
+Cancel a calendar event (for all attendees).
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b519491e-ca80-4efb-bb7b-3f08544936b0` (string, required)
+
++ Response 204
 
 # Group Invoicing
 
