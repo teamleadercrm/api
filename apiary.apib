@@ -431,6 +431,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
 - We added `project_id` to the `tasks.create` endpoint.
 - We added the `tickets.create` endpoint.
+- We added the `tickets.update` endpoint.
 
 #### December 2023
 - The `dealPhases.list` endpoint can now filter phases by pipeline id.
@@ -8279,6 +8280,37 @@ Create a ticket.
         + data (object)
             + type: `ticket` (string)
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
+### tickets.update [POST /tickets.update]
+
+Update a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + subject: `My ticket subject` (string, optional)
+        + description: `My ticket details` (string, optional) - Uses Markdown formatting
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
+        + customer (object, optional)
+            + type: `company` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + assignee (object, optional, nullable)
+            + type (enum[string], required)
+                + Members
+                    + `user`
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + participant (object, optional, nullable)
+            + customer (object, required, nullable)
+                + type (enum, required)
+                    + Members
+                        + `company`
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
 
 # Group Other
 
