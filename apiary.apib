@@ -430,6 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
 - We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
 - We added `project_id` to the `tasks.create` endpoint.
+- We added the `users.listDaysOff` and `dayOffTypes.list` endpoints.
 
 #### December 2023
 - The `dealPhases.list` endpoint can now filter phases by pipeline id.
@@ -1320,6 +1321,45 @@ Get details for a single user.
                     + type: `team` (string)
                     + id: `6dd0069e-45da-0ec4-911a-afb351d968cd`
 
+
+### users.listDaysOff [POST /users.listDaysOff]
+
+Returns information about days off of a given user.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, required)
+        + filter (object, optional)
+            + `starts_after`: `2023-10-01` (string, optional) - Start of the period for which to return days off.
+            + `ends_before`: `2023-10-30` (string, optional) - End of the period for which to return days off.
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `id`: `f611da79-90c2-02b1-b819-a810e0c77291` (string)
+                + `starts_at`: `2023-10-01T09:00:00+01:00` (string)
+                + `ends_at`: `2023-10-20T18:00:00+01:00` (string)
+                + user (object)
+                    + `type`: `user` (enum[string])
+                        + Members
+                            + `user`
+                    + `id`: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+                + leave_type (object)
+                    + `type`: `dayOffType` (enum[string])
+                        + Members
+                            + `dayOffType`
+                    + `id`: `f68b123c-4c36-0f5c-ac16-11f498e5dc01` (string)
+                + `status`: `approved` (enum)
+                    + Members
+                        + `approved`
+                        + `not_approved`
+                        + `pending`
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
+
 ## Teams [/teams]
 
 *Required scopes: `users`*
@@ -1701,6 +1741,22 @@ Returns information about closing days the account
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
+
+
+## Day Off Types [/dayOffTypes]
+
+### dayOffTypes.list [POST /dayOffTypes.list]
+
+Returns a list of day off types for the account
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + `data` (array)
+            + (object)
+                + `id`: `39263c14-9c16-022d-8513-60cf722ab088` (string)
+                + `name`: `Sick leave` (string)
 
 
 # Group CRM
