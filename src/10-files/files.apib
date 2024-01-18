@@ -9,7 +9,7 @@ Get a list of files.
     + Attributes (object)
         + filter (object, required)
             + subject (object, required)
-                + type (enum[string], required)
+                + `type`: `company` (enum[string], required)
                     + Members
                         + company
                         + contact
@@ -19,6 +19,7 @@ Get a list of files.
                         + product
                         + project
                         + nextgenProject
+                        + ticket
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (array, optional)
             + (object)
@@ -46,7 +47,7 @@ Get a list of files.
             + (object)
                 + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
                 + subject (object, nullable)
-                    + type: `company` (enum[string])
+                    + `type`: `company` (enum[string], required)
                         + Members
                             + company
                             + contact
@@ -54,6 +55,7 @@ Get a list of files.
                             + invoice
                             + creditNote
                             + nextgenProject
+                            + ticket
                     + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
                 + name: `meeting-report.pdf` (string)
                 + mime_type (MimeType)
@@ -77,7 +79,7 @@ Get details for a single file.
         + data (object)
             + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
             + subject (object, nullable)
-                + type: `company` (enum[string])
+                + `type`: `company` (enum[string], required)
                     + Members
                         + company
                         + contact
@@ -131,7 +133,8 @@ Request the upload link for a file.
                     + deal
                     + invoice
                     + creditNote
-                    + nextgenProject 
+                    + nextgenProject
+                    + ticket
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + folder: `My monthly notes` (string, optional) - Name of a folder under which the file will be stored. Defaults to `General` in account's language if not passed.
 

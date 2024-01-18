@@ -431,6 +431,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
 - We added `project_id` to the `tasks.create` endpoint.
 - We added the `users.listDaysOff` and `dayOffTypes.list` endpoints.
+- We added `ticket` as a supported file subject on `files.list` and `files.upload`.
 
 #### December 2023
 - The `dealPhases.list` endpoint can now filter phases by pipeline id.
@@ -8112,7 +8113,7 @@ Get a list of files.
     + Attributes (object)
         + filter (object, required)
             + subject (object, required)
-                + type (enum[string], required)
+                + `type`: `company` (enum[string], required)
                     + Members
                         + company
                         + contact
@@ -8122,6 +8123,7 @@ Get a list of files.
                         + product
                         + project
                         + nextgenProject
+                        + ticket
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (array, optional)
             + (object)
@@ -8149,7 +8151,7 @@ Get a list of files.
             + (object)
                 + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
                 + subject (object, nullable)
-                    + type: `company` (enum[string])
+                    + `type`: `company` (enum[string], required)
                         + Members
                             + company
                             + contact
@@ -8157,6 +8159,7 @@ Get a list of files.
                             + invoice
                             + creditNote
                             + nextgenProject
+                            + ticket
                     + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
                 + name: `meeting-report.pdf` (string)
                 + mime_type (MimeType)
@@ -8180,7 +8183,7 @@ Get details for a single file.
         + data (object)
             + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
             + subject (object, nullable)
-                + type: `company` (enum[string])
+                + `type`: `company` (enum[string], required)
                     + Members
                         + company
                         + contact
@@ -8234,7 +8237,8 @@ Request the upload link for a file.
                     + deal
                     + invoice
                     + creditNote
-                    + nextgenProject 
+                    + nextgenProject
+                    + ticket
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + folder: `My monthly notes` (string, optional) - Name of a folder under which the file will be stored. Defaults to `General` in account's language if not passed.
 
