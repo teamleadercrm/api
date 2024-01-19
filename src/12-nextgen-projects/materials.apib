@@ -47,7 +47,7 @@ Lists all the materials that match the optional filters provided.
                     + `type`: `priceunit` (string)
                     + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
                 + `amount_billed` (Money, nullable)
-                + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
                 + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
                 + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
                 + `price` (Money, nullable)
@@ -116,7 +116,7 @@ Returns all the information for one material.
                 + `type`: `priceunit` (string)
                 + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
             + `amount_billed` (Money, nullable)
-            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
             + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
             + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
             + `price` (Money, nullable)
@@ -162,7 +162,7 @@ Create a material. All properties except for `title` and `project_id` are option
         + `unit_cost` (Money, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
         + `unit_id`: `69cbfbf2-fefe-4f03-9269-3ddc79117f4d` (string, optional)
         + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost
         + `start_date`: `2023-01-18` (string, optional)
         + `end_date`: `2023-03-22` (string, optional)
@@ -206,7 +206,7 @@ Update a material. All attributes except for `id` are optional. Providing `null`
         + `unit_cost` (Money, nullable, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
         + `unit_id` (string, nullable, optional)
         + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`
-        + `external_budget` (Money, nullable, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `external_budget` (Money, nullable, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
         + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost
         + `start_date`: `2023-01-18` (string, nullable, optional)
         + `end_date`: `2023-03-22` (string, nullable, optional)
