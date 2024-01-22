@@ -129,7 +129,7 @@ Returns all the information for one group.
                     + `fully_billed`
             + `amount_billed` (Money, nullable)
             + `fixed_amount_billed` (Money, nullable)
-            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
             + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
             + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
             + `price` (Money, nullable)
@@ -194,7 +194,7 @@ Create a group. All properties except for `title` and `project_id` are optional.
                 + `parent_fixed_price` - The parent project must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, optional) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `start_date`: `2023-01-18` (string, optional)
         + `end_date`: `2023-03-22` (string, optional)
@@ -247,7 +247,7 @@ Update a group. All attributes except for `id` are optional. Providing `null` wi
                     + `none` - Don't change the values of the group items.
                     + `cascade` - Change the billing method of the group items depending on the group billing method.
         + `fixed_price` (Money, nullable) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
-        + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
         + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost.
         + `start_date`: `2023-01-18` (string, nullable)
         + `end_date`: `2023-03-22` (string, nullable)
