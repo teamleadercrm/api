@@ -12,6 +12,7 @@ Lists all the tasks that match the optional filters provided.
     + Attributes (object)
         + filter (object)
             + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+        + `page` (Page, optional)
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -53,7 +54,7 @@ Lists all the tasks that match the optional filters provided.
                         + `fully_billed`
                 + `custom_rate` (Money, nullable) - Null if the `billing_method` is anything other than `custom_rate`.
                 + `amount_billed` (Money, nullable)
-                + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
                 + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
                 + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
                 + `price` (Money, nullable)
@@ -135,7 +136,7 @@ Returns all the information for one task.
                     + `fully_billed`
             + `custom_rate` (Money, nullable) - Null if the `billing_method` is anything other than `custom_rate`.
             + `amount_billed` (Money, nullable)
-            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
             + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
             + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
             + `price` (Money, nullable)
@@ -190,7 +191,7 @@ Create a task. All properties except for `title` and `project_id` are optional.
                 + `parent_fixed_price` - The parent project or group must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`.
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `custom_rate` (Money, optional) - Can only be provided if `billing_method` is `custom_rate`.
         + `start_date`: `2023-01-18` (string, optional)
@@ -242,7 +243,7 @@ Update a task. All attributes except for `id` are optional. Providing `null` wil
                 + `parent_fixed_price` - The parent project or group must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`.
-        + `external_budget` (Money, nullable, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
+        + `external_budget` (Money, nullable, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
         + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `custom_rate` (Money, nullable, optional) - Can only be provided if `billing_method` is `custom_rate`.
         + `start_date`: `2023-01-18` (string, nullable, optional)

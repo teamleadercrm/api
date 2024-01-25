@@ -432,6 +432,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `project_id` to the `tasks.create` endpoint.
 - We added the `users.listDaysOff` and `dayOffTypes.list` endpoints.
 - We added `ticket` as a supported file subject on `files.list` and `files.upload`.
+- We added `email_verification_status` to `users.me`.
 
 #### December 2023
 - The `dealPhases.list` endpoint can now filter phases by pipeline id.
@@ -1185,6 +1186,10 @@ Get the current authenticated user.
             + first_name: `John` (string)
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
+            + email_verification_status: `confirmed` (enum)
+                + Members
+                    + pending
+                    + confirmed
             + telephones (array[Telephone])
             + language: `nl-BE` (enum)
                 + Members
@@ -6059,7 +6064,7 @@ Lists all projects that match the optional filters provided.
                 + `amount_unbilled` (Money, nullable) - Price of the project minus the amount billed
                 + `fixed_amount_billed` (Money, nullable)
                 + `amount_paid` (Money, nullable)
-                + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
                 + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
                 + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
                 + `price` (Money, nullable)
@@ -6165,7 +6170,7 @@ Returns all the information of a single project.
             + `amount_billed` (Money, nullable)
             + `fixed_amount_billed` (Money, nullable)
             + `amount_paid` (Money, nullable)
-            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
             + `task_external_budget_spent` (Money, nullable) - Sum of underlying tasks `external_budget_spent` field
             + `material_external_budget_spent` (Money, nullable) - Sum of underlying materials `external_budget_spent` field
             + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
@@ -6256,7 +6261,7 @@ Create a new project. Only `title` is required. All the other fields are optiona
                 + `time_and_materials`
                 + `fixed_price`
                 + `non_billable`
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `time_and_materials` billing method. Currently only EUR is supported
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `time_and_materials` billing method. Currently only EUR is supported
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost. Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
         + `fixed_price` (Money, optional) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `fixed_price` billing method. Currently only EUR is supported
         + `start_date`: `2022-02-23` (string, optional) - Should not be after end_date if provided
@@ -6326,7 +6331,7 @@ Update a project. All attributes except for `id` are optional. Providing `null` 
                 + Members
                     + `none` - Don't change the values of the group items.
                     + `cascade` - Change the billing method of the group, tasks and materials linked to this project, depending on the project billing method.
-        + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price. Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `time_and_materials` billing method. Currently only EUR is supported
+        + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price. Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `time_and_materials` billing method. Currently only EUR is supported
         + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost. Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
         + `fixed_price` (Money, nullable) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `fixed_price` billing method. Currently only EUR is supported
         + `start_date`: `2022-02-23` (string, nullable) - Should not be after end_date if provided
@@ -6729,7 +6734,7 @@ Returns all the information for one group.
                     + `fully_billed`
             + `amount_billed` (Money, nullable)
             + `fixed_amount_billed` (Money, nullable)
-            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
             + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
             + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
             + `price` (Money, nullable)
@@ -6794,7 +6799,7 @@ Create a group. All properties except for `title` and `project_id` are optional.
                 + `parent_fixed_price` - The parent project must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, optional) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `start_date`: `2023-01-18` (string, optional)
         + `end_date`: `2023-03-22` (string, optional)
@@ -6847,7 +6852,7 @@ Update a group. All attributes except for `id` are optional. Providing `null` wi
                     + `none` - Don't change the values of the group items.
                     + `cascade` - Change the billing method of the group items depending on the group billing method.
         + `fixed_price` (Money, nullable) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
-        + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
         + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost.
         + `start_date`: `2023-01-18` (string, nullable)
         + `end_date`: `2023-03-22` (string, nullable)
@@ -6929,6 +6934,7 @@ Lists all the tasks that match the optional filters provided.
     + Attributes (object)
         + filter (object)
             + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+        + `page` (Page, optional)
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -6970,7 +6976,7 @@ Lists all the tasks that match the optional filters provided.
                         + `fully_billed`
                 + `custom_rate` (Money, nullable) - Null if the `billing_method` is anything other than `custom_rate`.
                 + `amount_billed` (Money, nullable)
-                + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
                 + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
                 + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
                 + `price` (Money, nullable)
@@ -7052,7 +7058,7 @@ Returns all the information for one task.
                     + `fully_billed`
             + `custom_rate` (Money, nullable) - Null if the `billing_method` is anything other than `custom_rate`.
             + `amount_billed` (Money, nullable)
-            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
             + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
             + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
             + `price` (Money, nullable)
@@ -7107,7 +7113,7 @@ Create a task. All properties except for `title` and `project_id` are optional.
                 + `parent_fixed_price` - The parent project or group must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`.
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `custom_rate` (Money, optional) - Can only be provided if `billing_method` is `custom_rate`.
         + `start_date`: `2023-01-18` (string, optional)
@@ -7159,7 +7165,7 @@ Update a task. All attributes except for `id` are optional. Providing `null` wil
                 + `parent_fixed_price` - The parent project or group must be `fixed_price`.
                 + `non_billable`
         + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`.
-        + `external_budget` (Money, nullable, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
+        + `external_budget` (Money, nullable, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
         + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost.
         + `custom_rate` (Money, nullable, optional) - Can only be provided if `billing_method` is `custom_rate`.
         + `start_date`: `2023-01-18` (string, nullable, optional)
@@ -7283,7 +7289,7 @@ Lists all the materials that match the optional filters provided.
                     + `type`: `priceunit` (string)
                     + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
                 + `amount_billed` (Money, nullable)
-                + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
                 + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
                 + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
                 + `price` (Money, nullable)
@@ -7352,7 +7358,7 @@ Returns all the information for one material.
                 + `type`: `priceunit` (string)
                 + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
             + `amount_billed` (Money, nullable)
-            + `external_budget` (Money, nullable) - Also known as "price budget". Value set by user to compare with price
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
             + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
             + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
             + `price` (Money, nullable)
@@ -7398,7 +7404,7 @@ Create a material. All properties except for `title` and `project_id` are option
         + `unit_cost` (Money, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
         + `unit_id`: `69cbfbf2-fefe-4f03-9269-3ddc79117f4d` (string, optional)
         + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`
-        + `external_budget` (Money, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
         + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost
         + `start_date`: `2023-01-18` (string, optional)
         + `end_date`: `2023-03-22` (string, optional)
@@ -7442,7 +7448,7 @@ Update a material. All attributes except for `id` are optional. Providing `null`
         + `unit_cost` (Money, nullable, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
         + `unit_id` (string, nullable, optional)
         + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`
-        + `external_budget` (Money, nullable, optional) - Also known as "price budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `external_budget` (Money, nullable, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
         + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost
         + `start_date`: `2023-01-18` (string, nullable, optional)
         + `end_date`: `2023-03-22` (string, nullable, optional)
