@@ -7,7 +7,6 @@
 Get a list of tickets.
 
 + Request (application/json)
-
     + Attributes (object)
         + filter (object, optional)
             + ids: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1`, `21467288-3baa-0027-a910-cd952030dbc2` (array[string], optional)
@@ -22,7 +21,6 @@ Get a list of tickets.
         + page (Page, optional)
 
 + Response 200 (application/json)
-
     + Attributes (object)
         + data (array)
             + (object)
@@ -35,6 +33,7 @@ Get a list of tickets.
                     + type: `user` (string)
                     + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + closed_at: `2017-05-09T11:25:11+00:00` (string, nullable)
                 + customer (object)
                     + type: `contact` (enum)
                         + Members
