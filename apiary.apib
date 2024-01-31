@@ -433,6 +433,9 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `users.listDaysOff` and `dayOffTypes.list` endpoints.
 - We added `ticket` as a supported file subject on `files.list` and `files.upload`.
 - We added `email_verification_status` to `users.me`.
+- We added ticket endpoints `tickets.list`, `tickets.info`, `tickets.create` and `tickets.update`.
+- We added endpoints for ticket messages `tickets.listMessages` and `tickets.getMessage`.
+- We added the `ticketStatus.list` endpoint.
 
 #### December 2023
 - The `dealPhases.list` endpoint can now filter phases by pipeline id.
@@ -8105,6 +8108,261 @@ Update the current timer. Only possible if there is a timer running.
         + invoiceable: true (boolean, optional)
 
 + Response 204
+
+# Group Tickets
+
+## Tickets [/tickets]
+
+*Required scopes: `tickets`*
+
+### tickets.list [POST /tickets.list]
+
+Get a list of tickets.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1`, `21467288-3baa-0027-a910-cd952030dbc2` (array[string], optional)
+            + relates_to (object, optional) - Only lists tickets related to given type.
+                + type (enum, required)
+                    + Members
+                        + contact
+                        + company
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + exclude (object, optional)
+                + status_ids: `a344c251-2494-0013-b433-ccee8e8435e6`, `c11dc02c-3556-0daf-8035-c5b0376eb928` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + subject (string)
+                + status (object)
+                    + type: `ticketStatus` (string)
+                    + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
+                + assignee (object, nullable) - Null if unassigned
+                    + type: `user` (string)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + closed_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+                + customer (object)
+                    + type: `contact` (enum)
+                        + Members
+                            + company
+                            + contact
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + participant (object, nullable)
+                    + customer (object)
+                        + type: `company` (string)
+                        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + last_message_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+
+### tickets.info [POST /tickets.info]
+
+Get details for a single ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + subject (string)
+        + status (object)
+            + type: `ticketStatus` (string)
+            + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
+        + assignee (object, nullable) - Null if unassigned
+            + type: `user` (string)
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + created_at: `2017-05-09T11:25:11+00:00` (string)
+        + closed_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+        + customer (object)
+            + type: `contact` (enum)
+                + Members
+                    + company
+                    + contact
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + participant (object, nullable)
+            + customer (object)
+                + type: `company` (string)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + last_message_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+        + description: `My ticket details` (string)
+        + custom_fields (array[CustomField])
+
+
+### tickets.create [POST /tickets.create]
+
+Create a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject: `My ticket subject` (string, required)
+        + customer (object, required)
+            + type: `company` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+        + assignee (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + `user`
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+        + description: `My ticket details` (string, optional) - Uses Markdown formatting
+        + participant (object, optional)
+            + customer (object, required)
+                + type (enum, required)
+                    + Members
+                        + `company`
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `ticket` (string)
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
+
+### tickets.update [POST /tickets.update]
+
+Update a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + subject: `My ticket subject` (string, optional)
+        + description: `My ticket details` (string, optional) - Uses Markdown formatting
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
+        + customer (object, optional)
+            + type: `company` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + assignee (object, optional, nullable)
+            + type (enum[string], required)
+                + Members
+                    + `user`
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + participant (object, optional, nullable)
+            + customer (object, required, nullable)
+                + type (enum, required)
+                    + Members
+                        + `company`
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
+
+### tickets.listMessages [POST /tickets.listMessages]
+
+Lists messages of a ticket
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + filter (object, optional)
+            + type: `customer` (enum, optional)
+                + Members
+                    + customer
+                    + internal
+                    + thirdParty
+            + created_before: `2024-02-01T18:00:00+00:00` (string, optional)
+            + created_after: `2024-01-01T18:00:00+00:00` (string, optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + message_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + body: `<p>This is a message</p>` (string) - Uses HTML formatting
+                + type: `customer` (enum, optional)
+                    + Members
+                        + customer
+                        + internal
+                        + thirdParty
+                + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + sent_by (object)
+                    + type: `contact` (enum)
+                        + Members
+                            + company
+                            + contact
+                            + user
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + attachments (array)
+                    + (object)
+                        + `type`: `file` (string)
+                        + `id`: `0686d0da-1797-475b-ae94-27191b2eca4d` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+           + page (Pagination)
+           + matches: `12` (number)
+
+
+### tickets.getMessage [POST /tickets.getMessage]
+
+Gets the ticket message.
+
++ Request (application/json)
+    + Attributes (object)
+        + message_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + message_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + body: `<p>This is a message</p>` (string) - Uses HTML formatting
+        + raw_body: `<p>This is a message</p>` (string)- Uses HTML formatting
+        + created_at: `2017-05-09T11:25:11+00:00` (string)
+        + sent_by (object)
+            + type: `contact` (enum)
+                + Members
+                    + company
+                    + contact
+                    + user
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + attachments (array)
+           + (object)
+               + `type`: `file` (string)
+               + `id`: `0686d0da-1797-475b-ae94-27191b2eca4d` (string)
+        + type: `customer` (enum)
+            + Members
+                + customer
+                + internal
+                + thirdParty
+
+## Ticket Status [/ticketStatus]
+
+### ticketStatus.list [POST /ticketStatus.list]
+
+Get a list of ticket statuses.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string], optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `id`: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string)
+                + `status`: `new` (enum)
+                    + Members
+                        + `new`
+                        + `open`
+                        + `waiting_for_client`
+                        + `escalated_thirdparty`
+                        + `closed`
+                        + `custom`
+                + `label`: `Custom Label` (string) - Only available for `custom` type of status.
 
 # Group Files
 
