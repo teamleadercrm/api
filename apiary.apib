@@ -426,6 +426,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### February 2024
+- We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
+
 #### January 2024
 - We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
 - We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
@@ -8723,6 +8726,7 @@ Fetch cloudPlatform url for type and id
             + Members
                 + invoice
                 + quotation
+                + ticket
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
 
 + Response 200 (application/json)
