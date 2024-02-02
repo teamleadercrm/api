@@ -436,6 +436,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added ticket endpoints `tickets.list`, `tickets.info`, `tickets.create` and `tickets.update`.
 - We added endpoints for ticket messages `tickets.listMessages` and `tickets.getMessage`.
 - We added the `ticketStatus.list` endpoint.
+- We added `ticket_id` to `tasks.create`,`tasks.update`, `tasks.list` and `tasks.info`.
 
 #### December 2023
 - The `dealPhases.list` endpoint can now filter phases by pipeline id.
@@ -7597,6 +7598,9 @@ Get a list of tasks.
                 + project (object, nullable)
                     + type: `project` (string)
                     + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+                + ticket (object, nullable)
+                    + `type`: `ticket` (string)
+                    + id: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, required)
                 + priority (Priority)
 
 ### tasks.info [POST /tasks.info]
@@ -7647,6 +7651,9 @@ Get information about a task.
             + project (object, nullable)
                 + type: `project` (string)
                 + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+            + ticket (object, nullable)
+                + `type`: `ticket` (string)
+                + id: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, required)
             + custom_fields (array[CustomField])
             + priority (Priority)
 
@@ -7664,6 +7671,7 @@ Create a new task.
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional) - Only available for users that have access to the old projects module
         + project_id: `0185aa33-603c-7fd5-bf0d-5bd83d503b96` (string, optional) - Only available for users that have access to the new projects module
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + `ticket_id`: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, optional)
         + estimated_duration (object, optional)
             + unit (enum, required)
                 + Members
@@ -7704,6 +7712,7 @@ Update a task.
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + `ticket_id`: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, optional, nullable)
         + estimated_duration (object, optional)
             + unit (enum, required)
                 + Members
