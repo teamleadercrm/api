@@ -233,9 +233,9 @@ Imports an existing message to a ticket.
 + Request (application/json)
     + Attributes (object)
         + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
-        + body: `<p>Hello world</p>` (string) - Uses HTML formatting
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
         + sent_by (object)
-            + `type`: `contact` (enum)
+            + `type`: `contact` (enum, required)
                 + Members
                     + company
                     + contact
@@ -258,7 +258,7 @@ Adds a message to a ticket.
 + Request (application/json)
     + Attributes (object)
         + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
-        + body: `<p>Hello world</p>` (string) - Uses HTML formatting
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
         + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
         + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
 
@@ -276,7 +276,7 @@ Adds an internal message to a ticket.
 + Request (application/json)
     + Attributes (object)
         + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
-        + body: `<p>Hello world</p>` (string) - Uses HTML formatting
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
         + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
         + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
 
