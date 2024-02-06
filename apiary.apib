@@ -426,6 +426,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### February 2024
+- We added the `tickets.importMessage`, `tickets.addReply` and `tickets.addInternalMessage` endpoints.
+
 #### January 2024
 - We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
 - We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
@@ -8346,6 +8349,67 @@ Gets the ticket message.
                 + customer
                 + internal
                 + thirdParty
+
+
+### tickets.importMessage [POST /tickets.importMessage]
+
+Imports an existing message to a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
+        + sent_by (object, required)
+            + `type`: `contact` (enum, required)
+                + Members
+                    + company
+                    + contact
+                    + user
+            + id: `4b3b07c6-a4bf-4c1b-9471-283fee71b049` (string, required)
+        + sent_at: `2024-02-29T11:11:11+00:00` (string, required)
+        + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `ticketMessage` (string)
+            + id: `e3de4c0d-787d-4720-b78f-af8df5c8182c` (string)
+
+
+### tickets.addReply [POST /tickets.addReply]
+
+Adds a message to a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
+        + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `ticketMessage` (string)
+            + id: `e3de4c0d-787d-4720-b78f-af8df5c8182c` (string)
+
+
+### tickets.addInternalMessage [POST /tickets.addInternalMessage]
+
+Adds an internal message to a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
+        + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `ticketMessage` (string)
+            + id: `e3de4c0d-787d-4720-b78f-af8df5c8182c` (string)
 
 ## Ticket Status [/ticketStatus]
 
