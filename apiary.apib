@@ -428,6 +428,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### February 2024
 - We added the `tickets.importMessage`, `tickets.addReply` and `tickets.addInternalMessage` endpoints.
+- We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
 - We added the `emailTracking.list` endpoint.
 
 #### January 2024
@@ -8814,6 +8815,7 @@ Fetch cloudPlatform url for type and id
             + Members
                 + invoice
                 + quotation
+                + ticket
         + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
 
 + Response 200 (application/json)
