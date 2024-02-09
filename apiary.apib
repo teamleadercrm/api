@@ -429,6 +429,8 @@ We list all backwards-compatible additions here. These are currently available i
 #### February 2024
 - We added the `tickets.importMessage`, `tickets.addReply` and `tickets.addInternalMessage` endpoints.
 - We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
+- We added the `initial_reply` to `tickets.create` endpoint.
+- We added the `emailTracking.list` endpoint.
 
 #### January 2024
 - We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
@@ -1713,6 +1715,32 @@ Update an existing note.
 + Response 204
 
 ## Email Tracking [/emailTracking]
+
+### emailTracking.list [POST /emailTracking.list]
+
+Get a list of all email tracking.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + subject (object, required)
+                + type: `contact` (EmailTrackingSubjectTypes, required)
+                + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + title: `an email subject` (string)
+                + content: `<p>the contents of the received email</p>` (string)
+                + subject (object)
+                    + type: `contact` (EmailTrackingSubjectTypes)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + added_at: `2016-01-01T00:00:00+00:00` (string)
 
 ### emailTracking.create [POST /emailTracking.create]
 
@@ -8242,6 +8270,10 @@ Create a ticket.
                     + Members
                         + `company`
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + initial_reply (enum, optional) - Create & send an initial autoreply according to configuration (default: automatic).
+            + Members
+                + `automatic`
+                + `disabled`
 
 + Response 201 (application/json)
 
