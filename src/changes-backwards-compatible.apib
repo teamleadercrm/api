@@ -4,6 +4,86 @@
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### February 2024
+- We added the `tickets.importMessage`, `tickets.addReply` and `tickets.addInternalMessage` endpoints.
+- We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
+- We added the `initial_reply` to `tickets.create` endpoint.
+- We added the `emailTracking.list` endpoint.
+- We added `deal_id` to `calls.add` and `calls.update`.
+- We added `deal` to `calls.list` and `calls.info`.
+
+#### January 2024
+- We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
+- We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
+- We added `project_id` to the `tasks.create` endpoint.
+- We added the `users.listDaysOff` and `dayOffTypes.list` endpoints.
+- We added `ticket` as a supported file subject on `files.list` and `files.upload`.
+- We added `email_verification_status` to `users.me`.
+- We added ticket endpoints `tickets.list`, `tickets.info`, `tickets.create` and `tickets.update`.
+- We added endpoints for ticket messages `tickets.listMessages` and `tickets.getMessage`.
+- We added the `ticketStatus.list` endpoint.
+- We added `ticket_id` to `tasks.create`,`tasks.update`, `tasks.list` and `tasks.info`.
+
+#### December 2023
+- The `dealPhases.list` endpoint can now filter phases by pipeline id.
+- We added `actions`, `requires_attention_after` and `probability` to `dealPhases.list`.
+- We added the `dealPhases.create` endpoint.
+- We added the `dealPhases.update` endpoint.
+- We added the `dealPhases.duplicate` endpoint.
+- We added the `dealPhases.move` endpoint.
+- We added the `dealPhases.delete` endpoint.
+- We added the `dealPipelines.list` endpoint.
+- We added the `dealPipelines.create` endpoint.
+- We added the `dealPipelines.update` endpoint.
+- We added the `dealPipelines.markAsDefault` endpoint.
+- We added the `dealPipelines.duplicate` endpoint.
+- We added the `dealPipelines.delete` endpoint.
+- The `deals.list` endpoint can now filter deals by pipeline ids.
+- We added `pipeline` to `deals.list`.
+- We now return the `default` payment term id in `paymentTerms.list` meta information.
+- We added the `meetings.createReport` endpoint.
+- We now return the user's team(s) in `users.info` and `users.list` endpoints.
+- We added `nextgenProject` as a subject type to `files.upload`, `files.list` and `files.info`.
+- The `/customFieldDefinitions.list` endpoint can now filter custom field definitions by context and ids.
+- We added `nextgenProject` as a subject type to `emailTracking.create`.
+- We added `nextgenProject` as a subject type to `notes.create` and `notes.list`.
+- We added `nextgenProject` types to supported Webhook types.
+- We added the `closingDays.list` endpoint.
+
+#### November 2023
+- We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
+- We added the `callOutcomes.list` endpoint.
+- We added `call.added`, `call.updated` and `call.deleted` types to supported Webhook types.
+- We added the `meetings.schedule`, `meetings.update`, `meetings.complete` and `meetings.delete` endpoints.
+- We added `meeting.created`, `meeting.updated` and `meeting.deleted` types to supported Webhook types.
+- The `meetings.info` and `meetings.list` endpoints now return the meeting recurrence id for recurring meetings.
+- The `meetings.list` endpoint can now filter meetings by recurrence id.
+- We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
+- We added `call.completed` and `meeting.completed` types to supported Webhook types.
+- We added the `notes.list`, `notes.create` and `notes.update` endpoints.
+- We added the `emailTracking.create` endpoint.
+
+#### October 2023
+- We added `late_fees` to `invoices.info` and `invoices.list`.
+- We added the `invoices.updateBooked` endpoint.
+
+#### September 2023
+- We added the `meetings.list` and `meetings.info` endpoints.
+- We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
+
+#### August 2023
+- We added `quotation` as a type for `cloudPlatforms.url`.
+- We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
+- We added `product_category` to `products.info`.
+- We added the `invoices.creditPartially` endpoint.
+- We added a `paymentMethods.list` endpoint.
+- We added `payment_method_id` to `invoices.registerPayment`.
+- We added the `cloudPlatforms.url` endpoint.
+- We added `expiry` to `quotations.create`, `quotations.update`, `quotations.info` and `quotations.list`.
+- We added `expired` as possible value for a quotation status.
+- We added `subscription.add`, `subscription.updated`, `subscription.deleted`, `subscription.deactivated` types to supported Webhook types
+
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
 - We added `status` to the filters on `companies.list`.
@@ -12,6 +92,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `unit` on `grouped_lines` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`
 - We added `unit_of_measure_id` on `grouped_lines` to `invoices.draft`, `invoices.update`, `subscriptions.create`, `subscriptions.update`, `quotations.create` and `quotations.update`.
 - We added the `invoices.send` endpoint.
+- 🎉 We added all endpoints for the _New Projects_ module: `projects-v2/projects`, `projects-v2/projectLines`, `projects-v2/projectGroups`, `projects-v2/tasks`, and `projects-v2/materials`. 🎉
 - We added `billing_info` on `timetrackings.info`.
 - We added `invoice_number` to the filters on `invoices.list`.
 - We added the `priceLists.list` endpoint.
@@ -26,6 +107,9 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `selling_price` to `products.update`.
 - We added `unit_of_measure_id` to `products.add` and `products.update`.
 - We added `unit` to `products.info` and `products.list`.
+- We added the `currencies.exchangeRates` endpoint.
+- We added `document_template` to `subscriptions.info`.
+- We added `document_template_id` to `subscriptions.create` and `subscriptions.update`.
 - We added `deal` as a link type to `events.create` and `events.update`.
 
 #### June 2023

@@ -3,6 +3,25 @@
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
 
+#### 2023-10-01
+
+As of October 1st 2023, we expect all network clients to make use of TLS 1.2 or higher when connecting to our infrastructure.
+
+#### 2023-09-26
+
+ - When updating events through `events.update`, links to deals must also be provided otherwise existing deal link(s) will be removed.
+
+ - `Currency` is no longer supported or validated on line items for invoices, quotations, subscriptions & credit notes endpoints. Instead, it will be supported on the document level for
+  - `invoices.draft`
+  - `invoices.update`
+  - `quotations.create`
+  - `quotations.update`
+
+ - `customFieldDefinitions.list` and `customFieldDefinitions.info` will now return configuration options (for single and multiple select custom fields) as an array of objects.
+
+ - We updated the `location` format of returned by `/meetings.info` endpoint
+ - Both `/meetings.list`  and `/meetings.info` will now return a meeting `title` instead of `name`
+
 #### 2022-09-15
 
 - The property `remark` has been renamed to `note` on:

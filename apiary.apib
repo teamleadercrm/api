@@ -19,6 +19,10 @@ Our API consists of HTTP RPC-style methods, in the form of `https://api.focus.te
 
 We chose this action based approach over the more popular REST, because it enables us to have domain related actions on resources such as `invoices.book`, `timetracking.start` and `timetracking.stop`.
 
+### Transport Security
+
+We expect all network clients to make use of TLS 1.2 or higher when connecting to our infrastructure.
+
 ### Requests
 
 All methods must be called using HTTPS. Data is passed as JSON data in a POST request.
@@ -422,6 +426,86 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### February 2024
+- We added the `tickets.importMessage`, `tickets.addReply` and `tickets.addInternalMessage` endpoints.
+- We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
+- We added the `initial_reply` to `tickets.create` endpoint.
+- We added the `emailTracking.list` endpoint.
+- We added `deal_id` to `calls.add` and `calls.update`.
+- We added `deal` to `calls.list` and `calls.info`.
+
+#### January 2024
+- We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
+- We replaced `task_type_rate` with `work_type_rate` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. `task_type_rate` was never used.
+- We added `project_id` to the `tasks.create` endpoint.
+- We added the `users.listDaysOff` and `dayOffTypes.list` endpoints.
+- We added `ticket` as a supported file subject on `files.list` and `files.upload`.
+- We added `email_verification_status` to `users.me`.
+- We added ticket endpoints `tickets.list`, `tickets.info`, `tickets.create` and `tickets.update`.
+- We added endpoints for ticket messages `tickets.listMessages` and `tickets.getMessage`.
+- We added the `ticketStatus.list` endpoint.
+- We added `ticket_id` to `tasks.create`,`tasks.update`, `tasks.list` and `tasks.info`.
+
+#### December 2023
+- The `dealPhases.list` endpoint can now filter phases by pipeline id.
+- We added `actions`, `requires_attention_after` and `probability` to `dealPhases.list`.
+- We added the `dealPhases.create` endpoint.
+- We added the `dealPhases.update` endpoint.
+- We added the `dealPhases.duplicate` endpoint.
+- We added the `dealPhases.move` endpoint.
+- We added the `dealPhases.delete` endpoint.
+- We added the `dealPipelines.list` endpoint.
+- We added the `dealPipelines.create` endpoint.
+- We added the `dealPipelines.update` endpoint.
+- We added the `dealPipelines.markAsDefault` endpoint.
+- We added the `dealPipelines.duplicate` endpoint.
+- We added the `dealPipelines.delete` endpoint.
+- The `deals.list` endpoint can now filter deals by pipeline ids.
+- We added `pipeline` to `deals.list`.
+- We now return the `default` payment term id in `paymentTerms.list` meta information.
+- We added the `meetings.createReport` endpoint.
+- We now return the user's team(s) in `users.info` and `users.list` endpoints.
+- We added `nextgenProject` as a subject type to `files.upload`, `files.list` and `files.info`.
+- The `/customFieldDefinitions.list` endpoint can now filter custom field definitions by context and ids.
+- We added `nextgenProject` as a subject type to `emailTracking.create`.
+- We added `nextgenProject` as a subject type to `notes.create` and `notes.list`.
+- We added `nextgenProject` types to supported Webhook types.
+- We added the `closingDays.list` endpoint.
+
+#### November 2023
+- We added the `calls.add`, `calls.list`, `calls.info` and `calls.complete` endpoints.
+- We added the `callOutcomes.list` endpoint.
+- We added `call.added`, `call.updated` and `call.deleted` types to supported Webhook types.
+- We added the `meetings.schedule`, `meetings.update`, `meetings.complete` and `meetings.delete` endpoints.
+- We added `meeting.created`, `meeting.updated` and `meeting.deleted` types to supported Webhook types.
+- The `meetings.info` and `meetings.list` endpoints now return the meeting recurrence id for recurring meetings.
+- The `meetings.list` endpoint can now filter meetings by recurrence id.
+- We added `custom_fields` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`
+- We added `call.completed` and `meeting.completed` types to supported Webhook types.
+- We added the `notes.list`, `notes.create` and `notes.update` endpoints.
+- We added the `emailTracking.create` endpoint.
+
+#### October 2023
+- We added `late_fees` to `invoices.info` and `invoices.list`.
+- We added the `invoices.updateBooked` endpoint.
+
+#### September 2023
+- We added the `meetings.list` and `meetings.info` endpoints.
+- We added `time_estimated` and `amount_unbilled` to `projects-v2/projects.list`.
+- We added sorting on `amount_billed`, `amount_paid`, `amount_unbilled`, `external_budget_spent`, `external_budget`, `internal_budget` and `time_estimated` to `projects-v2/projects.list`.
+
+#### August 2023
+- We added `quotation` as a type for `cloudPlatforms.url`.
+- We added `currency` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
+- We added `product_category` to `products.info`.
+- We added the `invoices.creditPartially` endpoint.
+- We added a `paymentMethods.list` endpoint.
+- We added `payment_method_id` to `invoices.registerPayment`.
+- We added the `cloudPlatforms.url` endpoint.
+- We added `expiry` to `quotations.create`, `quotations.update`, `quotations.info` and `quotations.list`.
+- We added `expired` as possible value for a quotation status.
+- We added `subscription.add`, `subscription.updated`, `subscription.deleted`, `subscription.deactivated` types to supported Webhook types
+
 #### July 2023
 - We added `status` to the filters on `contacts.list`.
 - We added `status` to the filters on `companies.list`.
@@ -430,6 +514,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `unit` on `grouped_lines` to `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`
 - We added `unit_of_measure_id` on `grouped_lines` to `invoices.draft`, `invoices.update`, `subscriptions.create`, `subscriptions.update`, `quotations.create` and `quotations.update`.
 - We added the `invoices.send` endpoint.
+- 🎉 We added all endpoints for the _New Projects_ module: `projects-v2/projects`, `projects-v2/projectLines`, `projects-v2/projectGroups`, `projects-v2/tasks`, and `projects-v2/materials`. 🎉
 - We added `billing_info` on `timetrackings.info`.
 - We added `invoice_number` to the filters on `invoices.list`.
 - We added the `priceLists.list` endpoint.
@@ -444,6 +529,9 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `selling_price` to `products.update`.
 - We added `unit_of_measure_id` to `products.add` and `products.update`.
 - We added `unit` to `products.info` and `products.list`.
+- We added the `currencies.exchangeRates` endpoint.
+- We added `document_template` to `subscriptions.info`.
+- We added `document_template_id` to `subscriptions.create` and `subscriptions.update`.
 - We added `deal` as a link type to `events.create` and `events.update`.
 
 #### June 2023
@@ -822,7 +910,7 @@ This documentation only reflects the latest version of the API.
 If you need to make changes to your client or you want to make use of the latest feature, you might need to upgrade your API version.
 
 You can find your current API version, in the `X-Api-Version` header on any API response.
-The current latest version is **2022-09-15**.
+The current latest version is **2023-09-26**.
 
 After checking the API [changelog](#changelog) to see which endpoints work differently, you can upgrade your API version:
 
@@ -834,6 +922,25 @@ _This will only affect the version for those API calls and won't affect any othe
 ### Changelog
 
 We list all backwards-incompatible changes here. As described above, new additions and forwards-compatible changes don’t need a new API version and can be found [here](#additions).
+
+#### 2023-10-01
+
+As of October 1st 2023, we expect all network clients to make use of TLS 1.2 or higher when connecting to our infrastructure.
+
+#### 2023-09-26
+
+ - When updating events through `events.update`, links to deals must also be provided otherwise existing deal link(s) will be removed.
+
+ - `Currency` is no longer supported or validated on line items for invoices, quotations, subscriptions & credit notes endpoints. Instead, it will be supported on the document level for
+  - `invoices.draft`
+  - `invoices.update`
+  - `quotations.create`
+  - `quotations.update`
+
+ - `customFieldDefinitions.list` and `customFieldDefinitions.info` will now return configuration options (for single and multiple select custom fields) as an array of objects.
+
+ - We updated the `location` format of returned by `/meetings.info` endpoint
+ - Both `/meetings.list`  and `/meetings.info` will now return a meeting `title` instead of `name`
 
 #### 2022-09-15
 
@@ -952,6 +1059,22 @@ We list all backwards-incompatible changes here. As described above, new additio
 ### Stay informed
 
 You can follow our API progress and ongoing proposals via our [API Blueprint GitHub repository](https://github.com/teamleadercrm/api).
+
+## API Evolution
+
+| **Milestone**                                                                 | **ETA**           |
+| ----------------------------------------------------------------------------- | ----------------- |
+| Notes endpoints                                                               | December 15, 2023 |
+| Ability to get days off                                                       | January 15, 2024  |
+| Tickets endpoints                                                             | February 1, 2024  |
+| Task webhooks                                                                 | February 15, 2024 |
+
+
+For customers that are still using legacy API v1 version which was deprecated in 2019, keep in mind that we will make all of the endpoints unavailable in 2024:
+ - Active deprecation mode: June 1, 2024
+ - Final sunsetting of API v1: August 1, 2024
+
+[Contact Support](https://support.focus.teamleader.eu/support/tickets/new)
 
 # Group General
 
@@ -1076,6 +1199,10 @@ Get the current authenticated user.
             + first_name: `John` (string)
             + last_name: `Smith` (string)
             + email: `john@teamleader.eu` (string)
+            + email_verification_status: `confirmed` (enum)
+                + Members
+                    + pending
+                    + confirmed
             + telephones (array[Telephone])
             + language: `nl-BE` (enum)
                 + Members
@@ -1159,6 +1286,11 @@ Get a list of all users.
                     + Members
                         + active
                         + deactivated
+                + teams (array)
+                    + (object)
+                        + type: `team` (string)
+                        + id: `6dd0069e-45da-0ec4-911a-afb351d968cd`
+
 
 ### users.info [POST /users.info]
 
@@ -1203,6 +1335,49 @@ Get details for a single user.
                 + Members
                     + active
                     + deactivated
+            + teams (array)
+                + (object)
+                    + type: `team` (string)
+                    + id: `6dd0069e-45da-0ec4-911a-afb351d968cd`
+
+
+### users.listDaysOff [POST /users.listDaysOff]
+
+Returns information about days off of a given user.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, required)
+        + filter (object, optional)
+            + `starts_after`: `2023-10-01` (string, optional) - Start of the period for which to return days off.
+            + `ends_before`: `2023-10-30` (string, optional) - End of the period for which to return days off.
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `id`: `f611da79-90c2-02b1-b819-a810e0c77291` (string)
+                + `starts_at`: `2023-10-01T09:00:00+01:00` (string)
+                + `ends_at`: `2023-10-20T18:00:00+01:00` (string)
+                + user (object)
+                    + `type`: `user` (enum[string])
+                        + Members
+                            + `user`
+                    + `id`: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+                + leave_type (object)
+                    + `type`: `dayOffType` (enum[string])
+                        + Members
+                            + `dayOffType`
+                    + `id`: `f68b123c-4c36-0f5c-ac16-11f498e5dc01` (string)
+                + `status`: `approved` (enum)
+                    + Members
+                        + `approved`
+                        + `not_approved`
+                        + `pending`
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
 
 ## Teams [/teams]
 
@@ -1217,6 +1392,19 @@ Get details for a single user.
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
             + term: `Designers` (string, optional) - Filters on name
             + team_lead_id: `6a9106c3-ed2a-46a2-a919-eb3d41165dd2` (string) - Filters on teams for which a user is team lead for
+        + sort (array, optional)
+            + (object)
+                + field (enum, required)
+                    + Members
+                        + name
+                + order (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -1238,6 +1426,19 @@ Get a list of all the definitions of custom fields.
 + Request (application/json)
 
     + Attributes (object)
+        + filter (object, optional)
+            + ids: `9c64570b-4ec1-4e03-9662-af904f78f7fa`,`aa6d2560-63f9-4b2f-bf96-823dc7c34df7` (array[string], optional)
+            + context (enum, optional) - Filters on context
+                + Members
+                    + contact
+                    + company
+                    + deal
+                    + project
+                    + milestone
+                    + product
+                    + invoice
+                    + subscription
+                    + ticket
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -1294,7 +1495,10 @@ Get a list of all the definitions of custom fields.
                 + group (string)
                 + required: false (boolean)
                 + configuration (object, optional)
-                    + options: foo, bar (array[string])
+                    + options (array, optional) - Only returned for `single_select` and `multi_select` types
+                        + (object)
+                            + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+                            + value: `foo` (string)
                     + extra_option_allowed: true (boolean)
 
 ### customFieldDefinitions.info [POST /customFieldDefinitions.info]
@@ -1345,7 +1549,10 @@ Get info about a specific custom field definition.
             + group (string)
             + required: false (boolean)
             + configuration (object, optional)
-                + options: foo, bar (array[string])
+                + options (array, optional) - Only returned for `single_select` and `multi_select` types
+                    + (object)
+                        + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+                        + value: `foo` (string)
                 + extra_option_allowed: true (boolean)
 
 ## Work Types [/workTypes]
@@ -1426,6 +1633,176 @@ Get a list of all document templates.
                     + Members
                         + active
                         + archived
+
+## Currencies [/currencies]
+
+### currencies.exchangeRates [POST /currencies.exchangeRates]
+
+Get a list of exchange rates for a provided currency.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + base: `EUR` (Currency, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + code: `USD` (Currency)
+                + symbol: `$` (string)
+                + name: `US Dollar` (string)
+                + exchange_rate: `1.1238` (number) - The exchange rate from the provided base currency to the listed currency
+
+## Notes [/notes]
+
+### notes.list [POST /notes.list]
+
+Get a list of all notes.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + subject (object, required)
+                + type: `contact` (NoteSubjectTypes, required)
+                + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + content: `new note content` (string)
+                + subject (object)
+                    + type: `contact` (NoteSubjectTypes)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + added_at: `2016-01-01T00:00:00+00:00` (string)
+
+### notes.create [POST /notes.create]
+
+Create a new note.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject (object, required)
+            + type: `contact` (NoteSubjectTypes, required)
+            + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + content: `new note content` (string, required)
+        + notify (array, optional)
+            + (object)
+                + type: `user` (enum, required)
+                    + Members
+                        + `user`
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `note` (string)
+            + id: `ee94b4c0-5786-0517-9d26-8dd1e6406f20` (string)
+
+### notes.update [POST /notes.update]
+
+Update an existing note.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + content: `new note content` (string, optional)
+
++ Response 204
+
+## Email Tracking [/emailTracking]
+
+### emailTracking.list [POST /emailTracking.list]
+
+Get a list of all email tracking.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + subject (object, required)
+                + type: `contact` (EmailTrackingSubjectTypes, required)
+                + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
+                + title: `an email subject` (string)
+                + content: `<p>the contents of the received email</p>` (string)
+                + subject (object)
+                    + type: `contact` (EmailTrackingSubjectTypes)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
+                + added_at: `2016-01-01T00:00:00+00:00` (string)
+
+### emailTracking.create [POST /emailTracking.create]
+
+Create a new email tracking.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject (object, required)
+            + type: `contact` (EmailTrackingSubjectTypes, required)
+            + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
+        + title: `an email subject` (string, optional)
+        + content: `<p>the contents of the received email</p>` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `emailTracking` (string)
+            + id: `91e99ae3-16f9-01d7-9046-9a501cb2155f` (string)
+
+## Closing Days [/closingDays]
+
+### closingDays.list [POST /closingDays.list]
+
+Returns information about closing days the account
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + date_before: `2023-12-31` (string, optional) - Start of the period for which to return closing days. This includes closing days starting on the date provided.
+            + date_after: `2023-12-01` (string, optional) - End of the period for which to return closing days. This includes closing days ending on the date provided.
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + `data` (array)
+            + (object)
+                + `id`: `05676ac4-c61d-42bf-a3ea-a420fc1ec017` (string)
+                + `date`: `2023-12-21` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
+
+
+## Day Off Types [/dayOffTypes]
+
+### dayOffTypes.list [POST /dayOffTypes.list]
+
+Returns a list of day off types for the account
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + `data` (array)
+            + (object)
+                + `id`: `39263c14-9c16-022d-8513-60cf722ab088` (string)
+                + `name`: `Sick leave` (string)
+
 
 # Group CRM
 
@@ -2138,6 +2515,7 @@ Get a list of deals.
             + updated_since: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
             + created_before: `2018-02-11T16:45:30+00:00` (string, optional) - This date is inclusive
             + status: `open`, `won`, `lost` (array[string], optional)
+            + pipeline_ids: `41ec2e1b-46e4-053b-b310-39322c273811` (array[string], optional) - an array of pipeline ids
         + page (Page, optional)
         + sort (array, optional)
             + (object)
@@ -2206,6 +2584,7 @@ Get a list of deals.
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
+                + `pipeline`: `41ec2e1b-46e4-053b-b310-39322c273811` (string)
 
 ### deals.info [POST /deals.info]
 
@@ -2419,6 +2798,108 @@ Get a list of lost reasons for deals.
                 + id: `6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + name: `Deal declined` (string)
 
+## Deal Pipelines [/dealPipelines]
+
+Each deal belongs to a specific pipeline, in which it goes through the different deal phases.
+
+*Required scopes: `deals`*
+
+### dealPipelines.list [POST /dealPipelines.list]
+
+Get a list of all deal pipelines.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + `ids`: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+            + status (array, optional)
+                + (enum)
+                    + Members
+                        + open
+                        + pending_deletion
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
+                + name: `Main Pipeline` (string)
+        + meta (object)
+            + `default`: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
+            + `page` (Pagination) - Only included with request parameter `includes=pagination`
+            + `matches`: `12` (number) - Only included with request parameter `includes=pagination`
+
+### dealPipelines.create [POST /dealPipelines.create]
+
+Create a new deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Primary Pipeline` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPipeline` (string)
+            + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string)
+
+### dealPipelines.update [POST /dealPipelines.update]
+
+Update a single deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `254dc5ee-f8de-0791-9e31-a4f7817e64d2` (string, required)
+        + name: `Main Pipeline` (string, required)
+
++ Response 204
+
+### dealPipelines.markAsDefault [POST /dealPipelines.markAsDefault]
+
+Mark a pipeline as default.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+
++ Response 202 (application/json)
+
+### dealPipelines.duplicate [POST /dealPipelines.duplicate]
+
+Create a new deal pipeline by duplicating an existing one.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required) - Id from source pipeline
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPipeline` (string)
+            + id: `5876126e-11c2-4731-b9e3-6e2fecd01d80` (string, required)
+
+### dealPipelines.delete [POST /dealPipelines.delete]
+
+Delete a deal pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + migrate_phases (array, optional) - Array of phase ids to migrate deals to
+            + (object)
+                + `old_phase_id`: `57785244-0d45-0f01-9c18-5ce1cb68e4c1` (string, required)
+                + `new_phase_id`: `29648aea-52f9-09f7-8e1e-cc5c08b4c742` (string, required)
+
++ Response 204 (application/json)
+
 ## Deal Phases [/dealPhases]
 
 Deal phases are the different phases a deal typically goes through. A deal can be moved to either a next or previous phase. A deal can be marked as won or lost independently from the deal phase.
@@ -2434,6 +2915,7 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
     + Attributes (object)
         + filter (object, optional)
             + ids: `53a7e592-a136-4bae-ae15-517befd3d75d`,`bb50af79-55cd-4be0-8306-e9626c70a90f` (array[string], optional)
+            + deal_pipeline_id: `53a7e592-a136-4bae-ae15-517befd3d75d` (string, optional)
         + page (Page, optional)
 
 + Response 200 (application/json)
@@ -2443,6 +2925,114 @@ Get a list of all phases a deal can go through, sorted by their order in the flo
             + (object)
                 + id: `21efc56e-1ba8-469d-926a-e89502591b47` (string)
                 + name: `New` (string)
+                + actions (array) - Only returned when user has access to planning and deal automation
+                    + (enum)
+                        + Members
+                            + create_event
+                            + create_call
+                            + create_task
+                + requires_attention_after (object) - Time period in this phase after which a deal requires attention
+                    + amount: 7 (number)
+                    + unit: `days` (enum[string])
+                        + Members
+                            + days
+                            + weeks
+                + probability: 0.75 (number)
+
+### dealPhases.create [POST /dealPhases.create]
+
+Create a new deal phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Investigation` (string, required)
+        + deal_pipeline_id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + requires_attention_after (object, required) - Time period after which a deal requires attention
+            + amount: 7 (number, required)
+            + unit: `days` (enum[string], required)
+                + Members
+                   + days
+                   + weeks
+        + estimated_probability: `0.5` (number, optional)
+        + follow_up_actions (array, optional)
+            + (enum)
+                + Members
+                    + create_event
+                    + create_call
+                    + create_task
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPhase` (string)
+            + id: `22364cbf-971e-022c-811b-a76c28000257` (string)
+
+### dealPhases.update [POST /dealPhases.update]
+
+Update a deal phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `22364cbf-971e-022c-811b-a76c28000257` (string, required)
+        + name: `Preparation` (string, optional)
+        + requires_attention_after (object, required) - Time period after which a deal requires attention
+            + amount: 7 (number, required)
+            + unit: `days` (enum[string], required)
+                + Members
+                    + days
+                    + weeks
+        + estimated_probability: `0.8` (number, optional)
+        + follow_up_actions (array, optional)
+            + (enum)
+                + Members
+                    + create_event
+                    + create_call
+                    + create_task
+
++ Response 204
+
+### dealPhases.duplicate [POST /dealPhases.duplicate]
+
+Create a new deal phase by duplicating an existing one.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `22364cbf-971e-022c-811b-a76c28000257` (string, required) - Id from source phase
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `dealPhase` (string)
+            + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
+### dealPhases.move [POST /dealPhases.move]
+
+Move a phase to a new position in the pipeline.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + after_phase_id: `22364cbf-971e-022c-811b-a76c28000257` (string, required)
+
++ Response 204
+
+### dealPhases.delete [POST /dealPhases.delete]
+
+Delete a phase.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `f350e48a-fbc3-0a79-e62a-53aa1ae86d44` (string, required)
+        + new_phase_id: `29648aea-52f9-09f7-8e1e-cc5c08b4c742` (string, optional) - Phase to migrate deals to
+
++ Response 204 (application/json)
 
 ## Deal Sources [/dealSources]
 
@@ -2519,8 +3109,15 @@ Get a list of quotations.
                     + Members
                         + open
                         + accepted
+                        + expired
                         + rejected
                         + closed
+                + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
+                    + expires_after: `2023-04-05` (string)
+                    + action_after_expiry (enum[string])
+                        + Members
+                            + lock
+                            + none
 
 ### quotations.info [POST /quotations.info]
 
@@ -2573,6 +3170,7 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+            + currency: `USD` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
                 + to: `EUR` (string)
@@ -2593,11 +3191,18 @@ Get a quotation
                 + Members
                     + open
                     + accepted
+                    + expired
                     + rejected
                     + closed
             + document_template (object)
                 + type: `documentTemplate` (string)
                 + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+            + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
+                + expires_after: `2023-04-05` (string)
+                + action_after_expiry (enum[string])
+                    + Members
+                        + lock
+                        + none
 
 ### quotations.download [POST /quotations.download]
 
@@ -2626,6 +3231,9 @@ Create a quotation.
 
     + Attributes (object)
         + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -2637,7 +3245,7 @@ Create a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -2652,6 +3260,12 @@ Create a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 201 (application/json)
 
@@ -2719,6 +3333,9 @@ Update a quotation.
 
     + Attributes (object)
         + id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -2730,7 +3347,7 @@ Update a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -2745,6 +3362,12 @@ Update a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 204
 
@@ -2771,6 +3394,556 @@ Delete a quotation.
 + Response 204
 
 # Group Calendar
+
+## Meetings [/meetings]
+
+### meetings.list [POST /meetings.list]
+
+Get a list of meetings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + `ids`: `e4eb5f08-fb6a-42c1-8a41-6f619cb6de80`, `f4e6bd3c-cff7-4da8-9217-0b84b9437231` (array[string], optional)
+            + `employee_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+            + `start_date`: `2019-02-04` (string, optional)
+            + `end_date`: `2019-02-04` (string, optional)
+            + `milestone_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+            + `term`: `funny joke HR meeting` (string, optional)
+            + `recurrence_id`: `1dfccc8e-68d0-0b83-8d1b-5cf1b0d99ab1` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum, required)
+                    + Members
+                        + scheduled_at
+                + order (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `scheduled_at`
+                    + order: `asc`
+        + includes: `tracked_time` (string, optional) - when used, the response will include `tracked_time`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + title: `My meeting` (string)
+                + description: `My meeting description` (string)
+                + created_at: `2020-02-01T10:33:45+00:00` (string)
+                + scheduled_at: `2020-02-04T16:44:33+00:00` (string)
+                + duration (object)
+                    + unit (enum)
+                        + Members
+                            + min - Minutes
+                    + value: `60` (number)
+                + `tracked_time` (object, optional) - Only included with request parameter `includes=tracked_time`
+                    + total (object)
+                        + unit (enum)
+                            + Members
+                                + min - Minutes
+                        + value: `60` (number)
+                + `estimated_time` (object, optional) - Only included with request parameter `includes=estimated_time`
+                    + total (object)
+                        + unit (enum)
+                            + Members
+                                + min - Minutes
+                        + value: `60` (number)
+                + customer (object, nullable)
+                    + type: `contact` (enum)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + project (object, nullable)
+                    + type: `project` (string)
+                    + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `bb8337d9-e669-0319-aa57-355ef6ff4f2d` (string)
+                + attendees (array)
+                    + (object)
+                        + type (enum)
+                            + Members
+                                + user
+                                + contact
+                        + id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+                + status (enum)
+                    + Members
+                        + open
+                        + done
+                + recurrence (object, nullable)
+                    + type: `recurrence` (string)
+                    + id: `1dfccc8e-68d0-0b83-8d1b-5cf1b0d99ab1` (string)
+
+### meetings.info [POST /meetings.info]
+
+Get information about a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string, required)
+        + includes: `tracked_time` (string, optional) - when used, the response will include `tracked_time`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `70af3fdd-b037-0936-ad1a-6d784dd44cf4` (string)
+            + title: `My meeting` (string)
+            + description: `My meeting description` (string)
+            + scheduled_at: `2020-02-04T16:44:33+00:00` (string)
+            + duration (object)
+                + unit (enum)
+                    + Members
+                        + min - Minutes
+                + value: `60` (number)
+            + `tracked_time` (object, optional) - Only included with request parameter `includes=tracked_time`
+                + total (object)
+                    + unit (enum)
+                        + Members
+                            + min - Minutes
+                    + value: `60` (number)
+            + `estimated_time` (object, optional) - Only included with request parameter `includes=estimated_time`
+                + total (object)
+                    + unit (enum)
+                        + Members
+                            + min - Minutes
+                    + value: `60` (number)
+            + customer (object, nullable)
+                + type: `contact` (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + project (object, nullable)
+                + type: `project` (string)
+                + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+            + milestone (object, nullable)
+                + type: `milestone` (string)
+                + id: `bb8337d9-e669-0319-aa57-355ef6ff4f2d` (string)
+            + deal (object, nullable)
+                + type: `deal` (string)
+                + id: `08b979e5-90d6-01e0-ac28-d58db81c3b12` (string)
+            + location (object, nullable)
+                + One Of
+                    + Properties
+                        + type: `virtual` (string)
+                    + Properties
+                        + type: `contact` (enum)
+                            + Members
+                                + contact
+                                + company
+                        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                        + address (object)
+                            + line_1: `Dok Noord 3A 101` (string, nullable)
+                            + postal_code: `9000` (string, nullable)
+                            + city: `Ghent` (string, nullable)
+                            + country: `BE` (string)
+                            + area_level_two (object, nullable)
+                                + type: `area_level_two` (string)
+                                + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+                    + Properties
+                        + type: `address` (string)
+                        + address (object)
+                            + line_1: `Dok Noord 3A 101` (string, nullable)
+                            + postal_code: `9000` (string, nullable)
+                            + city: `Ghent` (string, nullable)
+                            + country: `BE` (string)
+                            + area_level_two (object, nullable)
+                                + type: `area_level_two` (string)
+                                + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+                    + Properties
+                        + type: `customLocation` (string)
+                        + id: `4191c526-5e26-0818-8e16-9523215b5081` (string)
+                        + address (object)
+                            + line_1: `Dok Noord 3A 101` (string, nullable)
+                            + postal_code: `9000` (string, nullable)
+                            + city: `Ghent` (string, nullable)
+                            + country: `BE` (string)
+                            + area_level_two (object, nullable)
+                                + type: `area_level_two` (string)
+                                + id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2` (string)
+                    + Properties
+                        + type: `calendarResource` (string)
+            + online_meeting_room (object, nullable)
+                + type: `onlineMeetingRoom` (string)
+                + id: `89b76a74dcf842b298b90ea79a5d1f7a` (string)
+            + attendees (array)
+                + (object)
+                    + type (enum)
+                        + Members
+                            + user
+                            + contact
+                    + id: `b5094b3f-bb7a-0391-b01b-e709773f3509` (string)
+            + custom_fields (array[CustomField])
+            + status (enum)
+                + Members
+                    + open
+                    + done
+            + recurrence (object, nullable)
+                + type: `recurrence` (string)
+                + id: `1dfccc8e-68d0-0b83-8d1b-5cf1b0d99ab1` (string)
+
+### meetings.schedule [POST /meetings.schedule]
+
+Schedule a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + title: `My meeting` (string, required)
+        + starts_at: `2023-10-01T09:00:00+01:00` (string, required)
+        + ends_at: `2023-10-01T10:00:00+01:00` (string, required)
+        + description: `My meeting description` (string, optional)
+        + attendees (array, required) - at least one user attendee must be present
+            + (object)
+                + `type`: `user` (enum[string])
+                    + Members
+                        + `user`
+                        + `contact`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+        + customer (object, optional)
+            + type: `contact` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + location (object, optional)
+            + One Of
+                + Properties
+                    + type: `virtual` (string, required)
+                + Properties
+                    + type: `contact` (enum[string], required)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `address` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `customLocation` (string, required)
+                    + id: `4191c526-5e26-0818-8e16-9523215b5081` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `meeting` (string)
+            + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string)
+
+### meetings.update [POST /meetings.update]
+
+Update a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `00ed6266-a5bd-4aac-a292-2582017b6400` (string, required)
+        + title: `My meeting` (string, optional)
+        + starts_at: `2023-10-01T09:00:00+01:00` (string, optional)
+        + ends_at: `2023-10-01T10:00:00+01:00` (string, optional)
+        + description: `My meeting description` (string, optional, nullable)
+        + attendees (array, optional) - when provided, at least one user attendee must be present
+            + (object)
+                + `type`: `user` (enum[string])
+                    + Members
+                        + `user`
+                        + `contact`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+        + customer (object, optional, nullable)
+            + type: `contact` (enum)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + location (object, optional)
+            + One Of
+                + Properties
+                    + type: `virtual` (string, required)
+                + Properties
+                    + type: `contact` (enum[string], required)
+                        + Members
+                            + contact
+                            + company
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `address` (string, required)
+                    + `address` (object, required)
+                        + line_1: `Dok Noord 3A 101` (string, required, nullable)
+                        + postal_code: `9000` (string, required, nullable)
+                        + city: `Ghent` (string, required, nullable)
+                        + country: `BE` (string, required)
+                        + area_level_two_id: `db232cf8-ad4a-024b-941f-15a7a74f0fd2`
+                + Properties
+                    + type: `customLocation` (string, required)
+                    + id: `4191c526-5e26-0818-8e16-9523215b5081` (string, required)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
+### meetings.complete [POST /meetings.complete]
+
+Mark a meeting as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+
++ Response 204
+
+### meetings.delete [POST /meetings.delete]
+
+Deletes a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+
++ Response 204
+
+### meetings.createReport [POST /meetings.createReport]
+
+Creates a report for a meeting.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+        + attach_to (object, required)
+            + `type`: `contact` (enum[string])
+                + Members
+                    + `contact`
+                    + `company`
+                    + `deal`
+            + `id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + summary: `My meeting summary` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `meetingReport` (string)
+            + id: `f4baa515-c813-4ca2-bfc2-a646d985e58d` (string)
+
+## Calls [/calls]
+
+### calls.list [POST /calls.list]
+
+Get a list of calls.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + scheduled_after: `2021-11-21` (string) - Filter on calls occurring on or after a given date
+            + scheduled_before: `2022-05-13` (string) - Filter on calls occurring on or before a given date
+            + relates_to (object, optional) - Filter calls by related object (currently only companies allowed)
+                + id: `415fa7e0-e319-0952-b973-f067f2b49d56` (string)
+                + type: `company` (string)
+            + call_outcome_id: `6bd20dd8-dc3f-0e68-8919-dee0be6efe55` (string, optional) - Filter on completed calls by outcome
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of entries returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + added_at: `2021-11-21T18:14:15+00:00` (string, nullable)
+                + participant (object, nullable)
+                    + customer (object, nullable)
+                        + type: `company` (string)
+                        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                    + contact (object, nullable)
+                        + type: `contact` (string)
+                        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + description: `Call with customer` (string, nullable)
+                + outcome (object, nullable)
+                    + type: `callOutcome` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+                + outcome_summary: `Called, but was not available` (string, nullable)
+                + assignee (object, nullable)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                    + type: `user` (string)
+                + scheduled_at: `2021-11-21T19:14:15+00:00` (string)
+                + status: `open` (enum[string])
+                    + Members
+                        + `open`
+                        + `completed`
+                + deal (object, nullable)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                    + type: `deal` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
+
+### calls.info [POST /calls.info]
+
+Get information about a call.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + added_at: `2016-02-01T16:44:33+00:00` (string, nullable)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string, nullable)
+            + participant (object, nullable)
+                + customer (object, nullable)
+                    + type: `company` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + contact (object, nullable)
+                    + type: `contact` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + description: `Description of the call` (string, nullable)
+            + outcome (object, nullable)
+                + type: `callOutcome` (string)
+                + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
+            + outcome_summary: `Called, but was not available` (string, nullable)
+            + assignee (object, nullable)
+                + type: `user` (string)
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + scheduled_at: `2016-02-04T16:00:00+00:00` (string)
+            + status: `open` (enum[string])
+                + Members
+                    + `open`
+                    + `completed`
+            + deal (object, nullable)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + type: `deal` (string)
+            + custom_fields (array[CustomField])
+
+### calls.add [POST /calls.add]
+
+Add a new call.
+
++ Request (application/json)
+
+    + Attributes
+        + description: `Description of the call` (string, optional)
+        + participant (object, required)
+            + customer (object, required)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + due_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + assignee (object, required)
+            + type (enum, required)
+                + Members
+                    + user
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + deal_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `call` (string)
+            + id: `65a35860-dcca-4850-9fd6-47ff08469e0c` (string)
+
+### calls.update [POST /calls.update]
+
+Update a new call.
+
++ Request (application/json)
+
+    + Attributes
+        + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
+        + description: `Description of the call` (string, optional)
+        + participant (object, optional)
+            + customer (object, optional)
+                + type (enum, required)
+                    + Members
+                        + company
+                        + contact
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + due_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + assignee (object, optional)
+            + type (enum, required)
+                + Members
+                    + user
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + deal_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, nullable, optional)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204 (application/json)
+
+### calls.complete [POST /calls.complete]
+
+Mark a call as complete.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `6fac0bf0-e803-424e-af67-76863a3d7d16` (string, required)
+        + call_outcome_id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string, optional)
+        + outcome_summary: `Called, but was not available` (string, optional)
+
++ Response 204 (application/json)
+
+## Call Outcomes [/callOutcomes]
+
+### callOutcomes.list [GET /callOutcomes.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + page (object, optional)
+            + size: `20` (number, optional)
+                + Default: `20`
+            + number: `1` (number, optional)
+                + Default: `1`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
+                + name: `Foo Bar` (string)
 
 ## Calendar events [/events]
 
@@ -3028,6 +4201,7 @@ Get a list of invoices.
             + `department_id`: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional) - Filters on a department (company entity)
             + `deal_id`: `4a219dae-7b80-4c79-97d2-bdadbab299ba` (string, optional) - Filters on a deal
             + `project_id`: `ba7d9731-c7d0-43d3-af95-fd7b3e818dbc` (string, optional) - Filters on a project
+            + `subscription_id`: `8631bbbf-bead-4f6e-a2ab-58ec9bbd997a` (string, optional) - Filters on a subscription
             + `status` (array[enum], optional) - The statuses you want to filter by.
                 + Members
                     + draft
@@ -3037,7 +4211,7 @@ Get a list of invoices.
             + `purchase_order_number`: `000023` (string, optional)
             + `payment_reference`: `+++084/2613/66074+++` (string, optional)
             + `invoice_date_after`: `2020-01-01` (string, optional) - This date is inclusive
-            + `invoice_date_before`: `2022-01-01` (string, optional) - This date is exclusive
+            + `invoice_date_before`: `2022-01-01` (string, optional) - This date is inclusive
             + `customer` (object, optional)
                 + type (enum, required)
                     + Members
@@ -3059,6 +4233,7 @@ Get a list of invoices.
                 + (object)
                     + field: `invoice_number`
                     + order: `asc`
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
 
 + Response 200 (application/json)
 
@@ -3103,6 +4278,9 @@ Get a list of invoices.
                             + taxable (Money)
                             + tax (Money)
                     + due (Money)
+                    + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                    + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                    + interest (Money) - Only included with request parameter `includes=late_fees`
                 + currency_exchange_rate (object)
                     + from: `USD` (string)
                     + to: `EUR` (string)
@@ -3128,6 +4306,8 @@ Get details for a single invoice.
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
+
 
 + Response 200 (application/json)
 
@@ -3182,7 +4362,7 @@ Get details for a single invoice.
                                 + type: `unitOfMeasure` (string)
                                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                             + unit_price (object)
-                                + Include Money
+                                + amount: `123.30` (number)
                                 + tax: `excluding` (enum)
                                     + Members
                                         + excluding
@@ -3219,6 +4399,9 @@ Get details for a single invoice.
                         + withheld (Money)
                 + payable (Money)
                 + due (Money)
+                + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                + interest (Money) - Only included with request parameter `includes=late_fees`
             + payment_term (PaymentTerm)
             + payments (array)
                 + (object)
@@ -3227,6 +4410,7 @@ Get details for a single invoice.
                         + Include Money
             + payment_reference: `+++084/2613/66074+++` (string, nullable)
             + note: `'Some extra remarks about the invoice'` (string, nullable) - plaintext
+            + currency: `USD` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
                 + to: `EUR` (string)
@@ -3289,32 +4473,12 @@ Draft a new invoice.
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
         + payment_term (PaymentTerm, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
-        + grouped_lines (array, required)
-            + (object)
-                + section (object, optional)
-                    + title (string, required)
-                + line_items (array, required)
-                    + (object)
-                        + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
-                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
-                        + unit_price (object, required)
-                            + Include Money
-                            + tax: `excluding` (enum, required)
-                                + Members
-                                    + excluding
-                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
-                        + discount (object, optional)
-                            + value: 10 (number, required)
-                            + type (enum, required)
-                                + Members
-                                    + percentage - Values between 0 and 100
-                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
-                        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], required)
         + invoice_date: `2016-02-04` (string, optional)
         + discounts (array[CommercialDiscount], optional)
         + note: `Invoice comments` (string, optional)
@@ -3349,38 +4513,46 @@ Update a draft invoice. Booked invoices cannot be updated.
                     + name `Finance Dept.` (string, required)
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + payment_term (PaymentTerm, optional)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
-        + grouped_lines (array, optional)
-            + (object)
-                + section (object, optional)
-                    + title (string, required)
-                + line_items (array, required)
-                    + (object)
-                        + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
-                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
-                        + unit_price (object)
-                            + Include Money
-                            + tax: `excluding` (enum)
-                                + Members
-                                    + excluding
-                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
-                        + discount (object, optional)
-                            + value: 10 (number, required)
-                            + type (enum, required)
-                                + Members
-                                    + percentage - Values between 0 and 100
-                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
-                        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
         + discounts (array[CommercialDiscount], optional)
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+
++ Response 204
+
+### invoices.updateBooked [POST /invoices.updateBooked]
+
+Update a booked invoice. Only available when editing booked invoices is allowed through the settings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + note: `Some comments about the invoice` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
@@ -3434,6 +4606,7 @@ Register a payment for an invoice.
         + payment (object, required)
             + Include Money
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
+        + payment_method_id: `bb9589ec-6e08-0d5f-9b23-7be9b9c3ea2d` (string, optional)
 
 + Response 204
 
@@ -3456,6 +4629,26 @@ Credit an invoice completely.
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
         + credit_note_date: `2016-02-04` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
+
+
+### invoices.creditPartially [POST /invoices.creditPartially]
+
+Credit an invoice partially.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + credit_note_date: `2016-02-04` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], required)
+        + discounts (array[CommercialDiscount], optional)
 
 + Response 201 (application/json)
 
@@ -3669,6 +4862,7 @@ Get details for a single credit note
                                     + tax_exclusive_before_discount (Money)
                                     + tax_inclusive (Money)
                                     + tax_inclusive_before_discount (Money)
+                + currency: `USD` (string)
                 + currency_exchange_rate (object)
                     + from: `USD` (string)
                     + to: `EUR` (string)
@@ -3845,6 +5039,10 @@ Get details for a single subscription
                                 + email
                                 + postal_service
             + custom_fields (array[CustomField])
+            + document_template (object)
+                + type: `documentTemplate` (string)
+                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+            + currency: `USD` (string)
 
 ### subscriptions.create [POST /subscriptions.create]
 
@@ -3884,6 +5082,7 @@ Create a new subscription.
         + payment_term (PaymentTerm, required)
         + invoice_generation (InvoiceGeneration, required)
         + custom_fields (array[CustomFieldValue], optional)
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 201 (application/json)
 
@@ -3931,6 +5130,7 @@ Update a subscription.
                     + (LineItem)
         + invoice_generation (InvoiceGeneration, optional)
         + custom_fields (array[CustomFieldValue], optional)
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 204
 
@@ -3998,6 +5198,8 @@ Get a list of available payment terms.
             + (object)
                 + id: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
                 + Include PaymentTerm
+        + meta (object)
+            + `default`: `c93ddb52-0af8-47d9-8551-441435be66a7` (string)
 
 ## Withholding Tax Rates [/withholdingTaxRates]
 
@@ -4046,6 +5248,31 @@ Get a list of commercial discounts.
                 + department (object)
                     + type: `department` (string)
                     + id: `6a6343fc-fdd8-4bc0-aa69-3a004c710e87` (string)
+
+## Payment Methods [/paymentMethods]
+
+### paymentMethods.list [POST /paymentMethods.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `852bb293-9a61-05cb-ba3e-560212661144`, `1e8e3758-2c67-074a-911b-a93dd2a6af19` (array[string], optional)
+            + status (array[enum], optional) - Filters on status
+                + Members
+                    + active
+                    + archived
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
+                + name: `Coupons` (string)
+                + status (enum, required)
+                    + Members
+                        + active
+                        + archived
 
 # Group Products
 
@@ -4137,6 +5364,9 @@ Get details for a single product.
                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
+            + product_category (object, nullable)
+                + type: `productCategory` (string)
+                + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
             + stock (object, optional) - Only available when stock management feature is enabled
                 + amount: 123 (number, nullable)
             + configuration (ProductConfigurationRead, optional)
@@ -4214,7 +5444,7 @@ Delete a product.
 
 # Units of Measure [/unitsOfMeasure]
 
-### unitsOfMeasure.list [GET /unitsOfMeasure.list]
+### unitsOfMeasure.list [POST /unitsOfMeasure.list]
 
 Get a list of units of measure.
 
@@ -4229,7 +5459,7 @@ Get a list of units of measure.
 
 ## Price Lists [/priceLists]
 
-### priceLists.list [GET /priceLists.list]
+### priceLists.list [POST /priceLists.list]
 
 Get a list of priceLists.
 
@@ -4252,9 +5482,11 @@ Get a list of priceLists.
                         + based_on_price_list
                         + based_on_purchase_price
 
-# Group Projects
+# Group Legacy Projects
 
-## Projects [/projects]
+> _This is the documentation of the legacy projects module. See the **New Projects** documentation for the endpoints concerning our new projects module._
+
+## Legacy Projects [/projects]
 
 Projects allow users to work together as a team on a single project. They consist of one or more milestones, have one or more participants and are limited in time and budget.
 
@@ -4554,7 +5786,7 @@ Update a participant's role for a project.
 
 + Response 204
 
-## Milestones [/milestones]
+## Legacy Milestones [/milestones]
 
 Every projects consists of one or more milestones which are limited in time and budget. Budget is however not included in this endpoints (yet).
 
@@ -4774,6 +6006,1561 @@ Close a milestone. All open tasks will be closed, open meetings will remain open
 
 + Response 204
 
+# Group New Projects
+
+## Projects [/projects-v2/projects]
+
+> _This is the documentation of the new projects module. See the **Legacy Projects** documentation for the endpoints concerning our legacy projects module._
+
+> ⚠️ (July 2023) The projects module has been completely overhauled and is currently only available for new project users. Existing project users only have access to the old projects module.
+> Over the course of the next few months, next generation projects will also be made available to existing project users, including the migration of existing project data.
+
+> To avoid naming collisions, all endpoints of the new projects module can be found under `/projects-v2`, for example `/projects-v2/projects.list`.
+> To avoid confusing "new projects" with "creating a new project", we opted for "projects-v2" over "new" as the prefix.
+
+*Required scopes: `projects`*
+
+### projects.list [POST /projects-v2/projects.list]
+
+Lists all projects that match the optional filters provided.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object)
+            + `ids`: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+            + `status`: `open` (enum[string])
+                + Members
+                    + `open - Only shows open projects
+                    + `planned` - Projects where the start date is in the future
+                    + `running` - Projects where the start date is in the past, but the end date is in the future or empty
+                    + `overdue` - Projects where the end date is in the past
+                    + `over_budget` - Projects where the price is higher than the external budget, or where the cost is higher than the internal budget
+                    + `closed` - Projects that are closed
+            + `quotation_ids`: `132c7189-6e49-420c-889c-23267ce70660`, `cd740bde-d317-4c97-bec0-76bfad903a1e` (array[string])
+            + `deal_ids`: `7ea73287-9f87-4b2b-b6f8-866b12b7364a`, `68f8bb28-e5d0-4ee2-b269-1dbeeda5bdcc` (array[string])
+            + `term`: `Interesting project` (string, optional) - Filters on the project number, title, customer names, assignee names and owner names. Terms are split on spaces and all terms need to match.
+            + `customers` (array)
+                + (object)
+                    + `type`: `contact` (enum[string])
+                        + Members
+                            + `contact`
+                            + `company`
+                    + `id`: `1106f231-0464-41b7-8b0b-19451af81afe` (string)
+        + `page` (Page, optional)
+        + `sort` (array, optional) - Sorting on `cost` or `margin` is only available to administrators and users with the "Costs on projects" permission
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + `amount_billed`
+                        + `amount_paid`
+                        + `amount_unbilled`
+                        + `cost`
+                        + `end_date`
+                        + `external_budget_spent`
+                        + `external_budget`
+                        + `internal_budget`
+                        + `margin`
+                        + `price`
+                        + `project_key`
+                        + `start_date`
+                        + `status`
+                        + `time_budget`
+                        + `time_estimated`
+                        + `time_tracked`
+                        + `title`
+                + order (enum[string], optional)
+                    + Members
+                        + `asc`
+                        + `desc`
+            + Default
+                + (object)
+                    + field: `project_key`
+                    + order: `desc`
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
+                + `project_key`: 123 (number) - Positive, sequential integer representing the index of the project for the account
+                + title: `My project title` (string)
+                + description: `My project description` (string, nullable)
+                + status: `open` (enum[string])
+                    + Members
+                        + open
+                        + closed
+                + `billing_method`: `time_and_materials` (enum)
+                    + Members
+                        + `time_and_materials`
+                        + `fixed_price`
+                        + `non_billable`
+                + `time_budget` (object, nullable) - Value in seconds, rounded to the nearest minute
+                    + value: 43200 (number)
+                    + unit: `seconds` (enum[string])
+                        + Members
+                            + seconds
+                + `time_estimated` (object, nullable) - Combined value of all time estimated by lines linked to project, value in seconds, rounded to the nearest minute.
+                    + value: 43200 (number)
+                    + unit: `seconds` (enum[string])
+                        + Members
+                            + seconds
+                + `time_tracked` (object, nullable)
+                    + `value`: 43200 (number)
+                    + `unit`: `seconds` (enum[string])
+                        + Members
+                            + `seconds`
+                + `amount_billed` (Money, nullable)
+                + `amount_unbilled` (Money, nullable) - Price of the project minus the amount billed
+                + `fixed_amount_billed` (Money, nullable)
+                + `amount_paid` (Money, nullable)
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
+                + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+                + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+                + `price` (Money, nullable)
+                + `fixed_price` (Money, nullable)
+                + `calculated_price` (Money, nullable) - Sum of underlying tasks/materials prices
+                + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+                + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `start_date`: `2022-02-23` (string, nullable)
+                + `end_date`: `2022-02-28` (string, nullable)
+                + `company_entity` (object, nullable)
+                    + `type`: `department` (string)
+                    + `id`: `0d0dec5a-7096-4009-be37-07eab117db07` (string)
+                + `owners` (array)
+                    + (object)
+                        + `type`: `user` (string)
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                + `color`: `#00B2B2` (enum[string])
+                    + Members
+                        + `#00B2B2` - Mint
+                        + `#008A8C` - Darker mint
+                        + `#992600` - Ruby
+                        + `#ED9E00` - Gold
+                        + `#D157D3` - Purple
+                        + `#A400B2` - Darker purple
+                        + `#0071F2` - Aqua
+                        + `#004DA6` - Darker aqua
+                        + `#64788F` - Blue grey
+                        + `#C0C0C4` - Light grey
+                        + `#82828C` - Grey
+                        + `#1A1C20` - Dark grey
+                + `assignees` (array)
+                    + (object)
+                        + `assignee` (object)
+                            + `type`: `user` (enum[string])
+                                + Members
+                                    + `team`
+                                    + `user`
+                            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                        + `assign_type`: `auto_assigned` (enum)
+                            + Members
+                                + `manual`
+                                + `auto_assigned` - This user/team is included because they are assigned to underlying groups, tasks or materials.
+                                + `manual_and_auto_assigned` - This user/team is both manually assigned and included because they are assigned to underlying groups, tasks or materials.
+                + `customers` (array)
+                    + (object)
+                        + `type`: `contact` (enum[string])
+                            + Members
+                                + `contact`
+                                + `company`
+                        + `id`: `1106f231-0464-41b7-8b0b-19451af81afe` (string)
+                + `deals` (array)
+                    + (object)
+                        + `type`: `deal` (string)
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                + `quotations` (array)
+                    + (object)
+                        + `type`: `quotation` (string)
+                        + `id`: `a7f15c40-3b65-09ae-9f1b-d55786bc7b01` (string)
+        + `meta` (object) - Only included with request parameter `includes=pagination`
+            + `page` (Pagination)
+            + `matches`: `10` (number)
+
+### projects.info [POST /projects-v2/projects.info]
+
+Returns all the information of a single project.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + `id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
+            + `project_key`: 123 (number) - Positive, sequential integer representing the index of the project for the account
+            + `title`: `My project title` (string)
+            + `description`: `My project description` (string, nullable)
+            + `status`: `open` (enum[string])
+                + Members
+                    + open
+                    + closed
+            + `update_rights`: `owners` (enum[string])
+                + Members
+                    + owners
+                    + owners_and_assignees
+                    + everyone
+            + `billing_method`: `time_and_materials` (enum)
+                + Members
+                    + `time_and_materials`
+                    + `fixed_price`
+                    + `non_billable`
+            + `time_budget` (object, nullable) - Value in seconds, rounded to the nearest minute
+                + value: 43200 (number)
+                + unit: `seconds` (enum[string])
+                    + Members
+                        + seconds
+            + `time_tracked` (object, nullable)
+                + `value`: 43200 (number)
+                + `unit`: `seconds` (enum[string])
+                    + Members
+                        + `seconds`
+            + `amount_billed` (Money, nullable)
+            + `fixed_amount_billed` (Money, nullable)
+            + `amount_paid` (Money, nullable)
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
+            + `task_external_budget_spent` (Money, nullable) - Sum of underlying tasks `external_budget_spent` field
+            + `material_external_budget_spent` (Money, nullable) - Sum of underlying materials `external_budget_spent` field
+            + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+            + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+            + `price` (Money, nullable)
+            + `fixed_price` (Money, nullable)
+            + `calculated_price` (Money, nullable) - Sum of underlying tasks/materials prices
+            + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+            + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `start_date`: `2022-02-23` (string, nullable)
+            + `end_date`: `2022-02-28` (string, nullable)
+            + `company_entity` (object, nullable)
+                + `type`: `department` (string)
+                + `id`: `0d0dec5a-7096-4009-be37-07eab117db07` (string)
+            + `owners` (array)
+                + (object)
+                    + `type`: `user` (string)
+                    + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+            + `color`: `#00B2B2` (enum[string])
+                + Members
+                    + `#00B2B2` - Mint
+                    + `#008A8C` - Darker mint
+                    + `#992600` - Ruby
+                    + `#ED9E00` - Gold
+                    + `#D157D3` - Purple
+                    + `#A400B2` - Darker purple
+                    + `#0071F2` - Aqua
+                    + `#004DA6` - Darker aqua
+                    + `#64788F` - Blue grey
+                    + `#C0C0C4` - Light grey
+                    + `#82828C` - Grey
+                    + `#1A1C20` - Dark grey
+            + `assignees` (array)
+                + (object)
+                    + `assignee` (object)
+                        + `type`: `user` (enum[string])
+                            + Members
+                                + `team`
+                                + `user`
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                    + `assign_type`: `auto_assigned` (enum)
+                        + Members
+                            + `manual`
+                            + `auto_assigned` - This user/team is included because they are assigned to underlying groups, tasks or materials.
+                            + `manual_and_auto_assigned` - This user/team is both manually assigned and included because they are assigned to underlying groups, tasks or materials.
+            + `customers` (array)
+                + (object)
+                    + `type`: `contact` (enum[string])
+                        + Members
+                            + `contact`
+                            + `company`
+                    + `id`: `1106f231-0464-41b7-8b0b-19451af81afe` (string)
+            + `deals` (array)
+                + (object)
+                    + `type`: `deal` (string)
+                    + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+            + `quotations` (array)
+                + (object)
+                    + `type`: `quotation` (string)
+                    + `id`: `a7f15c40-3b65-09ae-9f1b-d55786bc7b01` (string)
+            + `custom_user_rates` (array)
+                + (object)
+                    + `user` (object)
+                        + `type`: `user` (string)
+                        + `id`: `55d3707c-14dc-4b62-a072-e3f4c1413462` (string)
+                    + `custom_rate` (Money)
+            + custom_fields (array[CustomField]) - Auto-increment custom fields are not supported on projects.
+
+### projects.create [POST /projects-v2/projects.create]
+
+Create a new project. Only `title` is required. All the other fields are optional.
+
++ Request (application/json)
+    + Attributes (object)
+        + `title`: `My cool new project` (string, required)
+        + `description`: `My project description` (string, optional)
+        + `owner_ids`: `47e7e4a2-607d-465b-a121-7bdc9c64ade7`, `d8ebc8a5-800f-4714-97bb-3947a7ec274d` (array[string], optional) - The creator is automatically added as an owner, these are additional owners to be added
+        + `time_budget` (object, optional)
+            + value: 43200 (number, required)
+            + unit: `minutes` (enum[string], required)
+                + Members
+                    + `hours`
+                    + `minutes`
+                    + `seconds`
+        + `billing_method` (enum[string], optional)
+            + Members
+                + `time_and_materials`
+                + `fixed_price`
+                + `non_billable`
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `time_and_materials` billing method. Currently only EUR is supported
+        + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost. Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
+        + `fixed_price` (Money, optional) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `fixed_price` billing method. Currently only EUR is supported
+        + `start_date`: `2022-02-23` (string, optional) - Should not be after end_date if provided
+        + `end_date`: `2022-02-28` (string, optional) - Should not be before start_date if provided
+        + `company_entity_id`: `0d0dec5a-7096-4009-be37-07eab117db07` (string, optional)
+        + `color`: `#00B2B2` (enum[string], optional)
+            + Members
+                + `#00B2B2` - Mint
+                + `#008A8C` - Darker mint
+                + `#992600` - Ruby
+                + `#ED9E00` - Gold
+                + `#D157D3` - Purple
+                + `#A400B2` - Darker purple
+                + `#0071F2` - Aqua
+                + `#004DA6` - Darker aqua
+                + `#64788F` - Blue grey
+                + `#C0C0C4` - Light grey
+                + `#82828C` - Grey
+                + `#1A1C20` - Dark grey
+        + `customers` (array, optional)
+            + (object)
+                + `type`: `company` (enum, required)
+                    + Members
+                        + `contact`
+                        + `company`
+                + `id`: `9cb3e568-3931-4b8f-8db8-5a002e8cf253` (string, required)
+        + `assignees` (array, optional)
+            + (object)
+                + `type`: `user` (enum[string], required)
+                    + Members
+                        + `user`
+                        + `team`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+        + `deal_ids`: `3709b7e9-7722-4d2d-a663-b480789bafe4`, `39fb2767-90e0-4fe4-9bac-a244bee6552c` (array[string], optional)
+        + `quotation_ids`: `e8e8e969-2054-49ee-81d1-47453de2aebb`, `fc41c04f-1841-4238-a31b-42c48c57713e` (array[string], optional)
+        + `custom_fields` (array[CustomFieldValue], optional) - Auto-increment custom fields are not supported on projects.
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenProject` (string)
+           + id: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
+
+### projects.update [POST /projects-v2/projects.update]
+
+Update a project. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + title: `A different project title` (string)
+        + description: `Another description` (string, nullable)
+        + `time_budget` (object, nullable)
+            + value: 60 (number, required)
+            + unit: `minutes` (enum[string], required)
+                + Members
+                    + hours
+                    + minutes
+                    + seconds
+        + `billing_method` (object)
+            + `value`: `time_and_materials` (enum[string], required)
+                + Members
+                    + `time_and_materials` - Can only be set using update_strategy "none"
+                    + `fixed_price`
+                    + `non_billable` - Can only be set using update_strategy "cascade"
+            + `update_strategy`: `none` (enum[string], required)
+                + Members
+                    + `none` - Don't change the values of the group items.
+                    + `cascade` - Change the billing method of the group, tasks and materials linked to this project, depending on the project billing method.
+        + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price. Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `time_and_materials` billing method. Currently only EUR is supported
+        + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost. Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
+        + `fixed_price` (Money, nullable) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion). Only allowed for `fixed_price` billing method. Currently only EUR is supported
+        + `start_date`: `2022-02-23` (string, nullable) - Should not be after end_date if provided
+        + `end_date`: `2022-02-28` (string, nullable) - Should not be before start_date if provided
+        + `company_entity_id`: `0d0dec5a-7096-4009-be37-07eab117db07` (string, nullable, optional)
+        + `color`: `#00B2B2` (enum[string])
+            + Members
+                + `#00B2B2` - Mint
+                + `#008A8C` - Darker mint
+                + `#992600` - Ruby
+                + `#ED9E00` - Gold
+                + `#D157D3` - Purple
+                + `#A400B2` - Darker purple
+                + `#0071F2` - Aqua
+                + `#004DA6` - Darker aqua
+                + `#64788F` - Blue grey
+                + `#C0C0C4` - Light grey
+                + `#82828C` - Grey
+                + `#1A1C20` - Dark grey
+        + `custom_fields` (array[CustomFieldValue], optional) - Auto-increment custom fields are not supported on projects.
+
++ Response 204
+
+### projects.close [POST /projects-v2/projects.close]
+
+Mark a project as closed.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `closing_strategy` (enum[string], required)
+            + Members
+                + `mark_tasks_and_materials_as_done`
+                + `none`
+
++ Response 204
+
+### projects.reopen [POST /projects-v2/projects.reopen]
+
+Reopen a closed project.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+
++ Response 204
+
+### projects.duplicate [POST /projects-v2/projects.duplicate]
+
+Duplicate a project.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `81df9996-6d2c-4844-86d6-202c08d2837e` (string, required)
+        + `title`: `Copy of my project` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + `type`: `nextgenProject` (string)
+           + `id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
+
+### projects.delete [POST /projects-v2/projects.delete]
+
+Delete a project.
+
++ Request (application/json)
+   + Attributes (object)
+       + `id`: `81df9996-6d2c-4844-86d6-202c08d2837e` (string, required)
+       + `delete_strategy`: `unlink_tasks_and_time_trackings` (enum[string], required)
+           + Members
+               + `unlink_tasks_and_time_trackings`
+               + `delete_tasks_and_time_trackings`
+               + `delete_tasks_unlink_time_trackings`
+
++ Response 204
+
+### projects.addOwner [POST /projects-v2/projects.addOwner]
+
+Add a user as owner. Doesn't fail if the user was already added.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `user_id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### projects.removeOwner [POST /projects-v2/projects.removeOwner]
+
+Remove a user as owner. Doesn't fail if the user wasn't linked.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `user_id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### projects.assign [POST /projects-v2/projects.assign]
+
+Assign a user or a team to a project.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + user
+                    + team
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### projects.unassign [POST /projects-v2/projects.unassign]
+
+Unassign a user or a team from a project.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + user
+                    + team
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### projects.addCustomer [POST /projects-v2/projects.addCustomer]
+
+Add a customer to the project. Doesn't fail if the customer was already added.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `customer` (object, required)
+            + `type`: `contact` (enum[string], required)
+                + Members
+                    + `contact`
+                    + `company`
+            + `id`: `03148b5d-4cb0-4750-a3f2-8697cf8bce10` (string, required)
+
++ Response 204
+
+### projects.removeCustomer [POST /projects-v2/projects.removeCustomer]
+
+Remove a customer from the project. Doesn't fail if the customer was not added.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `customer` (object, required)
+            + `type`: `contact` (enum[string], required)
+                + Members
+                    + `contact`
+                    + `company`
+            + `id`: `03148b5d-4cb0-4750-a3f2-8697cf8bce10` (string, required)
+
++ Response 204
+
+### projects.addDeal [POST /projects-v2/projects.addDeal]
+
+Add a deal to the project. Doesn't fail if the deal was already added.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `d27909aa-fc0e-4ed4-acec-fcbffda5111b` (string, required)
+        + `deal_id`: `8385b072-587f-4ebf-a32b-5f48baea1b1c` (string, required)
+
++ Response 204
+
+### projects.removeDeal [POST /projects-v2/projects.removeDeal]
+
+Remove a deal from the project. Doesn't fail if the deal was already removed.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `d27909aa-fc0e-4ed4-acec-fcbffda5111b` (string, required)
+        + `deal_id`: `8385b072-587f-4ebf-a32b-5f48baea1b1c` (string, required)
+
++ Response 204
+
+### projects.addQuotation [POST /projects-v2/projects.addQuotation]
+
+Add a quotation to the project. Doesn't fail if the quotation was already added.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `d27909aa-fc0e-4ed4-acec-fcbffda5111b` (string, required)
+        + `quotation_id`: `8385b072-587f-4ebf-a32b-5f48baea1b1c` (string, required)
+
++ Response 204
+
+### projects.removeQuotation [POST /projects-v2/projects.removeQuotation]
+
+Remove a quotation from the project. Doesn't fail if the quotation was already removed.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `d27909aa-fc0e-4ed4-acec-fcbffda5111b` (string, required)
+        + `quotation_id`: `8385b072-587f-4ebf-a32b-5f48baea1b1c` (string, required)
+
++ Response 204
+
+## Project lines [/projects-v2/projectLines]
+
+> A project line can be a group, a task, or a material.
+> The `projectLines.list` endpoint only returns `{id, type}` pairs of those lines.
+
+*Required scopes: `projects`*
+
+### projectLines.list [POST /projects-v2/projectLines.list]
+
+All line types (tasks, materials, groups) can be side-loaded.
+
++ Request (application/json)
+    + Attributes (object)
+        + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
+        + `filter` (object, optional)
+            + `types` (array)
+                + Members
+                    + `nextgenTask`
+                    + `nextgenMaterial`
+                    + `nextgenProjectGroup`
+            + `assignees` (array, optional) - To fetch unassigned lines, provide `null` instead of the type/id object
+                + (object)
+                    + `type`: `user` (enum[string], required)
+                        + Members
+                            + user
+                            + team
+                    + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `line` (object)
+                    + `type`: `nextgenMaterial` (enum[string])
+                        + Members
+                            + `nextgenTask`
+                            + `nextgenMaterial`
+                            + `nextgenProjectGroup`
+                    + `id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string)
+                + `group` (object, nullable) - If null, this line is not a part of a group.
+                    + `type`: `nextgenProjectGroup` (string)
+                    + `id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string)
+
+### projectLines.addToGroup [POST /projects-v2/projectLines.addToGroup]
+
+Add an existing task or material to a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `line_id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string, required) - The ID of the task or material. May not be a group.
+        + `group_id`: `0daf76e6-5141-4fb0-866f-01916a873a38` (string, required)
+
++ Response 204
+
+### projectLines.removeFromGroup [POST /projects-v2/projectLines.removeFromGroup]
+
+Remove a task or material from the group it is currently in.
+
++ Request (application/json)
+    + Attributes (object)
+        + `line_id`: `a14a464d-320a-49bb-b6ee-b510c7f4f66c` (string, required) - The ID of the task or material. May not be a group.
+
++ Response 204
+
+## Groups [/projects-v2/projectGroups]
+
+*Required scopes: `projects`*
+
+### projectGroups.list [POST /projects-v2/projectGroups.list]
+
+Lists all the groups that match the optional filters provided.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object)
+            + `ids`: `0185a0af-97a6-7f44-8aec-254d8daf72f3`, `0185a0c3-b791-7629-8361-d60f3c0d7ce2` (array[string])
+            + `project_id`: `01859b27-1525-7372-bd40-26a6363c8bfe` (string)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `id`: `0185a0af-97a6-7f44-8aec-254d8daf72f3` (string)
+                + `project` (object)
+                    + `type`: `nextgenProject` (string)
+                    + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+                + `title`: `Website frontpage` (string)
+                + `color`: `#00B2B2` (enum[string])
+                    + Members
+                        + `#00B2B2` - Mint
+                        + `#008A8C` - Darker mint
+                        + `#992600` - Ruby
+                        + `#ED9E00` - Gold
+                        + `#D157D3` - Purple
+                        + `#A400B2` - Darker purple
+                        + `#0071F2` - Aqua
+                        + `#004DA6` - Darker aqua
+                        + `#64788F` - Blue grey
+                        + `#C0C0C4` - Light grey
+                        + `#82828C` - Grey
+                        + `#1A1C20` - Dark grey
+                + `billing_method`: `time_and_materials` (enum[string])
+                    + Members
+                        + `time_and_materials`
+                        + `fixed_price`
+                        + `parent_fixed_price`
+                        + `non_billable`
+                + `billing_status`: `not_billable` (enum[string])
+                    + Members
+                        + `not_billable`
+                        + `not_billed`
+                        + `partially_billed`
+                        + `fully_billed`
+                + `amount_billed` (Money, nullable)
+                + `fixed_amount_billed` (Money, nullable)
+                + `external_budget` (Money, nullable) - Value set by user to compare with price
+                + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+                + `internal_budget` (Money, nullable) - Value set by user to compare with cost
+                + `price` (Money, nullable)
+                + `fixed_price` (Money, nullable)
+                + `calculated_price` (Money, nullable) - Sum of underlying tasks/materials prices
+                + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+                + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `assignees` (array)
+                    + (object)
+                        + `assignee` (object)
+                            + `type`: `user` (enum[string])
+                                + Members
+                                    + `team`
+                                    + `user`
+                            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                        + `assign_type`: `auto_assigned` (enum)
+                            + Members
+                                + `manual`
+                                + `auto_assigned` - This user/team is included because they are assigned to underlying tasks or materials.
+                                + `manual_and_auto_assigned` - This user/team is both manually assigned and included because they are assigned to underlying tasks or materials.
+                + `start_date`: `2023-01-18` (string, nullable)
+                + `end_date`: `2023-03-22` (string, nullable)
+                + `time_estimated` (object, nullable) - The total of all time estimated for every item in this group. Value in seconds, rounded to the nearest minute.
+                    + `value`: 28800 (number)
+                    + `unit`: `seconds` (enum[string])
+                        + Members
+                            + `seconds`
+                + `time_tracked` (object, nullable) - The total of all time tracked for every item in this group.
+                    + `value`: 21100 (number)
+                    + `unit`: `seconds` (enum[string])
+                        + Members
+                            + `seconds`
+
+### projectGroups.info [POST /projects-v2/projectGroups.info]
+
+Returns all the information for one group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `cfe2666c-b0f4-4e85-8d6f-9e1284706d0a` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + `id`: `cfe2666c-b0f4-4e85-8d6f-9e1284706d0a` (string)
+            + `project` (object)
+                + `type`: `nextgenProject` (string)
+                + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+            + `title`: `Website frontpage` (string)
+            + `description`: `My elaborate description` (string, nullable)
+            + `color`: `#00B2B2` (enum[string])
+                + Members
+                    + `#00B2B2` - Mint
+                    + `#008A8C` - Darker mint
+                    + `#992600` - Ruby
+                    + `#ED9E00` - Gold
+                    + `#D157D3` - Purple
+                    + `#A400B2` - Darker purple
+                    + `#0071F2` - Aqua
+                    + `#004DA6` - Darker aqua
+                    + `#64788F` - Blue grey
+                    + `#C0C0C4` - Light grey
+                    + `#82828C` - Grey
+                    + `#1A1C20` - Dark grey
+            + `billing_method`: `time_and_materials` (enum[string])
+                + Members
+                    + `time_and_materials`
+                    + `fixed_price`
+                    + `parent_fixed_price`
+                    + `non_billable`
+            + `billing_status`: `not_billable` (enum[string])
+                + Members
+                    + `not_billable`
+                    + `not_billed`
+                    + `partially_billed`
+                    + `fully_billed`
+            + `amount_billed` (Money, nullable)
+            + `fixed_amount_billed` (Money, nullable)
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
+            + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+            + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+            + `price` (Money, nullable)
+            + `fixed_price` (Money, nullable)
+            + `calculated_price` (Money, nullable) - Sum of underlying tasks/materials prices
+            + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+            + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `assignees` (array)
+                + (object)
+                    + `assignee` (object)
+                        + `type`: `user` (enum[string])
+                            + Members
+                                + `team`
+                                + `user`
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                    + `assign_type`: `auto_assigned` (enum)
+                        + Members
+                            + `manual`
+                            + `auto_assigned` - This user/team is included because they are assigned to underlying tasks or materials.
+                            + `manual_and_auto_assigned` - This user/team is both manually assigned and included because they are assigned to underlying tasks or materials.
+            + `start_date`: `2023-01-18` (string, nullable)
+            + `end_date`: `2023-03-22` (string, nullable)
+            + `time_estimated` (object, nullable) - The total of all time estimated for every item in this group. Value in seconds, rounded to the nearest minute.
+                + `value`: 28800 (number)
+                + `unit`: `seconds` (enum[string])
+                    + Members
+                        + `seconds`
+            + `time_tracked` (object, nullable) - The total of all time tracked for every item in this group.
+                + `value`: 21100 (number)
+                + `unit`: `seconds` (enum[string])
+                    + Members
+                        + `seconds`
+
+### projectGroups.create [POST /projects-v2/projectGroups.create]
+
+Create a group. All properties except for `title` and `project_id` are optional.
+
++ Request (application/json)
+    + Attributes (object)
+        + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
+        + `title`: `My project group` (string, required)
+        + `description`: `Some long-winded description` (string, optional)
+        + `color`: `#00B2B2` (enum[string], optional)
+            + Members
+                + `#00B2B2` - Mint
+                + `#008A8C` - Darker mint
+                + `#992600` - Ruby
+                + `#ED9E00` - Gold
+                + `#D157D3` - Purple
+                + `#A400B2` - Darker purple
+                + `#0071F2` - Aqua
+                + `#004DA6` - Darker aqua
+                + `#64788F` - Blue grey
+                + `#C0C0C4` - Light grey
+                + `#82828C` - Grey
+                + `#1A1C20` - Dark grey
+        + `billing_method` (enum[string], optional)
+            + Members
+                + `time_and_materials`
+                + `fixed_price`
+                + `parent_fixed_price` - The parent project must be `fixed_price`.
+                + `non_billable`
+        + `fixed_price` (Money, optional) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
+        + `start_date`: `2023-01-18` (string, optional)
+        + `end_date`: `2023-03-22` (string, optional)
+        + `assignees` (array, optional)
+            + (object)
+                + `type`: `user` (enum[string], required)
+                    + Members
+                        + `user`
+                        + `team`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenProjectGroup` (string)
+           + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
+
+### projectGroups.update [POST /projects-v2/projectGroups.update]
+
+Update a group. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
+
++ Request (application/json)
+    + Attributes
+        + `id`: `e8478f2c-05a1-4e69-b3c4-e08507640f01` (string, required)
+        + `title`: `My updated group` (string)
+        + `description`: `I updated this group because I felt like it` (string, nullable) - If `null`, the description is cleared.
+        + `color`: `#00B2B2` (enum[string])
+            + Members
+                + `#00B2B2` - Mint
+                + `#008A8C` - Darker mint
+                + `#992600` - Ruby
+                + `#ED9E00` - Gold
+                + `#D157D3` - Purple
+                + `#A400B2` - Darker purple
+                + `#0071F2` - Aqua
+                + `#004DA6` - Darker aqua
+                + `#64788F` - Blue grey
+                + `#C0C0C4` - Light grey
+                + `#82828C` - Grey
+                + `#1A1C20` - Dark grey
+        + `billing_method` (object)
+            + `value`: `time_and_materials` (enum[string], required)
+                + Members
+                    + `time_and_materials` - Can only be set using update_strategy "none"
+                    + `fixed_price`
+                    + `parent_fixed_price` - The parent project must be `fixed_price`.
+                    + `non_billable` - Can only be set using update_strategy "cascade"
+            + `update_strategy`: `none` (enum[string], required)
+                + Members
+                    + `none` - Don't change the values of the group items.
+                    + `cascade` - Change the billing method of the group items depending on the group billing method.
+        + `fixed_price` (Money, nullable) - Only allowed if the `billing_method` is `fixed_price`, or the group is already `fixed_price`.
+        + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price. Only allowed if the `billing_method` is `time_and_materials`, or the group is already `time_and_materials`.
+        + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost.
+        + `start_date`: `2023-01-18` (string, nullable)
+        + `end_date`: `2023-03-22` (string, nullable)
+
++ Response 204
+
+### projectGroups.duplicate [POST /projects-v2/projectGroups.duplicate]
+
+Duplicate a group and its entities, without any time trackings.
+
++ Request (application/json)
+    + Attributes (object)
+        + `origin_id`: `0186a6b5-2fdc-749a-983a-c4a1303546d7` (string, required) - The id of the group that is being duplicated
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenProjectGroup` (string)
+           + id: `0186a6b5-682c-7b0e-95c9-090627a73d3b` (string)
+
+### projectGroups.delete [POST /projects-v2/projectGroups.delete]
+
+Delete a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `01866e6f-f264-7fe5-8b7c-a3f739fa292c` (string, required)
+        + `delete_strategy`: `ungroup_tasks_and_materials` (enum[string], required)
+            + Members
+                + `ungroup_tasks_and_materials`
+                + `delete_tasks_and_materials`
+                + `delete_tasks_materials_and_unbilled_timetrackings`
+
++ Response 204
+
+### projectGroups.assign [POST /projects-v2/projectGroups.assign]
+
+Assign a user or a team to a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### projectGroups.unassign [POST /projects-v2/projectGroups.unassign]
+
+Unassign a user or a team from a group.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+## Tasks [/projects-v2/tasks]
+
+> _These endpoints are for (new) project tasks. For documentation on endpoints for tasks not linked to a project, see **Tasks** below._
+
+*Required scopes: `projects`*
+
+### tasks.list [POST /projects-v2/tasks.list]
+
+Lists all the tasks that match the optional filters provided.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object)
+            + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+        + `page` (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
+                + `project` (object)
+                    + `type`: `nextgenProject` (string)
+                    + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+                + `group` (object, nullable) - If `null`, the task is not in any group.
+                    + `type`: `nextgenProjectGroup` (string)
+                    + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
+                + `work_type` (object, nullable) - If null, the task does not have a specific work type.
+                    + `type`: `workType` (string)
+                    + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
+                + `task_type` (object, nullable) - DEPRECATED - Use `work_type` instead.
+                    + `type`: `workType` (string)
+                    + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
+                + `status`: `in_progress` (enum[string])
+                    + Members
+                        + `to_do`
+                        + `in_progress`
+                        + `on_hold`
+                        + `done`
+                + `title`: `Write API documentation` (string)
+                + `billing_method`: `user_rate` (enum[string])
+                    + Members
+                        + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
+                        + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
+                        + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
+                        + `fixed_price`
+                        + `parent_fixed_price` - The parent project or group must be `fixed_price`.
+                        + `non_billable`
+                + `billing_status`: `not_billable` (enum[string])
+                    + Members
+                        + `not_billable`
+                        + `not_billed`
+                        + `partially_billed`
+                        + `fully_billed`
+                + `custom_rate` (Money, nullable) - Null if the `billing_method` is anything other than `custom_rate`.
+                + `amount_billed` (Money, nullable)
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
+                + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+                + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+                + `price` (Money, nullable)
+                + `unit_price` (Money) - The average of the external hourly rate
+                + `fixed_price` (Money, nullable)
+                + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `unit_cost` (Money) - The average of the internal hourly rate, `null` if the user does not have access to "Costs on projects"
+                + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+                + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `assignees` (array)
+                    + (object)
+                        + `assignee` (object)
+                            + `type`: `user` (enum[string])
+                                + Members
+                                    + `team`
+                                    + `user`
+                            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                        + `assign_type`: `manual` (enum)
+                            + Members
+                                + `manual`
+                + `start_date`: `2023-01-18` (string, nullable)
+                + `end_date`: `2023-03-22` (string, nullable)
+                + `time_estimated` (object, nullable) - Value in seconds, rounded to the nearest minute.
+                    + `value`: 28800 (number)
+                    + `unit`: `seconds` (enum[string])
+                        + Members
+                            + `seconds`
+                + `time_tracked` (object, nullable) - The total of all time tracked for this task.
+                    + `value`: 21100 (number)
+                    + `unit`: `seconds` (enum[string])
+                        + Members
+                            + `seconds`
+
+### tasks.info [POST /projects-v2/tasks.info]
+
+Returns all the information for one task.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string)
+            + `project` (object)
+                + `type`: `nextgenProject` (string)
+                + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+            + `group` (object, nullable) - If `null`, the task is not in any group.
+                + `type`: `nextgenProjectGroup` (string)
+                + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
+            + `work_type` (object, nullable) - If null, the task does not have a specific work type.
+                + `type`: `workType` (string)
+                + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
+            + `task_type` (object, nullable) - DEPRECATED - Use `work_type` instead.
+                + `type`: `workType` (string)
+                + `id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string)
+            + `status`: `in_progress` (enum[string])
+                + Members
+                    + `to_do`
+                    + `in_progress`
+                    + `on_hold`
+                    + `done`
+            + `title`: `Write API documentation` (string)
+            + `description`: `I buy a house and garden somewhere, along a country road a piece` (string, nullable)
+            + `billing_method`: `user_rate` (enum[string])
+                + Members
+                    + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
+                    + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
+                    + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
+                    + `fixed_price`
+                    + `parent_fixed_price` - The parent project or group must be `fixed_price`.
+                    + `non_billable`
+            + `billing_status`: `not_billable` (enum[string])
+                + Members
+                    + `not_billable`
+                    + `not_billed`
+                    + `partially_billed`
+                    + `fully_billed`
+            + `custom_rate` (Money, nullable) - Null if the `billing_method` is anything other than `custom_rate`.
+            + `amount_billed` (Money, nullable)
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
+            + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+            + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+            + `price` (Money, nullable)
+            + `unit_price` (Money) - The average of the external hourly rate
+            + `fixed_price` (Money, nullable)
+            + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `unit_cost` (Money) - The average of the internal hourly rate, `null` if the user does not have access to "Costs on projects"
+            + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+            + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `assignees` (array)
+                + (object)
+                    + `assignee` (object)
+                        + `type`: `user` (enum[string])
+                            + Members
+                                + `team`
+                                + `user`
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                    + `assign_type`: `manual` (enum)
+                        + Members
+                            + `manual`
+            + `start_date`: `2023-01-18` (string, nullable)
+            + `end_date`: `2023-03-22` (string, nullable)
+            + `time_estimated` (object, nullable) - Value in seconds, rounded to the nearest minute.
+                + `value`: 28800 (number)
+                + `unit`: `seconds` (enum[string])
+                    + Members
+                        + `seconds`
+            + `time_tracked` (object, nullable) - The total of all time tracked for this task.
+                + `value`: 21100 (number)
+                + `unit`: `seconds` (enum[string])
+                    + Members
+                        + `seconds`
+
+### tasks.create [POST /projects-v2/tasks.create]
+
+Create a task. All properties except for `title` and `project_id` are optional.
+
++ Request (application/json)
+    + Attributes (object)
+        + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
+        + `title`: `My task` (string, required)
+        + `group_id`: `0185968b-2c9e-73fd-9ce1-a12c0979783b` (string) - If omitted the task is not added to a group.
+        + `work_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, optional) - Cannot be null if `billing_method` is `task_type_rate`.
+        + `task_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, optional) - DEPRECATED - Use `work_type_id` instead.
+        + `description`: `But nothing is any good without you cause baby you are my centerpiece` (string, optional)
+        + `billing_method`: `fixed_price` (enum[string], optional)
+            + Members
+                + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
+                + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
+                + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
+                + `fixed_price`
+                + `parent_fixed_price` - The parent project or group must be `fixed_price`.
+                + `non_billable`
+        + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`.
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
+        + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost.
+        + `custom_rate` (Money, optional) - Can only be provided if `billing_method` is `custom_rate`.
+        + `start_date`: `2023-01-18` (string, optional)
+        + `end_date`: `2023-03-22` (string, optional)
+        + `time_estimated` (object, optional)
+            + `value`: `480` (number, required)
+            + `unit`: `minutes` (enum[string], required)
+                + Members
+                    + `hours`
+                    + `minutes`
+                    + `seconds`
+        + `assignees` (array, optional)
+            + (object)
+                + `type`: `user` (enum[string], required)
+                    + Members
+                        + `user`
+                        + `team`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenTask` (string)
+           + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
+
+### tasks.update [POST /projects-v2/tasks.update]
+
+Update a task. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
+        + `work_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, nullable, optional) - Cannot be null if `billing_method` is `work_type_rate`.
+        + `task_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, nullable, optional) - DEPRECATED - Use `work_type_id` instead.
+        + `status`: `on_hold` (enum[string], optional)
+            + Members
+                + `to_do`
+                + `in_progress`
+                + `on_hold`
+                + `done`
+        + `title`: `Write API documentation` (string, optional)
+        + `description`: `But nothing is any good without you cause baby you are my centerpiece` (string, nullable, optional)
+        + `billing_method`: `fixed_price` (enum[string], optional)
+            + Members
+                + `user_rate` - Based on the rate of the user who tracked time and the amount of time tracked.
+                + `work_type_rate` - Based on the rate of the work type and the amount of time tracked.
+                + `custom_rate` - Based on the custom rate set on the task and the amount of time tracked.
+                + `fixed_price`
+                + `parent_fixed_price` - The parent project or group must be `fixed_price`.
+                + `non_billable`
+        + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`.
+        + `external_budget` (Money, nullable, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `user_rate`, `work_type_rate`, or `custom_rate`.
+        + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost.
+        + `custom_rate` (Money, nullable, optional) - Can only be provided if `billing_method` is `custom_rate`.
+        + `start_date`: `2023-01-18` (string, nullable, optional)
+        + `end_date`: `2023-03-22` (string, nullable, optional)
+        + `time_estimated` (object, nullable, optional)
+            + `value`: `480` (number, required)
+            + `unit`: `minutes` (enum[string], required)
+                + Members
+                    + `hours`
+                    + `minutes`
+                    + `seconds`
+
++ Response 204
+
+### tasks.duplicate [POST /projects-v2/tasks.duplicate]
+
+Duplicate a task, without its time trackings.
+
++ Request (application/json)
+    + Attributes (object)
+        + `origin_id`: `0186a6b5-32d9-73d4-a416-d9f86cba567d` (string, required) - The id of the task that is being duplicated
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenTask` (string)
+           + id: `0186a721-3879-729a-bf52-91576e0522f3` (string)
+
+### tasks.delete [POST /projects-v2/tasks.delete]
+
+Delete a task.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
+        + `delete_strategy`: `unlink_time_tracking` (enum[string], required)
+            + Members
+                + `unlink_time_tracking`
+                + `delete_time_tracking`
+
++ Response 204
+
+### tasks.assign [POST /projects-v2/tasks.assign]
+
+Assign a user or a team to a task.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### tasks.unassign [POST /projects-v2/tasks.unassign]
+
+Unassign a user or a team from a task.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+## Materials [/projects-v2/materials]
+
+*Required scopes: `projects`*
+
+### materials.list [POST /projects-v2/materials.list]
+
+Lists all the materials that match the optional filters provided.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object)
+            + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string])
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `39c64ba9-ebf1-491a-8486-a0b96ff21c07` (string)
+                + `project` (object)
+                    + `type`: `nextgenProject` (string)
+                    + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+                + `group` (object, nullable) - If `null`, the material is not in any group.
+                    + `type`: `nextgenProjectGroup` (string)
+                    + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
+                + `title`: `Metal studs` (string)
+                + `status`: `in_progress` (enum[string])
+                    + Members
+                        + `to_do`
+                        + `in_progress`
+                        + `on_hold`
+                        + `done`
+                + `billing_method`: `unit_price` (enum[string])
+                    + Members
+                        + `fixed_price`
+                        + `unit_price`
+                        + `non_billable`
+                + `billing_status`: `not_billable` (enum[string])
+                    + Members
+                        + `not_billable`
+                        + `not_billed`
+                        + `partially_billed`
+                        + `fully_billed`
+                + `quantity` (number, nullable)
+                + `unit_price` (Money, nullable)
+                + `unit_cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `unit` (object, nullable) - `null` if the default unit is used
+                    + `type`: `priceunit` (string)
+                    + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
+                + `amount_billed` (Money, nullable)
+                + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
+                + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+                + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+                + `price` (Money, nullable)
+                + `fixed_price` (Money, nullable)
+                + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+                + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+                + `assignees` (array)
+                    + (object)
+                        + `assignee` (object)
+                            + `type`: `user` (enum[string])
+                                + Members
+                                    + `team`
+                                    + `user`
+                            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                        + `assign_type`: `manual` (enum)
+                            + Members
+                                + `manual`
+                + `start_date`: `2023-01-18` (string, nullable)
+                + `end_date`: `2023-03-22` (string, nullable)
+                + `product` (object, nullable) - `null` if no product is coupled to the material
+                    + `type`: `product` (string)
+                    + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
+
+### materials.info [POST /projects-v2/materials.info]
+
+Returns all the information for one material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string)
+            + `project` (object)
+                + `type`: `nextgenProject` (string)
+                + `id`: `018536c0-bf23-77eb-81f5-10e87cad50bc` (string)
+            + `group` (object, nullable) - If `null`, the material is not in any group.
+                + `type`: `nextgenProjectGroup` (string)
+                + `id`: `eab232c6-49b2-4b7e-a977-5e1148dad471` (string)
+            + `title`: `WD-40® Multi-Use Product Industrial Size` (string)
+            + `description`: `Protects metal from rust and corrosion, penetrates stuck parts, displaces moisture and lubricates almost anything.` (string, nullable) - Can be `null`.
+            + `status`: `in_progress` (enum[string])
+                + Members
+                    + `to_do`
+                    + `in_progress`
+                    + `on_hold`
+                    + `done`
+            + `billing_method`: `unit_price` (enum[string])
+                + Members
+                    + `fixed_price`
+                    + `unit_price`
+                    + `non_billable`
+            + `billing_status`: `not_billable` (enum[string])
+                + Members
+                    + `not_billable`
+                    + `not_billed`
+                    + `partially_billed`
+                    + `fully_billed`
+            + `quantity` (number, nullable)
+            + `unit_price` (Money, nullable)
+            + `unit_cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `unit` (object, nullable) - `null` if the default unit is used
+                + `type`: `priceunit` (string)
+                + `id`: `f1b7ae71-b610-02e0-8a10-443c31597e11` (string)
+            + `amount_billed` (Money, nullable)
+            + `external_budget` (Money, nullable) - Also known as "budget". Value set by user to compare with price
+            + `external_budget_spent` (Money, nullable) - Simulated price if billing method were `time_and_materials` (dependent on type)
+            + `internal_budget` (Money, nullable) - Also known as "cost budget". Value set by user to compare with cost
+            + `price` (Money, nullable)
+            + `fixed_price` (Money, nullable)
+            + `cost` (Money, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `margin` (Money, nullable) - Can be a negative (less than zero) amount, `null` if the user does not have access to "Costs on projects"
+            + `margin_percentage` (number, nullable) - `null` if the user does not have access to "Costs on projects"
+            + `assignees` (array)
+                + (object)
+                    + `assignee` (object)
+                        + `type`: `user` (enum[string])
+                            + Members
+                                + `team`
+                                + `user`
+                        + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string)
+                    + `assign_type`: `manual` (enum)
+                        + Members
+                            + `manual`
+            + `start_date`: `2023-01-18` (string, nullable)
+            + `end_date`: `2023-03-22` (string, nullable)
+            + `product` (object, nullable) - `null` if no product is coupled to the material
+                + `type`: `product` (string)
+                + `id`: `85fd7319-b094-462a-ae78-ff94d6bcb226` (string)
+
+### materials.create [POST /projects-v2/materials.create]
+
+Create a material. All properties except for `title` and `project_id` are optional.
+
++ Request (application/json)
+    + Attributes (object)
+        + `project_id`: `49b403be-a32e-0901-9b1c-25214f9027c6` (string, required)
+        + `title`: `Some material` (string, required)
+        + `group_id`: `0185968b-2c9e-73fd-9ce1-a12c0979783b` (string) - If omitted the material is not added to a group.
+        + `after_id`: `8ba797aa-107d-4934-9511-2a043bf3f766` (string, nullable) - If `after_id` is null, material is placed on top of the project/group. If `after_id` is not provided, material is placed at the bottom of the project/group.
+        + `description`: `Protects metal from rust and corrosion, penetrates stuck parts, displaces moisture and lubricates almost anything.` (string, optional)
+        + `billing_method`: `unit_price` (enum[string], optional)
+           + Members
+               + `fixed_price`
+               + `unit_price`
+               + `non_billable`
+        + `quantity` (number, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_price` (Money, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_cost` (Money, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
+        + `unit_id`: `69cbfbf2-fefe-4f03-9269-3ddc79117f4d` (string, optional)
+        + `fixed_price` (Money, optional) - Can only be provided if `billing_method` is `fixed_price`
+        + `external_budget` (Money, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `internal_budget` (Money, optional) - Also known as "cost budget". Value set by user to compare with cost
+        + `start_date`: `2023-01-18` (string, optional)
+        + `end_date`: `2023-03-22` (string, optional)
+        + `product_id`: `1c5cf7a1-7248-469c-9dcd-9f0581321ec2` (string, optional)
+        + `assignees` (array, optional)
+            + (object)
+                + `type`: `user` (enum[string], required)
+                    + Members
+                        + `user`
+                        + `team`
+                + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenMaterial` (string)
+           + id: `b275487e-47d9-40b4-9cfe-5dfef77f4954` (string)
+
+### materials.update [POST /projects-v2/materials.update]
+
+Update a material. All attributes except for `id` are optional. Providing `null` will clear that value from the project (for properties that are nullable).
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `ff19a113-50ba-4afc-9fff-2e5c5c5a5485` (string, required)
+        + `title`: `WD-40® Multi-Use Product Industrial Size` (string, optional)
+        + `description`: `Protects metal from rust and corrosion, penetrates stuck parts, displaces moisture and lubricates almost anything.` (string, nullable, optional)
+        + `status`: `on_hold` (enum[string], optional)
+            + Members
+                + `to_do`
+                + `in_progress`
+                + `on_hold`
+                + `done`
+        + `billing_method`: `unit_price` (enum[string], optional)
+           + Members
+               + `fixed_price`
+               + `unit_price`
+               + `non_billable`
+        + `quantity` (number, nullable, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `unit_price`
+        + `unit_cost` (Money, nullable, optional) - Can only be provided if `billing_method` is `unit_price`. Access to "Costs on projects" is needed
+        + `unit_id` (string, nullable, optional)
+        + `fixed_price` (Money, nullable, optional) - Can only be provided if `billing_method` is `fixed_price`
+        + `external_budget` (Money, nullable, optional) - Also known as "budget". Value set by user to compare with price. Can only be provided if `billing_method` is `unit_price`
+        + `internal_budget` (Money, nullable, optional) - Also known as "cost budget". Value set by user to compare with cost
+        + `start_date`: `2023-01-18` (string, nullable, optional)
+        + `end_date`: `2023-03-22` (string, nullable, optional)
+        + `product_id`: `1c5cf7a1-7248-469c-9dcd-9f0581321ec2` (string, nullable, optional)
+
++ Response 204
+
+### materials.duplicate [POST /projects-v2/materials.duplicate]
+
+Duplicate a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `origin_id`: `0186a74b-b640-7458-9717-7c84356b26fd` (string, required) - The id of the material that is being duplicated
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+           + type: `nextgenMaterial` (string)
+           + id: `0186a2f3-32a5-7c81-b3a9-55809146ad0c` (string)
+
+### materials.delete [POST /projects-v2/materials.delete]
+
+Delete a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+
++ Response 204
+
+### materials.assign [POST /projects-v2/materials.assign]
+
+Assign a user or a team to a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
+### materials.unassign [POST /projects-v2/materials.unassign]
+
+Unassign a user or a team from a material.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + `assignee` (object, required)
+            + `type`: `user` (enum[string], required)
+                + Members
+                    + `user`
+                    + `team`
+            + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
+
++ Response 204
+
 # Group Tasks
 
 ## Tasks [/tasks]
@@ -4856,6 +7643,9 @@ Get a list of tasks.
                 + project (object, nullable)
                     + type: `project` (string)
                     + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+                + ticket (object, nullable)
+                    + `type`: `ticket` (string)
+                    + id: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, required)
                 + priority (Priority)
 
 ### tasks.info [POST /tasks.info]
@@ -4906,6 +7696,9 @@ Get information about a task.
             + project (object, nullable)
                 + type: `project` (string)
                 + id: `bbbb772b-e7ad-06c5-935c-b0f6ef61d6bc` (string)
+            + ticket (object, nullable)
+                + `type`: `ticket` (string)
+                + id: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, required)
             + custom_fields (array[CustomField])
             + priority (Priority)
 
@@ -4920,8 +7713,10 @@ Create a new task.
         + description (string)
         + due_on: `2016-02-04` (string, required)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, required)
-        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional) - Only available for users that have access to the old projects module
+        + project_id: `0185aa33-603c-7fd5-bf0d-5bd83d503b96` (string, optional) - Only available for users that have access to the new projects module
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + `ticket_id`: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, optional)
         + estimated_duration (object, optional)
             + unit (enum, required)
                 + Members
@@ -4962,6 +7757,7 @@ Update a task.
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + `ticket_id`: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, optional, nullable)
         + estimated_duration (object, optional)
             + unit (enum, required)
                 + Members
@@ -5367,6 +8163,326 @@ Update the current timer. Only possible if there is a timer running.
 
 + Response 204
 
+# Group Tickets
+
+## Tickets [/tickets]
+
+*Required scopes: `tickets`*
+
+### tickets.list [POST /tickets.list]
+
+Get a list of tickets.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1`, `21467288-3baa-0027-a910-cd952030dbc2` (array[string], optional)
+            + relates_to (object, optional) - Only lists tickets related to given type.
+                + type (enum, required)
+                    + Members
+                        + contact
+                        + company
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+            + exclude (object, optional)
+                + status_ids: `a344c251-2494-0013-b433-ccee8e8435e6`, `c11dc02c-3556-0daf-8035-c5b0376eb928` (array[string], optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + subject (string)
+                + status (object)
+                    + type: `ticketStatus` (string)
+                    + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
+                + assignee (object, nullable) - Null if unassigned
+                    + type: `user` (string)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + closed_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+                + customer (object)
+                    + type: `contact` (enum)
+                        + Members
+                            + company
+                            + contact
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + participant (object, nullable)
+                    + customer (object)
+                        + type: `company` (string)
+                        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + last_message_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+
+### tickets.info [POST /tickets.info]
+
+Get details for a single ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + subject (string)
+        + status (object)
+            + type: `ticketStatus` (string)
+            + id: `aba0ad66-bf59-49fa-b546-45dcbc5e7e6e` (string)
+        + assignee (object, nullable) - Null if unassigned
+            + type: `user` (string)
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + created_at: `2017-05-09T11:25:11+00:00` (string)
+        + closed_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+        + customer (object)
+            + type: `contact` (enum)
+                + Members
+                    + company
+                    + contact
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + participant (object, nullable)
+            + customer (object)
+                + type: `company` (string)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + last_message_at: `2017-05-09T11:25:11+00:00` (string, nullable)
+        + description: `My ticket details` (string)
+        + custom_fields (array[CustomField])
+
+
+### tickets.create [POST /tickets.create]
+
+Create a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + subject: `My ticket subject` (string, required)
+        + customer (object, required)
+            + type: `company` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, required)
+        + assignee (object, optional)
+            + type (enum[string], required)
+                + Members
+                    + `user`
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+        + description: `My ticket details` (string, optional) - Uses Markdown formatting
+        + participant (object, optional)
+            + customer (object, required)
+                + type (enum, required)
+                    + Members
+                        + `company`
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + initial_reply (enum, optional) - Create & send an initial autoreply according to configuration (default: automatic).
+            + Members
+                + `automatic`
+                + `disabled`
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `ticket` (string)
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
+
+### tickets.update [POST /tickets.update]
+
+Update a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + subject: `My ticket subject` (string, optional)
+        + description: `My ticket details` (string, optional) - Uses Markdown formatting
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
+        + customer (object, optional)
+            + type: `company` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + assignee (object, optional, nullable)
+            + type (enum[string], required)
+                + Members
+                    + `user`
+            + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + participant (object, optional, nullable)
+            + customer (object, required, nullable)
+                + type (enum, required)
+                    + Members
+                        + `company`
+                + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + custom_fields (array[CustomFieldValue], optional)
+
++ Response 204
+
+
+### tickets.listMessages [POST /tickets.listMessages]
+
+Lists messages of a ticket
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + filter (object, optional)
+            + type: `customer` (enum, optional)
+                + Members
+                    + customer
+                    + internal
+                    + thirdParty
+            + created_before: `2024-02-01T18:00:00+00:00` (string, optional)
+            + created_after: `2024-01-01T18:00:00+00:00` (string, optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + message_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + body: `<p>This is a message</p>` (string) - Uses HTML formatting
+                + type: `customer` (enum, optional)
+                    + Members
+                        + customer
+                        + internal
+                        + thirdParty
+                + created_at: `2017-05-09T11:25:11+00:00` (string)
+                + sent_by (object)
+                    + type: `contact` (enum)
+                        + Members
+                            + company
+                            + contact
+                            + user
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + attachments (array)
+                    + (object)
+                        + `type`: `file` (string)
+                        + `id`: `0686d0da-1797-475b-ae94-27191b2eca4d` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+           + page (Pagination)
+           + matches: `12` (number)
+
+
+### tickets.getMessage [POST /tickets.getMessage]
+
+Gets the ticket message.
+
++ Request (application/json)
+    + Attributes (object)
+        + message_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + message_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + body: `<p>This is a message</p>` (string) - Uses HTML formatting
+        + raw_body: `<p>This is a message</p>` (string)- Uses HTML formatting
+        + created_at: `2017-05-09T11:25:11+00:00` (string)
+        + sent_by (object)
+            + type: `contact` (enum)
+                + Members
+                    + company
+                    + contact
+                    + user
+            + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + attachments (array)
+           + (object)
+               + `type`: `file` (string)
+               + `id`: `0686d0da-1797-475b-ae94-27191b2eca4d` (string)
+        + type: `customer` (enum)
+            + Members
+                + customer
+                + internal
+                + thirdParty
+
+
+### tickets.importMessage [POST /tickets.importMessage]
+
+Imports an existing message to a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
+        + sent_by (object, required)
+            + `type`: `contact` (enum, required)
+                + Members
+                    + company
+                    + contact
+                    + user
+            + id: `4b3b07c6-a4bf-4c1b-9471-283fee71b049` (string, required)
+        + sent_at: `2024-02-29T11:11:11+00:00` (string, required)
+        + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `ticketMessage` (string)
+            + id: `e3de4c0d-787d-4720-b78f-af8df5c8182c` (string)
+
+
+### tickets.addReply [POST /tickets.addReply]
+
+Adds a message to a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
+        + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `ticketMessage` (string)
+            + id: `e3de4c0d-787d-4720-b78f-af8df5c8182c` (string)
+
+
+### tickets.addInternalMessage [POST /tickets.addInternalMessage]
+
+Adds an internal message to a ticket.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required)
+        + body: `<p>Hello world</p>` (string, required) - Uses HTML formatting
+        + ticket_status_id: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string, optional)
+        + `attachments`: `4f4288b2-c21b-4dac-87f6-a97511309079` (array[string], optional) - All files must have the ticket as a subject
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `ticketMessage` (string)
+            + id: `e3de4c0d-787d-4720-b78f-af8df5c8182c` (string)
+
+## Ticket Status [/ticketStatus]
+
+### ticketStatus.list [POST /ticketStatus.list]
+
+Get a list of ticket statuses.
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `46156648-87c6-478d-8aa7-1dc3a00dacab`, `46156648-87c6-478d-8aa7-1dc3a00daca4` (array[string], optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + `id`: `46156648-87c6-478d-8aa7-1dc3a00dacab` (string)
+                + `status`: `new` (enum)
+                    + Members
+                        + `new`
+                        + `open`
+                        + `waiting_for_client`
+                        + `escalated_thirdparty`
+                        + `closed`
+                        + `custom`
+                + `label`: `Custom Label` (string) - Only available for `custom` type of status.
+
 # Group Files
 
 ## Files [/files]
@@ -5380,7 +8496,7 @@ Get a list of files.
     + Attributes (object)
         + filter (object, required)
             + subject (object, required)
-                + type (enum[string], required)
+                + `type`: `company` (enum[string], required)
                     + Members
                         + company
                         + contact
@@ -5389,6 +8505,8 @@ Get a list of files.
                         + creditNote
                         + product
                         + project
+                        + nextgenProject
+                        + ticket
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + page (array, optional)
             + (object)
@@ -5416,13 +8534,15 @@ Get a list of files.
             + (object)
                 + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
                 + subject (object, nullable)
-                    + type: `company` (enum[string])
+                    + `type`: `company` (enum[string])
                         + Members
                             + company
                             + contact
                             + deal
                             + invoice
                             + creditNote
+                            + nextgenProject
+                            + ticket
                     + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
                 + name: `meeting-report.pdf` (string)
                 + mime_type (MimeType)
@@ -5446,7 +8566,7 @@ Get details for a single file.
         + data (object)
             + id: `a856642a-a476-4b69-8e42-e7d1badb2ce9` (string)
             + subject (object, nullable)
-                + type: `company` (enum[string])
+                + `type`: `company` (enum[string])
                     + Members
                         + company
                         + contact
@@ -5457,6 +8577,7 @@ Get details for a single file.
                         + order
                         + product
                         + project
+                        + nextgenProject
                         + ticket
                         + workOrder
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
@@ -5499,6 +8620,8 @@ Request the upload link for a file.
                     + deal
                     + invoice
                     + creditNote
+                    + nextgenProject
+                    + ticket
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
         + folder: `My monthly notes` (string, optional) - Name of a folder under which the file will be stored. Defaults to `General` in account's language if not passed.
 
@@ -5524,7 +8647,7 @@ Delete a file.
 
 ## Mail Templates [/mailTemplates]
 
-### mailTemplates.list [GET /mailTemplates.list]
+### mailTemplates.list [POST /mailTemplates.list]
 
 Get a list of all mail templates.
 
@@ -5696,6 +8819,29 @@ Unregister a webhook.
 
 + Response 204
 
+## Cloud Platforms [/cloudPlatforms]
+
+
+### cloudPlatforms.url [POST /cloudPlatforms.url]
+
+Fetch cloudPlatform url for type and id
+
++ Request (application/json)
+
+    + Attributes (object)
+        + type (enum, required)
+            + Members
+                + invoice
+                + quotation
+                + ticket
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + url: `https://teamleader.cloud/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.yUmR5yNZ45P_jHDbjAzuk4kRA8YNoM9ckSZOZpMIJmU/` (string)
+
 # Data Structures
 
 ## Telephone (object)
@@ -5737,33 +8883,34 @@ Unregister a webhook.
 + addressee: `Teamleader HQ` (string, optional)
 + Include AddressResponse
 
+## Currency (enum)
++ BAM
++ CAD
++ CHF
++ CLP
++ CNY
++ COP
++ CZK
++ DKK
++ EUR
++ GBP
++ INR
++ ISK
++ JPY
++ MAD
++ MXN
++ NOK
++ PEN
++ PLN
++ RON
++ SEK
++ TRY
++ USD
++ ZAR
+
 ## Money (object)
 + amount: `123.30` (number, required)
-+ currency: `EUR` (enum, required)
-    + Members
-        + BAM
-        + CAD
-        + CHF
-        + CLP
-        + CNY
-        + COP
-        + CZK
-        + DKK
-        + EUR
-        + GBP
-        + INR
-        + ISK
-        + JPY
-        + MAD
-        + MXN
-        + NOK
-        + PEN
-        + PLN
-        + RON
-        + SEK
-        + TRY
-        + USD
-        + ZAR
++ currency: `EUR` (Currency, required)
 
 ## Page
 + size: `20` (number, optional)
@@ -5823,6 +8970,10 @@ Unregister a webhook.
     + Members
         + account.deactivated
         + account.deleted
+        + call.added
+        + call.completed
+        + call.deleted
+        + call.updated
         + company.added
         + company.deleted
         + company.updated
@@ -5832,9 +8983,9 @@ Unregister a webhook.
         + contact.unlinkedFromCompany
         + contact.updated
         + creditNote.booked
-        + creditNote.updated
         + creditNote.deleted
         + creditNote.sent
+        + creditNote.updated
         + deal.created
         + deal.deleted
         + deal.lost
@@ -5848,12 +8999,24 @@ Unregister a webhook.
         + invoice.paymentRemoved
         + invoice.sent
         + invoice.updated
+        + meeting.created
+        + meeting.completed
+        + meeting.deleted
+        + meeting.updated
         + milestone.created
         + milestone.updated
+        + nextgenProject.created
+        + nextgenProject.updated
+        + nextgenProject.closed
+        + nextgenProject.deleted 
         + product.added
         + project.created
         + project.deleted
         + project.updated
+        + subscription.added
+        + subscription.deactivated
+        + subscription.deleted
+        + subscription.updated
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
@@ -5991,7 +9154,7 @@ Unregister a webhook.
 + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
 + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
 + unit_price (object, required)
-    + Include Money
+    + amount: `123.30` (number, required)
     + tax: `excluding` (enum, required)
         + Members
             + excluding
@@ -6047,8 +9210,8 @@ Unregister a webhook.
             + type: `product` (string)
             + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
         + product_category (object, nullable)
-            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
             + type: `productCategory` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
         + quantity: 3 (number)
         + description: `An awesome product` (string)
         + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
@@ -6056,7 +9219,7 @@ Unregister a webhook.
             + type: `unitOfMeasure` (string)
             + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
         + unit_price (object)
-            + Include Money
+            + amount: `123.30` (number)
             + tax: `excluding` (enum)
                 + Members
                     + excluding
@@ -6118,3 +9281,49 @@ Unregister a webhook.
     + `action`: `notify` (enum)
         + Members
             + `notify`
+
+## InvoiceGroupedLinesWrite (object)
++ section (object, optional)
+    + title (string, required)
++ line_items (array, required)
+    + (object)
+        + quantity: `3` (number, required)
+        + description: `An awesome product` (string, required)
+        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
+        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
+        + unit_price (object)
+            + amount: `123.30` (number, required)
+            + tax: `excluding` (enum)
+                + Members
+                    + excluding
+        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
+        + discount (object, optional)
+            + value: 10 (number, required)
+            + type (enum, required)
+                + Members
+                    + percentage - Values between 0 and 100
+        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
+        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+
+## NoteSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
++ `nextgenProject`
+
+## EmailTrackingSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
++ `nextgenProject`

@@ -144,6 +144,10 @@ Get details for a single subscription
                                 + email
                                 + postal_service
             + custom_fields (array[CustomField])
+            + document_template (object)
+                + type: `documentTemplate` (string)
+                + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+            + currency: `USD` (string)
 
 ### subscriptions.create [POST /subscriptions.create]
 
@@ -183,6 +187,7 @@ Create a new subscription.
         + payment_term (PaymentTerm, required)
         + invoice_generation (InvoiceGeneration, required)
         + custom_fields (array[CustomFieldValue], optional)
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 201 (application/json)
 
@@ -230,6 +235,7 @@ Update a subscription.
                     + (LineItem)
         + invoice_generation (InvoiceGeneration, optional)
         + custom_fields (array[CustomFieldValue], optional)
+        + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
 + Response 204
 

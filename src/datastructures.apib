@@ -39,33 +39,34 @@
 + addressee: `Teamleader HQ` (string, optional)
 + Include AddressResponse
 
+## Currency (enum)
++ BAM
++ CAD
++ CHF
++ CLP
++ CNY
++ COP
++ CZK
++ DKK
++ EUR
++ GBP
++ INR
++ ISK
++ JPY
++ MAD
++ MXN
++ NOK
++ PEN
++ PLN
++ RON
++ SEK
++ TRY
++ USD
++ ZAR
+
 ## Money (object)
 + amount: `123.30` (number, required)
-+ currency: `EUR` (enum, required)
-    + Members
-        + BAM
-        + CAD
-        + CHF
-        + CLP
-        + CNY
-        + COP
-        + CZK
-        + DKK
-        + EUR
-        + GBP
-        + INR
-        + ISK
-        + JPY
-        + MAD
-        + MXN
-        + NOK
-        + PEN
-        + PLN
-        + RON
-        + SEK
-        + TRY
-        + USD
-        + ZAR
++ currency: `EUR` (Currency, required)
 
 ## Page
 + size: `20` (number, optional)
@@ -125,6 +126,10 @@
     + Members
         + account.deactivated
         + account.deleted
+        + call.added
+        + call.completed
+        + call.deleted
+        + call.updated
         + company.added
         + company.deleted
         + company.updated
@@ -134,9 +139,9 @@
         + contact.unlinkedFromCompany
         + contact.updated
         + creditNote.booked
-        + creditNote.updated
         + creditNote.deleted
         + creditNote.sent
+        + creditNote.updated
         + deal.created
         + deal.deleted
         + deal.lost
@@ -150,12 +155,24 @@
         + invoice.paymentRemoved
         + invoice.sent
         + invoice.updated
+        + meeting.created
+        + meeting.completed
+        + meeting.deleted
+        + meeting.updated
         + milestone.created
         + milestone.updated
+        + nextgenProject.created
+        + nextgenProject.updated
+        + nextgenProject.closed
+        + nextgenProject.deleted 
         + product.added
         + project.created
         + project.deleted
         + project.updated
+        + subscription.added
+        + subscription.deactivated
+        + subscription.deleted
+        + subscription.updated
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
@@ -293,7 +310,7 @@
 + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
 + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
 + unit_price (object, required)
-    + Include Money
+    + amount: `123.30` (number, required)
     + tax: `excluding` (enum, required)
         + Members
             + excluding
@@ -349,8 +366,8 @@
             + type: `product` (string)
             + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
         + product_category (object, nullable)
-            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
             + type: `productCategory` (string)
+            + id: `e2314517-3cab-4aa9-8471-450e73449041` (string)
         + quantity: 3 (number)
         + description: `An awesome product` (string)
         + extended_description: `Some more information about this awesome product` (string, nullable) - Uses Markdown formatting
@@ -358,7 +375,7 @@
             + type: `unitOfMeasure` (string)
             + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
         + unit_price (object)
-            + Include Money
+            + amount: `123.30` (number)
             + tax: `excluding` (enum)
                 + Members
                     + excluding
@@ -420,3 +437,49 @@
     + `action`: `notify` (enum)
         + Members
             + `notify`
+
+## InvoiceGroupedLinesWrite (object)
++ section (object, optional)
+    + title (string, required)
++ line_items (array, required)
+    + (object)
+        + quantity: `3` (number, required)
+        + description: `An awesome product` (string, required)
+        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
+        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
+        + unit_price (object)
+            + amount: `123.30` (number, required)
+            + tax: `excluding` (enum)
+                + Members
+                    + excluding
+        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
+        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
+        + discount (object, optional)
+            + value: 10 (number, required)
+            + type (enum, required)
+                + Members
+                    + percentage - Values between 0 and 100
+        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
+        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+
+## NoteSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
++ `nextgenProject`
+
+## EmailTrackingSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
++ `nextgenProject`

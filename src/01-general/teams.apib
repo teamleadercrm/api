@@ -11,6 +11,19 @@
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
             + term: `Designers` (string, optional) - Filters on name
             + team_lead_id: `6a9106c3-ed2a-46a2-a919-eb3d41165dd2` (string) - Filters on teams for which a user is team lead for
+        + sort (array, optional)
+            + (object)
+                + field (enum, required)
+                    + Members
+                        + name
+                + order (enum, optional)
+                    + Members
+                        + asc
+                        + desc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json)
     + Attributes (object)

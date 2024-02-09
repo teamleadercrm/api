@@ -1,0 +1,24 @@
+## Payment Methods [/paymentMethods]
+
+### paymentMethods.list [POST /paymentMethods.list]
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + ids: `852bb293-9a61-05cb-ba3e-560212661144`, `1e8e3758-2c67-074a-911b-a93dd2a6af19` (array[string], optional)
+            + status (array[enum], optional) - Filters on status
+                + Members
+                    + active
+                    + archived
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `49b403be-a32e-0901-9b1c-25214f9027c6` (string)
+                + name: `Coupons` (string)
+                + status (enum, required)
+                    + Members
+                        + active
+                        + archived

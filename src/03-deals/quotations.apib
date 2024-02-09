@@ -43,8 +43,15 @@ Get a list of quotations.
                     + Members
                         + open
                         + accepted
+                        + expired
                         + rejected
                         + closed
+                + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
+                    + expires_after: `2023-04-05` (string)
+                    + action_after_expiry (enum[string])
+                        + Members
+                            + lock
+                            + none
 
 ### quotations.info [POST /quotations.info]
 
@@ -97,6 +104,7 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+            + currency: `USD` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
                 + to: `EUR` (string)
@@ -117,11 +125,18 @@ Get a quotation
                 + Members
                     + open
                     + accepted
+                    + expired
                     + rejected
                     + closed
             + document_template (object)
                 + type: `documentTemplate` (string)
                 + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
+            + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
+                + expires_after: `2023-04-05` (string)
+                + action_after_expiry (enum[string])
+                    + Members
+                        + lock
+                        + none
 
 ### quotations.download [POST /quotations.download]
 
@@ -150,6 +165,9 @@ Create a quotation.
 
     + Attributes (object)
         + deal_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac8` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -161,7 +179,7 @@ Create a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -176,6 +194,12 @@ Create a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 201 (application/json)
 
@@ -243,6 +267,9 @@ Update a quotation.
 
     + Attributes (object)
         + id: `5b16f6ee-e302-0079-901b-50c26c4a55b1` (string, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + `grouped_lines` (array, optional) - A quotation needs `grouped_lines` and/or `text` to be valid
             + (object)
                 + section (object, optional)
@@ -254,7 +281,7 @@ Update a quotation.
                         + extended_description: `Some more information about this awesome product` (string, optional) - Uses Markdown formatting
                         + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
                         + unit_price (object, required)
-                            + Include Money
+                            + amount: `123.30` (number)
                             + tax: `excluding` (enum, required)
                                 + Members
                                     + excluding
@@ -269,6 +296,12 @@ Update a quotation.
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+        + expiry (object) - only available if user has access to quotation expiry
+            + expires_after: `2023-04-05` (string, nullable)
+            + action_after_expiry (enum[string], required)
+                + Members
+                    + lock
+                    + none
 
 + Response 204
 

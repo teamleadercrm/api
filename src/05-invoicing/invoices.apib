@@ -18,6 +18,7 @@ Get a list of invoices.
             + `department_id`: `af48fe9e-d44c-0eac-8813-8be051b10921` (string, optional) - Filters on a department (company entity)
             + `deal_id`: `4a219dae-7b80-4c79-97d2-bdadbab299ba` (string, optional) - Filters on a deal
             + `project_id`: `ba7d9731-c7d0-43d3-af95-fd7b3e818dbc` (string, optional) - Filters on a project
+            + `subscription_id`: `8631bbbf-bead-4f6e-a2ab-58ec9bbd997a` (string, optional) - Filters on a subscription
             + `status` (array[enum], optional) - The statuses you want to filter by.
                 + Members
                     + draft
@@ -27,7 +28,7 @@ Get a list of invoices.
             + `purchase_order_number`: `000023` (string, optional)
             + `payment_reference`: `+++084/2613/66074+++` (string, optional)
             + `invoice_date_after`: `2020-01-01` (string, optional) - This date is inclusive
-            + `invoice_date_before`: `2022-01-01` (string, optional) - This date is exclusive
+            + `invoice_date_before`: `2022-01-01` (string, optional) - This date is inclusive
             + `customer` (object, optional)
                 + type (enum, required)
                     + Members
@@ -49,6 +50,7 @@ Get a list of invoices.
                 + (object)
                     + field: `invoice_number`
                     + order: `asc`
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
 
 + Response 200 (application/json)
 
@@ -93,6 +95,9 @@ Get a list of invoices.
                             + taxable (Money)
                             + tax (Money)
                     + due (Money)
+                    + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                    + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                    + interest (Money) - Only included with request parameter `includes=late_fees`
                 + currency_exchange_rate (object)
                     + from: `USD` (string)
                     + to: `EUR` (string)
@@ -118,6 +123,8 @@ Get details for a single invoice.
 
     + Attributes (object)
         + id: `27300f09-6250-4a23-8557-d84c52f99ecf` (string)
+        + includes: `late_fees` (string, optional) - when used, the response will include `totals.due_incasso_inclusive`, `totals.fixed_late_fee` and `totals.interest`
+
 
 + Response 200 (application/json)
 
@@ -172,7 +179,7 @@ Get details for a single invoice.
                                 + type: `unitOfMeasure` (string)
                                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
                             + unit_price (object)
-                                + Include Money
+                                + amount: `123.30` (number)
                                 + tax: `excluding` (enum)
                                     + Members
                                         + excluding
@@ -209,6 +216,9 @@ Get details for a single invoice.
                         + withheld (Money)
                 + payable (Money)
                 + due (Money)
+                + due_incasso_inclusive (Money) - Only included with request parameter `includes=late_fees`
+                + fixed_late_fee (Money) - Only included with request parameter `includes=late_fees`
+                + interest (Money) - Only included with request parameter `includes=late_fees`
             + payment_term (PaymentTerm)
             + payments (array)
                 + (object)
@@ -217,6 +227,7 @@ Get details for a single invoice.
                         + Include Money
             + payment_reference: `+++084/2613/66074+++` (string, nullable)
             + note: `'Some extra remarks about the invoice'` (string, nullable) - plaintext
+            + currency: `USD` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
                 + to: `EUR` (string)
@@ -279,32 +290,12 @@ Draft a new invoice.
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + department_id: `cef01135-7e51-4f6f-a6eb-6e5e5a885ac7` (string, required)
         + payment_term (PaymentTerm, required)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
-        + grouped_lines (array, required)
-            + (object)
-                + section (object, optional)
-                    + title (string, required)
-                + line_items (array, required)
-                    + (object)
-                        + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
-                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
-                        + unit_price (object, required)
-                            + Include Money
-                            + tax: `excluding` (enum, required)
-                                + Members
-                                    + excluding
-                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
-                        + discount (object, optional)
-                            + value: 10 (number, required)
-                            + type (enum, required)
-                                + Members
-                                    + percentage - Values between 0 and 100
-                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
-                        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], required)
         + invoice_date: `2016-02-04` (string, optional)
         + discounts (array[CommercialDiscount], optional)
         + note: `Invoice comments` (string, optional)
@@ -339,38 +330,46 @@ Update a draft invoice. Booked invoices cannot be updated.
                     + name `Finance Dept.` (string, required)
                     + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
         + payment_term (PaymentTerm, optional)
+        + currency (object)
+            + code: `EUR` (Currency, required)
+            + exchange_rate: `1.1238` (number)
         + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
         + purchase_order_number: `000023` (string, optional)
-        + grouped_lines (array, optional)
-            + (object)
-                + section (object, optional)
-                    + title (string, required)
-                + line_items (array, required)
-                    + (object)
-                        + quantity: `3` (number, required)
-                        + description: `An awesome product` (string, required)
-                        + extended_description: `Some more information about this awesome product` (string, optional, nullable) - Uses Markdown formatting
-                        + unit_of_measure_id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string, optional, nullable)
-                        + unit_price (object)
-                            + Include Money
-                            + tax: `excluding` (enum)
-                                + Members
-                                    + excluding
-                        + tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585823` (string, required)
-                        + withholding_tax_rate_id: `c0c03f1e-77e3-402c-a713-30ea1c585824` (string, optional)
-                        + discount (object, optional)
-                            + value: 10 (number, required)
-                            + type (enum, required)
-                                + Members
-                                    + percentage - Values between 0 and 100
-                        + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
-                        + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
         + invoice_date: `2016-02-04` (string, optional)
         + note: `Some comments about the invoice` (string, optional, nullable)
         + discounts (array[CommercialDiscount], optional)
         + expected_payment_method (ExpectedPaymentMethod, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
+
++ Response 204
+
+### invoices.updateBooked [POST /invoices.updateBooked]
+
+Update a booked invoice. Only available when editing booked invoices is allowed through the settings.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `b7023c11-455e-4fa5-bb96-87f37dbc7d07` (string, required)
+        + invoicee (object, optional)
+            + customer (object, required)
+                + type (enum)
+                    + Members
+                        + contact
+                        + company
+                + id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string)
+            + for_attention_of (object, optional)
+                + One Of
+                    + name `Finance Dept.` (string, required)
+                    + contact_id: `417a2231-c3c7-4e1c-a6bb-1b014836ca60` (string, required)
+        + payment_term (PaymentTerm, optional)
+        + project_id: `624ca743-8998-4f8c-add1-c427bb022166` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], optional)
+        + invoice_date: `2016-02-04` (string, optional)
+        + note: `Some comments about the invoice` (string, optional, nullable)
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 
@@ -424,6 +423,7 @@ Register a payment for an invoice.
         + payment (object, required)
             + Include Money
         + paid_at: `2016-03-03T16:44:33+00:00` (string, required)
+        + payment_method_id: `bb9589ec-6e08-0d5f-9b23-7be9b9c3ea2d` (string, optional)
 
 + Response 204
 
@@ -446,6 +446,26 @@ Credit an invoice completely.
     + Attributes (object)
         + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
         + credit_note_date: `2016-02-04` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `d885e5d5-bacb-4607-bde9-abc4a04a901c` (string)
+
+
+### invoices.creditPartially [POST /invoices.creditPartially]
+
+Credit an invoice partially.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `d885e5d5-bacb-4607-bde9-abc4a04a901b` (string, required)
+        + credit_note_date: `2016-02-04` (string, optional)
+        + grouped_lines (array[InvoiceGroupedLinesWrite], required)
+        + discounts (array[CommercialDiscount], optional)
 
 + Response 201 (application/json)
 
