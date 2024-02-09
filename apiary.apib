@@ -431,6 +431,8 @@ We list all backwards-compatible additions here. These are currently available i
 - We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
 - We added the `initial_reply` to `tickets.create` endpoint.
 - We added the `emailTracking.list` endpoint.
+- We added `deal_id` to `calls.add` and `calls.update`.
+- We added `deal` to `calls.list` and `calls.info`.
 
 #### January 2024
 - We renamed `task_type` and `task_type_id` to `work_type` and `work_type_id` in `projects-v2/tasks.list`, `projects-v2/tasks.info`, `projects-v2/tasks.create` and `projects-v2/tasks.update`. The old names are still supported, but deprecated.
@@ -3804,6 +3806,9 @@ Get a list of calls.
                     + Members
                         + `open`
                         + `completed`
+                + deal (object, nullable)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                    + type: `deal` (string)
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
@@ -3844,6 +3849,9 @@ Get information about a call.
                 + Members
                     + `open`
                     + `completed`
+            + deal (object, nullable)
+                + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + type: `deal` (string)
             + custom_fields (array[CustomField])
 
 ### calls.add [POST /calls.add]
@@ -3867,6 +3875,7 @@ Add a new call.
                 + Members
                     + user
             + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + deal_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
@@ -3898,6 +3907,7 @@ Update a new call.
                 + Members
                     + user
             + id: `98b2863e-7b01-4232-82f5-ede1f0b9db22` (string, required)
+        + deal_id: `f29abf48-337d-44b4-aad4-585f5277a456` (string, nullable, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204 (application/json)
