@@ -433,6 +433,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `emailTracking.list` endpoint.
 - We added `deal_id` to `calls.add` and `calls.update`.
 - We added `deal` to `calls.list` and `calls.info`.
+- We added `task.created`, `task.updated`, `task.completed`, `task.deleted` types to supported Webhook types.
 - We added `contact.updatedLinkToCompany` to supported Webhook types.
 
 #### January 2024
@@ -9016,6 +9017,10 @@ Fetch cloudPlatform url for type and id
         + subscription.deactivated
         + subscription.deleted
         + subscription.updated
+        + task.completed
+        + task.created
+        + task.deleted
+        + task.updated
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
