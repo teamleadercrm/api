@@ -534,6 +534,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `currencies.exchangeRates` endpoint.
 - We added `document_template` to `subscriptions.info`.
 - We added `document_template_id` to `subscriptions.create` and `subscriptions.update`.
+- We added `deal` as a link type to `events.create` and `events.update`.
 
 #### June 2023
 
@@ -4104,6 +4105,7 @@ Create a new calendar event.
                     + Members
                         + company
                         + contact
+                        + deal - Only available for events of type meeting or call
                 + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 201 (application/json)
@@ -4140,6 +4142,7 @@ Update a calendar event.
                     + Members
                         + company
                         + contact
+                        + deal - Only available for events of type meeting or call
                 + id: `c9258836-f9a5-40cb-aa2a-d55c22991b93` (string, required)
 
 + Response 204
