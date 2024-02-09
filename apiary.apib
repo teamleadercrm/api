@@ -429,6 +429,7 @@ We list all backwards-compatible additions here. These are currently available i
 #### February 2024
 - We added the `tickets.importMessage`, `tickets.addReply` and `tickets.addInternalMessage` endpoints.
 - We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
+- We added the `initial_reply` to `tickets.create` endpoint.
 - We added the `emailTracking.list` endpoint.
 
 #### January 2024
@@ -8261,6 +8262,10 @@ Create a ticket.
                     + Members
                         + `company`
                 + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string, required)
+        + initial_reply (enum, optional) - Create & send an initial autoreply according to configuration (default: automatic).
+            + Members
+                + `automatic`
+                + `disabled`
 
 + Response 201 (application/json)
 
