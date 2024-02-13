@@ -39,7 +39,7 @@ If the user denies your integration, he will be redirected to the `redirect_uri`
 
 ### Obtaining access tokens
 
-After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance. To exchange the code for an access token, send an HTTP POST request to the following endpoint:
+After receiving the authorization code from the previous step, an access token can be requested to make API calls. Note that authorization codes can only be exchanged for an access token once and expires one hour after issuance. To exchange the code for an access token, send an HTTP POST request to the following endpoint:
 
 `https://focus.teamleader.eu/oauth2/access_token`
 
