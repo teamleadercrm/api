@@ -92,6 +92,7 @@ Get details for a single company.
 
     + Attributes (object)
         + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5` (string, required)
+        + includes: `related_companies,related_contacts` (string, optional) - when used, the response will include `related_companies` and/or `related_contacts`
 
 + Response 200 (application/json)
 
@@ -143,6 +144,18 @@ Get details for a single company.
             + tags: prospect, expo (array[string])
             + custom_fields (array[CustomField])
             + marketing_mails_consent: false (boolean)
+            + `related_companies` (array) - Only included with request parameter `includes=related_companies`
+                + (object)
+                    + type: `company` (string)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+            + `related_contacts` (array) - Only included with request parameter `includes=related_contacts`
+                + (object)
+                    + type: `contact` (string)
+                    + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                    + position: `Developer` (string, nullable)
+                    + secondary_position: `Technical lead` (string, nullable)
+                    + division: `Engineering` (string, nullable)
+                    + is_decision_maker: false (boolean)
 
 ### companies.add [POST /companies.add]
 
