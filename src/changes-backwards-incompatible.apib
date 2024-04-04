@@ -11,7 +11,8 @@ As of October 1st 2023, we expect all network clients to make use of TLS 1.2 or 
 
  - When updating events through `events.update`, links to deals must also be provided otherwise existing deal link(s) will be removed.
 
- - `Currency` is no longer supported or validated on line items for invoices, quotations, subscriptions & credit notes endpoints. Instead, it will be supported on the document level for
+ - `unit_price.currency` is no longer returned for line items on the response of `invoices.info`, `subscriptions.info`, `quotations.info` and `creditNotes.info`.
+ - `unit_price.currency` is no longer supported or validated on line items for invoices, quotations, subscriptions & credit notes endpoints. Instead, it will be supported on the document level for
   - `invoices.draft`
   - `invoices.update`
   - `quotations.create`
