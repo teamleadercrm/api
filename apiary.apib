@@ -426,6 +426,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### April 2024
+- The meeting property `project` returned in `meetings.list` and `meetings.info` can now be an id of a `nextgenProject` as well.
+
 #### February 2024
 - We added the `tickets.importMessage`, `tickets.addReply` and `tickets.addInternalMessage` endpoints.
 - We now support `ticket` as a valid `type` on the `cloudPlatforms.url` endpoint.
