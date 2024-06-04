@@ -428,6 +428,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
+- We added the `daysOff.import` endpoint.
 
 #### April 2024
 - The meeting property `project` returned in `meetings.list` and `meetings.info` can now be an id of a `nextgenProject` as well.
@@ -1817,6 +1818,23 @@ Returns a list of day off types for the account
                 + `id`: `39263c14-9c16-022d-8513-60cf722ab088` (string)
                 + `name`: `Sick leave` (string)
 
+
+## Days Off [/daysOff]
+
+### daysOff.import [POST /daysOff.import]
+
+Imports a list of days off for the given user.
+
++ Request (application/json)
+    + Attributes (object)
+        + `user_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required) - The id of the user that the days off belong to.
+        + `leave_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, required) - The id of the leave type that is associated with the given days off.
+        + `days` (array, required) - at least one day must be present
+            + (object)
+                + `starts_at`: `2024-02-01T08:00:00+00:00` (string, required)
+                + `ends_at`: `2024-02-01T18:00:00+00:00` (string, required)
+
++ Response 201 (application/json)
 
 # Group CRM
 
