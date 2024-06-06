@@ -426,6 +426,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### June 2024
+- We added the `/dayOffTypes.delete` endpoint.
+
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
 - We added `product.updated` and `product.deleted` to supported Webhook types.
@@ -1818,6 +1821,15 @@ Returns a list of day off types for the account
                 + `id`: `39263c14-9c16-022d-8513-60cf722ab088` (string)
                 + `name`: `Sick leave` (string)
 
+### dayOffTypes.delete [POST /dayOffTypes.delete]
+
+Delete a day off type.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `1b7cece0-288c-0bbe-b916-5a315fbe9fe2` (string, required)
+
++ Response 204
 
 # Group CRM
 
