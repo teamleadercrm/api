@@ -426,6 +426,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### June 2024
+- We added `tax` to the `products.info` endpoint.
+
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
 - We added `product.updated` and `product.deleted` to supported Webhook types.
@@ -5396,6 +5399,9 @@ Get details for a single product.
             + unit (object, nullable)
                 + type: `unitOfMeasure` (string)
                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
+            + tax (object, nullable)
+                + type: `taxRate` (string)
+                + id: `df444ced-3129-0916-8f40-07ae5832bf98` (string)
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
             + product_category (object, nullable)
