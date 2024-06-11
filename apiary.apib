@@ -427,6 +427,7 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### June 2024
+- We added `tax` to the `products.info` endpoint.
 - We added the `daysOff.import` endpoint.
 
 #### May 2024
@@ -5416,6 +5417,9 @@ Get details for a single product.
             + unit (object, nullable)
                 + type: `unitOfMeasure` (string)
                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
+            + tax (object, nullable)
+                + type: `taxRate` (string)
+                + id: `df444ced-3129-0916-8f40-07ae5832bf98` (string)
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
             + product_category (object, nullable)
@@ -8797,7 +8801,7 @@ Translates an ID from the deprecated API into a new UUID.
                 + subscription
                 + quotation
                 + timeTracking
-                + customFieldDefinition
+                + customField
         + id: `1` (number)
 
 + Response 200 (application/json)
