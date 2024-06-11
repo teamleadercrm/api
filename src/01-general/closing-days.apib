@@ -1,8 +1,18 @@
 ## Closing Days [/closingDays]
 
+### closingDays.add [POST /closingDays.add]
+
+Adds a closing day for the account.
+
++ Request (application/json)
+    + Attributes (object)
+        + `day`: `2024-02-01` (string, required)
+
++ Response 201 (application/json)
+
 ### closingDays.list [POST /closingDays.list]
 
-Returns information about closing days the account
+Returns information about closing days of the account
 
 + Request (application/json)
     + Attributes (object)
