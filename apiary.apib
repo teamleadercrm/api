@@ -428,6 +428,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
+- We added the `/dayOffTypes.create` endpoint.
 
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
@@ -1821,6 +1822,19 @@ Returns a list of day off types for the account
                 + `id`: `39263c14-9c16-022d-8513-60cf722ab088` (string)
                 + `name`: `Sick leave` (string)
 
+### dayOffTypes.create [POST /dayOffTypes.create]
+
+Create a new day off type.
+
++ Request (application/json)
+    + Attributes (object)
+        + name: `day off type` (string, required)
+        + color: `#00B2B2` (string, nullable, optional)
+        + date_validity (object, optional)
+            + from: `2024-04-04` (string, optional)
+            + unit: `2025-05-05` (string, optional)
+
++ Response 204 (application/json)
 
 # Group CRM
 
