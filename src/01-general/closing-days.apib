@@ -14,6 +14,16 @@ Adds a closing day for the account.
             + type: `closingDay` (string)
             + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
 
+### closingDays.delete [POST /closingDays.delete]
+
+Removes a closing day for the account.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
++ Response 204
+
 ### closingDays.list [POST /closingDays.list]
 
 Returns information about closing days of the account

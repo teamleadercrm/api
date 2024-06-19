@@ -430,6 +430,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `tax` to the `products.info` endpoint.
 - We added the `daysOff.import` endpoint.
 - We added the `closingDays.add` endpoint.
+- We added the `closingDays.delete` endpoint.
 
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
@@ -1799,6 +1800,16 @@ Adds a closing day for the account.
         + data (object)
             + type: `closingDay` (string)
             + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
+### closingDays.delete [POST /closingDays.delete]
+
+Removes a closing day for the account.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
++ Response 204
 
 ### closingDays.list [POST /closingDays.list]
 
