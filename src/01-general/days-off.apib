@@ -1,0 +1,16 @@
+## Days Off [/daysOff]
+
+### daysOff.import [POST /daysOff.import]
+
+Imports a list of days off for the given user.
+
++ Request (application/json)
+    + Attributes (object)
+        + `user_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required) - The id of the user that the days off belong to.
+        + `leave_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, required) - The id of the leave type that is associated with the given days off.
+        + `days` (array, required) - At least one day must be present
+            + (object)
+                + `starts_at`: `2024-02-01T08:00:00+00:00` (string, required)
+                + `ends_at`: `2024-02-01T18:00:00+00:00` (string, required)
+
++ Response 201 (application/json)
