@@ -429,6 +429,7 @@ We list all backwards-compatible additions here. These are currently available i
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
 - We added the `daysOff.import` endpoint.
+- We added the `closingDays.add` endpoint.
 
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
@@ -1785,9 +1786,23 @@ Create a new email tracking.
 
 ## Closing Days [/closingDays]
 
+### closingDays.add [POST /closingDays.add]
+
+Adds a closing day for the account.
+
++ Request (application/json)
+    + Attributes (object)
+        + `day`: `2024-02-01` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `closingDay` (string)
+            + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
 ### closingDays.list [POST /closingDays.list]
 
-Returns information about closing days the account
+Returns information about closing days of the account
 
 + Request (application/json)
     + Attributes (object)
