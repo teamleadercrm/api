@@ -428,7 +428,9 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
-- We added the `daysOff.import`, `daysOff.bulkDelete`, `dayOffTypes.create`, `dayOffTypes.delete`, `closingDays.add` and `closingDays.delete` endpoints.
+- We added the `daysOff.import` and `daysOff.bulkDelete` endpoints.
+- We added the `dayOffTypes.create` and `dayOffTypes.delete` endpoints.
+- We added the `closingDays.add` and `closingDays.delete` endpoints.
 
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
@@ -1785,6 +1787,27 @@ Create a new email tracking.
 
 ## Closing Days [/closingDays]
 
+### closingDays.list [POST /closingDays.list]
+
+Returns information about closing days of the account
+
++ Request (application/json)
+    + Attributes (object)
+        + filter (object, optional)
+            + date_before: `2023-12-31` (string, optional) - Start of the period for which to return closing days. This includes closing days starting on the date provided.
+            + date_after: `2023-12-01` (string, optional) - End of the period for which to return closing days. This includes closing days ending on the date provided.
+        + page (Page, optional)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + `data` (array)
+            + (object)
+                + `id`: `05676ac4-c61d-42bf-a3ea-a420fc1ec017` (string)
+                + `date`: `2023-12-21` (string)
+        + meta (object) - Only included with request parameter `includes=pagination`
+            + page (Pagination)
+            + matches: `12` (number)
+
 ### closingDays.add [POST /closingDays.add]
 
 Adds a closing day for the account.
@@ -1808,28 +1831,6 @@ Removes a closing day for the account.
         + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
 
 + Response 204
-
-### closingDays.list [POST /closingDays.list]
-
-Returns information about closing days of the account
-
-+ Request (application/json)
-    + Attributes (object)
-        + filter (object, optional)
-            + date_before: `2023-12-31` (string, optional) - Start of the period for which to return closing days. This includes closing days starting on the date provided.
-            + date_after: `2023-12-01` (string, optional) - End of the period for which to return closing days. This includes closing days ending on the date provided.
-        + page (Page, optional)
-
-+ Response 200 (application/json)
-    + Attributes (object)
-        + `data` (array)
-            + (object)
-                + `id`: `05676ac4-c61d-42bf-a3ea-a420fc1ec017` (string)
-                + `date`: `2023-12-21` (string)
-        + meta (object) - Only included with request parameter `includes=pagination`
-            + page (Pagination)
-            + matches: `12` (number)
-
 
 ## Day Off Types [/dayOffTypes]
 
