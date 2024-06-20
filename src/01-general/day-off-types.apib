@@ -27,9 +27,17 @@ Create a new day off type.
 
 
 + Response 201 (application/json)
-
     + Attributes (object)
         + data (object)
             + type: `dayOffType` (string)
             + id: `cf307a90-d778-003c-b820-ab8415d1a524` (string)
 
+### dayOffTypes.delete [POST /dayOffTypes.delete]
+
+Delete a day off type.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `1b7cece0-288c-0bbe-b916-5a315fbe9fe2` (string, required)
+
++ Response 204
