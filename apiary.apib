@@ -427,7 +427,8 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### June 2024
-- We added the `/dayOffTypes.delete` endpoint.
+- We added `tax` to the `products.info` endpoint.
+- We added the `daysOff.import`, `dayOffTypes.delete` and `closingDays.add` endpoints.
 
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
@@ -1784,9 +1785,23 @@ Create a new email tracking.
 
 ## Closing Days [/closingDays]
 
+### closingDays.add [POST /closingDays.add]
+
+Adds a closing day for the account.
+
++ Request (application/json)
+    + Attributes (object)
+        + `day`: `2024-02-01` (string, required)
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `closingDay` (string)
+            + id: `eb264fd0-0e5c-0dbf-ae1e-49e7d6a8e6b8` (string, required)
+
 ### closingDays.list [POST /closingDays.list]
 
-Returns information about closing days the account
+Returns information about closing days of the account
 
 + Request (application/json)
     + Attributes (object)
@@ -1830,6 +1845,23 @@ Delete a day off type.
         + `id`: `1b7cece0-288c-0bbe-b916-5a315fbe9fe2` (string, required)
 
 + Response 204
+
+## Days Off [/daysOff]
+
+### daysOff.import [POST /daysOff.import]
+
+Imports a list of days off for the given user.
+
++ Request (application/json)
+    + Attributes (object)
+        + `user_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required) - The id of the user that the days off belong to.
+        + `leave_type_id`: `0f517e20-2e76-4684-8d6c-3334f6d7148c` (string, required) - The id of the leave type that is associated with the given days off.
+        + `days` (array, required) - At least one day must be present
+            + (object)
+                + `starts_at`: `2024-02-01T08:00:00+00:00` (string, required)
+                + `ends_at`: `2024-02-01T18:00:00+00:00` (string, required)
+
++ Response 201 (application/json)
 
 # Group CRM
 
@@ -5408,6 +5440,9 @@ Get details for a single product.
             + unit (object, nullable)
                 + type: `unitOfMeasure` (string)
                 + id: `f79d3e04-b8dc-0637-8f18-ca7c8fc63b71` (string)
+            + tax (object, nullable)
+                + type: `taxRate` (string)
+                + id: `df444ced-3129-0916-8f40-07ae5832bf98` (string)
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
             + product_category (object, nullable)
@@ -8789,7 +8824,7 @@ Translates an ID from the deprecated API into a new UUID.
                 + subscription
                 + quotation
                 + timeTracking
-                + customFieldDefinition
+                + customField
         + id: `1` (number)
 
 + Response 200 (application/json)
