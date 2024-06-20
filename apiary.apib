@@ -428,9 +428,7 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
-- We added the `daysOff.import` endpoint.
-- We added the `closingDays.add` endpoint.
-- We added the `closingDays.delete` endpoint.
+- We added the `daysOff.import`, `daysOff.bulkDelete`, `dayOffTypes.create`, `dayOffTypes.delete`, `closingDays.add` and `closingDays.delete` endpoints.
 
 #### May 2024
 - We added `purchase_order_number` to `projects-v2/projects.info`, `projects-v2/projects.create` and `projects-v2/projects.update`.
@@ -1848,6 +1846,34 @@ Returns a list of day off types for the account
                 + `id`: `39263c14-9c16-022d-8513-60cf722ab088` (string)
                 + `name`: `Sick leave` (string)
 
+### dayOffTypes.create [POST /dayOffTypes.create]
+
+Create a new day off type.
+
++ Request (application/json)
+    + Attributes (object)
+        + name: `day off type` (string, required)
+        + color: `#00B2B2` (string, nullable, optional)
+        + date_validity (object, optional)
+            + from: `2024-04-04` (string, optional)
+            + unit: `2025-05-05` (string, optional)
+
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `dayOffType` (string)
+            + id: `cf307a90-d778-003c-b820-ab8415d1a524` (string)
+
+### dayOffTypes.delete [POST /dayOffTypes.delete]
+
+Delete a day off type.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `1b7cece0-288c-0bbe-b916-5a315fbe9fe2` (string, required)
+
++ Response 204
 
 ## Days Off [/daysOff]
 
@@ -1865,6 +1891,18 @@ Imports a list of days off for the given user.
                 + `ends_at`: `2024-02-01T18:00:00+00:00` (string, required)
 
 + Response 201 (application/json)
+
+
+### daysOff.bulkDelete [POST /daysOff.bulkDelete]
+
+Deletes a list of days off for the given user.
+
++ Request (application/json)
+    + Attributes (object)
+        + `user_id`: `f29abf48-337d-44b4-aad4-585f5277a456` (string, required) - The id of the user that the days off belong to.
+        + `ids`: `0a481ce9-0d2a-0913-9439-0fd8b469b566`, `5050789e-4385-02f6-bd3c-d051cc12f5cf`  (array[string]) - At least one day off id must be present.
+
++ Response 204 (application/json)
 
 # Group CRM
 
