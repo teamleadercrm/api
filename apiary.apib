@@ -1855,9 +1855,9 @@ Create a new day off type.
     + Attributes (object)
         + name: `day off type` (string, required)
         + color: `#00B2B2` (string, nullable, optional)
-        + date_validity (object, optional)
-            + from: `2024-04-04` (string, optional)
-            + unit: `2025-05-05` (string, optional)
+        + date_validity (object, nullable, optional)
+            + from: `2024-04-04` (string, required)
+            + unit: `2025-05-05` (string, required)
 
 
 + Response 201 (application/json)
