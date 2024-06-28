@@ -13,3 +13,31 @@ Returns a list of day off types for the account
                 + `id`: `39263c14-9c16-022d-8513-60cf722ab088` (string)
                 + `name`: `Sick leave` (string)
 
+### dayOffTypes.create [POST /dayOffTypes.create]
+
+Create a new day off type.
+
++ Request (application/json)
+    + Attributes (object)
+        + name: `day off type` (string, required)
+        + color: `#00B2B2` (string, nullable, optional)
+        + date_validity (object, nullable, optional)
+            + from: `2024-04-04` (string, required)
+            + unit: `2025-05-05` (string, required)
+
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + data (object)
+            + type: `dayOffType` (string)
+            + id: `cf307a90-d778-003c-b820-ab8415d1a524` (string)
+
+### dayOffTypes.delete [POST /dayOffTypes.delete]
+
+Delete a day off type.
+
++ Request (application/json)
+    + Attributes (object)
+        + `id`: `1b7cece0-288c-0bbe-b916-5a315fbe9fe2` (string, required)
+
++ Response 204
