@@ -426,6 +426,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### July 2024
+- We added `attachments` to the `emailTracking.list` endpoint.
+
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
 - We added the `daysOff.import` and `daysOff.bulkDelete` endpoints.
@@ -1765,6 +1768,11 @@ Get a list of all email tracking.
                     + type: `contact` (EmailTrackingSubjectTypes)
                     + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + added_at: `2016-01-01T00:00:00+00:00` (string)
+                + attachments (array)
+                    + (object)
+                        + `type`: `file` (string)
+                        + `id`: `0686d0da-1797-475b-ae94-27191b2eca4d` (string)
+
 
 ### emailTracking.create [POST /emailTracking.create]
 
