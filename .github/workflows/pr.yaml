@@ -1,4 +1,3 @@
----
 name: Pull Request
 
 on:
@@ -10,14 +9,13 @@ defaults:
 
 jobs:
   lint:
-    container:
-      image: node:9
-      credentials:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '9'
       - name: lint
         run: |
           npm install && npm run build && npm run lint
