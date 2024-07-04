@@ -426,6 +426,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### July 2024
+- We added `ticket` to the `tickets.getMessage` endpoint.
+
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
 - We added the `daysOff.import` and `daysOff.bulkDelete` endpoints.
@@ -8547,6 +8550,9 @@ Gets the ticket message.
                     + contact
                     + user
             + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + ticket (object)
+               + `type`: `ticket` (string)
+               + `id`: `4f5c4ee1-9078-0eda-8817-03e4cba61bab` (string)
         + attachments (array)
            + (object)
                + `type`: `file` (string)
