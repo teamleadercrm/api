@@ -126,6 +126,10 @@
     + Members
         + account.deactivated
         + account.deleted
+        + call.added
+        + call.completed
+        + call.deleted
+        + call.updated
         + company.added
         + company.deleted
         + company.updated
@@ -133,6 +137,7 @@
         + contact.deleted
         + contact.linkedToCompany
         + contact.unlinkedFromCompany
+        + contact.updatedLinkToCompany
         + contact.updated
         + creditNote.booked
         + creditNote.deleted
@@ -151,9 +156,19 @@
         + invoice.paymentRemoved
         + invoice.sent
         + invoice.updated
+        + meeting.created
+        + meeting.completed
+        + meeting.deleted
+        + meeting.updated
         + milestone.created
         + milestone.updated
+        + nextgenProject.created
+        + nextgenProject.updated
+        + nextgenProject.closed
+        + nextgenProject.deleted 
         + product.added
+        + product.updated
+        + product.deleted
         + project.created
         + project.deleted
         + project.updated
@@ -161,6 +176,10 @@
         + subscription.deactivated
         + subscription.deleted
         + subscription.updated
+        + task.completed
+        + task.created
+        + task.deleted
+        + task.updated
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
@@ -449,3 +468,25 @@
                     + percentage - Values between 0 and 100
         + product_category_id: `e2314517-3cab-4aa9-8471-450e73449041` (string, optional)
         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
+
+## NoteSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
++ `nextgenProject`
+
+## EmailTrackingSubjectTypes (enum)
++ `contact`
++ `company`
++ `deal`
++ `invoice`
++ `creditNote`
++ `subscription`
++ `product`
++ `quotation`
++ `nextgenProject`
