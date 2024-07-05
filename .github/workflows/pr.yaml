@@ -15,12 +15,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          node-version: 12
+          node-version: 10
           cache: 'npm'
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 10
           cache: 'npm'
       - name: Run Lint
         run: |
