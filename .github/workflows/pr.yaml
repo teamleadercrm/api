@@ -10,14 +10,17 @@ defaults:
 
 jobs:
   lint:
-    container:
-      image: node:9
-      credentials:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: lint
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
         run: |
           npm install && npm run build && npm run lint
