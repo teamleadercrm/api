@@ -22,5 +22,6 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
+      - name: Run Lint
         run: |
           npm install && npm run build && npm run lint
