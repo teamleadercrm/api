@@ -426,6 +426,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### July 2024
+- We added `ticket.created`, `ticket.updated`, `ticket.closed`, `ticket.reopened` and `ticket.deleted` to supported Webhook types.
+- We added `ticketMessage.added` to supported Webhook types.
+
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
 - We added the `daysOff.import` and `daysOff.bulkDelete` endpoints.
@@ -9185,6 +9189,12 @@ Fetch cloudPlatform url for type and id
         + task.created
         + task.deleted
         + task.updated
+        + ticket.closed
+        + ticket.created
+        + ticket.deleted
+        + ticket.reopened
+        + ticket.updated
+        + ticketMessage.added
         + timeTracking.added
         + timeTracking.deleted
         + timeTracking.updated
