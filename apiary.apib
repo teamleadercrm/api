@@ -431,6 +431,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `attachments` to the `emailTracking.create` endpoint.
 - We added `ticket.created`, `ticket.updated`, `ticket.closed`, `ticket.reopened` and `ticket.deleted` to supported Webhook types.
 - We added `ticketMessage.added` to supported Webhook types.
+- We added `custom_fields` as an optional include to `contacts.list` endpoint.
 
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
@@ -1976,6 +1977,7 @@ Get a list of contacts.
                 + (object)
                     + field: `name`
                     + order: `asc`
+        + includes: `custom_fields` (string, optional) - when used, the response will include `custom_fields`
 
 + Response 200 (application/json)
 
@@ -2018,6 +2020,7 @@ Get a list of contacts.
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/contact_detail.php?id=2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
+                + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
 
 ### contacts.info [POST /contacts.info]
 
