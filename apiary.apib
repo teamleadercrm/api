@@ -432,6 +432,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `attachments` to the `emailTracking.create` endpoint.
 - We added `ticket.created`, `ticket.updated`, `ticket.closed`, `ticket.reopened` and `ticket.deleted` to supported Webhook types.
 - We added `ticketMessage.added` to supported Webhook types.
+- We added `custom_fields` as an optional include to `projects-v2/projects.list` endpoint.
 
 #### June 2024
 - We added `tax` to the `products.info` endpoint.
@@ -6225,6 +6226,7 @@ Lists all projects that match the optional filters provided.
                 + (object)
                     + field: `project_key`
                     + order: `desc`
+        + includes: `custom_fields` (string, optional) - when used, the response will include `custom_fields`
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -6322,6 +6324,7 @@ Lists all projects that match the optional filters provided.
                     + (object)
                         + `type`: `quotation` (string)
                         + `id`: `a7f15c40-3b65-09ae-9f1b-d55786bc7b01` (string)
+                + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
         + `meta` (object) - Only included with request parameter `includes=pagination`
             + `page` (Pagination)
             + `matches`: `10` (number)

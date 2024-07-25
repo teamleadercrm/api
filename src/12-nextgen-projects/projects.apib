@@ -66,6 +66,7 @@ Lists all projects that match the optional filters provided.
                 + (object)
                     + field: `project_key`
                     + order: `desc`
+        + includes: `custom_fields` (string, optional) - when used, the response will include `custom_fields`
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -163,6 +164,7 @@ Lists all projects that match the optional filters provided.
                     + (object)
                         + `type`: `quotation` (string)
                         + `id`: `a7f15c40-3b65-09ae-9f1b-d55786bc7b01` (string)
+                + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
         + `meta` (object) - Only included with request parameter `includes=pagination`
             + `page` (Pagination)
             + `matches`: `10` (number)
