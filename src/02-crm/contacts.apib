@@ -42,6 +42,7 @@ Get a list of contacts.
                 + (object)
                     + field: `name`
                     + order: `asc`
+        + includes: `custom_fields` (string, optional) - when used, the response will include `custom_fields`
 
 + Response 200 (application/json)
 
@@ -84,6 +85,7 @@ Get a list of contacts.
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/contact_detail.php?id=2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
+                + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
 
 ### contacts.info [POST /contacts.info]
 
