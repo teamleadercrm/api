@@ -1,0 +1,16 @@
+## Accounts [/accounts]
+
+### accounts.projects-v2-status [POST /accounts.projects-v2-status]
+
+Fetch which version of Projects the account is using.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + status: `projects-v2` (enum[string])
+                + Members
+                    + `projects-v2`
+                    + `legacy`
