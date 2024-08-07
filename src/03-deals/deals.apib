@@ -46,7 +46,7 @@ Get a list of deals.
                 + (object)
                     + field: `created_at`
                     + order: `desc`
-
+        + includes: `custom_fields` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
 
@@ -100,6 +100,7 @@ Get a list of deals.
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + `pipeline`: `41ec2e1b-46e4-053b-b310-39322c273811` (string)
+                + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
 
 ### deals.info [POST /deals.info]
 
