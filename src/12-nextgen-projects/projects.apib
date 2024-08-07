@@ -66,7 +66,7 @@ Lists all projects that match the optional filters provided.
                 + (object)
                     + field: `project_key`
                     + order: `desc`
-        + includes: `legacy_project` (string, optional) - Comma-separated list of optional includes
+        + includes: `legacy_project,custom_fields` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -167,6 +167,7 @@ Lists all projects that match the optional filters provided.
                 + `legacy_project` (object, nullable) - Only included if `legacy_project` is in the optional includes. `null` if there is no corresponding legacy project
                     + type: `project` (string)
                     + id: `624ca743-8998-4f8c-add1-c427bb022166` (string)
+                + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
         + `meta` (object) - Only included with request parameter `includes=pagination`
             + `page` (Pagination)
             + `matches`: `10` (number)
