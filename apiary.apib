@@ -426,6 +426,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### August 2024
+- We added the `accounts/projects-v2-status` endpoint to check the Projects version of an account.
+- We added the `legacy_project` optional include to `projects-v2/projects.list` and `projects-v2/projects.info`.
+
 #### July 2024
 - We added `ticket` to the `tickets.getMessage` endpoint.
 - We added `attachments` to the `emailTracking.list` endpoint.
@@ -1101,6 +1105,9 @@ You can follow our API progress and ongoing proposals via our [API Blueprint Git
 For customers that are still using legacy API v1 version which was deprecated in 2019, keep in mind that we will make all of the endpoints unavailable in 2024:
  - Active deprecation mode: June 1, 2024
  - Final sunsetting of API v1: August 1, 2024
+> **Note:**
+>
+> + API uses UUIDs for all resources. If you need help to convert API v1 integer ids to UUIDs, please check this [guide](https://support.focus.teamleader.eu/hc/en-150/articles/26981214932625-Migrating-from-legacy-API-v1-Transitioning-from-Integer-IDs-to-UUIDs).
 
 [Contact Support](https://support.focus.teamleader.eu/support/tickets/new)
 
@@ -6232,7 +6239,7 @@ Lists all projects that match the optional filters provided.
                 + (object)
                     + field: `project_key`
                     + order: `desc`
-        + includes: `custom_fields` (string, optional) - when used, the response will include `custom_fields`
+        + includes: `legacy_project,custom_fields` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -6330,6 +6337,9 @@ Lists all projects that match the optional filters provided.
                     + (object)
                         + `type`: `quotation` (string)
                         + `id`: `a7f15c40-3b65-09ae-9f1b-d55786bc7b01` (string)
+                + `legacy_project` (object, nullable) - Only included if `legacy_project` is in the optional includes. `null` if there is no corresponding legacy project
+                    + type: `project` (string)
+                    + id: `624ca743-8998-4f8c-add1-c427bb022166` (string)
                 + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
         + `meta` (object) - Only included with request parameter `includes=pagination`
             + `page` (Pagination)
@@ -6342,6 +6352,7 @@ Returns all the information of a single project.
 + Request (application/json)
     + Attributes (object)
         + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + includes: `legacy_project` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -6447,6 +6458,9 @@ Returns all the information of a single project.
                         + `id`: `55d3707c-14dc-4b62-a072-e3f4c1413462` (string)
                     + `custom_rate` (Money)
             + custom_fields (array[CustomField]) - Auto-increment custom fields are not supported on projects.
+            + `legacy_project` (object, nullable) - Only included if `legacy_project` is in the optional includes. `null` if there is no corresponding legacy project
+                + type: `project` (string)
+                + id: `624ca743-8998-4f8c-add1-c427bb022166` (string)
 
 ### projects.create [POST /projects-v2/projects.create]
 
@@ -9026,6 +9040,23 @@ Fetch cloudPlatform url for type and id
     + Attributes (object)
         + data (object)
             + url: `https://teamleader.cloud/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.yUmR5yNZ45P_jHDbjAzuk4kRA8YNoM9ckSZOZpMIJmU/` (string)
+
+## Accounts [/accounts]
+
+### accounts.projects-v2-status [POST /accounts.projects-v2-status]
+
+Fetch which version of Projects the account is using.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (object)
+            + status: `projects-v2` (enum[string])
+                + Members
+                    + `projects-v2`
+                    + `legacy`
 
 # Data Structures
 

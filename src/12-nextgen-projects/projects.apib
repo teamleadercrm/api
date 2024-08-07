@@ -66,7 +66,7 @@ Lists all projects that match the optional filters provided.
                 + (object)
                     + field: `project_key`
                     + order: `desc`
-        + includes: `custom_fields` (string, optional) - when used, the response will include `custom_fields`
+        + includes: `legacy_project,custom_fields` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -164,6 +164,9 @@ Lists all projects that match the optional filters provided.
                     + (object)
                         + `type`: `quotation` (string)
                         + `id`: `a7f15c40-3b65-09ae-9f1b-d55786bc7b01` (string)
+                + `legacy_project` (object, nullable) - Only included if `legacy_project` is in the optional includes. `null` if there is no corresponding legacy project
+                    + type: `project` (string)
+                    + id: `624ca743-8998-4f8c-add1-c427bb022166` (string)
                 + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
         + `meta` (object) - Only included with request parameter `includes=pagination`
             + `page` (Pagination)
@@ -176,6 +179,7 @@ Returns all the information of a single project.
 + Request (application/json)
     + Attributes (object)
         + `id`: `0184f276-811b-716d-8b79-17628c9573c6` (string, required)
+        + includes: `legacy_project` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
     + Attributes (object)
@@ -281,6 +285,9 @@ Returns all the information of a single project.
                         + `id`: `55d3707c-14dc-4b62-a072-e3f4c1413462` (string)
                     + `custom_rate` (Money)
             + custom_fields (array[CustomField]) - Auto-increment custom fields are not supported on projects.
+            + `legacy_project` (object, nullable) - Only included if `legacy_project` is in the optional includes. `null` if there is no corresponding legacy project
+                + type: `project` (string)
+                + id: `624ca743-8998-4f8c-add1-c427bb022166` (string)
 
 ### projects.create [POST /projects-v2/projects.create]
 
