@@ -1429,20 +1429,19 @@ Returns information about week schedule of a user. Only available with the *Week
 
 + Response 200 (application/json)
     + Attributes (object)
-        + data (array)
-            + (object)
-                + periods (array)
-                    + (object)
-                        + `type`: `working_hours` (enum[string])
-                            + Members
-                                + `working_hours`
-                                + `lunch_break`
-                        + `start` (object)
-                            + `day`:  `monday` (Weekday)
-                            + `time`: `09:00` (string) - The time of day in 24-hour hh:mm format. The time will be reported in the user's time zone.
-                        + `end` (object)
-                            + `day`:  `monday` (Weekday)
-                            + `time`: `17:00` (string) - The time of day in 24-hour hh:mm format. The time will be reported in the user's time zone.
+        + data (object)
+            + periods (array)
+                + (object)
+                    + `type`: `working_hours` (enum[string])
+                        + Members
+                            + `working_hours`
+                            + `lunch_break`
+                    + `start` (object)
+                        + `day`:  `monday` (Weekday)
+                        + `time`: `09:00` (string) - The time of day in 24-hour hh:mm format. The time will be reported in the user's time zone.
+                    + `end` (object)
+                        + `day`:  `monday` (Weekday)
+                        + `time`: `17:00` (string) - The time of day in 24-hour hh:mm format. The time will be reported in the user's time zone.
 
 ## Teams [/teams]
 
