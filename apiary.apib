@@ -431,6 +431,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `legacy_project` optional include to `projects-v2/projects.list` and `projects-v2/projects.info`.
 - The `tickets.list` endpoint can now filter tickets by project ids.
 - We added `billing_info` to `timeTracking.list` endpoint.
+- We added the `users.getWeekSchedule` endpoint.
 
 #### July 2024
 - We added `ticket` to the `tickets.getMessage` endpoint.
@@ -1417,6 +1418,48 @@ Returns information about days off of a given user.
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
+
+
+### users.getWeekSchedule [POST /users.getWeekSchedule]
+
+Returns information about week schedule of a user. Only available with the *Weekly working schedule* feature.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + periods (array)
+                    + (object)
+                        + `type`: `working_hours` (enum[string])
+                            + Members
+                                + `working_hours`
+                                + `lunch_break`
+                        + `start` (object)
+                            + `day`:  `monday` (enum[string])
+                                + Members
+                                    + `monday`
+                                    + `tuesday`
+                                    + `wednesday`
+                                    + `thursday`
+                                    + `friday`
+                                    + `saturday`
+                                    + `sunday`
+                            + `time`: `09:00` (string) - The period start time in hours and minutes, represented in user's timezone.
+                        + `end` (object)
+                            + `day`: `monday` (enum[string])
+                                + Members
+                                    + `monday`
+                                    + `tuesday`
+                                    + `wednesday`
+                                    + `thursday`
+                                    + `friday`
+                                    + `saturday`
+                                    + `sunday`
+                            + `time`: `17:00` (string) - The period end time in hours and minutes, represented in user's timezone.
 
 ## Teams [/teams]
 
@@ -5872,7 +5915,7 @@ Update a project.
             + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
         + budget (Money)
         + purchase_order_number: `000023` (string, nullable)
-        + custom_fields (array[CustomFieldValue])
+        + custom_fields (array[CustomFieldValue], optional)
 
 + Response 204
 

@@ -200,3 +200,45 @@ Returns information about days off of a given user.
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
+
+
+### users.getWeekSchedule [POST /users.getWeekSchedule]
+
+Returns information about week schedule of a user. Only available with the *Weekly working schedule* feature.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + periods (array)
+                    + (object)
+                        + `type`: `working_hours` (enum[string])
+                            + Members
+                                + `working_hours`
+                                + `lunch_break`
+                        + `start` (object)
+                            + `day`:  `monday` (enum[string])
+                                + Members
+                                    + `monday`
+                                    + `tuesday`
+                                    + `wednesday`
+                                    + `thursday`
+                                    + `friday`
+                                    + `saturday`
+                                    + `sunday`
+                            + `time`: `09:00` (string) - The period start time in hours and minutes, represented in user's timezone.
+                        + `end` (object)
+                            + `day`: `monday` (enum[string])
+                                + Members
+                                    + `monday`
+                                    + `tuesday`
+                                    + `wednesday`
+                                    + `thursday`
+                                    + `friday`
+                                    + `saturday`
+                                    + `sunday`
+                            + `time`: `17:00` (string) - The period end time in hours and minutes, represented in user's timezone.
