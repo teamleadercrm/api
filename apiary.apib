@@ -1439,26 +1439,10 @@ Returns information about week schedule of a user. Only available with the *Week
                                 + `working_hours`
                                 + `lunch_break`
                         + `start` (object)
-                            + `day`:  `monday` (enum[string])
-                                + Members
-                                    + `monday`
-                                    + `tuesday`
-                                    + `wednesday`
-                                    + `thursday`
-                                    + `friday`
-                                    + `saturday`
-                                    + `sunday`
+                            + `day`:  `monday` (Weekday)
                             + `time`: `09:00` (string) - The period start time in hours and minutes, represented in user's timezone.
                         + `end` (object)
-                            + `day`: `monday` (enum[string])
-                                + Members
-                                    + `monday`
-                                    + `tuesday`
-                                    + `wednesday`
-                                    + `thursday`
-                                    + `friday`
-                                    + `saturday`
-                                    + `sunday`
+                            + `day`:  `monday` (Weekday)
                             + `time`: `17:00` (string) - The period end time in hours and minutes, represented in user's timezone.
 
 ## Teams [/teams]
@@ -9605,3 +9589,12 @@ Fetch which version of Projects the account is using.
 + `product`
 + `quotation`
 + `nextgenProject`
+
+## Weekday (enum)
++ `monday`
++ `tuesday`
++ `wednesday`
++ `thursday`
++ `friday`
++ `saturday`
++ `sunday`
