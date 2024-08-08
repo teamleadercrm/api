@@ -85,6 +85,14 @@ Get a list of tracked time.
                             + ticket
                     + id: `58f5b799-51c4-4eb9-8308-b1aa02e0a873` (string)
                 + invoiceable: true (boolean)
+                + billing_info (object, nullable)
+                    + type: `invoice` (enum)
+                        + Members
+                            + invoice
+                            + prepaid
+                    + invoice (object, nullable)
+                        + type: `invoice` (string)
+                        + id: `b2b4b2b4-4b2b-4b2b-4b2b-4b2b4b2b4b2b` (string)
                 + `materials` (array) - Only included with request parameter `includes=materials`
                       + (object)
                           + `product` (object, nullable)
