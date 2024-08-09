@@ -191,3 +191,9 @@ POST https://api.focus.teamleader.eu/contacts.update
   ]
 }
 ```
+
+> **Note:**
+>
+> + There is an exception for custom field collections where partial updates are possible, by including the parameter `custom_fields_update_strategy` with the value `partial` in the request body.
+>
+> + This will allow updating only the values of specific custom fields and leaving the remaining ones unchanged.
