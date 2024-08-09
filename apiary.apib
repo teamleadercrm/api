@@ -431,6 +431,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added the `legacy_project` optional include to `projects-v2/projects.list` and `projects-v2/projects.info`.
 - The `tickets.list` endpoint can now filter tickets by project ids.
 - We added `billing_info` to `timeTracking.list` endpoint.
+- We added the `users.getWeekSchedule` endpoint.
 
 #### July 2024
 - We added `ticket` to the `tickets.getMessage` endpoint.
@@ -1417,6 +1418,30 @@ Returns information about days off of a given user.
         + meta (object) - Only included with request parameter `includes=pagination`
             + page (Pagination)
             + matches: `12` (number)
+
+### users.getWeekSchedule [POST /users.getWeekSchedule]
+
+Returns information about week schedule of a user. Only available with the *Weekly working schedule* feature.
+
++ Request (application/json)
+    + Attributes (object)
+        + id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, required)
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + data (object)
+            + periods (array)
+                + (object)
+                    + `type`: `working_hours` (enum[string])
+                        + Members
+                            + `working_hours`
+                            + `lunch_break`
+                    + `start` (object)
+                        + `day`:  `monday` (Weekday)
+                        + `time`: `09:00` (string) - The time of day in 24-hour hh:mm format. The time will be reported in the user's time zone.
+                    + `end` (object)
+                        + `day`:  `monday` (Weekday)
+                        + `time`: `17:00` (string) - The time of day in 24-hour hh:mm format. The time will be reported in the user's time zone.
 
 ## Teams [/teams]
 
@@ -9562,3 +9587,12 @@ Fetch which version of Projects the account is using.
 + `product`
 + `quotation`
 + `nextgenProject`
+
+## Weekday (enum)
++ `monday`
++ `tuesday`
++ `wednesday`
++ `thursday`
++ `friday`
++ `saturday`
++ `sunday`
