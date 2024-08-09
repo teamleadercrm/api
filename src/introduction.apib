@@ -191,3 +191,9 @@ POST https://api.focus.teamleader.eu/contacts.update
   ]
 }
 ```
+
+> **Note:**
+>
+> + To ensure you get the most out of the API, we have enhanced the update endpoints to support partial updates for custom fields. This allows you to update only the specific fields you want to change, while retaining the values of the other fields.
+>
+> + To achieve this, include the parameter `custom_fields_update_strategy` with the value `partial` in the request body.
