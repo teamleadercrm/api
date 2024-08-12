@@ -46,6 +46,12 @@ Get a list of tickets.
                     + customer (object)
                         + type: `company` (string)
                         + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + project (object, nullable)
+                    + type: `project` (string)
+                    + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + milestone (object, nullable)
+                    + type: `milestone` (string)
+                    + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
                 + last_message_at: `2017-05-09T11:25:11+00:00` (string, nullable)
 
 ### tickets.info [POST /tickets.info]
@@ -81,6 +87,12 @@ Get details for a single ticket.
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
         + last_message_at: `2017-05-09T11:25:11+00:00` (string, nullable)
         + description: `My ticket details` (string)
+        + project (object, nullable)
+            + type: `project` (string)
+            + id: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+        + milestone (object, nullable)
+            + type: `milestone` (string)
+            + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
         + custom_fields (array[CustomField])
 
 
