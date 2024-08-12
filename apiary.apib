@@ -197,6 +197,12 @@ POST https://api.focus.teamleader.eu/contacts.update
 }
 ```
 
+> **Note:**
+>
+> + There is an exception for custom field collections where partial updates are possible, by including the parameter `custom_fields_update_strategy` with the value `partial` in the request body.
+>
+> + This will allow updating only the values of specific custom fields and leaving the remaining ones unchanged.
+
 ## Authentication
 
 ### OAuth 2
@@ -433,6 +439,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `billing_info` to `timeTracking.list` endpoint.
 - We added the `users.getWeekSchedule` endpoint.
 - We added `milestone_id` to the `tickets.create` and `tickets.update` endpoints.
+- We added `reference` to the `tickets.info` and `tickets.list` endpoints.
 
 #### July 2024
 - We added `ticket` to the `tickets.getMessage` endpoint.
@@ -8425,6 +8432,7 @@ Get a list of tickets.
         + data (array)
             + (object)
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + reference: 123 (integer)
                 + subject (string)
                 + status (object)
                     + type: `ticketStatus` (string)
@@ -8457,6 +8465,7 @@ Get details for a single ticket.
 + Response 200 (application/json)
     + Attributes (object)
         + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + reference: 123 (integer)
         + subject (string)
         + status (object)
             + type: `ticketStatus` (string)
