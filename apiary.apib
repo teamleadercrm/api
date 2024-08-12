@@ -432,6 +432,7 @@ We list all backwards-compatible additions here. These are currently available i
 - The `tickets.list` endpoint can now filter tickets by project ids.
 - We added `billing_info` to `timeTracking.list` endpoint.
 - We added the `users.getWeekSchedule` endpoint.
+- We added `reference` to the `tickets.info` and `tickets.list` endpoints.
 
 #### July 2024
 - We added `ticket` to the `tickets.getMessage` endpoint.
@@ -8424,6 +8425,7 @@ Get a list of tickets.
         + data (array)
             + (object)
                 + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+                + reference: 123 (integer)
                 + subject (string)
                 + status (object)
                     + type: `ticketStatus` (string)
@@ -8456,6 +8458,7 @@ Get details for a single ticket.
 + Response 200 (application/json)
     + Attributes (object)
         + id: `f29abf48-337d-44b4-aad4-585f5277a456` (string)
+        + reference: 123 (integer)
         + subject (string)
         + status (object)
             + type: `ticketStatus` (string)
