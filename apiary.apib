@@ -8099,7 +8099,7 @@ Get a list of tracked time.
                     + field: `starts_on`
                     + order: `asc`
         + page (Page, optional)
-        + includes: `materials` (string, optional) - when used, the response will include `materials`
+        + includes: `materials,relates_to` (string, optional) - Comma-separated list of optional includes
 
 
 + Response 200 (application/json)
@@ -8147,6 +8147,10 @@ Get a list of tracked time.
                           + `unit_price` (object)
                               + Include Money
                           + `quantity`: `5` (number)
+                + `relates_to` (array) - Only included with request parameter `includes=relates_to`
+                      + (object)
+                          + `type` (TimeTrackingRelatesToTypes)
+                          + `id`: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
 
 ### timeTracking.info [POST /timeTracking.info]
 
@@ -8156,7 +8160,7 @@ Get information about tracked time.
 
     + Attributes (object)
         + id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string, required)
-        + includes: `materials` (string, optional) - when used, the response will include `materials`
+        + includes: `materials,relates_to` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
 
@@ -8203,6 +8207,10 @@ Get information about tracked time.
                       + `unit_price` (object)
                           + Include Money
                       + `quantity`: `5` (number)
+            + `relates_to` (array) - Only included with request parameter `includes=relates_to`
+                + (object)
+                    + `type`: `contact` (TimeTrackingRelatesToTypes)
+                    + `id`: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
         + meta (object)
             + updatable: true (boolean) - If true, the current user can update the entry even if it is locked
 
@@ -9621,3 +9629,12 @@ Fetch which version of Projects the account is using.
 + `friday`
 + `saturday`
 + `sunday`
+
+## TimeTrackingRelatesToTypes (enum)
++ `contact`
++ `company`
++ `project`
++ `milestone`
++ `ticket`
++ `nextgenProject`
++ `nextgenGroup`
