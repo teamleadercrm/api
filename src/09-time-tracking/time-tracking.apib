@@ -54,7 +54,7 @@ Get a list of tracked time.
                     + field: `starts_on`
                     + order: `asc`
         + page (Page, optional)
-        + includes: `materials` (string, optional) - when used, the response will include `materials`
+        + includes: `materials,relates_to` (string, optional) - Comma-separated list of optional includes
 
 
 + Response 200 (application/json)
@@ -111,7 +111,7 @@ Get information about tracked time.
 
     + Attributes (object)
         + id: `6caeea11-aa83-4da9-9859-5b62bbf3a476` (string, required)
-        + includes: `materials` (string, optional) - when used, the response will include `materials`
+        + includes: `materials,relates_to` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
 
