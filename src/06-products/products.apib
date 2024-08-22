@@ -57,6 +57,21 @@ Get details for a single product.
             + tax (object, nullable)
                 + type: `taxRate` (string)
                 + id: `df444ced-3129-0916-8f40-07ae5832bf98` (string)
+            + suppliers: (array)
+                + (object)
+                    + supplier (object)
+                        + type: `contact` (enum)
+                              + Members
+                                  + company
+                                  + contact
+                        + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                    + purchase_price (Money)
+                    + product_code: `prod-111` (string)
+                    + minimum_order_amount: `3` (number)
+                    + classification (enum)
+                          + Members
+                              + primary
+                              + secondary
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
             + product_category (object, nullable)
