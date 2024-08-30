@@ -444,6 +444,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `workOrder` to the `meetings.info` endpoint.
 - We added `project_id` to the `tasks.update` endpoint.
 - We added `work_order_id` to the `meetings.schedule` endpoint.
+- We added `hourly_rate` to the `timeTracking.list` and `timeTracking.info` endpoints.
 
 #### July 2024
 - We added `ticket` to the `tickets.getMessage` endpoint.
@@ -8159,6 +8160,7 @@ Get a list of tracked time.
                       + (object)
                           + `type` (TimeTrackingRelatesToTypes)
                           + `id`: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + `hourly_rate` (Money, optional) - Only included for users with access to invoicing
 
 ### timeTracking.info [POST /timeTracking.info]
 
@@ -8219,6 +8221,7 @@ Get information about tracked time.
                 + (object)
                     + `type`: `contact` (TimeTrackingRelatesToTypes)
                     + `id`: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + `hourly_rate` (Money, optional) - Only included for users with access to invoicing
         + meta (object)
             + updatable: true (boolean) - If true, the current user can update the entry even if it is locked
 
