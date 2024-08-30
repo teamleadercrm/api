@@ -442,6 +442,8 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `milestone` and `project` to the `tickets.info` and `tickets.list` endpoints.
 - We added `reference` to the `tickets.info` and `tickets.list` endpoints.
 - We added `workOrder` to the `meetings.info` endpoint.
+- We added `project_id` to the `tasks.update` endpoint.
+- We added `work_order_id` to the `meetings.schedule` endpoint.
 - We added `suppliers` as an optional include to the `products.info` endpoint.
 
 #### July 2024
@@ -3846,6 +3848,7 @@ Schedule a meeting.
                     + id: `4191c526-5e26-0818-8e16-9523215b5081` (string, required)
         + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
+        + work_order_id: `531132ea-7c81-0843-9a11-5f43ff9c5491` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
 
 + Response 201 (application/json)
@@ -7987,7 +7990,8 @@ Update a task.
         + description (string, optional)
         + due_on: `2016-02-04` (string, optional)
         + work_type_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional)
-        + milestone_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
+        + `milestone_id`: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable) - Only available for users that have access to the old projects module
+        + `project_id`: `0185aa33-603c-7fd5-bf0d-5bd83d503b96` (string, optional, nullable) - Only available for users that have access to the new projects module
         + deal_id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string, optional, nullable)
         + `ticket_id`: `8607faa8-3d2e-0a66-a71e-e69f447a2ed1` (string, optional, nullable)
         + estimated_duration (object, optional)
@@ -8269,7 +8273,7 @@ Add tracked time.
         + invoiceable: true (boolean, optional)
         + user_id: `87982c96-f2fe-4b05-838c-ff42c0525758` (string, optional) - To add tracked time for a different user.
 
-+ Response 201
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -8317,7 +8321,7 @@ Start a new timer based on previously tracked time.
         + id: `06dfa08a-b769-4005-a912-45ab885c5737` (string, required)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
-+ Response 201
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
@@ -8390,7 +8394,7 @@ Start a new timer.
             + id: `29ff471c-7d8f-40d5-8c95-9a9cab841e65` (string, required)
         + invoiceable: true (boolean, optional)
 
-+ Response 201
++ Response 201 (application/json)
 
     + Attributes (object)
         + data (object)
