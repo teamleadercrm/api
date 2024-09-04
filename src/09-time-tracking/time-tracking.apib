@@ -106,6 +106,7 @@ Get a list of tracked time.
                       + (object)
                           + `type` (TimeTrackingRelatesToTypes)
                           + `id`: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+                + `hourly_rate` (Money, optional) - Only included for users with access to invoicing
 
 ### timeTracking.info [POST /timeTracking.info]
 
@@ -166,6 +167,7 @@ Get information about tracked time.
                 + (object)
                     + `type`: `contact` (TimeTrackingRelatesToTypes)
                     + `id`: `2659dc4d-444b-4ced-b51c-b87591f604d7` (string)
+            + `hourly_rate` (Money, optional) - Only included for users with access to invoicing
         + meta (object)
             + updatable: true (boolean) - If true, the current user can update the entry even if it is locked
 
