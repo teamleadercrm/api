@@ -208,6 +208,9 @@ Create a new deal for a customer.
         + estimated_probability: `0.75` (number, optional) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
+        + `currency` (object, optional)
+            + `code`: `EUR` (Currency, required)
+            + `exchange_rate`: 1.1238 (number, required)
 
 + Response 201 (application/json)
 
