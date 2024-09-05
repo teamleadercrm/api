@@ -445,6 +445,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `project_id` to the `tasks.update` endpoint.
 - We added `work_order_id` to the `meetings.schedule` endpoint.
 - We added `hourly_rate` to the `timeTracking.list` and `timeTracking.info` endpoints.
+- We added `suppliers` as an optional include to the `products.info` endpoint.
 
 #### July 2024
 - We added `ticket` to the `tickets.getMessage` endpoint.
@@ -5551,7 +5552,8 @@ Get details for a single product.
 + Request (application/json)
 
     + Attributes (object)
-         + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+        + id: `f8ae61ec-62f3-0538-b028-185c4a5f217f` (string)
+        + includes: `suppliers` (string, optional) - Comma-separated list of optional includes
 
 + Response 200 (application/json)
 
@@ -5569,6 +5571,21 @@ Get details for a single product.
             + tax (object, nullable)
                 + type: `taxRate` (string)
                 + id: `df444ced-3129-0916-8f40-07ae5832bf98` (string)
+            + suppliers (array, optional) - Only included with request parameter `includes=suppliers`
+                + (object)
+                    + supplier (object)
+                        + type: `contact` (enum)
+                            + Members
+                                + company
+                                + contact
+                        + id: `e2314517-3cab-4aa9-8471-450e73449040` (string)
+                    + purchase_price (Money, nullable)
+                    + product_code: `prod-111` (string)
+                    + minimum_order_amount: `3` (number)
+                    + classification (enum)
+                        + Members
+                            + primary
+                            + secondary
             + custom_fields (array[CustomField])
             + price_list_prices (PriceListPricesRead)
             + product_category (object, nullable)
