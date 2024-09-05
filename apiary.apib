@@ -432,6 +432,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### September 2024
+- We added `currency` to the `deals.create` and `deals.update` endpoints.
+- We added `currency_exchange_rate` to the `deals.info` and `deals.list` endpoints.
+
 #### August 2024
 - We added the `accounts/projects-v2-status` endpoint to check the Projects version of an account.
 - We added the `legacy_project` optional include to `projects-v2/projects.list` and `projects-v2/projects.info`.
@@ -2780,6 +2784,10 @@ Get a list of deals.
                 + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
                 + `pipeline`: `41ec2e1b-46e4-053b-b310-39322c273811` (string)
                 + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
+                + `currency_exchange_rate` (object)
+                    + `from`: `USD` (Currency)
+                    + `to`: `EUR` (Currency)
+                    + `rate`: 1.1234 (number)
 
 ### deals.info [POST /deals.info]
 
@@ -2853,6 +2861,10 @@ Get details for a single deal.
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
             + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=f6871b06-6513-4750-b5e6-ff3503b5a029` (string)
             + custom_fields (array[CustomField])
+            + `currency_exchange_rate` (object)
+                + `from`: `USD` (Currency)
+                + `to`: `EUR` (Currency)
+                + `rate`: 1.1234 (number)
 
 ### deals.create [POST /deals.create]
 
@@ -2879,6 +2891,9 @@ Create a new deal for a customer.
         + estimated_probability: `0.75` (number, optional) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array[CustomFieldValue], optional)
+        + `currency` (object, optional)
+            + `code`: `EUR` (Currency, required)
+            + `exchange_rate`: 1.1238 (number, required)
 
 + Response 201 (application/json)
 
@@ -2912,6 +2927,9 @@ Update a deal.
         + estimated_probability: `0.75` (number, optional, nullable) - A number between 0 and 1 (inclusive)
         + estimated_closing_date: `2017-05-09` (string, optional, nullable)
         + custom_fields (array[CustomFieldValue], optional)
+        + `currency` (object, optional)
+            + `code`: `EUR` (Currency, required)
+            + `exchange_rate`: 1.1238 (number, required)
 
 + Response 204
 
