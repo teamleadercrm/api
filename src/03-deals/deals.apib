@@ -99,12 +99,14 @@ Get a list of deals.
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
                 + `web_url`: `https://focus.teamleader.eu/sale_detail.php?id=6e7fe84d-d4b3-4723-abae-9bc082d8f65a` (string)
-                + `pipeline`: `41ec2e1b-46e4-053b-b310-39322c273811` (string)
                 + `custom_fields` (array[CustomField]) - Only included with request parameter `includes=custom_fields`
                 + `currency_exchange_rate` (object)
                     + `from`: `USD` (Currency)
                     + `to`: `EUR` (Currency)
                     + `rate`: 1.1234 (number)
+                + pipeline (object)
+                    + type: `dealPipeline` (string)
+                    + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
 
 ### deals.info [POST /deals.info]
 
@@ -182,6 +184,9 @@ Get details for a single deal.
                 + `from`: `USD` (Currency)
                 + `to`: `EUR` (Currency)
                 + `rate`: 1.1234 (number)
+            + pipeline (object)
+                + type: `dealPipeline` (string)
+                + id: `4e81f3c4-7dca-44cb-b126-6158bec392a2` (string)
 
 ### deals.create [POST /deals.create]
 
