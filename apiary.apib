@@ -437,6 +437,7 @@ We list all backwards-compatible additions here. These are currently available i
 - We added `currency_exchange_rate` to the `deals.info` and `deals.list` endpoints.
 - We added `pipeline` to the `deals.info` endpoint.
 - The property `pipeline` on `deals.list` has been documented as resource.
+- We added `will_be_automatically_switched_on` to the `accounts.projects-v2-status` endpoint.
 
 #### August 2024
 - We added the `accounts/projects-v2-status` endpoint to check the Projects version of an account.
@@ -9174,6 +9175,7 @@ Fetch which version of Projects the account is using.
                 + Members
                     + `projects-v2`
                     + `legacy`
+            + will_be_automatically_switched_on: `2024-12-31` (string, optional) - Date when the account will be automatically switched to `projects-v2` version (optional).
 
 # Data Structures
 
