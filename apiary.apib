@@ -432,6 +432,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### October 2024
+- We added `preferred_currency` to the `companies.add` and `companies.update` endpoints.
+
 #### September 2024
 - We added `currency` to the `deals.create` and `deals.update` endpoints.
 - We added `currency_exchange_rate` to the `deals.info` and `deals.list` endpoints.
@@ -2521,6 +2524,7 @@ Add a new company.
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
+        + preferred_currency: `EUR` (Currency, optional)
 
 + Response 201 (application/json)
 
@@ -2567,6 +2571,7 @@ Update a company.
         + tags: prospect, expo (array[string], optional) - This will overwrite existing tags
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
+        + preferred_currency: `EUR` (Currency, optional, nullable)
 
 + Response 204
 
