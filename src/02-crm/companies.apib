@@ -196,6 +196,7 @@ Add a new company.
         + tags: prospect, expo (array[string], optional)
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
+        + preferred_currency: `EUR` (Currency, optional)
 
 + Response 201 (application/json)
 
@@ -242,6 +243,7 @@ Update a company.
         + tags: prospect, expo (array[string], optional) - This will overwrite existing tags
         + custom_fields (array[CustomFieldValue], optional)
         + marketing_mails_consent: false (boolean, optional)
+        + preferred_currency: `EUR` (Currency, optional, nullable)
 
 + Response 204
 
