@@ -5316,7 +5316,7 @@ Create a new subscription.
         + project_id: `ebafa4c5-fa8a-4409-92e5-1b192243372f` (string, optional)
         + note: `Subscription comments` (string, optional)
         + payment_term (PaymentTerm, required)
-        + invoice_generation (InvoiceGeneration, required)
+        + invoice_generation (InvoiceGenerationCreate, required)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
@@ -5364,7 +5364,7 @@ Update a subscription.
                     + title (string)
                 + line_items (array, required)
                     + (LineItem)
-        + invoice_generation (InvoiceGeneration, optional)
+        + invoice_generation (InvoiceGenerationUpdate, optional)
         + custom_fields (array[CustomFieldValue], optional)
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
 
@@ -9486,7 +9486,7 @@ Fetch which version of Projects the account is using.
 + fi
 + sv
 
-## InvoiceGeneration (object)
+## InvoiceGenerationCreate (object)
 + One Of
     + Properties
         + action: `draft` (string, required)
@@ -9500,6 +9500,27 @@ Fetch which version of Projects the account is using.
                     + Members
                         + email
                         + postal_service
++ payment_method (enum, optional)
+    + Members
+        + direct_debit
+
+## InvoiceGenerationUpdate (object)
++ One Of
+    + Properties
+        + action: `draft` (string, required)
+    + Properties
+        + action: `book` (string, required)
+    + Properties
+        + action: `book_and_send` (string, required)
+        + sending_methods (array, required) - the `email` method is required.
+            + (object)
+                + method: `email` (enum, required)
+                    + Members
+                        + email
+                        + postal_service
++ payment_method (enum, optional, nullable)
+    + Members
+        + direct_debit
 
 ## LineItem (object)
 + quantity: `3` (number, required)
