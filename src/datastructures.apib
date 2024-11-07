@@ -302,7 +302,7 @@
 + fi
 + sv
 
-## InvoiceGeneration (object)
+## InvoiceGenerationCreate (object)
 + One Of
     + Properties
         + action: `draft` (string, required)
@@ -316,6 +316,27 @@
                     + Members
                         + email
                         + postal_service
++ payment_method (enum, optional)
+    + Members
+        + direct_debit
+
+## InvoiceGenerationUpdate (object)
++ One Of
+    + Properties
+        + action: `draft` (string, required)
+    + Properties
+        + action: `book` (string, required)
+    + Properties
+        + action: `book_and_send` (string, required)
+        + sending_methods (array, required) - the `email` method is required.
+            + (object)
+                + method: `email` (enum, required)
+                    + Members
+                        + email
+                        + postal_service
++ payment_method (enum, optional, nullable)
+    + Members
+        + direct_debit
 
 ## LineItem (object)
 + quantity: `3` (number, required)
