@@ -432,6 +432,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### November 2024
+- We added `name` to `quotations.info` and `quotations.list`.
+
 #### October 2024
 - We added `preferred_currency` to the `companies.add` and `companies.update` endpoints.
 - We added `payment_method` property to `invoice_generation` object on `subscription.info`, `subscriptions.create` and `subscriptions.update` endpoints.
@@ -3339,6 +3342,7 @@ Get a list of quotations.
                         + expired
                         + rejected
                         + closed
+                + name: `Webdevelopment` (string)
                 + expiry (object) - returned if user has access to quotation expiry and `includes=expiry` is requested
                     + expires_after: `2023-04-05` (string)
                     + action_after_expiry (enum[string])
@@ -3421,6 +3425,7 @@ Get a quotation
                     + expired
                     + rejected
                     + closed
+            + name: `Webdevelopment` (string)
             + document_template (object)
                 + type: `documentTemplate` (string)
                 + id: `179e1564-493b-4305-8c54-a34fc80920fc` (string)
