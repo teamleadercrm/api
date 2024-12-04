@@ -432,6 +432,10 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### December 2024
+- We added `initial_time_tracked`, `initial_price`, `initial_cost`, `initial_amount_billed`, and `initial_amount_paid` to `projects-v2/projects.create`. "Initial" values can be used when importing project data.
+- We added `project` as a note type. `project` is a legacy project. For new projects, use `nextgenProject`.
+
 #### November 2024
 - We added `name` to `quotations.info` and `quotations.list`.
 
@@ -1758,7 +1762,18 @@ Get a list of all notes.
     + Attributes (object)
         + filter (object, required)
             + subject (object, required)
-                + type: `contact` (NoteSubjectTypes, required)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + `company`
+                        + `contact`
+                        + `creditNote`
+                        + `deal`
+                        + `invoice`
+                        + `nextgenProject`
+                        + `product`
+                        + `project`
+                        + `quotation`
+                        + `subscription`
                 + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string, required)
         + page (Page, optional)
 
@@ -1770,7 +1785,18 @@ Get a list of all notes.
                 + id: `a344c251-2494-0013-b433-ccee8e8435e5` (string)
                 + content: `new note content` (string)
                 + subject (object)
-                    + type: `contact` (NoteSubjectTypes)
+                    + type: `contact` (enum[string])
+                        + Members
+                            + `company`
+                            + `contact`
+                            + `creditNote`
+                            + `deal`
+                            + `invoice`
+                            + `nextgenProject`
+                            + `product`
+                            + `project`
+                            + `quotation`
+                            + `subscription`
                     + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + added_at: `2016-01-01T00:00:00+00:00` (string)
 
@@ -6621,6 +6647,17 @@ Create a new project. Only `title` is required. All the other fields are optiona
                 + `id`: `66abace2-62af-0836-a927-fe3f44b9b47b` (string, required)
         + `deal_ids`: `3709b7e9-7722-4d2d-a663-b480789bafe4`, `39fb2767-90e0-4fe4-9bac-a244bee6552c` (array[string], optional)
         + `quotation_ids`: `e8e8e969-2054-49ee-81d1-47453de2aebb`, `fc41c04f-1841-4238-a31b-42c48c57713e` (array[string], optional)
+        + `initial_time_tracked` (object, optional)
+            + value: 43200 (number, required)
+            + unit: `minutes` (enum[string], required)
+                + Members
+                    + `hours`
+                    + `minutes`
+                    + `seconds`
+        + `initial_price` (Money, optional) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
+        + `initial_cost` (Money, optional) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
+        + `initial_amount_billed` (Money, optional) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
+        + `initial_amount_paid` (Money, optional) - Must be higher than or equal to zero, and lower than 100000000000 (100 billion).
         + `custom_fields` (array[CustomFieldValue], optional) - Auto-increment custom fields are not supported on projects.
 
 + Response 201 (application/json)
@@ -9690,15 +9727,15 @@ Fetch which version of Projects the account is using.
         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
 
 ## NoteSubjectTypes (enum)
-+ `contact`
 + `company`
++ `contact`
++ `creditNote`
 + `deal`
 + `invoice`
-+ `creditNote`
-+ `subscription`
++ `nextgenProject`
 + `product`
 + `quotation`
-+ `nextgenProject`
++ `subscription`
 
 ## EmailTrackingSubjectTypes (enum)
 + `contact`
