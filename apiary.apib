@@ -432,6 +432,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### December 2024
+- We added `project` as a note type. `project` is a legacy project. For new projects, use `nextgenProject`.
+
 #### November 2024
 - We added `name` to `quotations.info` and `quotations.list`.
 
@@ -9690,15 +9693,16 @@ Fetch which version of Projects the account is using.
         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional)
 
 ## NoteSubjectTypes (enum)
-+ `contact`
 + `company`
++ `contact`
++ `creditNote`
 + `deal`
 + `invoice`
-+ `creditNote`
-+ `subscription`
-+ `product`
-+ `quotation`
 + `nextgenProject`
++ `product`
++ `project`
++ `quotation`
++ `subscription`
 
 ## EmailTrackingSubjectTypes (enum)
 + `contact`
