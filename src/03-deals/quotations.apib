@@ -194,7 +194,7 @@ Create a quotation.
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
-                        + periodicity (Periodicity, nullable)
+                        + periodicity (Periodicity, nullable, optional)
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
@@ -297,7 +297,7 @@ Update a quotation.
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
-                        + periodicity (Periodicity, nullable)
+                        + periodicity (Periodicity, nullable, optional)
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
