@@ -432,6 +432,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### January 2025
+- We added `periodicity` to the quotation line items in `quotations.info`, `quotations.create` and `quotations.update`.
+
 #### December 2024
 - We added `initial_time_tracked`, `initial_price`, `initial_cost`, `initial_amount_billed`, and `initial_amount_paid` to `projects-v2/projects.create`. "Initial" values can be used when importing project data.
 - We added `project` as a note type. `project` is a legacy project. For new projects, use `nextgenProject`.
