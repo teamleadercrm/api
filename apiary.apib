@@ -432,6 +432,9 @@ We consider the following changes to be backwards-incompatible:
 We list all backwards-compatible additions here. These are currently available in all published versions.
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
+#### January 2025
+- We added `periodicity` to the quotation line items in `quotations.info`, `quotations.create` and `quotations.update`.
+
 #### December 2024
 - We added `initial_time_tracked`, `initial_price`, `initial_cost`, `initial_amount_billed`, and `initial_amount_paid` to `projects-v2/projects.create`. "Initial" values can be used when importing project data.
 - We added `project` as a note type. `project` is a legacy project. For new projects, use `nextgenProject`.
@@ -3408,6 +3411,7 @@ Get a quotation
                                 + tax_exclusive_before_discount (Money)
                                 + tax_inclusive (Money)
                                 + tax_inclusive_before_discount (Money)
+                            + periodicity (Periodicity, nullable)
             + currency: `USD` (string)
             + currency_exchange_rate (object)
                 + from: `USD` (string)
@@ -3496,6 +3500,7 @@ Create a quotation.
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
+                        + periodicity (Periodicity, nullable, optional)
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
@@ -3598,6 +3603,7 @@ Update a quotation.
                                     + percentage - Values between 0 and 100
                         + product_id: `d905ff57-e866-0f59-9d1e-1fd4538bfae1` (string, optional) - This is purely informational and does not affect the quotation besides adding a reference to the product
                         + purchase_price (Money, nullable, optional) - the currency must match the account currency
+                        + periodicity (Periodicity, nullable, optional)
         + discounts (array[CommercialDiscount], optional)
         + text: `Quotation text` (string, optional, nullable) - Uses Markdown formatting. A quotation needs `grouped_lines` and/or `text` to be valid
         + document_template_id: `179e1564-493b-4305-8c54-a34fc80920fc` (string, optional)
