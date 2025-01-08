@@ -433,6 +433,7 @@ We list all backwards-compatible additions here. These are currently available i
 (There is also a [list of backwards-incompatible upgrades](#changelog) available, but those only apply if you [upgrade your API version](#upgrading-your-api-version).)
 
 #### January 2025
+- We resolved an issue with sideloading that would incorrectly format numbers with zero fraction (such as 1.0) as integer values (1).
 - We added `periodicity` to the quotation line items in `quotations.info`, `quotations.create` and `quotations.update`.
 
 #### December 2024
